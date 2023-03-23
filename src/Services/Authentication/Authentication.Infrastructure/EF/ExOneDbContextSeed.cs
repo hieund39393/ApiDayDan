@@ -35,17 +35,21 @@ namespace Authentication.Infrastructure.EF
             }
             if (!context.Module.Any())
             {
-                List<Module> module = new List<Module>();
-                //donVis.Add(new DonVi { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C4"), MaDonVi = "P", TenDonVi = "Tập đoàn điện lực Việt Nam", LoaiDonVi = 1, IsDongBo = true, IsTongCongTy = true, FlagLanhDaoKy = true, CreatedDate = DateTime.Now, IsDeleted = false });
-                module.Add(new Module { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C4") , ModuleCode = "QTHT" , ModuleName = "Quản trị hệ thống" , NumberOrder = 1 });
-                module.Add(new Module { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C5") , ModuleCode = "HTBC" , ModuleName = "Hệ thống báo cáo", NumberOrder = 2 });
-                module.Add(new Module { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C6") , ModuleCode = "QLTTG" , ModuleName = "Quản lý thông tin giá", NumberOrder = 3 });
-                module.Add(new Module { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C7") , ModuleCode = "QLND" , ModuleName = "Quản lý người dùng", NumberOrder = 1 , ParentId = new Guid("C09E6504B3DBC74180EB85C76EB329C4") } );
-                module.Add(new Module { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C8") , ModuleCode = "QLMN" , ModuleName = "Quản lý menu", NumberOrder = 2, ParentId = new Guid("C09E6504B3DBC74180EB85C76EB329C4") });
-       
-                context.Module.AddRange(module);
-                await context.SaveChangesAsync();
+                List<Module> modules = new List<Module>();
+
+                // Menu cha phải lưu trước
+                modules.Add(new Module { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C1"), ModuleCode = "QTHT", ModuleName = "Quản trị hệ thống", NumberOrder = 1 });
+                modules.Add(new Module { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C2"), ModuleCode = "HTBC", ModuleName = "Hệ thống báo cáo", NumberOrder = 2 });
+                modules.Add(new Module { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C3"), ModuleCode = "QLTTG", ModuleName = "Quản lý thông tin giá", NumberOrder = 3 });
+
+                /// Xong mới chạy được menu con
+                modules.Add(new Module { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C6"), ModuleCode = "QLND", ModuleName = "Quản lý người dùng", NumberOrder = 1, ParentId = new Guid("C09E6504B3DBC74180EB85C76EB329C4") });
+                modules.Add(new Module { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C7"), ModuleCode = "QLMN", ModuleName = "Quản lý trang", NumberOrder = 2, ParentId = new Guid("C09E6504B3DBC74180EB85C76EB329C4") });
+
+                context.Module.AddRange(modules);
             }
+
+            await context.SaveChangesAsync();
         }
     }
 }

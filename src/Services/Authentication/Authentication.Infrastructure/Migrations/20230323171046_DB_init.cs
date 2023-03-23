@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Authentication.Infrastructure.Migrations
 {
-    public partial class update3 : Migration
+    public partial class DB_init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,7 +18,6 @@ namespace Authentication.Infrastructure.Migrations
                     ModuleName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     ActionCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     ActionName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    EntityId = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, comment: "Cờ xóa"),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Ngày tạo"),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true, comment: "Mã người tạo"),
@@ -28,8 +27,8 @@ namespace Authentication.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AUTH_Action", x => x.Id);
-
                 });
+
             migrationBuilder.CreateTable(
                 name: "AUTH_Module",
                 columns: table => new
@@ -41,7 +40,6 @@ namespace Authentication.Infrastructure.Migrations
                     NumberOrder = table.Column<int>(type: "int", nullable: false),
                     Icon = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ParentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    EntityId = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false, comment: "Cờ xóa"),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Ngày tạo"),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true, comment: "Mã người tạo"),
@@ -66,7 +64,6 @@ namespace Authentication.Infrastructure.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Code = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Index = table.Column<int>(type: "int", nullable: true),
-                    EntityId = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, comment: "Cờ xóa"),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Ngày tạo"),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true, comment: "Mã người tạo"),
@@ -106,7 +103,6 @@ namespace Authentication.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Id bảng, khóa chính"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Code = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EntityId = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, comment: "Cờ xóa"),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Ngày tạo"),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true, comment: "Mã người tạo"),
@@ -125,7 +121,6 @@ namespace Authentication.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Id bảng, khóa chính"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Code = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EntityId = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, comment: "Cờ xóa"),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Ngày tạo"),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true, comment: "Mã người tạo"),

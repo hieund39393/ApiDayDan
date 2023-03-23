@@ -28,33 +28,17 @@ namespace Authentication.Application.Queries.ModuleQuery
         public async Task<List<ModuleResponse>> GetListModule()
         {
 
-            var query1 = _unitOfWork.ModuleRepository.GetQuery().Include(x => x.ModuleChilds).ToList();
-            var query = _unitOfWork.ModuleRepository.GetQuery()
+            var query = _unitOfWork.ModuleRepository.GetQuery().Include(x => x.ModuleChilds)
            .Select(x => new ModuleResponse()
            {
-               Id = x.Id,
                ModuleName = x.ModuleName,
                ModuleCode = x.ModuleCode,
                NumberOrder = x.NumberOrder,
                Icon = x.Icon,
                Url = x.Url,
-               ParentId = x.ParentId,
+               ModuleChild = x.ModuleChilds.Select(y => new ModuleResponse() { ModuleName = y.ModuleName, ModuleCode = y.ModuleCode, Url = y.Url, NumberOrder = y.NumberOrder }).ToList(),
            }).ToList();
 
-            //var data = from a in _context.Module
-            //           join b in _context.Module on a.Id equals b.ParentId
-            //           where a.ParentId == null
-            //           select new ModuleResponse()
-            //           {
-            //               Id = a.Id,
-            //               ModuleName = a.ModuleName,
-            //               ModuleCode = a.ModuleCode,
-            //               NumberOrder = a.NumberOrder,
-            //               Icon = a.Icon,
-            //               Url = a.Url,
-            //               ParentId = a.ParentId,
-            //               ModuleChild = b.
-            //           }
 
 
 

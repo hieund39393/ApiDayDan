@@ -6,8 +6,6 @@ namespace Authentication.Application.Model.Module
 
     public class ModuleResponse
     {
-        public Guid Id { get; set; }
-        public Guid? ParentId{ get; set; }
         public string ModuleName { get; set; }
         public string ModuleCode { get; set; }
         public string Url { get; set; }
