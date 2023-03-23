@@ -84,14 +84,14 @@ namespace Authentication.API.Controllers
         }
 
         /// <summary>
-        /// Danh sách module paging
+        /// Danh sách tất cả module
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        [HttpGet]
-        public async Task<IActionResult> ListModule([FromQuery] ModuleRequest request)
+        [HttpGet("get-all")]
+        public async Task<IActionResult> ListModule()
         {
-            var data = await _moduleQuery.GetListModule(request);
+            var data = await _moduleQuery.GetListModule();
             return Ok(new ApiSuccessResult<List<ModuleResponse>>(data: data));
         }
 

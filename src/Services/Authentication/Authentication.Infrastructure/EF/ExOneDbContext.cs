@@ -54,6 +54,7 @@ namespace Authentication.Infrastructure.EF
         {
             base.OnModelCreating(builder);
             builder.ApplyConfiguration(new ActionConfiguration());
+            builder.ApplyConfiguration(new ModuleConfiguration());
             builder.ApplyConfiguration(new UserConfiguration());
             builder.ApplyConfiguration(new RoleConfiguration());
             builder.ApplyConfiguration(new UserRoleConfiguration());

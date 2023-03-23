@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Authentication.Infrastructure.Migrations
 {
-    public partial class ok : Migration
+    public partial class update3 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,6 +28,34 @@ namespace Authentication.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AUTH_Action", x => x.Id);
+
+                });
+            migrationBuilder.CreateTable(
+                name: "AUTH_Module",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Id bảng, khóa chính"),
+                    ModuleName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModuleCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NumberOrder = table.Column<int>(type: "int", nullable: false),
+                    Icon = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ParentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    EntityId = table.Column<int>(type: "int", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false, comment: "Cờ xóa"),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Ngày tạo"),
+                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true, comment: "Mã người tạo"),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true, comment: "Ngày cập nhật"),
+                    UpdatedBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true, comment: "Mã người cập nhật")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AUTH_Module", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AUTH_Module_AUTH_Module_ParentId",
+                        column: x => x.ParentId,
+                        principalTable: "AUTH_Module",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -48,35 +76,6 @@ namespace Authentication.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Department", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Module",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Id bảng, khóa chính"),
-                    ModuleName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModuleCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Url = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NumberOrder = table.Column<int>(type: "int", nullable: false),
-                    Icon = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ParentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    ModuleParentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    EntityId = table.Column<int>(type: "int", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, comment: "Cờ xóa"),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Ngày tạo"),
-                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true, comment: "Mã người tạo"),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true, comment: "Ngày cập nhật"),
-                    UpdatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true, comment: "Mã người cập nhật")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Module", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Module_Module_ModuleParentId",
-                        column: x => x.ModuleParentId,
-                        principalTable: "Module",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -159,9 +158,9 @@ namespace Authentication.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_AUTH_Roles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AUTH_Roles_Module_ModuleId",
+                        name: "FK_AUTH_Roles_AUTH_Module_ModuleId",
                         column: x => x.ModuleId,
-                        principalTable: "Module",
+                        principalTable: "AUTH_Module",
                         principalColumn: "Id");
                 });
 
@@ -362,6 +361,11 @@ namespace Authentication.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_AUTH_Module_ParentId",
+                table: "AUTH_Module",
+                column: "ParentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AUTH_RoleClaims_RoleId",
                 table: "AUTH_RoleClaims",
                 column: "RoleId");
@@ -445,11 +449,6 @@ namespace Authentication.Infrastructure.Migrations
                 name: "IX_AUTH_UserTokens_UserId",
                 table: "AUTH_UserTokens",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Module_ModuleParentId",
-                table: "Module",
-                column: "ModuleParentId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -491,7 +490,7 @@ namespace Authentication.Infrastructure.Migrations
                 name: "Unit");
 
             migrationBuilder.DropTable(
-                name: "Module");
+                name: "AUTH_Module");
         }
     }
 }

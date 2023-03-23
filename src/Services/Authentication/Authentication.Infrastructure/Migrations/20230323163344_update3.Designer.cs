@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Authentication.Infrastructure.Migrations
 {
     [DbContext(typeof(ExOneDbContext))]
-    [Migration("20230322030202_ok")]
-    partial class ok
+    [Migration("20230323163344_update3")]
+    partial class update3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -142,6 +142,7 @@ namespace Authentication.Infrastructure.Migrations
                         .HasComment("Id bảng, khóa chính");
 
                     b.Property<Guid?>("CreatedBy")
+                        .HasMaxLength(36)
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Mã người tạo");
 
@@ -156,7 +157,9 @@ namespace Authentication.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
+                        .HasDefaultValue(false)
                         .HasComment("Cờ xóa");
 
                     b.Property<string>("ModuleCode")
@@ -165,9 +168,6 @@ namespace Authentication.Infrastructure.Migrations
                     b.Property<string>("ModuleName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("ModuleParentId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int>("NumberOrder")
                         .HasColumnType("int");
 
@@ -175,6 +175,7 @@ namespace Authentication.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("UpdatedBy")
+                        .HasMaxLength(36)
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Mã người cập nhật");
 
@@ -187,9 +188,9 @@ namespace Authentication.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ModuleParentId");
+                    b.HasIndex("ParentId");
 
-                    b.ToTable("Module");
+                    b.ToTable("AUTH_Module", (string)null);
                 });
 
             modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.UserAggregate.Department", b =>
@@ -751,7 +752,7 @@ namespace Authentication.Infrastructure.Migrations
                 {
                     b.HasOne("Authentication.Infrastructure.AggregatesModel.ModuleAggregate.Module", "ModuleParent")
                         .WithMany("ModuleChilds")
-                        .HasForeignKey("ModuleParentId");
+                        .HasForeignKey("ParentId");
 
                     b.Navigation("ModuleParent");
                 });

@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Authentication.Infrastructure.AggregatesModel.ModuleAggregate;
+using Authentication.Infrastructure.EF.EntityConfigurations;
 
 namespace Authentication.Infrastructure.EntityConfigurations
 {
-    public class ModuleConfiguration : IEntityTypeConfiguration<Module>
+    public class ModuleConfiguration : CommonPropertyConfiguration, IEntityTypeConfiguration<Module>
     {
         public void Configure(EntityTypeBuilder<Module> builder)
         {
@@ -18,6 +19,7 @@ namespace Authentication.Infrastructure.EntityConfigurations
             builder.HasOne(x => x.ModuleParent)
                 .WithMany(x => x.ModuleChilds)
                 .HasForeignKey(x => x.ParentId);
+            ConfigureBase(builder);
         }
     }
 }
