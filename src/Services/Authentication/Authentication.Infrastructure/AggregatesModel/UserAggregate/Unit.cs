@@ -1,0 +1,17 @@
+﻿using EVN.Core.Models.Base;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Authentication.Infrastructure.AggregatesModel.UserAggregate
+{
+    public class Unit : BaseEntity
+    {
+        public string Name { get; set; }
+        public string Code { get; set; }
+
+        public ICollection<User> Users { get; set; }
+    }
+}

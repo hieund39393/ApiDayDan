@@ -1,0 +1,2854 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="KDTN_DRIVER" xml:space="preserve">
+    <value>Lái xe</value>
+  </data>
+  <data name="KDTN_MSG_CAN_NOT_DELETE_HTML_FORM" xml:space="preserve">
+    <value>Không thể xóa thông tin HTML do có biên bản đang sử dụng mẫu này</value>
+  </data>
+  <data name="KDTN_MSG_CAPTAIN" xml:space="preserve">
+    <value>Đội trưởng</value>
+  </data>
+  <data name="KDTN_MSG_CREATE_FORM_HTML_SUCCESS" xml:space="preserve">
+    <value>Tạo mới mẫu HTML thành công</value>
+  </data>
+  <data name="KDTN_MSG_CREATE_PDF_SUCCESS" xml:space="preserve">
+    <value>Tạo PDF thành công</value>
+  </data>
+  <data name="KDTN_MSG_DELETE_FORM_HTML_SUCCESS" xml:space="preserve">
+    <value>Xóa mẫu HTML thành công</value>
+  </data>
+  <data name="KDTN_MSG_EXPERT" xml:space="preserve">
+    <value>Bộ phận tổng hợp</value>
+  </data>
+  <data name="KDTN_MSG_EXPERT_ELECTRIC" xml:space="preserve">
+    <value>Chuyên viên điện lực</value>
+  </data>
+  <data name="KDTN_MSG_EXPERT_OPERATION" xml:space="preserve">
+    <value>Chuyên viên vận hành</value>
+  </data>
+  <data name="KDTN_MSG_EXPERT_P2" xml:space="preserve">
+    <value>Chuyên viên P2</value>
+  </data>
+  <data name="KDTN_MSG_FORM_NOT_FOUND" xml:space="preserve">
+    <value>Không tìm thấy mẫu </value>
+  </data>
+  <data name="KDTN_MSG_FORM_REPORT_FIELD_NAME_NOT_FOUND" xml:space="preserve">
+    <value>Không tìm thấy tên trường dữ liệu</value>
+  </data>
+  <data name="KDTN_MSG_FORM_REPORT_FIELD_VALUE_NOT_FOUND" xml:space="preserve">
+    <value>Không tìm thấy dữ liệu cho biên bản báo cáo</value>
+  </data>
+  <data name="KDTN_MSG_HTML_FORM_EXISTS" xml:space="preserve">
+    <value>Biên bản này đã có định dạng HTML</value>
+  </data>
+  <data name="KDTN_MSG_HTML_FORM_NOT_FOUND" xml:space="preserve">
+    <value>Không tìm thấy định dạng HTML của biên bản</value>
+  </data>
+  <data name="KDTN_MSG_LEADER" xml:space="preserve">
+    <value>Lãnh đạo</value>
+  </data>
+  <data name="KDTN_MSG_NOTIFY_CONSTRUCTION" xml:space="preserve">
+    <value>Bạn có công trình cần phê duyệt</value>
+  </data>
+  <data name="KDTN_MSG_NOTIFY_FORM_REPORT" xml:space="preserve">
+    <value>Bạn có biên bản mới cần phê duyệt</value>
+  </data>
+  <data name="KDTN_MSG_NOTIFY_FORM_REPORT_COMPLETED" xml:space="preserve">
+    <value>Biên bản đã được duyệt</value>
+  </data>
+  <data name="KDTN_MSG_NOTIFY_FORM_REPORT_REJECT" xml:space="preserve">
+    <value>Biên bản bị từ chối</value>
+  </data>
+  <data name="KDTN_MSG_NOTIFY_REQUEST" xml:space="preserve">
+    <value>Bạn có yêu cầu mới cần phê duyệt</value>
+  </data>
+  <data name="KDTN_MSG_PRESIDENT_CENTER" xml:space="preserve">
+    <value>Giám đốc/Phó giám đốc trung tâm</value>
+  </data>
+  <data name="KDTN_MSG_PRESIDENT_COMPANY" xml:space="preserve">
+    <value>Giám đốc/Phó giám đốc công ty</value>
+  </data>
+  <data name="KDTN_MSG_REQUEST_SUBSTATION_NOT_FOUND" xml:space="preserve">
+    <value>Trạm biến áp trong công trình không tồn tại</value>
+  </data>
+  <data name="KDTN_MSG_TEAM_NAME_ALREADY_EXIST" xml:space="preserve">
+    <value>Tên tổ đội đã tồn tại</value>
+  </data>
+  <data name="KDTN_MSG_UPDATE_FORM_HTML_SUCCESS" xml:space="preserve">
+    <value>Cập nhật mẫu HTML thành công</value>
+  </data>
+  <data name="KDTN_MSG_WORKER" xml:space="preserve">
+    <value>Kiểm định viên</value>
+  </data>
+  <data name="MSG_403_FORBIDDEN" xml:space="preserve">
+    <value>Bạn không có quyền thực hiện chức năng này</value>
+  </data>
+  <data name="MSG_ACCOUNT_ALREADY_EXISTS" xml:space="preserve">
+    <value>Tài khoản đã tồn tại</value>
+  </data>
+  <data name="MSG_ACCOUNT_WASNT_CHANGED" xml:space="preserve">
+    <value>Bạn không thể cập nhật khi chưa thay đổi dữ liệu</value>
+  </data>
+  <data name="MSG_ACTION_RECEIVED" xml:space="preserve">
+    <value>Tiếp nhận</value>
+  </data>
+  <data name="MSG_ADDITIONAL" xml:space="preserve">
+    <value>Bổ sung</value>
+  </data>
+  <data name="MSG_ADD_LINE_BRANCH_SUCCESS" xml:space="preserve">
+    <value>Thêm mới nhánh đường dây thành công</value>
+  </data>
+  <data name="MSG_ADD_OR_UPDATE_SUCCESS" xml:space="preserve">
+    <value>Lưu thành công.</value>
+  </data>
+  <data name="MSG_ADMINISTRATOR" xml:space="preserve">
+    <value>Quản trị</value>
+  </data>
+  <data name="MSG_AGREEMENT_CANNOT_DELETE_EQUIPMENT" xml:space="preserve">
+    <value>Không được phép xóa VTTB</value>
+  </data>
+  <data name="MSG_AGREEMENT_CANNOT_EDIT_EQUIPMENT" xml:space="preserve">
+    <value>Không được phép thêm VTTB</value>
+  </data>
+  <data name="MSG_AGREEMENT_NOT_CONTAIN_CONSTRUCTION" xml:space="preserve">
+    <value>Không tồn tại công trình trong thỏa thuận này</value>
+  </data>
+  <data name="MSG_AGREEMENT_NOT_FOUND" xml:space="preserve">
+    <value>Không tồn tại thỏa thuận này</value>
+  </data>
+  <data name="MSG_AGREEMENT_STATUS_COMPLETE" xml:space="preserve">
+    <value>Hoàn thành</value>
+  </data>
+  <data name="MSG_AGREEMENT_STATUS_CREATED_REQUEST" xml:space="preserve">
+    <value>Đã tạo phiếu yêu cầu</value>
+  </data>
+  <data name="MSG_AGREEMENT_STATUS_CREATE_NEW" xml:space="preserve">
+    <value>Mới tạo</value>
+  </data>
+  <data name="MSG_APPEARANCE_PERIODIC" xml:space="preserve">
+    <value>Định kỳ</value>
+  </data>
+  <data name="MSG_APPEARANCE_TECHNICAL" xml:space="preserve">
+    <value>Kỹ thuật</value>
+  </data>
+  <data name="MSG_APPEARANCE_UNPLANNED" xml:space="preserve">
+    <value>Đột xuất</value>
+  </data>
+  <data name="MSG_APPRAISED" xml:space="preserve">
+    <value>Đã áp giá</value>
+  </data>
+  <data name="MSG_APPROVAL_HISTORY_TYPE_APPROVE" xml:space="preserve">
+    <value>Phê duyệt</value>
+  </data>
+  <data name="MSG_APPROVAL_HISTORY_TYPE_REJECT" xml:space="preserve">
+    <value>Từ chối</value>
+  </data>
+  <data name="MSG_APPROVAL_HISTORY_TYPE_SEND" xml:space="preserve">
+    <value>Gửi duyệt</value>
+  </data>
+  <data name="MSG_APPROVAL_TYPE_DIRECTOR" xml:space="preserve">
+    <value>Giám đốc</value>
+  </data>
+  <data name="MSG_APPROVAL_TYPE_REVIEWER" xml:space="preserve">
+    <value>Người soát lại</value>
+  </data>
+  <data name="MSG_APPROVED" xml:space="preserve">
+    <value>Đã duyệt</value>
+  </data>
+  <data name="MSG_APPROVE_CONSTRUCTION_SUCCESS" xml:space="preserve">
+    <value>Phê duyệt công trình thành công</value>
+  </data>
+  <data name="MSG_APPROVE_FORM_REPORT_SUCCESS" xml:space="preserve">
+    <value>Gửi duyệt thành công</value>
+  </data>
+  <data name="MSG_APPROVE_REQUEST_NOT_ALLOW" xml:space="preserve">
+    <value>Phê duyệt phiếu yêu cầu thất bại, trạng thái hiện tại không cho phép phê duyệt phiếu yêu cầu</value>
+  </data>
+  <data name="MSG_APPROVE_REQUEST_SUCCESS" xml:space="preserve">
+    <value>Phê duyệt phiếu yêu cầu thành công</value>
+  </data>
+  <data name="MSG_APP_ERROR_CODE_PASSWORD_EXPIRED" xml:space="preserve">
+    <value>Mật khẩu đã hết hạn, vui lòng thay đổi mật khẩu</value>
+  </data>
+  <data name="MSG_ASSET_MANAGEMENT_UNIT_CUSTOMER" xml:space="preserve">
+    <value>Khách hàng</value>
+  </data>
+  <data name="MSG_ASSET_MANAGEMENT_UNIT_ELECTRICITY" xml:space="preserve">
+    <value>Điện lực</value>
+  </data>
+  <data name="MSG_ASSIGNMENT_INTERNAL_AFFAIR_SUCCESS" xml:space="preserve">
+    <value>Giao việc thành công</value>
+  </data>
+  <data name="MSG_ASSIGN_EQUIPMENT_SUCCESS" xml:space="preserve">
+    <value>Phân công kiểm tra VTTB thành công.</value>
+  </data>
+  <data name="MSG_ASSIGN_EQUIPMENT_USER_INVALID" xml:space="preserve">
+    <value>User được phân VTTB không hợp lệ</value>
+  </data>
+  <data name="MSG_ASSIGN_EQUIPMENT_VALIDATE" xml:space="preserve">
+    <value>Bạn không có quyền phân công VTTB</value>
+  </data>
+  <data name="MSG_ASSIGN_EQUIPMENT_VALIDATE_INSPECTCATEGORY" xml:space="preserve">
+    <value>VTTB không thuộc loại được phân công</value>
+  </data>
+  <data name="MSG_ASSIGN_LINE_SUCCESS" xml:space="preserve">
+    <value>Phân công kiểm tra đường dây thành công.</value>
+  </data>
+  <data name="MSG_ASSIGN_NODE_SUCCESS" xml:space="preserve">
+    <value>Phân công kiểm tra nút trong đường dây thành công.</value>
+  </data>
+  <data name="MSG_ASSIGN_PRICE_EQUIPMENT_SUCCESS" xml:space="preserve">
+    <value>Áp giá VTTB thành công</value>
+  </data>
+  <data name="MSG_ASSIGN_SUBSTATION_SUCCESS" xml:space="preserve">
+    <value>Phân công kiểm tra trạm biến áp thành công.</value>
+  </data>
+  <data name="MSG_ASSIGN_SUBSTATION_USER_INVALID" xml:space="preserve">
+    <value>User được phân trạm biến áp không hợp lệ</value>
+  </data>
+  <data name="MSG_ASSIGN_SUBSTATION_VALIDATE" xml:space="preserve">
+    <value>Bạn không có quyền phân công trạm biến áp</value>
+  </data>
+  <data name="MSG_ASSIGN_WORK_SUCCESS" xml:space="preserve">
+    <value>Phân công kiểm tra công việc thành công.</value>
+  </data>
+  <data name="MSG_AUTO_NOTIFICATION_EXPIRED" xml:space="preserve">
+    <value>Công việc kiểm tra của bạn sắp hết hạn, vui lòng hoàn thành.</value>
+  </data>
+  <data name="MSG_AUTO_NOTIFICATION_EXPIRE_IMMEDIARY" xml:space="preserve">
+    <value>Phiếu KT TBA trung gian mã {0} còn {1} ngày hết hạn</value>
+  </data>
+  <data name="MSG_BIG_REPAIR" xml:space="preserve">
+    <value>Sửa chữa lớn</value>
+  </data>
+  <data name="MSG_CANCELLED" xml:space="preserve">
+    <value>Đã hủy</value>
+  </data>
+  <data name="MSG_CANNOT_DELETE_DEPARTMENT" xml:space="preserve">
+    <value>Tổ đội đang được phân công công việc, không thể xóa</value>
+  </data>
+  <data name="MSG_CANNOT_EDIT_SYSTEM_EQUIPMENT" xml:space="preserve">
+    <value>VTTB trong PMIS không được phép sửa/xóa</value>
+  </data>
+  <data name="MSG_CANNOT_EDIT_SYSTEM_SUBSTATION" xml:space="preserve">
+    <value>Trạm biến áp trong PMIS không được phép sửa/xóa</value>
+  </data>
+  <data name="MSG_CANT_UPDATE_PASSWORD" xml:space="preserve">
+    <value>Không thể cập nhật mật khẩu</value>
+  </data>
+  <data name="MSG_CAN_NOT_APPROVED_REQUEST" xml:space="preserve">
+    <value>Không thể phê duyệt phiếu do bạn không có quyền hoặc phiếu không đúng trạng thái</value>
+  </data>
+  <data name="MSG_CAN_NOT_DELETE_DEPARTMENT" xml:space="preserve">
+    <value>Tồn tại user trong tổ đội này, không thể xóa.</value>
+  </data>
+  <data name="MSG_CAN_NOT_DELETE_EQUIPMENT_IN_PMIS" xml:space="preserve">
+    <value>Không được phép xóa VTTB trong PMIS</value>
+  </data>
+  <data name="MSG_CAN_NOT_DELETE_SUBSTATION" xml:space="preserve">
+    <value>Không thể xóa TBA đã tồn tại VTTB</value>
+  </data>
+  <data name="MSG_CAN_NOT_DELETE_UNIT" xml:space="preserve">
+    <value>Tồn tại user trong đơn vị này, không thể xóa.</value>
+  </data>
+  <data name="MSG_CAN_NOT_EXPORT_EXCEL" xml:space="preserve">
+    <value>Không thể xuất excel.</value>
+  </data>
+  <data name="MSG_CAN_NOT_EXPORT_PDF" xml:space="preserve">
+    <value>Không thể in phiếu chưa được hoàn thành</value>
+  </data>
+  <data name="MSG_CAN_NOT_GENERATE_REQUEST_CODE" xml:space="preserve">
+    <value>Không sinh mã yêu cầu</value>
+  </data>
+  <data name="MSG_CAN_NOT_UPDATE_ADMIN_ROLE" xml:space="preserve">
+    <value>Không thể cập nhật quyền admin</value>
+  </data>
+  <data name="MSG_CAN_NOT_UPDATE_AGREEMENT" xml:space="preserve">
+    <value>Không thể thay đổi thỏa thuận vì đã tồn tại thông tin TBA hoặc VTTB</value>
+  </data>
+  <data name="MSG_CAN_NOT_UPDATE_MASTER" xml:space="preserve">
+    <value>Không thể cập nhật VTTB trong PMIS</value>
+  </data>
+  <data name="MSG_CAN_NOT_UPDATE_REQUEST" xml:space="preserve">
+    <value>không thể thay đổi loại phiếu vì đã tồn tại thông tin TBA hoặc VTTB</value>
+  </data>
+  <data name="MSG_CAN_NOT_UPDATE_REQUEST_HANDLED" xml:space="preserve">
+    <value>Không thể cập nhật phiếu đang có trạng thái đã phê duyệt</value>
+  </data>
+  <data name="MSG_CHAIRMAN" xml:space="preserve">
+    <value>Tổng Giám đốc</value>
+  </data>
+  <data name="MSG_CHANGE_PASSWORD_SUCCESS" xml:space="preserve">
+    <value>Đổi mật khẩu thành công</value>
+  </data>
+  <data name="MSG_CLASSIFY_EQUIPMENT_SUCCESS" xml:space="preserve">
+    <value>Phân loại VTTB thành công</value>
+  </data>
+  <data name="MSG_CODE_ALREADY_EXISTS" xml:space="preserve">
+    <value>Mã nhân viên đã tồn tại</value>
+  </data>
+  <data name="MSG_CONSTRUCTION" xml:space="preserve">
+    <value>Công trình</value>
+  </data>
+  <data name="MSG_CONSTRUCTION_APPROVED" xml:space="preserve">
+    <value>Đã duyệt</value>
+  </data>
+  <data name="MSG_CONSTRUCTION_COMPLETE" xml:space="preserve">
+    <value>Hoàn thành</value>
+  </data>
+  <data name="MSG_CONSTRUCTION_EXISTS_FOR_THIS_REQUEST" xml:space="preserve">
+    <value>Đã tồn tại công trình cho yêu cầu này</value>
+  </data>
+  <data name="MSG_CONSTRUCTION_INVESTMENT" xml:space="preserve">
+    <value>Đầu tư xây dựng</value>
+  </data>
+  <data name="MSG_CONSTRUCTION_NEW" xml:space="preserve">
+    <value>Mới tạo</value>
+  </data>
+  <data name="MSG_CONSTRUCTION_NOT_ALLOW_ROLE" xml:space="preserve">
+    <value>Bạn không có quyền thực hiện chức năng này</value>
+  </data>
+  <data name="MSG_CONSTRUCTION_NOT_FOUND" xml:space="preserve">
+    <value>Công trình không tồn tại</value>
+  </data>
+  <data name="MSG_CONSTRUCTION_ON_REQUEST" xml:space="preserve">
+    <value>Chờ phê duyệt</value>
+  </data>
+  <data name="MSG_CONSTRUCTION_PROCESSING" xml:space="preserve">
+    <value>Đang xử lý</value>
+  </data>
+  <data name="MSG_CONSTRUCTION_REJECT" xml:space="preserve">
+    <value>Bị từ chối</value>
+  </data>
+  <data name="MSG_CONSTRUCTION_SUBSTATION" xml:space="preserve">
+    <value>Trạm biến áp không thuộc công trình</value>
+  </data>
+  <data name="MSG_CONSTRUCTION_TYPE_LINE" xml:space="preserve">
+    <value>0022D00_DZ</value>
+  </data>
+  <data name="MSG_CONSTRUCTION_TYPE_SUBSTATION" xml:space="preserve">
+    <value>0022D00_TBA</value>
+  </data>
+  <data name="MSG_CONTRUCTION_CAN_NOT_DELETE" xml:space="preserve">
+    <value>Không được phép xóa công trình</value>
+  </data>
+  <data name="MSG_CONTRUCTION_CAN_NOT_UPDATE" xml:space="preserve">
+    <value>Không được phép cập nhật công trình</value>
+  </data>
+  <data name="MSG_CONVERT_VOLTAGE_ERROR" xml:space="preserve">
+    <value>Sai kiểu dữ liệu cấp điện áp</value>
+  </data>
+  <data name="MSG_CREATE_AGREEMENT_SUCCESS" xml:space="preserve">
+    <value>Tạo mới thỏa thuận thành công</value>
+  </data>
+  <data name="MSG_CREATE_CONSTRUCTION_SUCCESS" xml:space="preserve">
+    <value>Tạo mới công trình thành công</value>
+  </data>
+  <data name="MSG_CREATE_DISTRIBUTION_INSPECT_ERROR" xml:space="preserve">
+    <value>Trạm biến áp đã tồn tại 1 phiếu kiểm tra trong ngày</value>
+  </data>
+  <data name="MSG_CREATE_DISTRIBUTION_INSPECT_SUCCESS" xml:space="preserve">
+    <value>Tạo mới phiếu kiểm tra TBA phân phối thành công</value>
+  </data>
+  <data name="MSG_CREATE_EQUIPMENT_SUCCESS" xml:space="preserve">
+    <value>Lưu VTTB thành công</value>
+  </data>
+  <data name="MSG_CREATE_EQUIPMENT_VALIDATE" xml:space="preserve">
+    <value>Không thể tạo phiếu khi không có VTTB</value>
+  </data>
+  <data name="MSG_CREATE_FORM_SUCCESS" xml:space="preserve">
+    <value>Tạo mẫu biên bản thành công</value>
+  </data>
+  <data name="MSG_CREATE_LINE_INSPECTOR_GROUP_SUCCESS" xml:space="preserve">
+    <value>Tạo nhóm kiểm tra thành công</value>
+  </data>
+  <data name="MSG_CREATE_LINE_INSPECT_CONTENT_SUCCESS" xml:space="preserve">
+    <value>Lưu nội dung kiểm tra thành công</value>
+  </data>
+  <data name="MSG_CREATE_LINE_INSPECT_INFO_SUCCESS" xml:space="preserve">
+    <value>Tạo thông tin chung thành công</value>
+  </data>
+  <data name="MSG_CREATE_LINE_INSPECT_RESULT_SUCCESS" xml:space="preserve">
+    <value>Lưu kết quả Phiếu kiểm tra thành công</value>
+  </data>
+  <data name="MSG_CREATE_LINE_INSPECT_SUCCESS" xml:space="preserve">
+    <value>Tạo Phiếu kiểm tra đường dây trung áp thành công</value>
+  </data>
+  <data name="MSG_CREATE_REQUEST_SUCCESS" xml:space="preserve">
+    <value>Tạo mới phiếu yêu cầu thành công</value>
+  </data>
+  <data name="MSG_CREATE_ROLE_SUCCESS" xml:space="preserve">
+    <value>Tạo vai trò thành công</value>
+  </data>
+  <data name="MSG_CREATE_SCHEDULE_SUCCESS" xml:space="preserve">
+    <value>Lập lịch bổ sung thành công</value>
+  </data>
+  <data name="MSG_CREATE_SUBSTATION_SUCCESS" xml:space="preserve">
+    <value>Tạo mới trạm biến áp thành công</value>
+  </data>
+  <data name="MSG_CREATE_UNIT_SUCCESS" xml:space="preserve">
+    <value>Tạo mới đơn vị thành công</value>
+  </data>
+  <data name="MSG_CREATE_USER_SUCCESS" xml:space="preserve">
+    <value>Tạo tài khoản thành công</value>
+  </data>
+  <data name="MSG_CUSTOMER_ALREADY_EXIST" xml:space="preserve">
+    <value>Khách hàng đã tồn tại</value>
+  </data>
+  <data name="MSG_CUSTOMER_NOT_FOUND" xml:space="preserve">
+    <value>Khách hàng không tồn tại</value>
+  </data>
+  <data name="MSG_DAY" xml:space="preserve">
+    <value>Ngày</value>
+  </data>
+  <data name="MSG_DAY_TIME" xml:space="preserve">
+    <value>Định kỳ ngày</value>
+  </data>
+  <data name="MSG_DELETE_AGREEMENT_SUCCESS" xml:space="preserve">
+    <value>Xóa thỏa thuận thành công</value>
+  </data>
+  <data name="MSG_DELETE_CONSTRUCTION_SUCCESS" xml:space="preserve">
+    <value>Xóa công trình thành công</value>
+  </data>
+  <data name="MSG_DELETE_DEPARTMENT_SUCCESS" xml:space="preserve">
+    <value>Xóa tổ đội thành công.</value>
+  </data>
+  <data name="MSG_DELETE_EQUIPMENT_SUCCESS" xml:space="preserve">
+    <value>Xóa VTTB thành công</value>
+  </data>
+  <data name="MSG_DELETE_FORM_SUCCESS" xml:space="preserve">
+    <value>Xóa mẫu biên bản thành công</value>
+  </data>
+  <data name="MSG_DELETE_LINE_BRANCH_SUCCESS" xml:space="preserve">
+    <value>Xóa nội dung kiểm tra nhánh đường dây thành công</value>
+  </data>
+  <data name="MSG_DELETE_LINE_INSPECT_SUCCESS" xml:space="preserve">
+    <value>Xóa Phiếu kiểm tra dây trung áp thành công</value>
+  </data>
+  <data name="MSG_DELETE_LINE_SUCCESS" xml:space="preserve">
+    <value>Xóa đường dây thành công</value>
+  </data>
+  <data name="MSG_DELETE_REQUEST_SUCCESS" xml:space="preserve">
+    <value>Xóa phiếu yêu cầu thành công</value>
+  </data>
+  <data name="MSG_DELETE_ROLE_SUCCESS" xml:space="preserve">
+    <value>Xóa vai trò thành công</value>
+  </data>
+  <data name="MSG_DELETE_SCHEDULE_SUCCESS" xml:space="preserve">
+    <value>Xóa lịch thành công</value>
+  </data>
+  <data name="MSG_DELETE_SUBSTATION_SUCCESS" xml:space="preserve">
+    <value>Xóa TBA/Nút thành công</value>
+  </data>
+  <data name="MSG_DELETE_UNIT_SUCCESS" xml:space="preserve">
+    <value>Xóa đơn vị thành công</value>
+  </data>
+  <data name="MSG_DELETE_USERGROUP_VALIDATE" xml:space="preserve">
+    <value>Không thể xóa Đội/Phòng khi đang có user được gán trong phiếu chưa hoàn thành</value>
+  </data>
+  <data name="MSG_DELETE_USER_SUCCESS" xml:space="preserve">
+    <value>Xóa người dùng thành công</value>
+  </data>
+  <data name="MSG_DELETE_USER_VALIDATE" xml:space="preserve">
+    <value>Không thể xóa người dùng này khi đã được phân công</value>
+  </data>
+  <data name="MSG_DELETE_VTTB_SUCCESS" xml:space="preserve">
+    <value>Xóa VTTB thành công</value>
+  </data>
+  <data name="MSG_DELETE_WORK_SUCCESSFULLY" xml:space="preserve">
+    <value>Xóa công việc thành công</value>
+  </data>
+  <data name="MSG_DELETE_WORK_VALIDATE" xml:space="preserve">
+    <value>Không thể xóa công việc đã hoàn thành</value>
+  </data>
+  <data name="MSG_DEPARTMENT_CREATE_SUCCESS" xml:space="preserve">
+    <value>Tạo tổ đội thành công</value>
+  </data>
+  <data name="MSG_DEPARTMENT_EXISTS" xml:space="preserve">
+    <value>Tổ đội đã tồn tại</value>
+  </data>
+  <data name="MSG_DEPARTMENT_NOT_FOUND" xml:space="preserve">
+    <value>Không tồn tại tổ đội này</value>
+  </data>
+  <data name="MSG_DEPARTMENT_UPDATE_SUCCESS" xml:space="preserve">
+    <value>Cập nhật tổ đội thành công</value>
+  </data>
+  <data name="MSG_DEPUTY_CHIEF" xml:space="preserve">
+    <value>Phó Trưởng ban kỹ thuật</value>
+  </data>
+  <data name="MSG_DIA_CHINH_HUYEN" xml:space="preserve">
+    <value>Huyện/Quận/Thành phố</value>
+  </data>
+  <data name="MSG_DIA_CHINH_PHUONG" xml:space="preserve">
+    <value>Phường</value>
+  </data>
+  <data name="MSG_DIA_CHINH_TPHN" xml:space="preserve">
+    <value>Thành phố Hà Nội</value>
+  </data>
+  <data name="MSG_DIA_CHINH_XA" xml:space="preserve">
+    <value>Xã/Quận/Thị trấn/Phường</value>
+  </data>
+  <data name="MSG_DISTRIBUTION_INSPECT_ALREADY_EXIST" xml:space="preserve">
+    <value>Phiếu kiểm tra TBA phân phối cho công việc này đã tồn tại trong kỳ</value>
+  </data>
+  <data name="MSG_DISTRIBUTION_INSPECT_CANT_COMPLETE" xml:space="preserve">
+    <value>Phiếu này không thể hoàn thành hoặc đã được hoàn thành rồi.</value>
+  </data>
+  <data name="MSG_DISTRIBUTION_INSPECT_CANT_COMPLETE_MISSING_INFO" xml:space="preserve">
+    <value>Phiếu này không thể hoàn thành do chưa điền đầy đủ thông tin.</value>
+  </data>
+  <data name="MSG_DISTRIBUTION_INSPECT_COMPLETE_SUCCESS" xml:space="preserve">
+    <value>Hoàn thành phiếu kiểm tra TBA phân phối</value>
+  </data>
+  <data name="MSG_DISTRIBUTION_INSPECT_DELETE_SUCCESS" xml:space="preserve">
+    <value>Xóa TBA phân phối thành công</value>
+  </data>
+  <data name="MSG_DISTRIBUTION_INSPECT_DELETE_VALIDATE" xml:space="preserve">
+    <value>Không thể xóa phiếu kiểm tra TBA phân phối</value>
+  </data>
+  <data name="MSG_DISTRIBUTION_INSPECT_GROUP_VALIDATE" xml:space="preserve">
+    <value>Không thể cập nhật phiếu kiểm tra TBA phân phối</value>
+  </data>
+  <data name="MSG_DISTRIBUTION_INSPECT_NOT_FOUND" xml:space="preserve">
+    <value>TBA phân phối không tồn tại</value>
+  </data>
+  <data name="MSG_DISTRIBUTION_INSPECT_UPDATE_SUCCESS" xml:space="preserve">
+    <value>Cập nhật TBA phân phối thành công</value>
+  </data>
+  <data name="MSG_DISTRIBUTION_INSPECT_UPDATE_VALIDATE" xml:space="preserve">
+    <value>Không thể cập nhật phiếu kiểm tra TBA phân phối</value>
+  </data>
+  <data name="MSG_DOEST_NOT_EXIST" xml:space="preserve">
+    <value>Không tồn tại</value>
+  </data>
+  <data name="MSG_DRIVE_ASSIGNMENT_SUCCESS" xml:space="preserve">
+    <value>Phân xe thành công</value>
+  </data>
+  <data name="MSG_EMAIL_ALREADY_EXISTS" xml:space="preserve">
+    <value>Email đã tồn tại</value>
+  </data>
+  <data name="MSG_EMAIL_CHANGE_PASSWORD_SUCCESS" xml:space="preserve">
+    <value>Đổi mật khẩu thành công, vui lòng kiểm tra email của bạn để lấy mật khẩu mới</value>
+  </data>
+  <data name="MSG_EMPLOYEE" xml:space="preserve">
+    <value>Nhân viên</value>
+  </data>
+  <data name="MSG_EMPTY_REQUEST_LIST" xml:space="preserve">
+    <value>Không có yêu cầu không theo thỏa thuận</value>
+  </data>
+  <data name="MSG_EQUIMENT_UPDATE_SUCCESS" xml:space="preserve">
+    <value>Cập nhật VTTB thành công</value>
+  </data>
+  <data name="MSG_EQUIPMENTSTATUS_X5_BROKEN" xml:space="preserve">
+    <value>Hỏng</value>
+  </data>
+  <data name="MSG_EQUIPMENTSTATUS_X5_GOOD" xml:space="preserve">
+    <value>Tốt</value>
+  </data>
+  <data name="MSG_EQUIPMENTTYPEINFO_X5_COUNTRYMANUFACTURE" xml:space="preserve">
+    <value>Nước sản xuất</value>
+  </data>
+  <data name="MSG_EQUIPMENTTYPEINFO_X5_FABRCICATIONNUMBER" xml:space="preserve">
+    <value>Số chế tạo</value>
+  </data>
+  <data name="MSG_EQUIPMENTTYPEINFO_X5_FIRM" xml:space="preserve">
+    <value>Hãng</value>
+  </data>
+  <data name="MSG_EQUIPMENTTYPEINFO_X5_MEASURINGRANGE" xml:space="preserve">
+    <value>Phạm vi đo</value>
+  </data>
+  <data name="MSG_EQUIPMENTTYPEINFO_X5_SPECIES" xml:space="preserve">
+    <value>Chủng loại, mã hiệu</value>
+  </data>
+  <data name="MSG_EQUIPMENTTYPEINFO_X5_YEARMANUFACTURE" xml:space="preserve">
+    <value>Năm đưa vào sử dụng</value>
+  </data>
+  <data name="MSG_EQUIPMENTTYPE_X5_GROUPTWO" xml:space="preserve">
+    <value>PTD nhóm 2</value>
+  </data>
+  <data name="MSG_EQUIPMENTTYPE_X5_HIGHPRESSURE" xml:space="preserve">
+    <value>Cao áp</value>
+  </data>
+  <data name="MSG_EQUIPMENTTYPE_X5_PETROCHEMICAL" xml:space="preserve">
+    <value>Hóa dầu</value>
+  </data>
+  <data name="MSG_EQUIPMENTTYPE_X5_RELAYS" xml:space="preserve">
+    <value>Rơ le</value>
+  </data>
+  <data name="MSG_EQUIPMENT_ALREADY_EXIST" xml:space="preserve">
+    <value>Mã VTTB đã tồn tại</value>
+  </data>
+  <data name="MSG_EQUIPMENT_CATEGORY_ALL" xml:space="preserve">
+    <value>Tất cả loại vật tư</value>
+  </data>
+  <data name="MSG_EQUIPMENT_CATEGORY_BATTERY" xml:space="preserve">
+    <value>Ắc quy</value>
+  </data>
+  <data name="MSG_EQUIPMENT_CATEGORY_BREAKER" xml:space="preserve">
+    <value>Cầu dao</value>
+  </data>
+  <data name="MSG_EQUIPMENT_CATEGORY_CAPACITOR" xml:space="preserve">
+    <value>Tụ bù</value>
+  </data>
+  <data name="MSG_EQUIPMENT_CATEGORY_CERAMIC" xml:space="preserve">
+    <value>Sứ</value>
+  </data>
+  <data name="MSG_EQUIPMENT_CATEGORY_CUTTING_MACHINE" xml:space="preserve">
+    <value>Máy cắt</value>
+  </data>
+  <data name="MSG_EQUIPMENT_CATEGORY_ELECTRICAL_RESISTANCE" xml:space="preserve">
+    <value>Kháng điện</value>
+  </data>
+  <data name="MSG_EQUIPMENT_CATEGORY_FALL_OFF_USE" xml:space="preserve">
+    <value>Cầu chì tự rơi</value>
+  </data>
+  <data name="MSG_EQUIPMENT_CATEGORY_KNIVES_GROUND" xml:space="preserve">
+    <value>Dao tiếp địa</value>
+  </data>
+  <data name="MSG_EQUIPMENT_CATEGORY_LIGHTNING_CONDUCTOR" xml:space="preserve">
+    <value>Chống sét</value>
+  </data>
+  <data name="MSG_EQUIPMENT_CATEGORY_LIGHTNING_RODS" xml:space="preserve">
+    <value>Dây chống sét</value>
+  </data>
+  <data name="MSG_EQUIPMENT_CATEGORY_LINE_BEAM" xml:space="preserve">
+    <value>Xà</value>
+  </data>
+  <data name="MSG_EQUIPMENT_CATEGORY_LINE_FUDAMENT" xml:space="preserve">
+    <value>Móng cột</value>
+  </data>
+  <data name="MSG_EQUIPMENT_CATEGORY_LINE_LIGHTNING_ARRESTER" xml:space="preserve">
+    <value>Chống sét van</value>
+  </data>
+  <data name="MSG_EQUIPMENT_CATEGORY_LINE_POLE" xml:space="preserve">
+    <value>Cột điện</value>
+  </data>
+  <data name="MSG_EQUIPMENT_CATEGORY_LINE_WIRE" xml:space="preserve">
+    <value>Dây dẫn</value>
+  </data>
+  <data name="MSG_EQUIPMENT_CATEGORY_LOAD_BREAKER" xml:space="preserve">
+    <value>Cầu dao phụ tải</value>
+  </data>
+  <data name="MSG_EQUIPMENT_CATEGORY_LOW_PRESSURE_CABINET" xml:space="preserve">
+    <value>Tủ hạ thế</value>
+  </data>
+  <data name="MSG_EQUIPMENT_CATEGORY_POLE_CLAMP" xml:space="preserve">
+    <value>Kẹp cực</value>
+  </data>
+  <data name="MSG_EQUIPMENT_CATEGORY_POWER_CABLE" xml:space="preserve">
+    <value>Cáp lực</value>
+  </data>
+  <data name="MSG_EQUIPMENT_CATEGORY_RECLOSER" xml:space="preserve">
+    <value>Recloser</value>
+  </data>
+  <data name="MSG_EQUIPMENT_CATEGORY_RMU" xml:space="preserve">
+    <value>Tủ RMU</value>
+  </data>
+  <data name="MSG_EQUIPMENT_CATEGORY_TI" xml:space="preserve">
+    <value>TI</value>
+  </data>
+  <data name="MSG_EQUIPMENT_CATEGORY_TRANSFORMER" xml:space="preserve">
+    <value>Máy biến áp</value>
+  </data>
+  <data name="MSG_EQUIPMENT_CATEGORY_TU" xml:space="preserve">
+    <value>TU</value>
+  </data>
+  <data name="MSG_EQUIPMENT_CATEGORY_UNDERGROUND_CABLES" xml:space="preserve">
+    <value>Dây cáp ngầm</value>
+  </data>
+  <data name="MSG_EQUIPMENT_CMIS_DOES_NOT_EXISTS" xml:space="preserve">
+    <value>Không tìm thấy thiết bị này, vui lòng thử lại</value>
+  </data>
+  <data name="MSG_EQUIPMENT_CREATE_SUCCESFUL" xml:space="preserve">
+    <value>Tạo mới thông tin vật tư thiết bị thành công</value>
+  </data>
+  <data name="MSG_EQUIPMENT_DELETE_SUCCESFUL" xml:space="preserve">
+    <value>Xóa VTTB thành công</value>
+  </data>
+  <data name="MSG_EQUIPMENT_DOES_NOT_EXISTS" xml:space="preserve">
+    <value>Không tồn tại Thông tin VTTB</value>
+  </data>
+  <data name="MSG_EQUIPMENT_DONT_ALLOW_UPDATE" xml:space="preserve">
+    <value>Bạn không được phép cập nhật VTTB</value>
+  </data>
+  <data name="MSG_EQUIPMENT_MEGOMET" xml:space="preserve">
+    <value>Mêgômmét (104 - 109) ꭥ</value>
+  </data>
+  <data name="MSG_EQUIPMENT_NOT_ALLOWED_TO_UPDATE" xml:space="preserve">
+    <value>VTTB thuộc hệ thống, không được phép chỉnh sửa</value>
+  </data>
+  <data name="MSG_EQUIPMENT_NOT_FOUND" xml:space="preserve">
+    <value>VTTB không tồn tại</value>
+  </data>
+  <data name="MSG_EQUIPMENT_NOT_IN_AGREEMENT" xml:space="preserve">
+    <value>VTTB không nằm trong thỏa thuận này</value>
+  </data>
+  <data name="MSG_EQUIPMENT_NOT_IN_REQUEST" xml:space="preserve">
+    <value>VTTB không nằm trong yêu cầu này</value>
+  </data>
+  <data name="MSG_EQUIPMENT_OPERATE" xml:space="preserve">
+    <value>VTTB vận hành</value>
+  </data>
+  <data name="MSG_EQUIPMENT_STATUS_DELETED" xml:space="preserve">
+    <value>XOA</value>
+  </data>
+  <data name="MSG_EQUIPMENT_STATUS_UNUSED" xml:space="preserve">
+    <value>THUHOI</value>
+  </data>
+  <data name="MSG_EQUIPMENT_STATUS_USING" xml:space="preserve">
+    <value>USING</value>
+  </data>
+  <data name="MSG_EQUIPMENT_TEROMET" xml:space="preserve">
+    <value>Teromet (10-3 - 103) ꭥ</value>
+  </data>
+  <data name="MSG_EQUIPMENT_TYPE_NOT_FOUND" xml:space="preserve">
+    <value>Không tìm thấy loại VTTB này</value>
+  </data>
+  <data name="MSG_EQUIPMENT_TYPE_OPERATE_DISAGREE_EQUIQMENT" xml:space="preserve">
+    <value>VTTB vận hành không theo thỏa thuận</value>
+  </data>
+  <data name="MSG_EQUIPMENT_TYPE_OPERATE_EQUIQMENT" xml:space="preserve">
+    <value>VTTB vận hành</value>
+  </data>
+  <data name="MSG_EQUIPMENT_UPDATE_SCHEDULE_SUCCESFUL" xml:space="preserve">
+    <value>Cập nhật thời gian thành công</value>
+  </data>
+  <data name="MSG_EQUIPMENT_UPDATE_SUCCESFUL" xml:space="preserve">
+    <value>Cập nhật VTTB thành công</value>
+  </data>
+  <data name="MSG_EQUIPMENT_VALIDATE" xml:space="preserve">
+    <value>Không tồn tại hoặc không đúng kiểu kiểm tra VTTB</value>
+  </data>
+  <data name="MSG_EQUIQMENT_TYPE_CUSTOMER" xml:space="preserve">
+    <value>Khách hàng</value>
+  </data>
+  <data name="MSG_EQUIQMENT_TYPE_OPERATE_MEASUREMENT_EQUIQMENT" xml:space="preserve">
+    <value>Thiết bị đo đếm nhóm 2</value>
+  </data>
+  <data name="MSG_EQUIQMENT_TYPE_SAFETY_EQUIQMENT" xml:space="preserve">
+    <value>Dụng cụ an toàn</value>
+  </data>
+  <data name="MSG_EVN_NOTIFY_TITLE" xml:space="preserve">
+    <value>EVN Thông báo</value>
+  </data>
+  <data name="MSG_EXITS_EQUIPMENTNUMBER" xml:space="preserve">
+    <value>Số thiết bị này đã tồn tại</value>
+  </data>
+  <data name="MSG_EXPERT" xml:space="preserve">
+    <value>Chuyên viên</value>
+  </data>
+  <data name="MSG_EXPIRED" xml:space="preserve">
+    <value>Quá hạn</value>
+  </data>
+  <data name="MSG_EXPORT_REQUEST_CUSTOMER_VALIDATE" xml:space="preserve">
+    <value>Không phải là yêu cầu VTTB của khách hàng</value>
+  </data>
+  <data name="MSG_EXTERNAL_SYSTEM_CMIS" xml:space="preserve">
+    <value>CMIS</value>
+  </data>
+  <data name="MSG_EXTERNAL_SYSTEM_PMIS" xml:space="preserve">
+    <value>PMIS</value>
+  </data>
+  <data name="MSG_FILE_IMPORT_MISSING_COLUMN" xml:space="preserve">
+    <value>File tải lên không có các cột: {0}</value>
+  </data>
+  <data name="MSG_FILE_NOT_FOUND" xml:space="preserve">
+    <value>Tệp tin không tồn tại</value>
+  </data>
+  <data name="MSG_FINISH" xml:space="preserve">
+    <value>Hoàn thành</value>
+  </data>
+  <data name="MSG_FORM_ALREADY_EXIST" xml:space="preserve">
+    <value>Đã có loại mẫu biên bản này cho loại thiết bị này</value>
+  </data>
+  <data name="MSG_FORM_ALREADY_HAS_FIELDS_ERROR" xml:space="preserve">
+    <value>Không thể import! Mẫu biên bản này đã có dữ liệu các trường.</value>
+  </data>
+  <data name="MSG_FORM_CANNOT_DELETE" xml:space="preserve">
+    <value>Mẫu đã được sử dụng, không được phép xóa</value>
+  </data>
+  <data name="MSG_FORM_DOES_NOT_EXIST" xml:space="preserve">
+    <value>Mẫu biên bản không tồn tại</value>
+  </data>
+  <data name="MSG_FORM_IS_IMPORTING" xml:space="preserve">
+    <value>Mẫu biên bản đang được nhập các trường từ file</value>
+  </data>
+  <data name="MSG_FORM_NAME_ALREADY_EXIST" xml:space="preserve">
+    <value>Tên mẫu đã tồn tại</value>
+  </data>
+  <data name="MSG_FORM_NOT_EXIST" xml:space="preserve">
+    <value>Không tìm thấy form.</value>
+  </data>
+  <data name="MSG_FORM_REPORT_CAN_NOT_UPDATE" xml:space="preserve">
+    <value>Không được phép cập nhật biên bản</value>
+  </data>
+  <data name="MSG_FORM_REPORT_NOT_ALLOW_ROLE" xml:space="preserve">
+    <value>Bạn không có quyền thực hiện chức năng này</value>
+  </data>
+  <data name="MSG_FORM_REPORT_NOT_FOUND" xml:space="preserve">
+    <value>Không tìm thấy biên bản</value>
+  </data>
+  <data name="MSG_FORM_REPORT_NOT_FOUND_EQUIPMENT" xml:space="preserve">
+    <value>Biên bản không gắn với 01 vật tư thiết bị</value>
+  </data>
+  <data name="MSG_FRIDAY" xml:space="preserve">
+    <value>Thứ 6</value>
+  </data>
+  <data name="MSG_GET_LOCATION_LIST_SUCCESS" xml:space="preserve">
+    <value>Lấy danh sách địa điểm thành công</value>
+  </data>
+  <data name="MSG_IMAGE_MAX_COUNT_VALIDATE" xml:space="preserve">
+    <value>Bạn không thể tải lên quá {0} ảnh</value>
+  </data>
+  <data name="MSG_IMAGE_NOT_FOUND" xml:space="preserve">
+    <value>Tệp tin không tồn tại</value>
+  </data>
+  <data name="MSG_IMMEDIARYINSPECT_ALREADY_EXIST" xml:space="preserve">
+    <value>Phiếu kiểm tra TBA trung gian đã tồn tại trong ngày</value>
+  </data>
+  <data name="MSG_IMMEDIARYINSPECT_CAN_NOT_EDIT_VALIDATE" xml:space="preserve">
+    <value>Phiếu TBA trung gian hiện tại không thể sửa</value>
+  </data>
+  <data name="MSG_IMMEDIARYINSPECT_GROUP_VALIDATE" xml:space="preserve">
+    <value>Cần điền thông tin nhóm thực hiện TBA trung gian</value>
+  </data>
+  <data name="MSG_IMMEDIARYINSPECT_NOT_FOUND" xml:space="preserve">
+    <value>TBA trung gian không tồn tại hoặc đã bị xóa</value>
+  </data>
+  <data name="MSG_IMMEDIARYINSPECT_SUCCESS" xml:space="preserve">
+    <value>Tạo phiếu kiểm tra TBA trung gian thành công</value>
+  </data>
+  <data name="MSG_IMMEDIARYINSPECT_UPDATE_SUCCESS" xml:space="preserve">
+    <value>Cập nhật phiếu kiểm tra TBA trung gian thành công</value>
+  </data>
+  <data name="MSG_IMMEDIARY_INSPECT_ALREADY_EXIST" xml:space="preserve">
+    <value>Phiếu kiểm tra TBA trung gian cho công việc này đã tồn tại trong kỳ</value>
+  </data>
+  <data name="MSG_IMMEDIARY_INSPECT_CANT_COMPLETE" xml:space="preserve">
+    <value>Phiếu này không thể hoàn thành hoặc đã được hoàn thành rồi.</value>
+  </data>
+  <data name="MSG_IMMEDIARY_INSPECT_COMPLETE_SUCCESS" xml:space="preserve">
+    <value>Hoàn thành phiếu kiểm tra TBA trung gian</value>
+  </data>
+  <data name="MSG_IMMEDIARY_INSPECT_DELETE_SUCCESS" xml:space="preserve">
+    <value>Xóa TBA trung gian thành công</value>
+  </data>
+  <data name="MSG_IMMEDIARY_INSPECT_DELETE_VALIDATE" xml:space="preserve">
+    <value>Không thể xóa phiếu kiểm tra TBA trung gian</value>
+  </data>
+  <data name="MSG_IMMEDIARY_INSPECT_NOT_FOUND" xml:space="preserve">
+    <value>TBA trung gian không tồn tại</value>
+  </data>
+  <data name="MSG_IMMEDIARY_INSPECT_UPDATE_SUCCESS" xml:space="preserve">
+    <value>Cập nhật TBA trung gian thành công</value>
+  </data>
+  <data name="MSG_IMPORT_FROM_FILE_SUCCESS" xml:space="preserve">
+    <value>Nhập các trường từ file {0} thành công</value>
+  </data>
+  <data name="MSG_INCIDENT" xml:space="preserve">
+    <value>Sự cố</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_APTOMAT" xml:space="preserve">
+    <value>Aptomat</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_CAPACITOR" xml:space="preserve">
+    <value>Tụ bù</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_DISTRIBUTION_BREAKER" xml:space="preserve">
+    <value>Cầu dao</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_DISTRIBUTION_CAPACITOR" xml:space="preserve">
+    <value>Tụ bù</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_DISTRIBUTION_CONSTRUCTION_STRUCTURE" xml:space="preserve">
+    <value>Kết cấu xây dựng</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_DISTRIBUTION_CUTTING_MACHINE" xml:space="preserve">
+    <value>Máy cắt</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_DISTRIBUTION_FALL_OFF_FUSE" xml:space="preserve">
+    <value>Cầu chì tự rơi</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_DISTRIBUTION_GROUNDING_SYSTEM" xml:space="preserve">
+    <value>Hệ thống nối đất</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_DISTRIBUTION_INSULATION" xml:space="preserve">
+    <value>Cách điện</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_DISTRIBUTION_LIGHTNING_CONDUCTOR" xml:space="preserve">
+    <value>Chống sét</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_DISTRIBUTION_LOW_PRESSURE_CABINET" xml:space="preserve">
+    <value>Tủ hạ áp</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_DISTRIBUTION_POWER_CABLE" xml:space="preserve">
+    <value>Cáp lực, thanh dẫn</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_DISTRIBUTION_RMU" xml:space="preserve">
+    <value>Tủ RMU</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_DISTRIBUTION_SUBSTATION_ROOM" xml:space="preserve">
+    <value>Buồng máy biến áp</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_DISTRIBUTION_TI" xml:space="preserve">
+    <value>TI</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_DISTRIBUTION_TRANSFORMER" xml:space="preserve">
+    <value>Máy biến áp</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_DISTRIBUTION_TU" xml:space="preserve">
+    <value>TU</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_IMMEDIARY_ALTERNATING_CURRENT_SYSTEM" xml:space="preserve">
+    <value>Hệ thống xoay chiều</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_IMMEDIARY_BATTERY" xml:space="preserve">
+    <value>Ắc quy</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_IMMEDIARY_CABLE_HEAD" xml:space="preserve">
+    <value>Đầu cáp</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_IMMEDIARY_CLAMP_ROW" xml:space="preserve">
+    <value>Hàng kẹp và các đầu nối nhị thứ trạm Trung gian</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_IMMEDIARY_CONSTRUCTION_STRUCTURE" xml:space="preserve">
+    <value>Các kết cấu xây dựng: (ghi nội dung cần xử lý nếu có) trạm Trung gian</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_IMMEDIARY_CURRENT_TRANSFORMER" xml:space="preserve">
+    <value>Biến dòng điện</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_IMMEDIARY_CUTTER_LBS" xml:space="preserve">
+    <value>Dao cắt có tải LB</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_IMMEDIARY_CUTTING_MACHINE_RMU" xml:space="preserve">
+    <value>Máy cắt</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_IMMEDIARY_DISCONNECTORS_SWITCHES" xml:space="preserve">
+    <value>Dao cách ly</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_IMMEDIARY_ELECTRIC_CABINET" xml:space="preserve">
+    <value>Tủ điện</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_IMMEDIARY_FALL_OFF_FUSE" xml:space="preserve">
+    <value>Cầu chì tự rơi (FCO, LBFCO)</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_IMMEDIARY_FILLING_CABINET" xml:space="preserve">
+    <value>Tủ nạp</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_IMMEDIARY_GROUNDING_SYSTEM" xml:space="preserve">
+    <value>Hệ thống nối đất</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_IMMEDIARY_HIGH_PRESSURE_CABLE" xml:space="preserve">
+    <value>Cáp lực cao áp</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_IMMEDIARY_INSULATION" xml:space="preserve">
+    <value>Cách điện</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_IMMEDIARY_JOINT" xml:space="preserve">
+    <value>Mối nối</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_IMMEDIARY_LIGHTNING_CONDUCTOR" xml:space="preserve">
+    <value>Chống sét</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_IMMEDIARY_MEASURING_SYSTEM" xml:space="preserve">
+    <value>Hệ thống đo</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_IMMEDIARY_ONE_WAY_SYSTEM" xml:space="preserve">
+    <value>Hệ thống 1 chiều</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_IMMEDIARY_PRESSURE_CABLE" xml:space="preserve">
+    <value>Cáp lực hạ áp</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_IMMEDIARY_RECLOSER" xml:space="preserve">
+    <value>Recloser</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_IMMEDIARY_RESISTANCE_TEMPERATURE_DETECTOR" xml:space="preserve">
+    <value>Hệ thống RTĐ, tự dùng, chiếu sáng trạm Trung gian</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_IMMEDIARY_STATION_CLEANING" xml:space="preserve">
+    <value>Tình hình vệ sinh trạm Trung gian</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_IMMEDIARY_SUBSTATION_ROOM" xml:space="preserve">
+    <value>Buồng máy biến áp</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_IMMEDIARY_TRANSFORMER" xml:space="preserve">
+    <value>Máy biến áp</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_IMMEDIARY_VARIABLE_VOLTAGE" xml:space="preserve">
+    <value>Biến điện áp</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_LINE_BEAM" xml:space="preserve">
+    <value>Xà</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_LINE_BREAKER" xml:space="preserve">
+    <value>Cầu dao</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_LINE_CAPACITOR" xml:space="preserve">
+    <value>Tụ bù</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_LINE_CUTTING_MACHINE" xml:space="preserve">
+    <value>Máy cắt</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_LINE_DISCONNECTORS_SWITCH" xml:space="preserve">
+    <value>Dao cách ly</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_LINE_EARTHING" xml:space="preserve">
+    <value>Tiếp địa</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_LINE_FUDAMENT" xml:space="preserve">
+    <value>Móng</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_LINE_FUSE_CUT_OUT" xml:space="preserve">
+    <value>Cầu chì tự rơi</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_LINE_INSULATION" xml:space="preserve">
+    <value>Cách điện</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_LINE_LIGHTNING_ARRESTER" xml:space="preserve">
+    <value>Chống sét</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_LINE_MEASURE_THE_BOUNDARY" xml:space="preserve">
+    <value>Đo đếm ranh giới</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_LINE_POLE" xml:space="preserve">
+    <value>Cột</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_LINE_RECLOSER" xml:space="preserve">
+    <value>Recloser</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_LINE_RMU" xml:space="preserve">
+    <value>Tủ RMU</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_LINE_ROD_GAP" xml:space="preserve">
+    <value>Dây chống sét, Mỏ phóng</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_LINE_TI" xml:space="preserve">
+    <value>TI</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_LINE_TU" xml:space="preserve">
+    <value>TU</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_LINE_WIRE" xml:space="preserve">
+    <value>Dây dẫn</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_UNDEFINED" xml:space="preserve">
+    <value>Buồng máy biến áp</value>
+  </data>
+  <data name="MSG_INSPECTION_CATEGORY_VOLTAGE_CABINET" xml:space="preserve">
+    <value>Tủ Hạ thế</value>
+  </data>
+  <data name="MSG_INSPECTION_TYPE_NOT_FOUND" xml:space="preserve">
+    <value>Loại công việc không hợp lệ.</value>
+  </data>
+  <data name="MSG_INSPECT_CATEGORY_ERROR_TYPE" xml:space="preserve">
+    <value>Loại kiểm tra không hợp lệ</value>
+  </data>
+  <data name="MSG_INSPECT_CATEGORY_TYPE_DISTRIBUTION" xml:space="preserve">
+    <value>Kiểm tra TBA phân phối</value>
+  </data>
+  <data name="MSG_INSPECT_CATEGORY_TYPE_DISTRIBUTION_NOTIFY" xml:space="preserve">
+    <value>NEW_WORK_DISTRIBUTION</value>
+  </data>
+  <data name="MSG_INSPECT_CATEGORY_TYPE_INTERMEDIARY" xml:space="preserve">
+    <value>Kiểm tra TBA trung gian</value>
+  </data>
+  <data name="MSG_INSPECT_CATEGORY_TYPE_INTERMEDIARY_NOTIFY" xml:space="preserve">
+    <value>NEW_WORK_INTERMEDIARY</value>
+  </data>
+  <data name="MSG_INSPECT_CATEGORY_TYPE_LINE" xml:space="preserve">
+    <value>Kiểm tra đường dây trung áp</value>
+  </data>
+  <data name="MSG_INSPECT_CATEGORY_TYPE_LINE_NOTIFY" xml:space="preserve">
+    <value>NEW_WORK_LINE</value>
+  </data>
+  <data name="MSG_INTERNAL_AFFAIR_DOES_NOT_EXISTS" xml:space="preserve">
+    <value>Công việc không tồn tại</value>
+  </data>
+  <data name="MSG_INVALID_DATA" xml:space="preserve">
+    <value>Dữ liệu không hợp lệ</value>
+  </data>
+  <data name="MSG_IS_EXIST" xml:space="preserve">
+    <value>Có tồn tại</value>
+  </data>
+  <data name="MSG_KDTN_BANKS_NOT_FOUND" xml:space="preserve">
+    <value>Không tìm thấy danh sách ngân hàng</value>
+  </data>
+  <data name="MSG_KDTN_CAN_NOT_GENERATE_CODE" xml:space="preserve">
+    <value>Không thể tạo mã phiếu</value>
+  </data>
+  <data name="MSG_KDTN_EQUIPMENT_DETAIL_NOT_FOUND" xml:space="preserve">
+    <value>Không xác định dụng cụ theo kí hiệu</value>
+  </data>
+  <data name="MSG_KDTN_MADE_IN" xml:space="preserve">
+    <value>NƯớc sản xuất</value>
+  </data>
+  <data name="MSG_KDTN_MANUFACTURER" xml:space="preserve">
+    <value>Hãng sản xuất</value>
+  </data>
+  <data name="MSG_KDTN_RATED_CURRENT" xml:space="preserve">
+    <value>Dòng điện định mức</value>
+  </data>
+  <data name="MSG_KDTN_RATED_SHORT_CIRCUIT_BREAKING_CURRENTS" xml:space="preserve">
+    <value>Dòng cắt định mức</value>
+  </data>
+  <data name="MSG_KDTN_RATED_VOLTAGE" xml:space="preserve">
+    <value>Điện áp định mức</value>
+  </data>
+  <data name="MSG_KDTN_REQUEST_CODE_EXISTS" xml:space="preserve">
+    <value>Mã phiếu đã tồn tại vui lòng tải lại trang để có mã phiếu mới</value>
+  </data>
+  <data name="MSG_KDTN_SECTION" xml:space="preserve">
+    <value>Tiết diện</value>
+  </data>
+  <data name="MSG_KDTN_SYMBOL_NOT_FOUND" xml:space="preserve">
+    <value>Không xác định được kí hiệu</value>
+  </data>
+  <data name="MSG_KDTN_VECTOR_GROUP" xml:space="preserve">
+    <value>Tổ đấu dây</value>
+  </data>
+  <data name="MSG_LATEST_ID_NOT_FOUND" xml:space="preserve">
+    <value>Không tìm thấy mã bảng {0}</value>
+  </data>
+  <data name="MSG_LINEINSPECT_UPDATE_SUCCESS" xml:space="preserve">
+    <value>Cập nhật phiếu kiểm tra đường dây trung áp thành công</value>
+  </data>
+  <data name="MSG_LINE_BRANCH_ALREADY_EXISTS_IN_LINE_INSPECT" xml:space="preserve">
+    <value>Nhánh đường dây đã được kiểm tra</value>
+  </data>
+  <data name="MSG_LINE_BRANCH_INSPECT_NOT_FOUND" xml:space="preserve">
+    <value>Phiếu kiểm tra nhánh đường dây không tồn tại</value>
+  </data>
+  <data name="MSG_LINE_BROKEN" xml:space="preserve">
+    <value>Đứt</value>
+  </data>
+  <data name="MSG_LINE_ENSURE_OPERATION" xml:space="preserve">
+    <value>Đảm bảo vận hành</value>
+  </data>
+  <data name="MSG_LINE_FLOATING_MIXES" xml:space="preserve">
+    <value>Hỗn hợp nổi</value>
+  </data>
+  <data name="MSG_LINE_HANDLING_IMMEDIATELY_INSPECTION" xml:space="preserve">
+    <value>Xử lý ngay tại thời điểm kiểm tra</value>
+  </data>
+  <data name="MSG_LINE_HEAT_GENERATION" xml:space="preserve">
+    <value>Phát nhiệt</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ALREADY_EXIST" xml:space="preserve">
+    <value>Phiếu kiểm tra đường dây trung áp cho công việc này đã tồn tại trong kỳ</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_CANT_COMPLETE" xml:space="preserve">
+    <value>Không thể hoàn thành phiếu</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_CAN_NOT_EDIT_VALIDATE" xml:space="preserve">
+    <value>Không được phép cập nhật thông tin phiếu</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_COMPLETED" xml:space="preserve">
+    <value>Hoàn thành Phiếu kiểm tra Dây trung áp</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_COMPLETE_SUCCESS" xml:space="preserve">
+    <value>Hoàn thành Phiếu dây trung áp</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_BLURRED" xml:space="preserve">
+    <value>Mờ</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_BREAK" xml:space="preserve">
+    <value>Gãy</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_BREAKDOW" xml:space="preserve">
+    <value>Đứt</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_BROKEN" xml:space="preserve">
+    <value>Hỏng</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_BROKEN_CONCRETE" xml:space="preserve">
+    <value>Lở bê tông</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_BUBSIDENCE" xml:space="preserve">
+    <value>Lún</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_BURNT" xml:space="preserve">
+    <value>Cháy nám</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_CORRECT" xml:space="preserve">
+    <value>Đúng quy cách</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_CORROSIVE" xml:space="preserve">
+    <value>Bị ăn  mòn</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_COSLOOSE" xml:space="preserve">
+    <value>Đầu cốt lỏng</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_CRACKED" xml:space="preserve">
+    <value>Nứt</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_CRACKY" xml:space="preserve">
+    <value>Rạn</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_CRACK_IN_GROUND" xml:space="preserve">
+    <value>Có vết nứt đất</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_CURVED" xml:space="preserve">
+    <value>Cong vênh</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_DEFICIENT" xml:space="preserve">
+    <value>Thiếu</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_DEFORMATION" xml:space="preserve">
+    <value>Biến dạng</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_DENT" xml:space="preserve">
+    <value>Sứt mẻ</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_DEVIATION" xml:space="preserve">
+    <value>Lệch</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_DIRTY" xml:space="preserve">
+    <value>Bẩn</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_DISCHARGE" xml:space="preserve">
+    <value>Phóng điện bề mặt</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_DISREPAIR" xml:space="preserve">
+    <value>Hư hỏng</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_DRAINAGE" xml:space="preserve">
+    <value>Có rãnh thoát nước</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_EARTHINGRUSTED" xml:space="preserve">
+    <value>Tiếp địa gỉ</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_EMERGE" xml:space="preserve">
+    <value> Nhô lên khỏi mặt đất</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_ENOUGH" xml:space="preserve">
+    <value>Đủ</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_ENSURE_OPERATION" xml:space="preserve">
+    <value>Đảm bảo vận hành</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_EXPOSURENOTGOOD" xml:space="preserve">
+    <value>Tiếp xúc không tốt</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_FALL" xml:space="preserve">
+    <value>Phụ kiện rơi</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_FIRE" xml:space="preserve">
+    <value>Đầu cực cháy</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_FUNDAMENT_BROKEN" xml:space="preserve">
+    <value>Vỡ</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_GROUNDWIRENOTGOOD" xml:space="preserve">
+    <value>Dây nối tiếp đất không tốt</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_GUARANTEED" xml:space="preserve">
+    <value>Đảm bảo</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_HEATGENERATION" xml:space="preserve">
+    <value>Phát nhiệt</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_INACTIVE" xml:space="preserve">
+    <value>Không hoạt động</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_INCLINED" xml:space="preserve">
+    <value>Nghiêng</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_INCORRECT" xml:space="preserve">
+    <value>Sai quy cách</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_INJURY" xml:space="preserve">
+    <value>Tổn thương</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_LARGE" xml:space="preserve">
+    <value>Lớn</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_LOOSE" xml:space="preserve">
+    <value>Lỏng</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_LOOSEN" xml:space="preserve">
+    <value>Tuột</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_LOST" xml:space="preserve">
+    <value>Mất</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_MEANDERS" xml:space="preserve">
+    <value>Uốn khúc</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_MUDSLIDE" xml:space="preserve">
+    <value>Lở</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_NO" xml:space="preserve">
+    <value>Không</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_NORMAL" xml:space="preserve">
+    <value>Bình thường</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_NOTGUARANTEED" xml:space="preserve">
+    <value>Không đảm bảo</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_NOTGUARANTEEDOPERATION" xml:space="preserve">
+    <value>Không đảm bảo</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_NOT_NUMBERED" xml:space="preserve">
+    <value>Chưa đánh số</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_OPERATION_NOT_GUARANTEED" xml:space="preserve">
+    <value>Không đảm bảo vận hành</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_PILEBROKEN" xml:space="preserve">
+    <value>Hỏng</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_POLE_BROKEN" xml:space="preserve">
+    <value>Gẫy đổ</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_ROTTED" xml:space="preserve">
+    <value>Mọt</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_RUST" xml:space="preserve">
+    <value>Gỉ</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_RUSTEDSPRING" xml:space="preserve">
+    <value>Lò xo tiếp điểm gỉ</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_SCORCHED" xml:space="preserve">
+    <value>Cháy xém</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_SCRATCHED" xml:space="preserve">
+    <value>Tướp</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_SLIPOFF" xml:space="preserve">
+    <value>Tuột khỏi vị trí</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_STANDARDS" xml:space="preserve">
+    <value>Đạt tiêu chuẩn</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_STUCK" xml:space="preserve">
+    <value>Kẹt</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_SWOLLEN" xml:space="preserve">
+    <value>Phồng rộp</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_THREADBREAKAGE" xml:space="preserve">
+    <value>Đứt sợi</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_THREEPHASETOGETHER" xml:space="preserve">
+    <value>Đấu chung 3 pha</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_TOOCLOSE" xml:space="preserve">
+    <value>Quá gần</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_TOOFAR" xml:space="preserve">
+    <value>Quá xa</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_TURNONEXHAUST" xml:space="preserve">
+    <value>Bật cửa xả</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_TURNOUT" xml:space="preserve">
+    <value>Lưỡi gà bật ra</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_WEIRDO" xml:space="preserve">
+    <value>Bất thường</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_WELDNOTGUARANTEED" xml:space="preserve">
+    <value>Mối hàn không đảm bảo</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_ENUM_YES" xml:space="preserve">
+    <value>Có</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_GROUP_VALIDATE" xml:space="preserve">
+    <value>Cần thêm nhóm người thực hiện kiểm tra Dây trung áp</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_INCOMPLETED" xml:space="preserve">
+    <value>Phiếu chưa được hoàn thành</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_NOT_ALLOWED_TO_DELETE" xml:space="preserve">
+    <value>Không được phép xóa Phiếu kiểm tra dây trung áp</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_NOT_FOUND" xml:space="preserve">
+    <value>Phiếu kiểm tra không tồn tại</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_UPDATE_SUCCESS" xml:space="preserve">
+    <value>Cập nhật dây trung áp thành công</value>
+  </data>
+  <data name="MSG_LINE_INSPECT_UPDATE_VALIDATE" xml:space="preserve">
+    <value>Không thể cập nhật Phiếu kiểm tra dây trung áp</value>
+  </data>
+  <data name="MSG_LINE_IS_DELETED" xml:space="preserve">
+    <value>Đường dây đã bị xóa</value>
+  </data>
+  <data name="MSG_LINE_NOT_FOUND" xml:space="preserve">
+    <value>Đường dây không tồn tại</value>
+  </data>
+  <data name="MSG_LINE_OPERATION_NOT_GUARANTEED" xml:space="preserve">
+    <value>Không đảm bảo vận hành</value>
+  </data>
+  <data name="MSG_LINE_OVERHEAD_LINE" xml:space="preserve">
+    <value>Đường dây không</value>
+  </data>
+  <data name="MSG_LINE_PLANNING" xml:space="preserve">
+    <value>Lập kế hoạch</value>
+  </data>
+  <data name="MSG_LINE_PROCESSING_COMPLETE" xml:space="preserve">
+    <value>Xử lý hoàn toàn</value>
+  </data>
+  <data name="MSG_LINE_PROCESSING_NOT_COMPLETE" xml:space="preserve">
+    <value>Xử lý chưa hoàn toàn</value>
+  </data>
+  <data name="MSG_LINE_UNDERGROUND_CABLE" xml:space="preserve">
+    <value>Cáp ngầm</value>
+  </data>
+  <data name="MSG_LINE_UNDERGROUND_MIXES" xml:space="preserve">
+    <value>Hỗn hợp ngầm</value>
+  </data>
+  <data name="MSG_LOCATION_SUBSTATIONID_NOT_FOUND" xml:space="preserve">
+    <value>Chưa gửi thông tin TBA/Nút</value>
+  </data>
+  <data name="MSG_MANAGER" xml:space="preserve">
+    <value>Trưởng/Phó phòng kỹ thuật</value>
+  </data>
+  <data name="MSG_MODERATION_ROOM" xml:space="preserve">
+    <value>Phòng điều độ</value>
+  </data>
+  <data name="MSG_MONDAY" xml:space="preserve">
+    <value>Thứ 2</value>
+  </data>
+  <data name="MSG_MONTH" xml:space="preserve">
+    <value>Tháng</value>
+  </data>
+  <data name="MSG_NIGHT_TIME" xml:space="preserve">
+    <value>Định kỳ đêm</value>
+  </data>
+  <data name="MSG_NODE_NOT_FOUND" xml:space="preserve">
+    <value>Nút không tồn tại</value>
+  </data>
+  <data name="MSG_NOTIFICATION_NEW_WORK" xml:space="preserve">
+    <value>Bạn có công việc mới {0}</value>
+  </data>
+  <data name="MSG_NOT_ALLOW_REMOVE_PERMISSIONS" xml:space="preserve">
+    <value>Vai trò mặc định của hệ thống, không được phép xóa</value>
+  </data>
+  <data name="MSG_NOT_ALLOW_ROLE_APPROVED" xml:space="preserve">
+    <value>User này không có quyền phê duyệt phiếu yêu cầu VTTB</value>
+  </data>
+  <data name="MSG_NOT_COMPLETE" xml:space="preserve">
+    <value>Chưa hoàn thành</value>
+  </data>
+  <data name="MSG_NOT_FOUND_CATEGORY" xml:space="preserve">
+    <value>Không tìm thấy danh sách thiết bị.</value>
+  </data>
+  <data name="MSG_NOT_SIGNED" xml:space="preserve">
+    <value>Chưa ký duyệt</value>
+  </data>
+  <data name="MSG_ON_HANDLE" xml:space="preserve">
+    <value>Đang xử lý</value>
+  </data>
+  <data name="MSG_ON_REQUEST" xml:space="preserve">
+    <value>Đang yêu cầu</value>
+  </data>
+  <data name="MSG_OPTIONS_ABNORMALITIESDISCHARGEALONGINSULATION" xml:space="preserve">
+    <value>Bất thường do phóng điện bề mặt dọc cách điện</value>
+  </data>
+  <data name="MSG_OPTIONS_ABNORMALITIESDISCHARGE_PLUS" xml:space="preserve">
+    <value>Bất thường do phóng điện</value>
+  </data>
+  <data name="MSG_OPTIONS_BAD" xml:space="preserve">
+    <value>PQ.73</value>
+  </data>
+  <data name="MSG_OPTIONS_BAD_PLUS" xml:space="preserve">
+    <value>Xấu</value>
+  </data>
+  <data name="MSG_OPTIONS_BLISTERING_PLUS" xml:space="preserve">
+    <value>Phồng rộp</value>
+  </data>
+  <data name="MSG_OPTIONS_BROKENSEGMENT_PLUS" xml:space="preserve">
+    <value>Gãy</value>
+  </data>
+  <data name="MSG_OPTIONS_BROKENWIRE_PLUS" xml:space="preserve">
+    <value>Đứt</value>
+  </data>
+  <data name="MSG_OPTIONS_BROKEN_PLUS" xml:space="preserve">
+    <value>Vỡ</value>
+  </data>
+  <data name="MSG_OPTIONS_CLEAN" xml:space="preserve">
+    <value>Sạch</value>
+  </data>
+  <data name="MSG_OPTIONS_CLEANER" xml:space="preserve">
+    <value>PQ.82</value>
+  </data>
+  <data name="MSG_OPTIONS_CLOSED_PLUS" xml:space="preserve">
+    <value>Đóng</value>
+  </data>
+  <data name="MSG_OPTIONS_COLORCHANGE_PLUS" xml:space="preserve">
+    <value>Đổi màu</value>
+  </data>
+  <data name="MSG_OPTIONS_CONSTRUCTION" xml:space="preserve">
+    <value>Công trình xây dựng</value>
+  </data>
+  <data name="MSG_OPTIONS_CONSTRUCTIONUNIT" xml:space="preserve">
+    <value>Đơn vị xây dựng</value>
+  </data>
+  <data name="MSG_OPTIONS_CONSTRUCTIVEEQUIPMENT" xml:space="preserve">
+    <value>Thiết bị xây dựng</value>
+  </data>
+  <data name="MSG_OPTIONS_CRACKEDBROKEN" xml:space="preserve">
+    <value>Nứt vỡ</value>
+  </data>
+  <data name="MSG_OPTIONS_CRACKED_PLUS" xml:space="preserve">
+    <value>Nứt</value>
+  </data>
+  <data name="MSG_OPTIONS_CUT_PLUS" xml:space="preserve">
+    <value>Cắt</value>
+  </data>
+  <data name="MSG_OPTIONS_DAMAGED" xml:space="preserve">
+    <value>PQ.79</value>
+  </data>
+  <data name="MSG_OPTIONS_DAMAGED_PLUS" xml:space="preserve">
+    <value>Hư hỏng</value>
+  </data>
+  <data name="MSG_OPTIONS_DEFORMATION" xml:space="preserve">
+    <value>Biến dạng</value>
+  </data>
+  <data name="MSG_OPTIONS_DIFFERRENCE_PLUS" xml:space="preserve">
+    <value>Lệch</value>
+  </data>
+  <data name="MSG_OPTIONS_DIFFICULTTOMANIPULATE_PLUS" xml:space="preserve">
+    <value>Khó thao tác</value>
+  </data>
+  <data name="MSG_OPTIONS_DIRTY" xml:space="preserve">
+    <value>PQ.81</value>
+  </data>
+  <data name="MSG_OPTIONS_DIRTY_PLUS" xml:space="preserve">
+    <value>Bẩn</value>
+  </data>
+  <data name="MSG_OPTIONS_DISCHARGE_PLUS" xml:space="preserve">
+    <value>Phóng điện</value>
+  </data>
+  <data name="MSG_OPTIONS_DISCOLORED_PLUS" xml:space="preserve">
+    <value>Nóng đỏ, đổi màu</value>
+  </data>
+  <data name="MSG_OPTIONS_DISTANCEENOUGH" xml:space="preserve">
+    <value>Đủ khoảng cách</value>
+  </data>
+  <data name="MSG_OPTIONS_DISTANCENOTENOUGH" xml:space="preserve">
+    <value>Không đủ khoảng cách</value>
+  </data>
+  <data name="MSG_OPTIONS_ELECTRICALLEAKAGESOUND_PLUS" xml:space="preserve">
+    <value>Có tiếng kêu do phóng điện bề mặt</value>
+  </data>
+  <data name="MSG_OPTIONS_ELECTRICSPARKDISCHARGE" xml:space="preserve">
+    <value>Phóng tia lửa điện</value>
+  </data>
+  <data name="MSG_OPTIONS_ENOUGH" xml:space="preserve">
+    <value>PQ.72</value>
+  </data>
+  <data name="MSG_OPTIONS_ENOUGH_PLUS" xml:space="preserve">
+    <value>Đủ</value>
+  </data>
+  <data name="MSG_OPTIONS_FAILURE_PLUS" xml:space="preserve">
+    <value>Hỏng</value>
+  </data>
+  <data name="MSG_OPTIONS_FALLINGTHELATCH_PLUS" xml:space="preserve">
+    <value>Rơi chốt</value>
+  </data>
+  <data name="MSG_OPTIONS_FIBERFORM_PLUS" xml:space="preserve">
+    <value>Tưa</value>
+  </data>
+  <data name="MSG_OPTIONS_FIRENAM" xml:space="preserve">
+    <value>Cháy nám</value>
+  </data>
+  <data name="MSG_OPTIONS_FIRESEM" xml:space="preserve">
+    <value>Cháy sém</value>
+  </data>
+  <data name="MSG_OPTIONS_FIRE_PLUS" xml:space="preserve">
+    <value>Cháy</value>
+  </data>
+  <data name="MSG_OPTIONS_FIT_PLUS" xml:space="preserve">
+    <value>Phù hợp</value>
+  </data>
+  <data name="MSG_OPTIONS_GOOD" xml:space="preserve">
+    <value>PQ.70</value>
+  </data>
+  <data name="MSG_OPTIONS_GOOD_PLUS" xml:space="preserve">
+    <value>Tốt</value>
+  </data>
+  <data name="MSG_OPTIONS_HEATGENERATION_PLUS" xml:space="preserve">
+    <value>Phát nhiệt</value>
+  </data>
+  <data name="MSG_OPTIONS_HOLLOW" xml:space="preserve">
+    <value>Hở</value>
+  </data>
+  <data name="MSG_OPTIONS_HOTRED_PLUS" xml:space="preserve">
+    <value>Nóng đỏ</value>
+  </data>
+  <data name="MSG_OPTIONS_INAPPROPRIATE_PLUS" xml:space="preserve">
+    <value>Không phù hợp</value>
+  </data>
+  <data name="MSG_OPTIONS_INCLINED_PLUS" xml:space="preserve">
+    <value>Nghiêng</value>
+  </data>
+  <data name="MSG_OPTIONS_ISCHANGED_PLUS" xml:space="preserve">
+    <value>Thay đổi</value>
+  </data>
+  <data name="MSG_OPTIONS_IS_CHANGED" xml:space="preserve">
+    <value>PQ.77</value>
+  </data>
+  <data name="MSG_OPTIONS_LACK" xml:space="preserve">
+    <value>PQ.71</value>
+  </data>
+  <data name="MSG_OPTIONS_LACK_PLUS" xml:space="preserve">
+    <value>Thiếu</value>
+  </data>
+  <data name="MSG_OPTIONS_LOOSE_PLUS" xml:space="preserve">
+    <value>Lỏng</value>
+  </data>
+  <data name="MSG_OPTIONS_MELASMA_PLUS" xml:space="preserve">
+    <value>Nám</value>
+  </data>
+  <data name="MSG_OPTIONS_NONE" xml:space="preserve">
+    <value>Không có</value>
+  </data>
+  <data name="MSG_OPTIONS_NORMAL" xml:space="preserve">
+    <value>PQ.67</value>
+  </data>
+  <data name="MSG_OPTIONS_NORMAL_PLUS" xml:space="preserve">
+    <value>Bình thường</value>
+  </data>
+  <data name="MSG_OPTIONS_NOTNORMAL" xml:space="preserve">
+    <value>Không bình thường</value>
+  </data>
+  <data name="MSG_OPTIONS_NOTORIGINAL" xml:space="preserve">
+    <value>Nguyên vẹn</value>
+  </data>
+  <data name="MSG_OPTIONS_NOT_NORMAL" xml:space="preserve">
+    <value>PQ.78</value>
+  </data>
+  <data name="MSG_OPTIONS_NO_OIL" xml:space="preserve">
+    <value>Không có dầu</value>
+  </data>
+  <data name="MSG_OPTIONS_NO_PLUS" xml:space="preserve">
+    <value>Không</value>
+  </data>
+  <data name="MSG_OPTIONS_OIL_SPILL" xml:space="preserve">
+    <value>PQ.69</value>
+  </data>
+  <data name="MSG_OPTIONS_OIL_SPILL_PLUS" xml:space="preserve">
+    <value>Chảy dầu</value>
+  </data>
+  <data name="MSG_OPTIONS_OPEN_PLUS" xml:space="preserve">
+    <value>Mở</value>
+  </data>
+  <data name="MSG_OPTIONS_ORIGINAL" xml:space="preserve">
+    <value>PQ.76</value>
+  </data>
+  <data name="MSG_OPTIONS_ORIGINAL_PLUS" xml:space="preserve">
+    <value>Nguyên vẹn</value>
+  </data>
+  <data name="MSG_OPTIONS_OUTOFGAS_PLUS" xml:space="preserve">
+    <value>Hết khí</value>
+  </data>
+  <data name="MSG_OPTIONS_PEELOFFTHEYEAST_PLUS" xml:space="preserve">
+    <value>Tróc men</value>
+  </data>
+  <data name="MSG_OPTIONS_PEOPLE" xml:space="preserve">
+    <value>Người dân</value>
+  </data>
+  <data name="MSG_OPTIONS_PRIVATE" xml:space="preserve">
+    <value>Kín</value>
+  </data>
+  <data name="MSG_OPTIONS_PUNCTURED_PLUS" xml:space="preserve">
+    <value>Thủng</value>
+  </data>
+  <data name="MSG_OPTIONS_PUNK" xml:space="preserve">
+    <value>Mục</value>
+  </data>
+  <data name="MSG_OPTIONS_RIFT_PLUS" xml:space="preserve">
+    <value>Rạn nứt</value>
+  </data>
+  <data name="MSG_OPTIONS_RUST" xml:space="preserve">
+    <value>PQ.80</value>
+  </data>
+  <data name="MSG_OPTIONS_RUSTOIL" xml:space="preserve">
+    <value>Gỉ dầu</value>
+  </data>
+  <data name="MSG_OPTIONS_RUSTY_PLUS" xml:space="preserve">
+    <value>Gỉ</value>
+  </data>
+  <data name="MSG_OPTIONS_RUST_PLUS" xml:space="preserve">
+    <value>Rỉ sét</value>
+  </data>
+  <data name="MSG_OPTIONS_SLACK" xml:space="preserve">
+    <value>Chùng</value>
+  </data>
+  <data name="MSG_OPTIONS_SPITITOUTOFTHEGROUND_PLUS" xml:space="preserve">
+    <value>Nhô lên khỏi mặt đất</value>
+  </data>
+  <data name="MSG_OPTIONS_SUBSIDENCE" xml:space="preserve">
+    <value>Lún</value>
+  </data>
+  <data name="MSG_OPTIONS_UNDEFINED" xml:space="preserve">
+    <value>Không xác định</value>
+  </data>
+  <data name="MSG_OPTIONS_WARPINGOP" xml:space="preserve">
+    <value>Cong</value>
+  </data>
+  <data name="MSG_OPTIONS_WARPING_PLUS" xml:space="preserve">
+    <value>Cong vênh</value>
+  </data>
+  <data name="MSG_OPTIONS_WEIRDO" xml:space="preserve">
+    <value>PQ.68</value>
+  </data>
+  <data name="MSG_OPTIONS_WEIRDO_PLUS" xml:space="preserve">
+    <value>Bất thường</value>
+  </data>
+  <data name="MSG_OPTIONS_WINDING_PLUS" xml:space="preserve">
+    <value>Uốn khúc</value>
+  </data>
+  <data name="MSG_OPTIONS_WRONGPOSITION" xml:space="preserve">
+    <value>Sai vị trí</value>
+  </data>
+  <data name="MSG_OPTIONS_YES_PLUS" xml:space="preserve">
+    <value>Có</value>
+  </data>
+  <data name="MSG_OPTION_QLLD" xml:space="preserve">
+    <value>Quản lý lưới điện</value>
+  </data>
+  <data name="MSG_OPTION_TNKD" xml:space="preserve">
+    <value>Thí nghiệm kiểm định</value>
+  </data>
+  <data name="MSG_PACKAGE" xml:space="preserve">
+    <value>Gói thầu</value>
+  </data>
+  <data name="MSG_PASS_CONFIRMPASS_DO_NOT_MATCH" xml:space="preserve">
+    <value>Mật khẩu và xác nhận mật khẩu không khớp nhau</value>
+  </data>
+  <data name="MSG_PERIODIC_TYPE_FIRST_TIME" xml:space="preserve">
+    <value>Lần đầu</value>
+  </data>
+  <data name="MSG_PERIODIC_TYPE_PERIODICAL" xml:space="preserve">
+    <value>Định kỳ</value>
+  </data>
+  <data name="MSG_PERIODIC_TYPE_WEIRDO" xml:space="preserve">
+    <value>Bất thường</value>
+  </data>
+  <data name="MSG_PMISGROUPID_LINE" xml:space="preserve">
+    <value>DUONGDAY</value>
+  </data>
+  <data name="MSG_PMISGROUPID_SUBSTATION" xml:space="preserve">
+    <value>TRAM</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_APT" xml:space="preserve">
+    <value>APT</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_AQUY" xml:space="preserve">
+    <value>AQUY</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_CAPN" xml:space="preserve">
+    <value>CAPN</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_CD" xml:space="preserve">
+    <value>CD</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_CDPT" xml:space="preserve">
+    <value>CDPT</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_CLUC" xml:space="preserve">
+    <value>CLUC</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_COMPACT" xml:space="preserve">
+    <value>COMPACT</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_CS" xml:space="preserve">
+    <value>CS</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_CS_KIM" xml:space="preserve">
+    <value>CS_KIM</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_CS_TM" xml:space="preserve">
+    <value>CS_TM</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_CS_VAN" xml:space="preserve">
+    <value>CS_VAN</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_DCL" xml:space="preserve">
+    <value>DCL</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_DCS" xml:space="preserve">
+    <value>DCS</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_DDAN" xml:space="preserve">
+    <value>DDAN</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_DLU" xml:space="preserve">
+    <value>DLU</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_DTD" xml:space="preserve">
+    <value>DTD</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_FCO" xml:space="preserve">
+    <value>FCO</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_KCUC" xml:space="preserve">
+    <value>KCUC</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_KD" xml:space="preserve">
+    <value>KD</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_MBA" xml:space="preserve">
+    <value>MBA</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_MBA_CUON" xml:space="preserve">
+    <value>MBA_CUON</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_MBA_QUAT" xml:space="preserve">
+    <value>MBA_QUAT</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_MBA_TD" xml:space="preserve">
+    <value>MBA_TD</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_MC" xml:space="preserve">
+    <value>MC</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_MCOT" xml:space="preserve">
+    <value>MCOT</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_MNEO" xml:space="preserve">
+    <value>MNEO</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_NEO" xml:space="preserve">
+    <value>NEO</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_NTU" xml:space="preserve">
+    <value>NTU</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_OLTC" xml:space="preserve">
+    <value>OLTC</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_OLTC_NAC" xml:space="preserve">
+    <value>OLTC_NAC</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_REC" xml:space="preserve">
+    <value>REC</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_ROLE" xml:space="preserve">
+    <value>ROLE</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_SOG" xml:space="preserve">
+    <value>SOG</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_SU" xml:space="preserve">
+    <value>SU</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_TB" xml:space="preserve">
+    <value>TB</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_TBDD" xml:space="preserve">
+    <value>TBDD</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_TBDL" xml:space="preserve">
+    <value>TBDL</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_TCAI" xml:space="preserve">
+    <value>TCAI</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_TCRUNG" xml:space="preserve">
+    <value>TCRUNG</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_TI" xml:space="preserve">
+    <value>TI</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_TNAQ" xml:space="preserve">
+    <value>TNAQ</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_TU" xml:space="preserve">
+    <value>TU</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_TUCN" xml:space="preserve">
+    <value>TUCN</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_TUHT" xml:space="preserve">
+    <value>TUHT</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_TURMU" xml:space="preserve">
+    <value>TURMU</value>
+  </data>
+  <data name="MSG_PMIS_EQUIPMENT_CATEGORY_XA" xml:space="preserve">
+    <value>XA</value>
+  </data>
+  <data name="MSG_PMIS_SYNC_WORK_CATEGORY_ID_MAX" xml:space="preserve">
+    <value>API cập nhật Mã thông tin và ID max.</value>
+  </data>
+  <data name="MSG_PMIS_SYNC_WORK_CATEGORY_M_PREVENTIVE" xml:space="preserve">
+    <value>API cập nhật trạng thái kiểm tra kế hoạch.</value>
+  </data>
+  <data name="MSG_PMIS_SYNC_WORK_CATEGORY_S_ATTRIBUTE_GROUP_ASSOBJ" xml:space="preserve">
+    <value>S_ATTRIBUTE_GROUP_ASSOBJ</value>
+  </data>
+  <data name="MSG_PMIS_SYNC_WORK_CATEGORY_W_WORDER" xml:space="preserve">
+    <value>W_WORDER</value>
+  </data>
+  <data name="MSG_PMIS_SYNC_WORK_CATEGORY_W_WORDER_ASSETS" xml:space="preserve">
+    <value>W_WORDER_ASSETS</value>
+  </data>
+  <data name="MSG_PMIS_SYNC_WORK_CATEGORY_W_WORDER_ORG" xml:space="preserve">
+    <value>W_WORDER_ORG</value>
+  </data>
+  <data name="MSG_PMIS_SYNC_WORK_CATEGORY_ZAG_OP_DANHSACH_KT" xml:space="preserve">
+    <value>ZAG_OP_DANHSACH_KT</value>
+  </data>
+  <data name="MSG_PMIS_SYNC_WORK_CATEGORY_ZAG_OP_VITRI_KT" xml:space="preserve">
+    <value>ZAG_OP_VITRI_KT</value>
+  </data>
+  <data name="MSG_PMIS_WORK_STATUS_ACTIVE" xml:space="preserve">
+    <value>ACTIVE</value>
+  </data>
+  <data name="MSG_PMIS_WORK_STATUS_DELETED" xml:space="preserve">
+    <value>XOA</value>
+  </data>
+  <data name="MSG_PMIS_WORK_STATUS_DRAFT" xml:space="preserve">
+    <value>DRAFT</value>
+  </data>
+  <data name="MSG_PMIS_WORK_STATUS_INACTIVE" xml:space="preserve">
+    <value>INACTIVE</value>
+  </data>
+  <data name="MSG_PMIS_WORK_TYPE_DEM" xml:space="preserve">
+    <value>Kiểm tra đường dây đêm</value>
+  </data>
+  <data name="MSG_PMIS_WORK_TYPE_DZ_NGAY" xml:space="preserve">
+    <value>Kiểm tra đường dây ngày</value>
+  </data>
+  <data name="MSG_PMIS_WORK_TYPE_OP_TT_DZ_DEM" xml:space="preserve">
+    <value>OP_TT_DZ_DEM</value>
+  </data>
+  <data name="MSG_PMIS_WORK_TYPE_OP_TT_DZ_NGAY" xml:space="preserve">
+    <value>OP_TT_DZ_NGAY</value>
+  </data>
+  <data name="MSG_PMIS_WORK_TYPE_OP_TT_TBA_DEM" xml:space="preserve">
+    <value>OP_TT_TBA_DEM</value>
+  </data>
+  <data name="MSG_PMIS_WORK_TYPE_OP_TT_TBA_NGAY" xml:space="preserve">
+    <value>OP_TT_TBA_NGAY</value>
+  </data>
+  <data name="MSG_PMIS_WORK_TYPE_OP_TT_TG_DEM" xml:space="preserve">
+    <value>OP_TT_DEM_TG</value>
+  </data>
+  <data name="MSG_PMIS_WORK_TYPE_OP_TT_TG_NGAY" xml:space="preserve">
+    <value>OP_TT_TRAM_TG</value>
+  </data>
+  <data name="MSG_PMIS_WORK_TYPE_TBA_DEM" xml:space="preserve">
+    <value>Kiểm tra TBA phân phối đêm</value>
+  </data>
+  <data name="MSG_PMIS_WORK_TYPE_TBA_NGAY" xml:space="preserve">
+    <value>Kiểm tra TBA phân phối ngày</value>
+  </data>
+  <data name="MSG_PMIS_WORK_TYPE_TG_DEM" xml:space="preserve">
+    <value>Kiểm tra TBA trung gian đêm</value>
+  </data>
+  <data name="MSG_PMIS_WORK_TYPE_TG_NGAY" xml:space="preserve">
+    <value>Kiểm tra TBA trung gian ngày</value>
+  </data>
+  <data name="MSG_PMIS_WORK_TYPE_UNDEFINED" xml:space="preserve">
+    <value>UNDEFINED</value>
+  </data>
+  <data name="MSG_POSTPONED" xml:space="preserve">
+    <value>Hoãn</value>
+  </data>
+  <data name="MSG_POSTPONED_VALIDATE" xml:space="preserve">
+    <value>Trạng thái hoãn bắt buộc phải nhập ghi chú</value>
+  </data>
+  <data name="MSG_PREFECT" xml:space="preserve">
+    <value>Trưởng ban kỹ thuật</value>
+  </data>
+  <data name="MSG_PRESIDENT" xml:space="preserve">
+    <value>Giám đốc/Phó giám đốc</value>
+  </data>
+  <data name="MSG_PREVENTIVE" xml:space="preserve">
+    <value>Dự phòng</value>
+  </data>
+  <data name="MSG_PTDD_2" xml:space="preserve">
+    <value>Thiết bị đo đếm nhóm 2</value>
+  </data>
+  <data name="MSG_RECEIVE_REQUEST_NOT_ALLOW" xml:space="preserve">
+    <value>Trạng thái hiện tại không cho phép tiếp nhận</value>
+  </data>
+  <data name="MSG_RECEIVE_REQUEST_SUCCESS" xml:space="preserve">
+    <value>Tiếp nhận yêu cầu VTTB thành công</value>
+  </data>
+  <data name="MSG_RECIVED_REQUEST_SUCCESS" xml:space="preserve">
+    <value>Tiếp nhận phiếu yêu cầu thành công</value>
+  </data>
+  <data name="MSG_REGULARLY_REPAIR" xml:space="preserve">
+    <value>Sửa chữa thường xuyên</value>
+  </data>
+  <data name="MSG_REJECT_CONSTRUCTION_SUCCESS" xml:space="preserve">
+    <value>Đã từ chối công trình</value>
+  </data>
+  <data name="MSG_REJECT_REQUEST_SUCCESS" xml:space="preserve">
+    <value>Từ chối phiếu yêu cầu thành công.</value>
+  </data>
+  <data name="MSG_REPORT_TYPE_ACCREDITATION_CERTIFICATE" xml:space="preserve">
+    <value>Giấy chứng nhận kiểm định</value>
+  </data>
+  <data name="MSG_REPORT_TYPE_AUDIT" xml:space="preserve">
+    <value>Biên bản kiểm tra</value>
+  </data>
+  <data name="MSG_REPORT_TYPE_AUDIT_CERTIFICATE" xml:space="preserve">
+    <value>Giấy chứng nhận kiểm tra</value>
+  </data>
+  <data name="MSG_REPORT_TYPE_COMBINATION" xml:space="preserve">
+    <value>Phối hợp</value>
+  </data>
+  <data name="MSG_REPORT_TYPE_EXPERIMENT_ACCREDITATION" xml:space="preserve">
+    <value>Thí nghiệm kiểm định</value>
+  </data>
+  <data name="MSG_REPORT_TYPE_SUPERVISION" xml:space="preserve">
+    <value>Giám sát</value>
+  </data>
+  <data name="MSG_REPORT_TYPE_TEST_CERTIFICATE" xml:space="preserve">
+    <value>Giấy chứng nhận thí nghiệm</value>
+  </data>
+  <data name="MSG_REQUEST_ACTION_APPROVE" xml:space="preserve">
+    <value>Phê duyệt</value>
+  </data>
+  <data name="MSG_REQUEST_ACTION_COMPLETE" xml:space="preserve">
+    <value>Hoàn thành</value>
+  </data>
+  <data name="MSG_REQUEST_ACTION_CREATE" xml:space="preserve">
+    <value>Tạo phiếu</value>
+  </data>
+  <data name="MSG_REQUEST_ACTION_REJECT" xml:space="preserve">
+    <value>Từ chối</value>
+  </data>
+  <data name="MSG_REQUEST_ACTION_SENT" xml:space="preserve">
+    <value>Gửi phiếu</value>
+  </data>
+  <data name="MSG_REQUEST_CUSTOMER_NOT_FOUND" xml:space="preserve">
+    <value>Không tồn tại yêu cầu khách hàng</value>
+  </data>
+  <data name="MSG_REQUEST_EQUIPMENT_SYMBOL_EXISTS" xml:space="preserve">
+    <value>Mỗi kí hiệu chỉ có thể ứng với 1 phiếu yêu cầu</value>
+  </data>
+  <data name="MSG_REQUEST_FORM_TYPE_BY_CONSTRUCTION" xml:space="preserve">
+    <value>Phiếu yêu cầu theo công trình</value>
+  </data>
+  <data name="MSG_REQUEST_FORM_TYPE_BY_CONTRACT" xml:space="preserve">
+    <value>Phiếu yêu cầu theo hợp đồng</value>
+  </data>
+  <data name="MSG_REQUEST_FORM_TYPE_NOT_BY_CONSTRUCTION" xml:space="preserve">
+    <value>Phiếu yêu cầu không theo công trình</value>
+  </data>
+  <data name="MSG_REQUEST_FORM_TYPE_NOT_BY_CONTRACT" xml:space="preserve">
+    <value>Phiếu yêu cầu không theo hợp đồng</value>
+  </data>
+  <data name="MSG_REQUEST_FORM_TYPE_SAFETY_EQUIPMENT" xml:space="preserve">
+    <value>Phiếu yêu cầu dụng cụ an toàn</value>
+  </data>
+  <data name="MSG_REQUEST_FORM_TYPE_TEST_EQUIPMENT_GROUP_2" xml:space="preserve">
+    <value>Phiếu yêu cầu phương tiện đo nhóm 2</value>
+  </data>
+  <data name="MSG_REQUEST_METER" xml:space="preserve">
+    <value>Kiểm tra theo yêu cầu - Công tơ</value>
+  </data>
+  <data name="MSG_REQUEST_NOT_BY_AGREEMENT" xml:space="preserve">
+    <value>Không phải phiếu yêu cầu theo Thỏa thuận</value>
+  </data>
+  <data name="MSG_REQUEST_NOT_CREATE" xml:space="preserve">
+    <value>Không được phép tạo phiếu cho đơn vị khác</value>
+  </data>
+  <data name="MSG_REQUEST_NOT_FOUND" xml:space="preserve">
+    <value>Phiếu yêu cầu không tồn tại</value>
+  </data>
+  <data name="MSG_REQUEST_STATUS_APPROVING" xml:space="preserve">
+    <value>Chờ phê duyệt</value>
+  </data>
+  <data name="MSG_REQUEST_STATUS_COMPLETE" xml:space="preserve">
+    <value>Hoàn thành</value>
+  </data>
+  <data name="MSG_REQUEST_STATUS_NEW" xml:space="preserve">
+    <value>Mới</value>
+  </data>
+  <data name="MSG_REQUEST_STATUS_RECEIVED" xml:space="preserve">
+    <value>Đã tiếp nhận</value>
+  </data>
+  <data name="MSG_REQUEST_STATUS_RECEIVING" xml:space="preserve">
+    <value>Chờ tiếp nhận</value>
+  </data>
+  <data name="MSG_REQUEST_STATUS_REJECTED" xml:space="preserve">
+    <value>Bị từ chối</value>
+  </data>
+  <data name="MSG_REQUEST_TYPE_BY_AGREEMENT" xml:space="preserve">
+    <value>VTTB theo thỏa thuận</value>
+  </data>
+  <data name="MSG_REQUEST_TYPE_BY_CONTRUCTION" xml:space="preserve">
+    <value>VTTB theo công trình</value>
+  </data>
+  <data name="MSG_REQUEST_TYPE_CUSTOMER" xml:space="preserve">
+    <value>Yêu cầu khách hàng</value>
+  </data>
+  <data name="MSG_REQUEST_TYPE_CUSTOMER_REQUIREMENT" xml:space="preserve">
+    <value>VTTB của khách hàng</value>
+  </data>
+  <data name="MSG_REQUEST_TYPE_NOT_BY_AGREEMENT" xml:space="preserve">
+    <value>VTTB không theo thỏa thuận</value>
+  </data>
+  <data name="MSG_REQUEST_TYPE_NOT_BY_CONTRUCTION" xml:space="preserve">
+    <value>VTTB không theo công trình</value>
+  </data>
+  <data name="MSG_REQUEST_TYPE_PTDD_GROUP_TWO" xml:space="preserve">
+    <value>PTDD nhóm 2</value>
+  </data>
+  <data name="MSG_REQUEST_TYPE_SAFETY_TOOL" xml:space="preserve">
+    <value>Dụng cụ an toàn</value>
+  </data>
+  <data name="MSG_REQUEST_TYPE_UNLOAD" xml:space="preserve">
+    <value>Không thể lấy được danh sách loại yêu cầu</value>
+  </data>
+  <data name="MSG_REQUEST_VTTB_EXIST" xml:space="preserve">
+    <value>Thông tin VTTB này đã tồn tại</value>
+  </data>
+  <data name="MSG_REQUIRED_CREATE" xml:space="preserve">
+    <value>Thông tin không được bỏ trống</value>
+  </data>
+  <data name="MSG_RESET_PASSWORD_SUCCESS" xml:space="preserve">
+    <value>Đặt lại mật khẩu thành công. Mật khẩu đăng nhập là {0}.</value>
+  </data>
+  <data name="MSG_ROLED_USED" xml:space="preserve">
+    <value>Vai trò đã sử dụng</value>
+  </data>
+  <data name="MSG_ROLE_EXISTS" xml:space="preserve">
+    <value>Vai trò đã tồn tại</value>
+  </data>
+  <data name="MSG_ROLE_NOT_FOUND" xml:space="preserve">
+    <value>Vai trò không tồn tại</value>
+  </data>
+  <data name="MSG_SAFE_TOOL" xml:space="preserve">
+    <value>Dụng cụ an toàn</value>
+  </data>
+  <data name="MSG_SATURDAY" xml:space="preserve">
+    <value>Thứ 7</value>
+  </data>
+  <data name="MSG_SCHEDULE_ACTION_APPROVE" xml:space="preserve">
+    <value>Duyệt lịch</value>
+  </data>
+  <data name="MSG_SCHEDULE_ACTION_UPDATE" xml:space="preserve">
+    <value>Cập nhật lịch</value>
+  </data>
+  <data name="MSG_SCHEDULE_NOT_ALLOWED_TO_UPDATE" xml:space="preserve">
+    <value>Không được phép cập nhật</value>
+  </data>
+  <data name="MSG_SCHEDULE_NOT_FOUND" xml:space="preserve">
+    <value>Lịch không tồn tại</value>
+  </data>
+  <data name="MSG_SCHEDULE_ONLY_ALLOWED_TO_DELETE_SCHEDULE_ADDITIONAL" xml:space="preserve">
+    <value>Chỉ được phép xóa Lịch bổ sung</value>
+  </data>
+  <data name="MSG_SCHEDULE_TYPE_ADDITIONAL" xml:space="preserve">
+    <value>Bổ sung</value>
+  </data>
+  <data name="MSG_SCHEDULE_TYPE_PLAN" xml:space="preserve">
+    <value>Theo kế hoạch</value>
+  </data>
+  <data name="MSG_SCHEDULING_STATUS_APPROVING" xml:space="preserve">
+    <value>Chờ phê duyệt</value>
+  </data>
+  <data name="MSG_SCHEDULING_STATUS_COMPLETE" xml:space="preserve">
+    <value>Hoàn thành</value>
+  </data>
+  <data name="MSG_SCHEDULING_STATUS_NEW" xml:space="preserve">
+    <value>Mới</value>
+  </data>
+  <data name="MSG_SCHEDULING_STATUS_REJECTED" xml:space="preserve">
+    <value>Bị từ chối</value>
+  </data>
+  <data name="MSG_SCHEDULING_STATUS_SCHEDULED" xml:space="preserve">
+    <value>Đã lên lịch</value>
+  </data>
+  <data name="MSG_SEND_CONSTRUCTION_DONT_HAVE_EQUIPMENT" xml:space="preserve">
+    <value>Không thể gửi duyệt khi công trình không có VTTB</value>
+  </data>
+  <data name="MSG_SEND_CONSTRUCTION_DONT_HAVE_SUBSTATION" xml:space="preserve">
+    <value>Không thể gửi duyệt khi công trình không có TBA</value>
+  </data>
+  <data name="MSG_SEND_CONSTRUCTION_EQUIPMENT_UNCLASIFIED" xml:space="preserve">
+    <value>Không thể gửi duyệt khi VTTB chưa được phân loại</value>
+  </data>
+  <data name="MSG_SEND_CONSTRUCTION_NOT_ALLOW_APPROVE" xml:space="preserve">
+    <value>Duyệt công trình thất bại, trạng thái hiện tại không cho phép duyệt</value>
+  </data>
+  <data name="MSG_SEND_CONSTRUCTION_NOT_ALLOW_REJECT" xml:space="preserve">
+    <value>Từ chối công trình thất bại, trạng thái hiện tại không cho phép từ chối</value>
+  </data>
+  <data name="MSG_SEND_CONSTRUCTION_NOT_ALLOW_SEND" xml:space="preserve">
+    <value>Gửi duyệt công trinh thất bại, trạng thái hiện tại không cho phép gửi duyệt</value>
+  </data>
+  <data name="MSG_SEND_CONSTRUCTION_SUCCESS" xml:space="preserve">
+    <value>Gửi duyệt công trình thành công</value>
+  </data>
+  <data name="MSG_SEND_FORM_REPORT_NOT_ALLOW_SEND" xml:space="preserve">
+    <value>Gửi duyệt biên bản thất bại, trạng thái hiện tại không cho phép gửi duyệt</value>
+  </data>
+  <data name="MSG_SEND_FORM_REPORT_SUCCESS" xml:space="preserve">
+    <value>Gửi biên bản thành công</value>
+  </data>
+  <data name="MSG_SEND_MAIL_BODY" xml:space="preserve">
+    <value>Chào bạn &lt;b&gt;{0}&lt;/b&gt;, &lt;br /&gt; Mật khẩu mới của bạn là &lt;b&gt;{1}&lt;/b&gt;</value>
+  </data>
+  <data name="MSG_SEND_MAIL_REGISTER_BODY" xml:space="preserve">
+    <value>Chào bạn &lt;b&gt;{0}&lt;/b&gt;, &lt;br /&gt; 
+Bạn đã đăng ký thành công tài khoản trong &lt;b&gt;CHƯƠNG TRÌNH QUẢN LÝ CÔNG TÁC KIỂM ĐỊNH, THÍ NGHIỆM THIẾT BỊ, DỤNG CỤ ĐIỆN VÀ PHƯƠNG TIỆN ĐO NHÓM 2&lt;/b&gt;.&lt;br /&gt;
+Thông tin tài khoản:&lt;br /&gt;
+&lt;ul&gt;
+  &lt;li&gt;Tên đăng nhập: &lt;b&gt;{1}&lt;/b&gt;&lt;/li&gt;
+  &lt;li&gt;Mật khẩu: &lt;b&gt;{2}&lt;/b&gt;&lt;/li&gt;
+&lt;/ul&gt;
+Vui lòng truy cập &lt;a href='https://evn-fe.dev.3si.vn/'&gt;https://evn-fe.dev.3si.vn/&lt;/a&gt; để sử dụng hệ thống.</value>
+  </data>
+  <data name="MSG_SEND_MAIL_REGISTER_SUBJECT" xml:space="preserve">
+    <value>[EVN] Thông tin đăng ký tài khoản</value>
+  </data>
+  <data name="MSG_SEND_MAIL_SUBJECT" xml:space="preserve">
+    <value>[EVN] Thông tin đổi mật khẩu</value>
+  </data>
+  <data name="MSG_SEND_REQUEST_NOT_ALLOW_SEND" xml:space="preserve">
+    <value>Gửi phiếu yêu cầu thất bại, trạng thái hiện tại không cho phép gửi phiếu yêu cầu</value>
+  </data>
+  <data name="MSG_SEND_REQUEST_REQUIRED_EQUIPMENT" xml:space="preserve">
+    <value>Vật tư thiết bị không được để trống</value>
+  </data>
+  <data name="MSG_SEND_REQUEST_REQUIRED_PERFORM_DATE" xml:space="preserve">
+    <value>Ngày thực hiện của VTTB không được để trống</value>
+  </data>
+  <data name="MSG_SEND_REQUEST_SUCCESS" xml:space="preserve">
+    <value>Gửi phiếu yêu cầu thành công</value>
+  </data>
+  <data name="MSG_SIGNED" xml:space="preserve">
+    <value>Đã ký duyệt</value>
+  </data>
+  <data name="MSG_SINED_SUCCESS" xml:space="preserve">
+    <value>Ký phiếu thành công</value>
+  </data>
+  <data name="MSG_STATEMENT_NOT_FOUND" xml:space="preserve">
+    <value>Lấy thông tin lệnh sản xuất thất bại</value>
+  </data>
+  <data name="MSG_STATION_CONFIGURATION_HAS_BREAKER_AND_CSV_INSTALLED_BEHIND" xml:space="preserve">
+    <value>Trạm cụt; có cầu dao, SI phía cao áp;CSV lắp sau thiết bị đóng cắt</value>
+  </data>
+  <data name="MSG_STATION_CONFIGURATION_HAS_BREAKER_AND_CSV_INSTALLED_FRONT_OF" xml:space="preserve">
+    <value>Trạm cụt; có cầu dao, SI phía cao áp;CSV lắp trước thiết bị đóng cắt</value>
+  </data>
+  <data name="MSG_STATION_CONFIGURATION_HAS_RMU_CABINETS_AND_CSV_INSTALLED_BEHIND" xml:space="preserve">
+    <value>Trạm cụt; dùng mắt cắt hoặc tủ RMU đóng cắt bằng máy cắt;CSV lắp sau thiết bị đóng cắt</value>
+  </data>
+  <data name="MSG_STATION_CONFIGURATION_HAS_RMU_CABINETS_AND_CSV_INSTALLED_FRONT_OF" xml:space="preserve">
+    <value>Trạm cụt; dùng mắt cắt hoặc tủ RMU đóng cắt bằng máy cắt;CSV lắp trước thiết bị đóng cắt</value>
+  </data>
+  <data name="MSG_SUBSTATION_ALREADY_EXISTS" xml:space="preserve">
+    <value>TBA đã tồn tại</value>
+  </data>
+  <data name="MSG_SUBSTATION_CAN_NOT_BE_NULL" xml:space="preserve">
+    <value>Trạm biến áp không được để trống</value>
+  </data>
+  <data name="MSG_SUBSTATION_CAN_NOT_UPDATE" xml:space="preserve">
+    <value>Không được phép cập nhật TBA thuộc PMIS</value>
+  </data>
+  <data name="MSG_SUBSTATION_CODE_ALREADY_EXISTS" xml:space="preserve">
+    <value>Mã TBA đã tồn tại</value>
+  </data>
+  <data name="MSG_SUBSTATION_CONTACT_TYPE_ORDER" xml:space="preserve">
+    <value>Liên hệ đặt làm</value>
+  </data>
+  <data name="MSG_SUBSTATION_CONTACT_TYPE_POINT" xml:space="preserve">
+    <value>Liên hệ chỉ dẫn</value>
+  </data>
+  <data name="MSG_SUBSTATION_CONTACT_TYPE_TICKET_ISSUE" xml:space="preserve">
+    <value>Liên hệ cấp phiếu</value>
+  </data>
+  <data name="MSG_SUBSTATION_DECENTRALIZATION_SUCCESS" xml:space="preserve">
+    <value>Phân quyền trạm biến áp thành công</value>
+  </data>
+  <data name="MSG_SUBSTATION_IS_DELETED" xml:space="preserve">
+    <value>Trạm biến áp đã bị xóa</value>
+  </data>
+  <data name="MSG_SUBSTATION_NOT_FOUND" xml:space="preserve">
+    <value>Không tìm thấy trạm biếm áp</value>
+  </data>
+  <data name="MSG_SUBSTATION_SYSTEM" xml:space="preserve">
+    <value>TBA thêm mới từ hệ thống</value>
+  </data>
+  <data name="MSG_SUBSTATION_TYPE_DISTRIBUTION" xml:space="preserve">
+    <value>Trạm phân phối</value>
+  </data>
+  <data name="MSG_SUBSTATION_TYPE_INTERMEDIARY" xml:space="preserve">
+    <value>Trạm trung gian</value>
+  </data>
+  <data name="MSG_SUBSTATION_TYPE_NODE" xml:space="preserve">
+    <value>Nút</value>
+  </data>
+  <data name="MSG_SUBSTATION_TYPE_WAREHOUSE" xml:space="preserve">
+    <value>Kho</value>
+  </data>
+  <data name="MSG_SUBSTATION_USER_CAN_NOT_BE_NULL" xml:space="preserve">
+    <value>Người dùng không được để trống</value>
+  </data>
+  <data name="MSG_SUDDENLY" xml:space="preserve">
+    <value>Đột xuất</value>
+  </data>
+  <data name="MSG_SUNDAY" xml:space="preserve">
+    <value>Chủ nhật</value>
+  </data>
+  <data name="MSG_SYNC_ASSETS_FAIL" xml:space="preserve">
+    <value>Đồng bộ thông tin vật tư thất bại</value>
+  </data>
+  <data name="MSG_SYNC_AUDITOR_FAIL" xml:space="preserve">
+    <value>Đồng bộ thông tin người kiểm tra thất bại</value>
+  </data>
+  <data name="MSG_SYNC_IMMEDIARY_INSPECTOR_CONTENT" xml:space="preserve">
+    <value>ZAG_OP_TT_NGAY_TG</value>
+  </data>
+  <data name="MSG_SYNC_IMMEDIARY_INSPECTOR_CONTENT_NIGHT_TIME" xml:space="preserve">
+    <value>ZAG_OP_TT_DEM_TG</value>
+  </data>
+  <data name="MSG_SYNC_INSPECTOR_CONTENT" xml:space="preserve">
+    <value>ZAG_OP_TT_TBA_NGAY</value>
+  </data>
+  <data name="MSG_SYNC_INSPECTOR_CONTENT_NIGHT_TIME" xml:space="preserve">
+    <value>ZAG_OP_TT_TBA_DEM</value>
+  </data>
+  <data name="MSG_SYNC_INSPECTOR_FAIL" xml:space="preserve">
+    <value>Đồng bộ danh sách người kiểm tra thất bại</value>
+  </data>
+  <data name="MSG_SYNC_INSPECT_CONTENT_FAIL" xml:space="preserve">
+    <value>Đồng bộ nội dung phiếu thất bại</value>
+  </data>
+  <data name="MSG_SYNC_INSPECT_FAIL" xml:space="preserve">
+    <value>Đồng bộ thất bại</value>
+  </data>
+  <data name="MSG_SYNC_LATEST_ID_FAIL" xml:space="preserve">
+    <value>Đồng bộ mã bảng {0} thất bại</value>
+  </data>
+  <data name="MSG_SYNC_LINE_CONTENT" xml:space="preserve">
+    <value>ZAG_OP_TT_DZ_NGAY</value>
+  </data>
+  <data name="MSG_SYNC_LINE_CONTENT_NIGHT_TIME" xml:space="preserve">
+    <value>ZAG_OP_TT_DZ_DEM</value>
+  </data>
+  <data name="MSG_SYNC_M_PREVENTIVE" xml:space="preserve">
+    <value>Đồng bộ thông tin trạng thái kiểm tra kế hoạch</value>
+  </data>
+  <data name="MSG_SYNC_OPERATING_PARAMETERS_FAIL" xml:space="preserve">
+    <value>Đồng bộ thông số vẫn hành thất bại</value>
+  </data>
+  <data name="MSG_SYNC_OUTLINES_FAIL" xml:space="preserve">
+    <value>Đồng bộ thông  số vận hành xuất tuyến thất bại</value>
+  </data>
+  <data name="MSG_SYNC_POSITION_FAIL" xml:space="preserve">
+    <value>Đồng bộ vị trí thất bại</value>
+  </data>
+  <data name="MSG_SYNC_SUCCESS" xml:space="preserve">
+    <value>Đồng bộ thành công</value>
+  </data>
+  <data name="MSG_SYNC_WORK_AND_AGENCIES_FAIL" xml:space="preserve">
+    <value>Đồng bộ bảng map thông tin công việc và đơn vị thực hiện thất bại</value>
+  </data>
+  <data name="MSG_SYNC_WORK_AND_AUDITOR_FAIL" xml:space="preserve">
+    <value>Đồng bộ bảng map công việc và danh sách kiểm tra thất bại</value>
+  </data>
+  <data name="MSG_SYNC_WORK_CUTTING_MACHINE" xml:space="preserve">
+    <value>Đồng bộ máy cắt.</value>
+  </data>
+  <data name="MSG_SYNC_WORK_DISCONNECTORS_SWITCH" xml:space="preserve">
+    <value>Đồng bộ dao cách lý.</value>
+  </data>
+  <data name="MSG_SYNC_WORK_EQUIPMENT" xml:space="preserve">
+    <value>EQUIP</value>
+  </data>
+  <data name="MSG_SYNC_WORK_GENERAL_INFO_INSPECTOR" xml:space="preserve">
+    <value>API cập nhật danh sách kiểm tra dạng HTML để view lên web.</value>
+  </data>
+  <data name="MSG_SYNC_WORK_LINE" xml:space="preserve">
+    <value>DUONGDAY</value>
+  </data>
+  <data name="MSG_SYNC_WORK_OPERATING" xml:space="preserve">
+    <value>Cập nhật thông số vận hành.</value>
+  </data>
+  <data name="MSG_SYNC_WORK_OPERATING_NIGHT_TIME" xml:space="preserve">
+    <value>Cập nhật thông số vận hành đêm.</value>
+  </data>
+  <data name="MSG_SYNC_WORK_OTHER_EQUIPMENT" xml:space="preserve">
+    <value>Đồng bộ các thiết bị khác.</value>
+  </data>
+  <data name="MSG_SYNC_WORK_OUT_LINE" xml:space="preserve">
+    <value>Cập nhật thông số vận hành xuất tuyến.</value>
+  </data>
+  <data name="MSG_SYNC_WORK_POSITION" xml:space="preserve">
+    <value>VITRI</value>
+  </data>
+  <data name="MSG_SYNC_WORK_SUBSTATION" xml:space="preserve">
+    <value>Đồng bộ máy biến áp.</value>
+  </data>
+  <data name="MSG_SYNC_WORK_SUBSTATION_2" xml:space="preserve">
+    <value>TRAM</value>
+  </data>
+  <data name="MSG_SYNC_WORK_SUBSTATION_TEMPERATURE" xml:space="preserve">
+    <value>Cập nhật Nhiệt độ máy biến áp và hệ thống làm mát.</value>
+  </data>
+  <data name="MSG_SYNC_WORK_WAREHOUSE" xml:space="preserve">
+    <value>KHO</value>
+  </data>
+  <data name="MSG_SYNC_W_WORDER_FAIL" xml:space="preserve">
+    <value>Đồng bộ công việc thất bại</value>
+  </data>
+  <data name="MSG_SYSTEM" xml:space="preserve">
+    <value>Hệ thống</value>
+  </data>
+  <data name="MSG_SYSTEM_ERROR" xml:space="preserve">
+    <value>Lỗi hệ thống</value>
+  </data>
+  <data name="MSG_TEAM_LEAD" xml:space="preserve">
+    <value>TPĐĐ / PPĐĐ / ĐT / ĐP</value>
+  </data>
+  <data name="MSG_TECHNICAL_CHIEF" xml:space="preserve">
+    <value>Trưởng ban kỹ thuật</value>
+  </data>
+  <data name="MSG_TECHNIQUE" xml:space="preserve">
+    <value>Kỹ thuật</value>
+  </data>
+  <data name="MSG_TEROMETMEGOMET" xml:space="preserve">
+    <value>Kiểm tra theo yêu cầu - Teromet, Megomet</value>
+  </data>
+  <data name="MSG_TEROMETMEGOMETROOM" xml:space="preserve">
+    <value>Kiểm định Teromet, Megomet tại phòng</value>
+  </data>
+  <data name="MSG_THURSDAY" xml:space="preserve">
+    <value>Thứ 5</value>
+  </data>
+  <data name="MSG_TINH_TRANG_DOES_NOT_EXISTS" xml:space="preserve">
+    <value>Tình trạng không tồn tại</value>
+  </data>
+  <data name="MSG_TINH_TRANG_EXISTS" xml:space="preserve">
+    <value>Tình trạng đã tồn tại</value>
+  </data>
+  <data name="MSG_TLGBD_DOES_NOT_EXISTS" xml:space="preserve">
+    <value>Tỉ lệ giá bán điện không tồn tại</value>
+  </data>
+  <data name="MSG_TLGBD_EXISTS" xml:space="preserve">
+    <value>Tỉ lệ giá bán điện đã tồn tại</value>
+  </data>
+  <data name="MSG_TNKD_TEM_ACCREDITATION_EXISTS" xml:space="preserve">
+    <value>Số tem kiểm định đã tồn tại</value>
+  </data>
+  <data name="MSG_TOKEN_HAS_EXPIRED" xml:space="preserve">
+    <value>Token hết hạn</value>
+  </data>
+  <data name="MSG_TOKEN_INVALID" xml:space="preserve">
+    <value>Token không hợp lệ</value>
+  </data>
+  <data name="MSG_TOTAL_WEIGHT_FILE_DATA_IMPORT_ERROR_WRONG_SHEET_NAME" xml:space="preserve">
+    <value>Tên sheet không đúng. Cần sửa lại thành [{0}]</value>
+  </data>
+  <data name="MSG_TUESDAY" xml:space="preserve">
+    <value>Thứ 3</value>
+  </data>
+  <data name="MSG_TUTIROOM" xml:space="preserve">
+    <value>Kiểm định TU, TI tại phòng</value>
+  </data>
+  <data name="MSG_TUTISCENE" xml:space="preserve">
+    <value>Kiểm định TU, TI tại hiện trường</value>
+  </data>
+  <data name="MSG_TU_TI" xml:space="preserve">
+    <value>Kiểm tra theo yêu cầu - TU, TI</value>
+  </data>
+  <data name="MSG_TYPE_STATUS_PB" xml:space="preserve">
+    <value>Tình trạng chì</value>
+  </data>
+  <data name="MSG_TYPE_STATUS_STAMP" xml:space="preserve">
+    <value>Tình trạng tem</value>
+  </data>
+  <data name="MSG_UNAPPRAISED" xml:space="preserve">
+    <value>Chưa áp giá</value>
+  </data>
+  <data name="MSG_UNAPPROVED" xml:space="preserve">
+    <value>Chưa duyệt</value>
+  </data>
+  <data name="MSG_UNDERGROUND_CABLES" xml:space="preserve">
+    <value>Cáp ngầm</value>
+  </data>
+  <data name="MSG_UNFINISH" xml:space="preserve">
+    <value>Đang thực hiện</value>
+  </data>
+  <data name="MSG_UNIT_DOESNT_HAVE_REGION" xml:space="preserve">
+    <value>Đơn vị này không thuộc về vùng áp giá</value>
+  </data>
+  <data name="MSG_UNIT_EXIST" xml:space="preserve">
+    <value>Đơn vị đã tồn tại</value>
+  </data>
+  <data name="MSG_UNIT_NOT_FOUND" xml:space="preserve">
+    <value>Không tồn tại đơn vị này</value>
+  </data>
+  <data name="MSG_UPDATE_AGREEMENT_SUCCESS" xml:space="preserve">
+    <value>Cập nhật thỏa thuận thành công</value>
+  </data>
+  <data name="MSG_UPDATE_APPRAISE_SUCCESS" xml:space="preserve">
+    <value>Cập nhật áp giá thành công</value>
+  </data>
+  <data name="MSG_UPDATE_CONSTRUCTION_SUCCESS" xml:space="preserve">
+    <value>Cập nhật công trình thành công</value>
+  </data>
+  <data name="MSG_UPDATE_EQUIPMENT_SUCCESS" xml:space="preserve">
+    <value>Cập nhật VTTB thành công</value>
+  </data>
+  <data name="MSG_UPDATE_LINE_INSPECT_SUCCESS" xml:space="preserve">
+    <value>Cập nhật Phiếu kiểm tra đường dây trung áp thành công</value>
+  </data>
+  <data name="MSG_UPDATE_REQUEST_SUCCESS" xml:space="preserve">
+    <value>Cập nhật phiếu yêu cầu thành công</value>
+  </data>
+  <data name="MSG_UPDATE_ROLE_DEPARTMENT_SUCCESS" xml:space="preserve">
+    <value>Cập nhật quyền cho tổ đội thành công.</value>
+  </data>
+  <data name="MSG_UPDATE_ROLE_SUCCESS" xml:space="preserve">
+    <value>Cập nhật vai trò thành công</value>
+  </data>
+  <data name="MSG_UPDATE_SAFE_TOOL_SUCCESS" xml:space="preserve">
+    <value>Cập nhật dụng cụ an toàn thành công</value>
+  </data>
+  <data name="MSG_UPDATE_SCHEDULE_SUCCESS" xml:space="preserve">
+    <value>Cập nhật lịch thành công</value>
+  </data>
+  <data name="MSG_UPDATE_SUBSTATION_SUCCESS" xml:space="preserve">
+    <value>Cập nhật trạm biến áp thành công</value>
+  </data>
+  <data name="MSG_UPDATE_TIME_EXCUTION_SCHEDULE_SUCCESS" xml:space="preserve">
+    <value>Cập nhật thời gian thực hiện thành công</value>
+  </data>
+  <data name="MSG_UPDATE_UNIT_SUCCESS" xml:space="preserve">
+    <value>Cập nhật đơn vị thành công</value>
+  </data>
+  <data name="MSG_UPDATE_USER_SUCCESS" xml:space="preserve">
+    <value>Cập nhật tài khoản thành công</value>
+  </data>
+  <data name="MSG_USERGROUP_ALREADY_EXIST" xml:space="preserve">
+    <value>Phòng/Đội này đã tồn tại</value>
+  </data>
+  <data name="MSG_USER_CANNOT_DELETE" xml:space="preserve">
+    <value>Người dùng đã được phân công công việc, không được phép xóa</value>
+  </data>
+  <data name="MSG_USER_DOESNT_HAVE_UNIT" xml:space="preserve">
+    <value>Người dùng không thuộc về đơn vị nào</value>
+  </data>
+  <data name="MSG_USER_DOES_NOT_EXIST" xml:space="preserve">
+    <value>User không tồn tại</value>
+  </data>
+  <data name="MSG_USER_DOES_NOT_EXISTS" xml:space="preserve">
+    <value>Thông tin đăng nhập không chính xác</value>
+  </data>
+  <data name="MSG_USER_GROUP_ALREADY_USER" xml:space="preserve">
+    <value>Không thể xóa do còn tồn tại người dùng trên Phòng/đội này</value>
+  </data>
+  <data name="MSG_USER_GROUP_CREATE_PERMISSION" xml:space="preserve">
+    <value>Bạn không có quyền tạo Phòng/Đội của hệ thống</value>
+  </data>
+  <data name="MSG_USER_GROUP_CREATE_SUCCESS" xml:space="preserve">
+    <value>Tạo mới Phòng/Đội thành công</value>
+  </data>
+  <data name="MSG_USER_GROUP_DEFAULT" xml:space="preserve">
+    <value>Phòng/Đội mặc định</value>
+  </data>
+  <data name="MSG_USER_GROUP_DELETE_SUCCESS" xml:space="preserve">
+    <value>Xóa Phòng/Đội thành công</value>
+  </data>
+  <data name="MSG_USER_GROUP_NOT_FOUND" xml:space="preserve">
+    <value>Phòng/Đội này không tồn tại</value>
+  </data>
+  <data name="MSG_USER_GROUP_UPDATE_SUCCESS" xml:space="preserve">
+    <value>Cập nhật Phòng/Đội thành công</value>
+  </data>
+  <data name="MSG_USER_NOT_ACTIVE" xml:space="preserve">
+    <value>Tài khoản này chưa được kích hoạt hoặc đã bị khóa</value>
+  </data>
+  <data name="MSG_USER_NOT_FOUND" xml:space="preserve">
+    <value>Tài khoản không tồn tại</value>
+  </data>
+  <data name="MSG_USER_NOT_FOUND_DEPARTMENT" xml:space="preserve">
+    <value>Không tồn tại user trong đơn vị này</value>
+  </data>
+  <data name="MSG_USER_VALIDATE_DELETE" xml:space="preserve">
+    <value>Không được xóa tài khoản admin</value>
+  </data>
+  <data name="MSG_USER_VALIDATE_UPDATE" xml:space="preserve">
+    <value>Bạn không có quyền cập nhật role admin</value>
+  </data>
+  <data name="MSG_VALIDATE_ALREADY_ASSIGN_EQUIPMENT" xml:space="preserve">
+    <value>VTTB này đã được ủy quyền cho đội khác</value>
+  </data>
+  <data name="MSG_VALIDATE_ASSIGN_EQUIPMENT" xml:space="preserve">
+    <value>Không thể thay đổi công nhân khi đã được tạo phiếu</value>
+  </data>
+  <data name="MSG_VALIDATE_ASSIGN_EQUIPMENT_USER_GROUP" xml:space="preserve">
+    <value>Không thể thay đổi Phòng/Đội khi đã được tạo phiếu</value>
+  </data>
+  <data name="MSG_VALIDATE_DELETE_AGREEMENT" xml:space="preserve">
+    <value>Không thể xóa thỏa thuận khi đã tạo phiếu yêu cầu</value>
+  </data>
+  <data name="MSG_VALIDATE_DELETE_REQUEST" xml:space="preserve">
+    <value>Không thể xóa phiếu yêu cầu khi đã tạo VTTB</value>
+  </data>
+  <data name="MSG_VALIDATE_EDIT_AGREEMENT" xml:space="preserve">
+    <value>Không được chỉnh sửa phiếu thỏa thuận khi tất cả các yêu cầu đã được tiếp nhận</value>
+  </data>
+  <data name="MSG_VALIDATE_EXTENSION_IMAGE" xml:space="preserve">
+    <value>Tệp tin hình ảnh không đúng định dạng</value>
+  </data>
+  <data name="MSG_VALIDATE_MAX_GROUP_COUNT" xml:space="preserve">
+    <value>Số lượng đội tối đa thực hiện công việc không vượt quá 2 đội</value>
+  </data>
+  <data name="MSG_VALIDATE_MAX_LENGTH_FORM_FILE" xml:space="preserve">
+    <value>Dung lượng file không được lớn hơn {0} bytes</value>
+  </data>
+  <data name="MSG_VALIDATE_MAX_LENGTH_IMAGE" xml:space="preserve">
+    <value>Dung lượng file ảnh không được lớn hơn {0} bytes</value>
+  </data>
+  <data name="MSG_VALIDATE_MEMBER_IN_GROUP_THAN_2" xml:space="preserve">
+    <value>Số lượng thành viên trong nhóm phải ít nhất có 2 người</value>
+  </data>
+  <data name="MSG_VALIDATE_NEWPASSWORD" xml:space="preserve">
+    <value>Mật khẩu và nhập lại mật khẩu không khớp nhau</value>
+  </data>
+  <data name="MSG_VALIDATE_OLDPASSWORD_NEWPASSWORD" xml:space="preserve">
+    <value>Mật khẩu mới không thể trùng với mật khẩu hiện tại</value>
+  </data>
+  <data name="MSG_VALIDATE_REJECT_FORM_REPORT" xml:space="preserve">
+    <value>Bạn không có quyền từ chối hoặc biên bản không đúng trạng thái</value>
+  </data>
+  <data name="MSG_VALIDATE_REJECT_REQUEST" xml:space="preserve">
+    <value>Bạn không có quyền từ chối hoặc phiếu không đúng trạng thái</value>
+  </data>
+  <data name="MSG_VALIDATE_START_END_DATE" xml:space="preserve">
+    <value>Thời gian kết thúc phải lớn hơn thời gian bắt đầu</value>
+  </data>
+  <data name="MSG_VALIDATE_UPDATE_ROLE_ADMIN" xml:space="preserve">
+    <value>Không thể cập nhật quyền cho admin</value>
+  </data>
+  <data name="MSG_VICE_CHAIRMAN" xml:space="preserve">
+    <value>Phó Tổng Giám đốc</value>
+  </data>
+  <data name="MSG_VIEW_RENDER_CANNOT_FOUND" xml:space="preserve">
+    <value>Không thể tìm thấy view với tên: {0}</value>
+  </data>
+  <data name="MSG_VTTB_CAN_NOT_DELETE" xml:space="preserve">
+    <value>Không thể xóa VTTB đã có phiếu yêu cầu</value>
+  </data>
+  <data name="MSG_VTTB_NOT_FOUND" xml:space="preserve">
+    <value>Vật tư thiết bị không tồn tại</value>
+  </data>
+  <data name="MSG_WARD_MANAGEMENT" xml:space="preserve">
+    <value>Đội quản lý phường</value>
+  </data>
+  <data name="MSG_WEDNESDAY" xml:space="preserve">
+    <value>Thứ 4</value>
+  </data>
+  <data name="MSG_WEIRDO" xml:space="preserve">
+    <value>Bất thường</value>
+  </data>
+  <data name="MSG_WORKER" xml:space="preserve">
+    <value>Công nhân</value>
+  </data>
+  <data name="MSG_WORKER_VALIDATE_CREATE" xml:space="preserve">
+    <value>Chỉ công nhân hoặc đội trưởng có quyền tạo phiếu kiểm tra</value>
+  </data>
+  <data name="MSG_WORKING_STATUS_APPROVED" xml:space="preserve">
+    <value>Đã phê duyệt</value>
+  </data>
+  <data name="MSG_WORKING_STATUS_APPROVING" xml:space="preserve">
+    <value>Chờ phê duyệt</value>
+  </data>
+  <data name="MSG_WORKING_STATUS_CENTER_APPROVING" xml:space="preserve">
+    <value>Chờ duyệt cấp trung tâm</value>
+  </data>
+  <data name="MSG_WORKING_STATUS_COMPANY_APPROVED" xml:space="preserve">
+    <value>Chờ duyệt cấp công ty</value>
+  </data>
+  <data name="MSG_WORKING_STATUS_INPROGRESS" xml:space="preserve">
+    <value>Chưa gửi phê duyệt</value>
+  </data>
+  <data name="MSG_WORKING_STATUS_NEW" xml:space="preserve">
+    <value>Mới</value>
+  </data>
+  <data name="MSG_WORKING_STATUS_REJECTED" xml:space="preserve">
+    <value>Bị từ chối</value>
+  </data>
+  <data name="MSG_WORKING_STATUS_TEAM_APPROVING" xml:space="preserve">
+    <value>Chờ duyệt cấp tổ đội</value>
+  </data>
+  <data name="MSG_WORK_DONE_CANT_CREATE_INSPECT" xml:space="preserve">
+    <value>Công việc đã hoàn thành không được phép kiểm tra</value>
+  </data>
+  <data name="MSG_WORK_NOT_FOUND" xml:space="preserve">
+    <value>Không tìm thấy kế hoạch công việc</value>
+  </data>
+  <data name="MSG_WORK_PROGRESS_COMPLETED" xml:space="preserve">
+    <value>Hoàn thành</value>
+  </data>
+  <data name="MSG_WORK_PROGRESS_IMPLEMENTING" xml:space="preserve">
+    <value>Đang thực hiện</value>
+  </data>
+  <data name="MSG_WORK_PROGRESS_NOT_YET_IMPLEMENTED" xml:space="preserve">
+    <value>Chưa thực hiện</value>
+  </data>
+  <data name="MSG_WORK_PROGRESS_REJECTED" xml:space="preserve">
+    <value>Bị từ chối</value>
+  </data>
+  <data name="MSG_WORK_PROGRESS_WAIT_CENTER_APPROVAL" xml:space="preserve">
+    <value>Chờ phê duyệt cấp Trung tâm</value>
+  </data>
+  <data name="MSG_WORK_PROGRESS_WAIT_COMPANY_APPROVAL" xml:space="preserve">
+    <value>Chờ phê duyệt cấp Công ty</value>
+  </data>
+  <data name="MSG_WORK_PROGRESS_WAIT_TEAM_APPROVAL" xml:space="preserve">
+    <value>Chờ phê duyệt cấp Tổ đội</value>
+  </data>
+  <data name="MSG_WORK_STATUS_DONE" xml:space="preserve">
+    <value>Hoàn thành</value>
+  </data>
+  <data name="MSG_WORK_STATUS_INPROGRESS" xml:space="preserve">
+    <value>Đang thực hiện</value>
+  </data>
+  <data name="MSG_WORK_STATUS_NEW" xml:space="preserve">
+    <value>Chưa thực hiện</value>
+  </data>
+  <data name="MSG_WORK_TYPE_ACCREDITATION" xml:space="preserve">
+    <value>Kiểm định</value>
+  </data>
+  <data name="MSG_WORK_TYPE_EXPERIMENT" xml:space="preserve">
+    <value>Thí nghiệm</value>
+  </data>
+  <data name="MSG_WORK_TYPE_EXPERIMENT_AND_ACCREDITATION" xml:space="preserve">
+    <value>Thí nghiệm và kiểm định</value>
+  </data>
+  <data name="MSG_WORK_TYPE__REQUEST_ON_DEMAND" xml:space="preserve">
+    <value>Kiểm tra theo yêu cầu</value>
+  </data>
+  <data name="MSG_WRONG_OLD_PASSWORD" xml:space="preserve">
+    <value>Mật khẩu hiện tại không đúng</value>
+  </data>
+  <data name="MSG_YEAR" xml:space="preserve">
+    <value>Năm</value>
+  </data>
+</root>
