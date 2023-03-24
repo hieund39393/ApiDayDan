@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
-
+using Authentication.Infrastructure.AggregatesModel.MenuAggregate;
 
 namespace Authentication.Infrastructure.EF
 {
@@ -43,18 +43,18 @@ namespace Authentication.Infrastructure.EF
         public DbSet<SystemLog> SystemLogs { get; set; }
         public DbSet<Unit> Unit { get; set; }
         public DbSet<Department> Department { get; set; }
-        public DbSet<Team> Team { get; set; }        
+        public DbSet<Team> Team { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<Role> Role { get; set; }
         public DbSet<UserRole> UserRole { get; set; }
         public DbSet<UserToken> UserToken { get; set; }
         public DbSet<Module> Module { get; set; }
+        public DbSet<Menu> Menu { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
             builder.ApplyConfiguration(new ActionConfiguration());
-            builder.ApplyConfiguration(new ModuleConfiguration());
             builder.ApplyConfiguration(new UserConfiguration());
             builder.ApplyConfiguration(new RoleConfiguration());
             builder.ApplyConfiguration(new UserRoleConfiguration());
@@ -63,6 +63,8 @@ namespace Authentication.Infrastructure.EF
             builder.ApplyConfiguration(new UserLoginConfiguration());
             builder.ApplyConfiguration(new UserTokenConfiguration());
             builder.ApplyConfiguration(new SystemLogConfiguration());
+            builder.ApplyConfiguration(new MenuConfiguration());
+            builder.ApplyConfiguration(new ModuleConfiguration());
         }
 
         /// <summary>

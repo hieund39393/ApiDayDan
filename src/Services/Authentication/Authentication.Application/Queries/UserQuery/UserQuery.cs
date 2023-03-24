@@ -115,7 +115,6 @@ namespace Authentication.Application.Queries.UserQuery
                     RoleId = x.Id,
                     RoleName = x.Name,
                     Description = x.Description,
-                    ModuleName = x.Module.ModuleName,
                 }).ToList();
             return data;
         }

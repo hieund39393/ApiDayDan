@@ -28,15 +28,10 @@ namespace Authentication.Application.Queries.ModuleQuery
         public async Task<List<ModuleResponse>> GetListModule()
         {
 
-            var query = _unitOfWork.ModuleRepository.GetQuery().Include(x => x.ModuleChilds)
+            var query = _unitOfWork.ModuleRepository.GetQuery()
            .Select(x => new ModuleResponse()
            {
-               ModuleName = x.ModuleName,
-               ModuleCode = x.ModuleCode,
-               NumberOrder = x.NumberOrder,
                Icon = x.Icon,
-               Url = x.Url,
-               ModuleChild = x.ModuleChilds.Select(y => new ModuleResponse() { ModuleName = y.ModuleName, ModuleCode = y.ModuleCode, Url = y.Url, NumberOrder = y.NumberOrder }).ToList(),
            }).ToList();
 
 

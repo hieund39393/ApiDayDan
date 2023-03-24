@@ -9,8 +9,8 @@ namespace Authentication.Infrastructure.EntityConfigurations
         public void Configure(EntityTypeBuilder<Actions> builder)
         {
             builder.ToTable("AUTH_Action");
-            builder.Property(x => x.ModuleName).HasMaxLength(250);
-            builder.Property(x => x.ModuleCode).HasMaxLength(10);
+            builder.Property(x => x.MenuName).HasMaxLength(250);
+            builder.Property(x => x.MenuCode).HasMaxLength(10);
             builder.Property(x => x.ActionName).HasMaxLength(50);
             builder.Property(x => x.ActionCode).HasMaxLength(10);
         }

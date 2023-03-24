@@ -8,21 +8,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EVN.Core.Models.Base;
+using Authentication.Infrastructure.AggregatesModel.MenuAggregate;
 
 namespace Authentication.Infrastructure.AggregatesModel.ModuleAggregate
 {
     public class Module : BaseEntity
     {
-        public string ModuleName { get; set; }
-        public string ModuleCode { get; set; }
-        public string Url { get; set; }
-        public int NumberOrder { get; set; }
+        public string Name { get; set; }
+        public string Code { get; set; }
+        public int Order { get; set; }
         public string Icon { get; set; }
-        public Guid? ParentId { get; set; }
-        public Module ModuleParent { get; set; }
-        public ICollection<Module> ModuleChilds { get; set; }
-
-        public ICollection<Role> Role { get; set; }
+        public ICollection<Menu> Menus { get; set; }
 
     }
 }

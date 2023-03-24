@@ -1,4 +1,5 @@
-﻿using Authentication.Infrastructure.AggregatesModel.ModuleAggregate;
+﻿using Authentication.Infrastructure.AggregatesModel.MenuAggregate;
+using Authentication.Infrastructure.AggregatesModel.ModuleAggregate;
 using Authentication.Infrastructure.AggregatesModel.UserAggregate;
 using Authentication.Infrastructure.EF;
 using EVN.Core.Models.Interface;
@@ -16,6 +17,7 @@ namespace Authentication.Infrastructure.Repositories
         IRepository<UserToken> UserTokenRepository { get; }
         IRepository<RoleClaim> RoleClaimRepository { get; }
         IRepository<Module> ModuleRepository { get; }
+        IRepository<Menu> MenuRepository { get; }
         IRepository<Unit> UnitRepository { get; }
         IRepository<Team> TeamRepository { get; }
 
@@ -32,6 +34,7 @@ namespace Authentication.Infrastructure.Repositories
         private IRepository<UserToken> _userTokenRepository;
         private IRepository<RoleClaim> _roleClaimRepository;
         private IRepository<Module> _moduleRepository;
+        private IRepository<Menu> _menuRepository;
         private IRepository<Unit> _unitRepository;
         private IRepository<Team> _teamRepository;
         public UnitOfWork(ExOneDbContext context)
@@ -79,6 +82,17 @@ namespace Authentication.Infrastructure.Repositories
             }
         }
 
+        public IRepository<Menu> MenuRepository
+        {
+            get
+            {
+                if (_menuRepository == null)
+                {
+                    _menuRepository = new Repository<Menu>(_context);
+                }
+                return _menuRepository;
+            }
+        }
 
 
         public IRepository<UserRole> UserRoleRepository

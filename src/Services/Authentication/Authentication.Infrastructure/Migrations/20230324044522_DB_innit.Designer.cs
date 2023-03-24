@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Authentication.Infrastructure.Migrations
 {
     [DbContext(typeof(ExOneDbContext))]
-    [Migration("20230323171046_DB_init")]
-    partial class DB_init
+    [Migration("20230324044522_DB_innit")]
+    partial class DB_innit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -51,11 +51,11 @@ namespace Authentication.Infrastructure.Migrations
                         .HasColumnType("bit")
                         .HasComment("Cờ xóa");
 
-                    b.Property<string>("ModuleCode")
+                    b.Property<string>("MenuCode")
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<string>("ModuleName")
+                    b.Property<string>("MenuName")
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
@@ -131,12 +131,71 @@ namespace Authentication.Infrastructure.Migrations
                     b.ToTable("SystemLogs", (string)null);
                 });
 
+            modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.MenuAggregate.Menu", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Id bảng, khóa chính");
+
+                    b.Property<string>("Code")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<Guid?>("CreatedBy")
+                        .HasMaxLength(36)
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Mã người tạo");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2")
+                        .HasComment("Ngày tạo");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasComment("Cờ xóa");
+
+                    b.Property<Guid>("ModuleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("UpdatedBy")
+                        .HasMaxLength(36)
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Mã người cập nhật");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2")
+                        .HasComment("Ngày cập nhật");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ModuleId");
+
+                    b.ToTable("AUTH_Menu", (string)null);
+                });
+
             modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.ModuleAggregate.Module", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Id bảng, khóa chính");
+
+                    b.Property<string>("Code")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<Guid?>("CreatedBy")
                         .HasMaxLength(36)
@@ -156,17 +215,12 @@ namespace Authentication.Infrastructure.Migrations
                         .HasDefaultValue(false)
                         .HasComment("Cờ xóa");
 
-                    b.Property<string>("ModuleCode")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
-                    b.Property<string>("ModuleName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("NumberOrder")
+                    b.Property<int>("Order")
                         .HasColumnType("int");
-
-                    b.Property<Guid?>("ParentId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("UpdatedBy")
                         .HasMaxLength(36)
@@ -177,12 +231,7 @@ namespace Authentication.Infrastructure.Migrations
                         .HasColumnType("datetime2")
                         .HasComment("Ngày cập nhật");
 
-                    b.Property<string>("Url")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ParentId");
 
                     b.ToTable("AUTH_Module", (string)null);
                 });
@@ -733,19 +782,21 @@ namespace Authentication.Infrastructure.Migrations
                     b.ToTable("AUTH_UserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.ModuleAggregate.Module", b =>
+            modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.MenuAggregate.Menu", b =>
                 {
-                    b.HasOne("Authentication.Infrastructure.AggregatesModel.ModuleAggregate.Module", "ModuleParent")
-                        .WithMany("ModuleChilds")
-                        .HasForeignKey("ParentId");
+                    b.HasOne("Authentication.Infrastructure.AggregatesModel.ModuleAggregate.Module", "Module")
+                        .WithMany("Menus")
+                        .HasForeignKey("ModuleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("ModuleParent");
+                    b.Navigation("Module");
                 });
 
             modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.UserAggregate.Role", b =>
                 {
                     b.HasOne("Authentication.Infrastructure.AggregatesModel.ModuleAggregate.Module", "Module")
-                        .WithMany("Role")
+                        .WithMany()
                         .HasForeignKey("ModuleId");
 
                     b.Navigation("Module");
@@ -843,9 +894,7 @@ namespace Authentication.Infrastructure.Migrations
 
             modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.ModuleAggregate.Module", b =>
                 {
-                    b.Navigation("ModuleChilds");
-
-                    b.Navigation("Role");
+                    b.Navigation("Menus");
                 });
 
             modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.UserAggregate.Department", b =>

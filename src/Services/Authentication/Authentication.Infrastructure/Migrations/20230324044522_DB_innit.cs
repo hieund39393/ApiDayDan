@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Authentication.Infrastructure.Migrations
 {
-    public partial class DB_init : Migration
+    public partial class DB_innit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,8 +14,8 @@ namespace Authentication.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Id bảng, khóa chính"),
-                    ModuleCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
-                    ModuleName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    MenuCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    MenuName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     ActionCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     ActionName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, comment: "Cờ xóa"),
@@ -34,12 +34,10 @@ namespace Authentication.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Id bảng, khóa chính"),
-                    ModuleName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModuleCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Url = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NumberOrder = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    Code = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    Order = table.Column<int>(type: "int", nullable: false),
                     Icon = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ParentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false, comment: "Cờ xóa"),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Ngày tạo"),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true, comment: "Mã người tạo"),
@@ -49,11 +47,6 @@ namespace Authentication.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AUTH_Module", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AUTH_Module_AUTH_Module_ParentId",
-                        column: x => x.ParentId,
-                        principalTable: "AUTH_Module",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -130,6 +123,33 @@ namespace Authentication.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Unit", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AUTH_Menu",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Id bảng, khóa chính"),
+                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    Code = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Order = table.Column<int>(type: "int", nullable: false),
+                    ModuleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false, comment: "Cờ xóa"),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Ngày tạo"),
+                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true, comment: "Mã người tạo"),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true, comment: "Ngày cập nhật"),
+                    UpdatedBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true, comment: "Mã người cập nhật")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AUTH_Menu", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AUTH_Menu_AUTH_Module_ModuleId",
+                        column: x => x.ModuleId,
+                        principalTable: "AUTH_Module",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -356,9 +376,9 @@ namespace Authentication.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AUTH_Module_ParentId",
-                table: "AUTH_Module",
-                column: "ParentId");
+                name: "IX_AUTH_Menu_ModuleId",
+                table: "AUTH_Menu",
+                column: "ModuleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AUTH_RoleClaims_RoleId",
@@ -450,6 +470,9 @@ namespace Authentication.Infrastructure.Migrations
         {
             migrationBuilder.DropTable(
                 name: "AUTH_Action");
+
+            migrationBuilder.DropTable(
+                name: "AUTH_Menu");
 
             migrationBuilder.DropTable(
                 name: "AUTH_RoleClaims");

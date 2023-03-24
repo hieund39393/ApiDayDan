@@ -14,11 +14,11 @@ namespace Authentication.Infrastructure.AggregatesModel.ActionsAggregate
         /// <summary>
         /// Mã trang
         /// </summary>
-        public string ModuleCode { get; set; }
+        public string MenuCode { get; set; }
         /// <summary>
         /// Tên trang
         /// </summary>
-        public string ModuleName { get; set; }
+        public string MenuName { get; set; }
         /// <summary>
         /// Mã thao tác
         /// </summary>

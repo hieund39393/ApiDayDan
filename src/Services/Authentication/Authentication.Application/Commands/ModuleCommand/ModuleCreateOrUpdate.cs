@@ -52,11 +52,7 @@ namespace Authentication.Application.Commands.ModuleCommand
                 {
                     throw new EvnException(string.Format(Resources.MSG_NOT_FOUND, "Module"));
                 }
-                data.ModuleName = module.ModuleName ?? data.ModuleName;
-                data.Icon = module.Icon ?? data.Icon;
-                data.NumberOrder = module.NumberOrder;
-                data.ModuleCode = module.ModuleCode;
-                data.Url = module.Url ?? data.Url;
+               
                 data.UpdatedDate = DateTime.Now;
                 _unitOfWork.ModuleRepository.Update(data);
                 await _unitOfWork.SaveChangesAsync();
