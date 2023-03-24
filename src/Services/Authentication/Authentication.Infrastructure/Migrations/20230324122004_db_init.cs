@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Authentication.Infrastructure.Migrations
 {
-    public partial class DB_innit : Migration
+    public partial class db_init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

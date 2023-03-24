@@ -47,23 +47,19 @@ namespace Authentication.Application.Queries.UserQuery
         }
         public async Task<PagingResultSP<UserResponse>> GetListUser(UserRequest request)
         {
-            var unit = await _unitOfWork.UnitRepository.FindOneAsync(x => x.Id == request.UnitId);
-            var query = _unitOfWork.UserRepository.GetQuery(x => (x.Unit == unit || unit == null)
-            )
-                .AsNoTracking()
+            var query = _unitOfWork.UserRepository.GetQuery(
+            )   .AsNoTracking()
                 .Include(x => x.Unit)
-                .Include(x => x.Team)
                 .Include(x => x.UserRoles).ThenInclude(x => x.Role)
                 .Select(x => new UserResponse()
                 {
                     Id = x.Id,
-                    UnitId = x.Unit.Id,
                     Name = x.Name,
                     UserName = x.UserName,
                     Actived = x.Actived,
+                    Email = x.Email,
                     CreatedDate = x.CreatedDate,
                     CMIS_CODE = x.CMIS_CODE,
-                    RoleName = x.UserRoles.Select(ur => ur.Role.Name).ToList()
                 });
             if (!string.IsNullOrEmpty(request.SearchTerm))
             {

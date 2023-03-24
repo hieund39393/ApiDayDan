@@ -4,6 +4,7 @@ using Authentication.Infrastructure.AggregatesModel.UserAggregate;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Threading.Tasks;
+using static EVN.Core.Common.AppConstants;
 
 namespace Authentication.Infrastructure.EF
 {
@@ -38,8 +39,9 @@ namespace Authentication.Infrastructure.EF
             {
                 List<Module> listModule = new List<Module>();
 
-                listModule.Add(new Module { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C1"), Code = "QTHT", Name = "Quản trị hệ thống", Order = 1 });
-                listModule.Add(new Module { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C2"), Code = "HTBC", Name = "Hệ thống báo cáo", Order = 2 });
+                listModule.Add(new Module { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C1"), Code = Permissions.QTHT, Name = "Quản trị hệ thống", Order = 1 });
+                listModule.Add(new Module { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C2"), Code = Permissions.HTBC, Name = "Hệ thống báo cáo", Order = 2 });
+                listModule.Add(new Module { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C3"), Code = Permissions.QLDG, Name = "Quản lý đơn giá", Order =3 });
 
                 context.Module.AddRange(listModule);
             }
@@ -47,8 +49,15 @@ namespace Authentication.Infrastructure.EF
             {
                 List<Menu> listMenu = new List<Menu>();
 
-                listMenu.Add(new Menu { Code = "qlnn", Name = "Quản lý người dùng", Order = 1, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C1") });
-                listMenu.Add(new Menu { Code = "qlmn", Name = "Quản lý menu", Order = 2, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C1") });
+                listMenu.Add(new Menu { Code = Permissions.QLND, Name = "Quản lý người dùng", Url = "/nguoi-dung", Order = 1, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C1") });
+                listMenu.Add(new Menu { Code = Permissions.QLMN, Name = "Quản lý menu", Url = "/menu", Order = 2, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C1") });
+                listMenu.Add(new Menu { Code = Permissions.QLMN, Name = "Quản lý phân quyền", Url = "/phan-quyen", Order = 3, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C1") });
+                
+
+                // QLĐG
+                listMenu.Add(new Menu { Code = Permissions.CNDG, Name = "Cập nhật đơn giá", Url = "/cap-nhat-don-gia", Order = 2, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C3") });
+
+                context.Menu.AddRange(listMenu);
             }
 
             await context.SaveChangesAsync();

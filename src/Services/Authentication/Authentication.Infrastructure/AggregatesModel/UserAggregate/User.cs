@@ -43,13 +43,11 @@ namespace Authentication.Infrastructure.AggregatesModel.UserAggregate
         /// </summary>
         [Comment("Cờ kích hoạt")]
         public bool Actived { get; set; }
-
         /// <summary>
         /// Ngày sinh
         /// </summary>
         [Comment("Ngày sinh")]
         public DateTime? Dob { get; set; }
-
         public bool SSO { get; set; }
         public DateTime CreatedDate { get; set; }
         public Guid? CreatedBy { get; set; }

@@ -13,6 +13,7 @@ namespace Authentication.Application.Model.User
         public string Name { get; set; }
         public string UserName { get; set; }
         public string CMIS_CODE { get; set; }
+        public string Email { get; set; }
         public bool Actived { get; set; }
         public DateTime CreatedDate { get; set; }
         public bool IsAdminRole { get; set; }

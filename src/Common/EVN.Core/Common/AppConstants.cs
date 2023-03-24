@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Security;
 
 namespace EVN.Core.Common
 {
@@ -254,6 +255,16 @@ namespace EVN.Core.Common
 
         public class Permissions
         {
+            // Module Code
+            public const string QTHT = "qtht";
+            public const string HTBC = "htbc";
+            public const string QLDG = "qldg";
+
+            // Menu Code
+            public const string QLND = "qlnn";
+            public const string QLMN = "qlmn";
+            public const string CNDG = "cndg";
+
             public const string ClaimType = "Permission";
             public const string AdminPermission = "admin";
             public const string All = "all";
@@ -535,57 +546,7 @@ namespace EVN.Core.Common
 
         public class CMISEquiqmentCode
         {
-            /// <summary>
-            /// Công tơ 1 pha
-            /// </summary>
-            public static string CTO1 = "CTO";
-
-            /// <summary>
-            /// Công tơ 3 pha
-            /// </summary>
-            public static string CTO3 = "CTO";
-
-            /// <summary>
-            /// Máy biến điện áp 1 pha
-            /// </summary>
-            public static string TU1 = "TU";
-
-            /// <summary>
-            /// Máy biến điện áp 3 pha
-            /// </summary>
-            public static string TU3 = "TU";
-
-            /// <summary>
-            /// Máy biến dòng điện
-            /// </summary>
-            public static string TI = "TI";
-
-            /// <summary>
-            /// Ampemet
-            /// </summary>
-            public static string AMPEMET = "AM";
-
-            /// <summary>
-            /// Vonmet
-            /// </summary>
-            public static string VONMET = "VM";
-
-            /// <summary>
-            /// A.V có bộ chuyển đổi
-            /// </summary>
-            public static string AV = "AV";
-
-            /// <summary>
-            /// Teromet (10-3 - 103) ꭥ
-            /// </summary>
-            public static string TEROMET = "TE";
-
-            /// <summary>
-            /// Mêgômmét (104 - 109) ꭥ
-            /// </summary>
-            public static string MEGOMMET = "ME";
-
-            public static List<string> AllCMISEquiqmentCode = new List<string> { CTO1, TU1, TI, AMPEMET, VONMET, AV, TEROMET, MEGOMMET };
+          
         }
     }
 }
