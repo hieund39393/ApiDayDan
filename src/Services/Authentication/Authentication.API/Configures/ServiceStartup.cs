@@ -1,4 +1,5 @@
-using Authentication.Application.Queries.CommonQuery;
+﻿using Authentication.Application.Queries.CommonQuery;
+using Authentication.Application.Queries.DM_LoaiBieuGiaQuery;
 using Authentication.Application.Queries.MenuQuery;
 using Authentication.Application.Queries.ModuleQuery;
 using Authentication.Application.Queries.RoleQuery;
@@ -41,6 +42,9 @@ namespace Authentication.API.Configurations
             services.AddScoped<ICommonQuery, CommonQuery>();
             services.AddScoped<IModuleQuery, ModuleQuery>();
             services.AddScoped<IMenuQuery, MenuQuery>();
+
+            //Danh mục Tiến Anh
+            services.AddScoped<IDM_LoaiBieuGiaQuery, DM_LoaiBieuGiaQuery>(); // quy tắc Interface trước class sau
             return services;
         }
     }

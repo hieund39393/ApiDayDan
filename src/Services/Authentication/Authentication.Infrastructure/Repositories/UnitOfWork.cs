@@ -1,4 +1,5 @@
-﻿using Authentication.Infrastructure.AggregatesModel.MenuAggregate;
+﻿using Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGia;
+using Authentication.Infrastructure.AggregatesModel.MenuAggregate;
 using Authentication.Infrastructure.AggregatesModel.ModuleAggregate;
 using Authentication.Infrastructure.AggregatesModel.UserAggregate;
 using Authentication.Infrastructure.EF;
@@ -21,6 +22,12 @@ namespace Authentication.Infrastructure.Repositories
         IRepository<Unit> UnitRepository { get; }
         IRepository<Team> TeamRepository { get; }
 
+        // 1 :Danh mục của Tiến Anh 
+        IRepository<DM_LoaiBieuGia> DM_LoaiBieuGiaRepository { get; }
+
+
+
+
         Task SaveChangesAsync(CancellationToken cancellationToken = default);
         Task SaveChangesAsync();
         Task Dispose();
@@ -37,6 +44,11 @@ namespace Authentication.Infrastructure.Repositories
         private IRepository<Menu> _menuRepository;
         private IRepository<Unit> _unitRepository;
         private IRepository<Team> _teamRepository;
+
+        // 2 :Danh mục của Tiến Anh 
+        private IRepository<DM_LoaiBieuGia> _dM_LoaiBieuGiaRepository;
+       
+        
         public UnitOfWork(ExOneDbContext context)
         {
             _context = context;
@@ -153,6 +165,24 @@ namespace Authentication.Infrastructure.Repositories
                 return _teamRepository;
             }
         }
+
+
+
+        // 3 :Danh mục của Tiến Anh 
+        public IRepository<DM_LoaiBieuGia> DM_LoaiBieuGiaRepository
+        {
+            get
+            {
+                if (_dM_LoaiBieuGiaRepository == null)
+                {
+                    _dM_LoaiBieuGiaRepository = new Repository<DM_LoaiBieuGia>(_context);
+                }
+                return _dM_LoaiBieuGiaRepository;
+            }
+        }
+
+
+
 
 
         public async Task SaveChangesAsync()

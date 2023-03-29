@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Authentication.Infrastructure.AggregatesModel.MenuAggregate;
 using Authentication.Infrastructure.AggregatesModel.PositionAggregate;
 using Authentication.Infrastructure.AggregatesModel.PermissionAggregate;
+using Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGia;
 
 namespace Authentication.Infrastructure.EF
 {
@@ -25,6 +26,8 @@ namespace Authentication.Infrastructure.EF
         public ExOneDbContext() : base()
         { }
         //Entities
+        
+
 
         public ExOneDbContext(DbContextOptions<ExOneDbContext> options) : base(options)
         { }
@@ -55,6 +58,11 @@ namespace Authentication.Infrastructure.EF
         public DbSet<Menu> Menu { get; set; }
         public DbSet<Permission> Permission { get; set; }
 
+        // danh mục của Tiến Anh
+        public DbSet<DM_LoaiBieuGia> DM_LoaiBieuGia { get; set; }
+
+
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -70,6 +78,10 @@ namespace Authentication.Infrastructure.EF
             builder.ApplyConfiguration(new MenuConfiguration());
             builder.ApplyConfiguration(new ModuleConfiguration());
             builder.ApplyConfiguration(new PermissionConfiguration());
+         
+            
+            //cấu hình của Tiến Anh
+            builder.ApplyConfiguration(new DM_LoaiBieuGiaConfiguration());
         }
 
         /// <summary>
