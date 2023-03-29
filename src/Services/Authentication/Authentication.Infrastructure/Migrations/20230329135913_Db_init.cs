@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Authentication.Infrastructure.Migrations
 {
-    public partial class db_init : Migration
+    public partial class Db_init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,6 +47,24 @@ namespace Authentication.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AUTH_Module", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AUTH_Position",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Id bảng, khóa chính"),
+                    Value = table.Column<int>(type: "int", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, comment: "Cờ xóa"),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Ngày tạo"),
+                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true, comment: "Mã người tạo"),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true, comment: "Ngày cập nhật"),
+                    UpdatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true, comment: "Mã người cập nhật")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AUTH_Position", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -134,6 +152,7 @@ namespace Authentication.Infrastructure.Migrations
                     Code = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     Url = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Order = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     ModuleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false, comment: "Cờ xóa"),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Ngày tạo"),
@@ -180,6 +199,31 @@ namespace Authentication.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AUTH_Permission",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Id bảng, khóa chính"),
+                    Code = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    MenuId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false, comment: "Cờ xóa"),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Ngày tạo"),
+                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true, comment: "Mã người tạo"),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true, comment: "Ngày cập nhật"),
+                    UpdatedBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true, comment: "Mã người cập nhật")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AUTH_Permission", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AUTH_Permission_AUTH_Menu_MenuId",
+                        column: x => x.MenuId,
+                        principalTable: "AUTH_Menu",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AUTH_RoleClaims",
                 columns: table => new
                 {
@@ -216,23 +260,21 @@ namespace Authentication.Infrastructure.Migrations
                     IsSuperAdmin = table.Column<bool>(type: "bit", nullable: false, comment: "Cờ superadmin"),
                     Actived = table.Column<bool>(type: "bit", nullable: false, comment: "Cờ kích hoạt"),
                     Dob = table.Column<DateTime>(type: "datetime2", nullable: true, comment: "Ngày sinh"),
+                    Gender = table.Column<int>(type: "int", nullable: true),
                     SSO = table.Column<bool>(type: "bit", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedBy = table.Column<Guid>(type: "uniqueidentifier", maxLength: 36, nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
-                    CMIS_CODE = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     UnitId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     DepartmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     TeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    PositionId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    Position = table.Column<int>(type: "int", nullable: false),
-                    Gender = table.Column<int>(type: "int", nullable: true),
-                    Index = table.Column<int>(type: "int", nullable: true),
-                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(56)", maxLength: 56, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -248,6 +290,11 @@ namespace Authentication.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AUTH_Users", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AUTH_Users_AUTH_Position_PositionId",
+                        column: x => x.PositionId,
+                        principalTable: "AUTH_Position",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_AUTH_Users_AUTH_Roles_RoleId",
                         column: x => x.RoleId,
@@ -381,6 +428,16 @@ namespace Authentication.Infrastructure.Migrations
                 column: "ModuleId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AUTH_Permission_Code",
+                table: "AUTH_Permission",
+                column: "Code");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AUTH_Permission_MenuId",
+                table: "AUTH_Permission",
+                column: "MenuId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AUTH_RoleClaims_RoleId",
                 table: "AUTH_RoleClaims",
                 column: "RoleId");
@@ -433,6 +490,11 @@ namespace Authentication.Infrastructure.Migrations
                 column: "Email");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AUTH_Users_PositionId",
+                table: "AUTH_Users",
+                column: "PositionId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AUTH_Users_RoleId",
                 table: "AUTH_Users",
                 column: "RoleId");
@@ -451,7 +513,8 @@ namespace Authentication.Infrastructure.Migrations
                 name: "IX_AUTH_Users_UserName",
                 table: "AUTH_Users",
                 column: "UserName",
-                unique: true);
+                unique: true,
+                filter: "[UserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
@@ -472,7 +535,7 @@ namespace Authentication.Infrastructure.Migrations
                 name: "AUTH_Action");
 
             migrationBuilder.DropTable(
-                name: "AUTH_Menu");
+                name: "AUTH_Permission");
 
             migrationBuilder.DropTable(
                 name: "AUTH_RoleClaims");
@@ -493,7 +556,13 @@ namespace Authentication.Infrastructure.Migrations
                 name: "SystemLogs");
 
             migrationBuilder.DropTable(
+                name: "AUTH_Menu");
+
+            migrationBuilder.DropTable(
                 name: "AUTH_Users");
+
+            migrationBuilder.DropTable(
+                name: "AUTH_Position");
 
             migrationBuilder.DropTable(
                 name: "AUTH_Roles");

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Authentication.Infrastructure.Migrations
 {
     [DbContext(typeof(ExOneDbContext))]
-    [Migration("20230325144737_Update_DB")]
-    partial class Update_DB
+    [Migration("20230329135913_Db_init")]
+    partial class Db_init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

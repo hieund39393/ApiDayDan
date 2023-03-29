@@ -261,36 +261,58 @@ namespace EVN.Core.Common
             /// Quản trị hệ thống
             /// </summary>
             public const string QTHT = "1.";
-            public const string HTBC = "2.";
-            public const string QLDG = "3.";
+            /// <summary>
+            /// Quản trị danh mục
+            /// </summary>
+            public const string QTDM = "2.";
+            /// <summary>
+            /// Quản lý danh mục biểu giá
+            /// </summary>
+            public const string QLDMBG = "3.";
+            /// <summary>
+            /// Quản lý thông tin đơn giá
+            /// </summary>
+            public const string QLTTDG = "4.";
+            /// <summary>
+            /// Quản lý thông tin chi tiết biểu giá
+            /// </summary>
+            public const string QLTTCTBG = "5.";
+            /// <summary>
+            /// Hệ thống báo cáo
+            /// </summary>
+            public const string HTBC = "6.";
 
-            // Menu Code
-            public const string CNDG = "cndg";
+            // Menu của quản trị hệ thống
+            public const string Menu = QTHT + "menu";
+            public const string User = QTHT + "user";
+            public const string Role = QTHT + "role";
+            // Menu của quản trj danh mục
 
-            public const string ClaimType = "Permission";
-            public const string AdminPermission = "admin";
-            public const string All = "all";
             public const string View = ".v";
             public const string Create = ".c";
             public const string Update = ".u";
             public const string Delete = ".d";
+
+
+            public const string ClaimType = "Permission";
+            public const string AdminPermission = "admin";
+            public const string All = "all";
+
             public const string Approve = ".approve";
             public const string Receive = ".receive";
             public const string Assign = ".assign";
 
-            public const string Role = "role";
             public const string Department = "department";
             public const string Profile = "profile";
-            public const string User = "user";
             public const string Unit = "unit";
-            public const string Menu = "menu";
-
 
             public const string approvepprove = ".approve";
             public const string Send = ".send";
             public const string Reject = ".reject";
             public const string Print = ".print";
             public const string ApplyPrice = ".apply_price";
+
+
 
         }
 
