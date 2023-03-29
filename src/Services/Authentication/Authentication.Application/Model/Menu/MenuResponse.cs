@@ -8,13 +8,12 @@ namespace Authentication.Application.Model.Menu
     public class MenuResponse : BaseExtendEntities
     {
         public Guid Id { get; set; }
-        public string TenMenu { get; set; }
-        public Guid MenuCha { get; set; }
-        public string TenMenuCha { get; set; }
-        public Guid ModuleId { get; set; }
-        public string TenModule { get; set; }
-        public string Url { get; set; }
-        public bool LeftMenu { get; set; }
-        public int TrangThai { get; set; } 
+        public string Name { get; set; }
+        public string Code { get; set; }
+        public string ModuleName { get; set; }
+        public string ModuleCode { get; set; }
+        public bool IsActive { get; set; }
+        public DateTime CreatedDate { get; set; }
+
     }
 }

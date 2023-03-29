@@ -110,7 +110,7 @@ namespace Authentication.API.Controllers
             {
                 Data = data.Data,
                 Paging = data.Paging
-            }); ;
+            });
         }
         /// <summary>
         /// Đăng ký quyền cho người dùng

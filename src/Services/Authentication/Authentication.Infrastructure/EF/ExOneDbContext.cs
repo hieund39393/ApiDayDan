@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
 using Authentication.Infrastructure.AggregatesModel.MenuAggregate;
+using Authentication.Infrastructure.AggregatesModel.PositionAggregate;
+using Authentication.Infrastructure.AggregatesModel.PermissionAggregate;
 
 namespace Authentication.Infrastructure.EF
 {
@@ -43,6 +45,7 @@ namespace Authentication.Infrastructure.EF
         public DbSet<SystemLog> SystemLogs { get; set; }
         public DbSet<Unit> Unit { get; set; }
         public DbSet<Department> Department { get; set; }
+        public DbSet<Position> Position { get; set; }
         public DbSet<Team> Team { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<Role> Role { get; set; }
@@ -50,6 +53,7 @@ namespace Authentication.Infrastructure.EF
         public DbSet<UserToken> UserToken { get; set; }
         public DbSet<Module> Module { get; set; }
         public DbSet<Menu> Menu { get; set; }
+        public DbSet<Permission> Permission { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -65,6 +69,7 @@ namespace Authentication.Infrastructure.EF
             builder.ApplyConfiguration(new SystemLogConfiguration());
             builder.ApplyConfiguration(new MenuConfiguration());
             builder.ApplyConfiguration(new ModuleConfiguration());
+            builder.ApplyConfiguration(new PermissionConfiguration());
         }
 
         /// <summary>

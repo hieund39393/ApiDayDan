@@ -8,7 +8,7 @@ namespace Authentication.Application.Model.Auth
 {
     public class LoginResponse
     {
-        public LoginResponse(string accessToken, int expiresIn, string refreshToken, Guid userId, string userName, string fullName, string phoneNumber, string email)
+        public LoginResponse(string accessToken, int expiresIn, string refreshToken, Guid userId, string userName, string fullName, string phoneNumber, string email, string permissions, bool isAdministrator)
         {
             AccessToken = accessToken;
             ExpiresIn = expiresIn;
@@ -18,6 +18,8 @@ namespace Authentication.Application.Model.Auth
             FullName = fullName;
             PhoneNumber = phoneNumber;
             Email = email;
+            Permissions = permissions ?? "";
+            IsAdministrator = isAdministrator;
         }
 
         /// <summary>
@@ -59,5 +61,9 @@ namespace Authentication.Application.Model.Auth
         /// Email
         /// </summary>
         public string Email { get; set; }
+
+        public string Permissions { get; set; }
+        public bool IsAdministrator { get; set; }
+
     }
 }

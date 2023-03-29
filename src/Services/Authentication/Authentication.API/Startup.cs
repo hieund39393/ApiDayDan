@@ -9,10 +9,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Authentication.API.Configurations;
 using EVN.Core.ConfigurationSettings;
-using Authentication.API.Configures;
 using Authentication.Application.Infrastructure;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.HttpOverrides;
+using Authentication.API.Configures;
 
 namespace Authentication.API
 {

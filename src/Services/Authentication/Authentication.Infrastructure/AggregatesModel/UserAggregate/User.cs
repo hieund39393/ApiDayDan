@@ -5,10 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
+using Authentication.Infrastructure.AggregatesModel.PositionAggregate;
 
 namespace Authentication.Infrastructure.AggregatesModel.UserAggregate
 {
-    public class User : IdentityUser<Guid>, IEntity, IDeletable, IName, IIndex
+    public class User : IdentityUser<Guid>, IEntity, IDeletable, IName
     {
         public User() { }
         /// <summary>
@@ -48,6 +49,7 @@ namespace Authentication.Infrastructure.AggregatesModel.UserAggregate
         /// </summary>
         [Comment("Ngày sinh")]
         public DateTime? Dob { get; set; }
+        public int? Gender { get; set; }  // Giới tính 1=Nam, 2=Nữ
         public bool SSO { get; set; }
         public DateTime CreatedDate { get; set; }
         public Guid? CreatedBy { get; set; }
@@ -55,20 +57,17 @@ namespace Authentication.Infrastructure.AggregatesModel.UserAggregate
         public Guid? UpdatedBy { get; set; }
         public bool IsDeleted { get; set; }
 
-        /// <summary>
-        /// Mã nhân viên CMIS
-        /// </summary>
-        [StringLength(50)]
-        public string CMIS_CODE { get; set; }
 
+        public Guid? UnitId { get; set; }
         public Unit Unit { get; set; }
+        public Guid? DepartmentId { get; set; }
         public Department Department { get; set; }
+        public Guid? TeamId { get; set; }
         public Team Team { get; set; }
+        public Guid? PositionId { get; set; }
+        public Position Position { get; set; }
+        public Guid? RoleId { get; set; }
         public Role Role { get; set; }
-        public int Position { get; set; }
-        public int? Gender { get; set; }  // Giới tính 1=Nam, 2=Nữ
-
-        public int? Index { get; set; }
 
         public ICollection<UserRole> UserRoles { get; set; }
         public ICollection<UserClaim> UserClaims { get; set; }

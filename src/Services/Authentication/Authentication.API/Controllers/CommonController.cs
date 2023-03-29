@@ -22,6 +22,12 @@ namespace WebApplication1.Controllers
             _commonQuery = commonQuery;
         }
 
+        [HttpGet("list-module")]
+        public async Task<IActionResult> ListModule()
+        {
+            var data = await _commonQuery.ListModule();
+            return Ok(new ApiSuccessResult<List<SelectItem>>(data: data));
+        }
         [HttpGet("list-menu")]
         public async Task<IActionResult> ListMenu()
         {

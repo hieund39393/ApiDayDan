@@ -29,7 +29,7 @@ namespace Authentication.API.Controllers
         public async Task<IActionResult> Login([FromBody] LoginCommand commamd)
         {
             var login = await _mediator.Send(commamd);
-            return Ok(new ApiSuccessResult<string>(data: login.AccessToken));
+            return Ok(new ApiSuccessResult<LoginResponse>(data: login));
         }
 
     }

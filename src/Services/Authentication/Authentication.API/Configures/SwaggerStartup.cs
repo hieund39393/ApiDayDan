@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.IO;
-using Authentication.API.Configures;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

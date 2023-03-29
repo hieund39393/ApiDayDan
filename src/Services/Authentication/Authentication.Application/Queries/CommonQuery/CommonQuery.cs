@@ -1,5 +1,7 @@
 ﻿using Authentication.Application.Model.Menu;
 using Authentication.Infrastructure.Repositories;
+using EVN.Core.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,6 +13,7 @@ namespace Authentication.Application.Queries.CommonQuery
 {
     public interface ICommonQuery
     {
+        Task<List<SelectItem>> ListModule();
         Task<List<MenuItemResponse>> ListMenu();
     }
     public class CommonQuery : ICommonQuery
@@ -40,6 +43,17 @@ namespace Authentication.Application.Queries.CommonQuery
                     }).OrderBy(x => x.Order).ToList()
                 }).OrderBy(x => x.Order).ToListAsync();
 
+            return data;
+        }
+
+        public async Task<List<SelectItem>> ListModule()
+        {
+            var data = await _unitOfWork.ModuleRepository.GetQuery().AsNoTracking()
+                .Select(x=> new SelectItem
+                {
+                    Name = x.Name,
+                    Value = x.Id.ToString(),
+                }).ToListAsync();
             return data;
         }
     }

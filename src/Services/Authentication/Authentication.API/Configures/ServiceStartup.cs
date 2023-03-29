@@ -1,4 +1,5 @@
 using Authentication.Application.Queries.CommonQuery;
+using Authentication.Application.Queries.MenuQuery;
 using Authentication.Application.Queries.ModuleQuery;
 using Authentication.Application.Queries.RoleQuery;
 using Authentication.Application.Queries.UserQuery;
@@ -37,8 +38,9 @@ namespace Authentication.API.Configurations
             services.AddScoped<IRoleQuery, RoleQuery>();
             services.AddScoped<IFileService, FileService>();
             services.AddScoped<IDomainService, DomainService>();
-            services.AddScoped<IModuleQuery, ModuleQuery>();
             services.AddScoped<ICommonQuery, CommonQuery>();
+            services.AddScoped<IModuleQuery, ModuleQuery>();
+            services.AddScoped<IMenuQuery, MenuQuery>();
             return services;
         }
     }

@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Authentication.Application.Services;
 
 namespace Authentication.Application.Queries.UserQuery
 {
@@ -32,7 +33,7 @@ namespace Authentication.Application.Queries.UserQuery
 
         Task<bool> ForgotPassword(ForgotPassword model);
     }
-    public class UserQuery : IUserQuery
+    public class UserQuery : BaseSortingService, IUserQuery
     {
         private readonly ExOneDbContext _context;
         private readonly UserManager<User> _userManager;
@@ -48,7 +49,7 @@ namespace Authentication.Application.Queries.UserQuery
         public async Task<PagingResultSP<UserResponse>> GetListUser(UserRequest request)
         {
             var query = _unitOfWork.UserRepository.GetQuery(
-            )   .AsNoTracking()
+            ).AsNoTracking()
                 .Include(x => x.Unit)
                 .Include(x => x.UserRoles).ThenInclude(x => x.Role)
                 .Select(x => new UserResponse()
@@ -59,14 +60,14 @@ namespace Authentication.Application.Queries.UserQuery
                     Actived = x.Actived,
                     Email = x.Email,
                     CreatedDate = x.CreatedDate,
-                    CMIS_CODE = x.CMIS_CODE,
                 });
+
             if (!string.IsNullOrEmpty(request.SearchTerm))
             {
                 query = query.Where(x => x.UserName.Contains(request.SearchTerm) || x.CMIS_CODE.Contains(request.SearchTerm) || x.Name.Contains(request.SearchTerm));
             }
             var totalRow = query.Count();
-            var queryPaging = query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize);
+            var queryPaging = PagingAndSorting(request, query);
             return await PagingResultSP<UserResponse>.CreateAsyncLinq(queryPaging, totalRow, request.PageIndex, request.PageSize);
         }
 
@@ -90,7 +91,7 @@ namespace Authentication.Application.Queries.UserQuery
                 RoleNames = user.UserRoles.Select(x => x.Role.Name).ToList(),
                 IsAdministrator = user.IsSuperAdmin,
                 IsActived = user.Actived,
-                Position = user.Position
+                Position = user.Position.Value
             };
             return result;
         }

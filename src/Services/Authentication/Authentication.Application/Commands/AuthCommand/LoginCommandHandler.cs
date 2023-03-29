@@ -77,7 +77,7 @@ namespace Authentication.Application.Commands.AuthCommand
             });
             await _userManager.UpdateAsync(user);
             var result = new LoginResponse(accessToken, _option.Jwt.TokenLifeTimeForWeb, refreshToken,
-                user.Id, user.UserName, user.Name, user.PhoneNumber, user.Email);
+                user.Id, user.UserName, user.Name, user.PhoneNumber, user.Email, tokenModel.Permissions, tokenModel.IsSuperAdmin);
             return result;
         }
     }

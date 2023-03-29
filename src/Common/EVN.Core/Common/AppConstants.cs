@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Security;
 
 namespace EVN.Core.Common
@@ -256,160 +257,41 @@ namespace EVN.Core.Common
         public class Permissions
         {
             // Module Code
-            public const string QTHT = "qtht";
-            public const string HTBC = "htbc";
-            public const string QLDG = "qldg";
+            /// <summary>
+            /// Quản trị hệ thống
+            /// </summary>
+            public const string QTHT = "1.";
+            public const string HTBC = "2.";
+            public const string QLDG = "3.";
 
             // Menu Code
-            public const string QLND = "qlnn";
-            public const string QLMN = "qlmn";
             public const string CNDG = "cndg";
 
             public const string ClaimType = "Permission";
             public const string AdminPermission = "admin";
             public const string All = "all";
-            public const string View = ".view";
-            public const string Create = ".create";
-            public const string Update = ".update";
-            public const string Delete = ".delete";
+            public const string View = ".v";
+            public const string Create = ".c";
+            public const string Update = ".u";
+            public const string Delete = ".d";
             public const string Approve = ".approve";
             public const string Receive = ".receive";
             public const string Assign = ".assign";
+
             public const string Role = "role";
-            public const string RoleView = Role + View;
-            public const string RoleCreate = Role + Create;
-            public const string RoleUpdate = Role + Update;
-            public const string RoleDelete = Role + Delete;
             public const string Department = "department";
-            public const string DepartmentView = Department + View;
-            public const string DepartmentCreate = Department + Create;
-            public const string DepartmentUpdate = Department + Update;
-            public const string DepartmentDelete = Department + Delete;
             public const string Profile = "profile";
+            public const string User = "user";
+            public const string Unit = "unit";
+            public const string Menu = "menu";
+
+
             public const string approvepprove = ".approve";
             public const string Send = ".send";
             public const string Reject = ".reject";
             public const string Print = ".print";
             public const string ApplyPrice = ".apply_price";
-            //public const string ProfileView = Profile + View;
-            public const string ProfileCreate = Profile + Create;
-            public const string ProfileUpdate = Profile + Update;
-            public const string ProfileDelete = Profile + Delete;
-            public const string Account = "account";
-            public const string AccountView = Account + View;
-            public const string AccountCreate = Account + Create;
-            public const string AccountUpdate = Account + Update;
-            public const string AccountDelete = Account + Delete;
-            public const string Unit = "unit";
-            public const string UnitView = Unit + View;
-            public const string UnitCreate = Unit + Create;
-            public const string UnitUpdate = Unit + Update;
-            public const string UnitDelete = Unit + Delete;
 
-            public const string FormReport = "formReport";
-            public const string FormReportView = FormReport + View;
-            public const string FormReportCreate = FormReport + Create;
-            public const string FormReportUpdate = FormReport + Update;
-            public const string FormReportSend = FormReport + Send;
-            public const string FormReportApprove = FormReport + Approve;
-            public const string FormReportReject = FormReport + Reject;
-
-
-            public const string Agreement = "agreement";
-            public const string AgreementView = Agreement + View;
-            public const string AgreementCreate = Agreement + Create;
-            public const string AgreementUpdate = Agreement + Update;
-            public const string AgreementDelete = Agreement + Delete;
-
-            public const string Construction = "construction";
-            public const string ConstructionView = Construction + View;
-            public const string ConstructionCreate = Construction + Create;
-            public const string ConstructionSend = Construction + Send;
-            public const string ConstructionUpdate = Construction + Update;
-            public const string ConstructionDelete = Construction + Delete;
-            public const string ConstructionApprove = Construction + Approve;
-            public const string ConstructionReject = Construction + Reject;
-            public const string ConstructionPrint = Construction + Print;
-
-            public const string ConstructionApplyPrice = Construction + ApplyPrice;
-            public const string ConstructionApplyPriceView = ConstructionApplyPrice + View;
-            public const string ConstructionApplyPriceCreate = ConstructionApplyPrice + Create;
-            public const string ConstructionApplyPriceUpdate = ConstructionApplyPrice + Update;
-            public const string ConstructionApplyPriceDelete = ConstructionApplyPrice + Delete;
-
-            public const string Substation = "substation";
-            public const string SubstationView = Substation + View;
-            public const string SubstationCreate = Substation + Create;
-            public const string SubstationUpdate = Substation + Update;
-            public const string SubstationDelete = Substation + Delete;
-
-            public const string Equipment = "equipment";
-            public const string EquipmentView = Equipment + View;
-            public const string EquipmentCreate = Equipment + Create;
-            public const string EquipmentUpdate = Equipment + Update;
-            public const string EquipmentDelete = Equipment + Delete;
-
-            public const string Request = "request";
-            public const string RequestView = Request + View;
-            public const string RequestCreate = Request + Create;
-            public const string RequestUpdate = Request + Update;
-            public const string RequestDelete = Request + Delete;
-            public const string RequestApprove = Request + Approve;
-            public const string RequestReceive = Request + Receive;
-            public const string RequestSend = Request + Send;
-
-
-            public const string Contact = "contact";
-            public const string ContactView = Contact + View;
-            public const string ContactCreate = Contact + Create;
-            public const string ContactUpdate = Contact + Update;
-            public const string ContactDelete = Contact + Delete;
-
-            public const string Schedule = "schedule";
-            public const string ScheduleView = Schedule + View;
-            public const string ScheduleCreate = Schedule + Create;
-            public const string ScheduleUpdate = Schedule + Update;
-            public const string ScheduleDelete = Schedule + Delete;
-            public const string ScheduleAssign = Schedule + Assign;
-
-            public const string InternalAffair = "internalaffair";
-            public const string InternalAffairView = InternalAffair + View;
-            public const string InternalAffairCreate = InternalAffair + Create;
-            public const string InternalAffairUpdate = InternalAffair + Update;
-            public const string InternalAffairDelete = InternalAffair + Delete;
-            public const string InternalAffairAssign = InternalAffair + Assign;
-
-            public const string Immediary = "gridPower.immediary";
-            public const string ImmediaryView = Immediary + View;
-            public const string ImmediaryCreate = Immediary + Create;
-            public const string ImmediaryUpdate = Immediary + Update;
-            public const string ImmediaryDelete = Immediary + Delete;
-
-            public const string Distribution = "gridPower.distribution";
-            public const string DistributionView = Distribution + View;
-            public const string DistributionCreate = Distribution + Create;
-            public const string DistributionUpdate = Distribution + Update;
-            public const string DistributionDelete = Distribution + Delete;
-
-            public const string Line = "gridPower.line";
-            public const string LineView = Line + View;
-            public const string LineCreate = Line + Create;
-            public const string LineUpdate = Line + Update;
-            public const string LineDelete = Line + Delete;
-
-            public const string Synchronize = "synchronize";
-            public const string SynchronizeView = Synchronize + View;
-
-            public const string PersonalWork = "personalWork";
-            public const string PersonalWorkView = PersonalWork + View;
-            public const string PersonalWorkCreate = PersonalWork + Create;
-            public const string PersonalWorkUpdate = PersonalWork + Update;
-
-            public const string EquipmentManagement = "equipmentManagement";
-            public const string EquipmentManagementView = EquipmentManagement + View;
-            public const string EquipmentManagementCreate = EquipmentManagement + Create;
-            public const string EquipmentManagementUpdate = EquipmentManagement + Update;
-            public const string EquipmentManagementDelete = EquipmentManagement + Delete;
         }
 
         public class DateTimeFormat
@@ -546,7 +428,7 @@ namespace EVN.Core.Common
 
         public class CMISEquiqmentCode
         {
-          
+
         }
     }
 }
