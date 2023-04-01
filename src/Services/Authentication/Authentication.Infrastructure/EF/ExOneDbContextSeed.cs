@@ -46,11 +46,12 @@ namespace Authentication.Infrastructure.EF
                 listModule.Add(new Module { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C1"), Code = Permissions.QTHT, Name = "Quản trị hệ thống", Order = 1 });
                 listModule.Add(new Module { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C2"), Code = Permissions.QTDM, Name = "Quản trị danh mục", Order = 2 });
                 listModule.Add(new Module { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C3"), Code = Permissions.QLDMBG, Name = "Quản lý danh mục biểu giá", Order = 3 });
-                listModule.Add(new Module { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C4"), Code = Permissions.QLDMBG, Name = "Quản lý thông tin đơn giá", Order = 4 });
-                listModule.Add(new Module { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C5"), Code = Permissions.QLDMBG, Name = "Quản lý thông tin chi tiết biểu giá", Order = 5 });
-                listModule.Add(new Module { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C6"), Code = Permissions.QLDMBG, Name = "Hệ thống báo cáo", Order = 6 });
+                listModule.Add(new Module { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C4"), Code = Permissions.QLTTDG, Name = "Quản lý thông tin đơn giá", Order = 4 });
+                listModule.Add(new Module { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C5"), Code = Permissions.QLTTCTBG, Name = "Quản lý thông tin chi tiết biểu giá", Order = 5 });
+                listModule.Add(new Module { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C6"), Code = Permissions.HTBC, Name = "Hệ thống báo cáo", Order = 6 });
 
                 context.Module.AddRange(listModule);
+                await context.SaveChangesAsync();
             }
             if (!context.Menu.Any())
             {
@@ -60,8 +61,10 @@ namespace Authentication.Infrastructure.EF
                 listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83828"), Code = $"{Permissions.Menu}", Name = "Quản lý menu", Url = "/menu", Order = 2, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C1") });
                 listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83829"), Code = $"{Permissions.Role}", Name = "Quản lý phân quyền", Url = "/phan-quyen", Order = 3, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C1") });
 
-
+                // QUẢN TRỊ DANH MỤC
+                listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83830"), Code = $"{Permissions.LoaiBieuGia}", Name = "Quản lý loại biểu giá", Url = "/loai-bieu-gia", Order = 1, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
                 context.Menu.AddRange(listMenu);
+                await context.SaveChangesAsync();
             }
 
             if (!context.Permission.Any())
@@ -69,24 +72,34 @@ namespace Authentication.Infrastructure.EF
                 List<Permission> permissions = new List<Permission>();
 
                 // Quản lý người dùng
-                permissions.Add(new Permission { Name = "Xem", Code = $"{Permissions.QTHT}{Permissions.User}{Permissions.View}", MenuId = new Guid("1E0A058FD1323C46ABE8061A890DC9EC") });
-                permissions.Add(new Permission { Name = "Tạo", Code = $"{Permissions.QTHT}{Permissions.User}{Permissions.Create}", MenuId = new Guid("1E0A058FD1323C46ABE8061A890DC9EC") });
-                permissions.Add(new Permission { Name = "Sửa", Code = $"{Permissions.QTHT}{Permissions.User}{Permissions.Update}", MenuId = new Guid("1E0A058FD1323C46ABE8061A890DC9EC") });
-                permissions.Add(new Permission { Name = "Xóa", Code = $"{Permissions.QTHT}{Permissions.User}{Permissions.Delete}", MenuId = new Guid("1E0A058FD1323C46ABE8061A890DC9EC") });
+                permissions.Add(new Permission { Name = "Xem", Code = $"{Permissions.User}{Permissions.View}", MenuId = new Guid("1E0A058FD1323C46ABE8061A890DC9EC") });
+                permissions.Add(new Permission { Name = "Tạo", Code = $"{Permissions.User}{Permissions.Create}", MenuId = new Guid("1E0A058FD1323C46ABE8061A890DC9EC") });
+                permissions.Add(new Permission { Name = "Sửa", Code = $"{Permissions.User}{Permissions.Update}", MenuId = new Guid("1E0A058FD1323C46ABE8061A890DC9EC") });
+                permissions.Add(new Permission { Name = "Xóa", Code = $"{Permissions.User}{Permissions.Delete}", MenuId = new Guid("1E0A058FD1323C46ABE8061A890DC9EC") });
 
                 //quản lý menu
-                permissions.Add(new Permission { Name = "Xem", Code = $"{Permissions.QTHT}{Permissions.Menu}{Permissions.View}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83829") });
-                permissions.Add(new Permission { Name = "Tạo", Code = $"{Permissions.QTHT}{Permissions.Menu}{Permissions.Create}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83829") });
-                permissions.Add(new Permission { Name = "Sửa", Code = $"{Permissions.QTHT}{Permissions.Menu}{Permissions.Update}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83829") });
-                permissions.Add(new Permission { Name = "Xóa", Code = $"{Permissions.QTHT}{Permissions.Menu}{Permissions.Delete}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83829") });
+                permissions.Add(new Permission { Name = "Xem", Code = $"{Permissions.Menu}{Permissions.View}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83829") });
+                permissions.Add(new Permission { Name = "Tạo", Code = $"{Permissions.Menu}{Permissions.Create}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83829") });
+                permissions.Add(new Permission { Name = "Sửa", Code = $"{Permissions.Menu}{Permissions.Update}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83829") });
+                permissions.Add(new Permission { Name = "Xóa", Code = $"{Permissions.Menu}{Permissions.Delete}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83829") });
 
 
                 // Quản lý quyền                 
-                permissions.Add(new Permission { Name = "Xem", Code = $"{Permissions.QTHT}{Permissions.Role}{Permissions.View}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83828") });
-                permissions.Add(new Permission { Name = "Tạo", Code = $"{Permissions.QTHT}{Permissions.Role}{Permissions.Create}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83828") });
-                permissions.Add(new Permission { Name = "Sửa", Code = $"{Permissions.QTHT}{Permissions.Role}{Permissions.Update}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83828") });
-                permissions.Add(new Permission { Name = "Xóa", Code = $"{Permissions.QTHT}{Permissions.Role}{Permissions.Delete}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83828") });
+                permissions.Add(new Permission { Name = "Xem", Code = $"{Permissions.Role}{Permissions.View}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83828") });
+                permissions.Add(new Permission { Name = "Tạo", Code = $"{Permissions.Role}{Permissions.Create}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83828") });
+                permissions.Add(new Permission { Name = "Sửa", Code = $"{Permissions.Role}{Permissions.Update}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83828") });
+                permissions.Add(new Permission { Name = "Xóa", Code = $"{Permissions.Role}{Permissions.Delete}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83828") });
 
+
+                #region QUẢN TRỊ DANH MỤC
+                // Quản lý biểu giá
+                // Quản lý quyền                 
+                permissions.Add(new Permission { Name = "Xem", Code = $"{Permissions.LoaiBieuGia}{Permissions.View}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83830") });
+                permissions.Add(new Permission { Name = "Tạo", Code = $"{Permissions.LoaiBieuGia}{Permissions.Create}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83830") });
+                permissions.Add(new Permission { Name = "Sửa", Code = $"{Permissions.LoaiBieuGia}{Permissions.Update}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83830") });
+                permissions.Add(new Permission { Name = "Xóa", Code = $"{Permissions.LoaiBieuGia}{Permissions.Delete}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83830") });
+
+                #endregion
                 context.Permission.AddRange(permissions);
 
             }

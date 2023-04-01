@@ -11,7 +11,7 @@ namespace Authentication.Application.Model.Menu
         public string Name { get; set; }
         public string Code { get; set; }
         public string ModuleName { get; set; }
-        public string ModuleCode { get; set; }
+        public Guid ModuleId { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreatedDate { get; set; }
 

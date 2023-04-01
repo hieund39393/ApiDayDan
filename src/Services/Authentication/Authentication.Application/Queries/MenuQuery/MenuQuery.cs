@@ -30,7 +30,9 @@ namespace Authentication.Application.Queries.MenuQuery
 
         public async Task<PagingResultSP<MenuResponse>> GetListMenu(MenuRequest request)
         {
-            var query = _unitOfWork.MenuRepository.GetQuery(x => request.ModuleId == null || x.ModuleId == request.ModuleId).AsNoTracking()
+            var query = _unitOfWork.MenuRepository.GetQuery(x => (request.ModuleId == null || x.ModuleId == request.ModuleId)
+            && (string.IsNullOrEmpty(request.Name) || x.Name.Contains(request.Name.Trim()))
+            ).AsNoTracking()
                 .Include(x => x.Module)
                 .Select(x => new MenuResponse()
                 {
@@ -39,7 +41,7 @@ namespace Authentication.Application.Queries.MenuQuery
                     Code = x.Code,
                     IsActive = x.IsActive,
                     ModuleName = x.Module.Name,
-                    ModuleCode = x.Module.Code,
+                    ModuleId = x.Module.Id,
                     CreatedDate = x.CreatedDate,
                 });
 

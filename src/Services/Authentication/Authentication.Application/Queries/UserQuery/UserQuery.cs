@@ -50,7 +50,6 @@ namespace Authentication.Application.Queries.UserQuery
         {
             var query = _unitOfWork.UserRepository.GetQuery(
             ).AsNoTracking()
-                .Include(x => x.Unit)
                 .Include(x => x.UserRoles).ThenInclude(x => x.Role)
                 .Select(x => new UserResponse()
                 {
@@ -59,12 +58,13 @@ namespace Authentication.Application.Queries.UserQuery
                     UserName = x.UserName,
                     Actived = x.Actived,
                     Email = x.Email,
+                    RoleId = x.UserRoles.Select(x => x.RoleId).ToList(),
                     CreatedDate = x.CreatedDate,
                 });
 
             if (!string.IsNullOrEmpty(request.SearchTerm))
             {
-                query = query.Where(x => x.UserName.Contains(request.SearchTerm) || x.CMIS_CODE.Contains(request.SearchTerm) || x.Name.Contains(request.SearchTerm));
+                query = query.Where(x => x.UserName.Contains(request.SearchTerm) || x.Name.Contains(request.SearchTerm));
             }
             var totalRow = query.Count();
             var queryPaging = PagingAndSorting(request, query);

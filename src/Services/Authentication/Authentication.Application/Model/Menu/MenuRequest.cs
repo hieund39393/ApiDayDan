@@ -6,5 +6,6 @@ namespace Authentication.Application.Model.Menu
     public class MenuRequest : PagingQuery
     {
         public Guid? ModuleId { get; set; }
+        public string Name { get; set; }
     }
 }

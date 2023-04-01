@@ -1,6 +1,8 @@
 ﻿using Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGia;
 using Authentication.Infrastructure.AggregatesModel.MenuAggregate;
 using Authentication.Infrastructure.AggregatesModel.ModuleAggregate;
+using Authentication.Infrastructure.AggregatesModel.PermissionAggregate;
+using Authentication.Infrastructure.AggregatesModel.PositionAggregate;
 using Authentication.Infrastructure.AggregatesModel.UserAggregate;
 using Authentication.Infrastructure.EF;
 using EVN.Core.Models.Interface;
@@ -21,6 +23,8 @@ namespace Authentication.Infrastructure.Repositories
         IRepository<Menu> MenuRepository { get; }
         IRepository<Unit> UnitRepository { get; }
         IRepository<Team> TeamRepository { get; }
+        IRepository<Permission> PermissionRepository { get; }
+        IRepository<Position> PositionRepository { get; }
 
         // 1 :Danh mục của Tiến Anh 
         IRepository<DM_LoaiBieuGia> DM_LoaiBieuGiaRepository { get; }
@@ -44,11 +48,13 @@ namespace Authentication.Infrastructure.Repositories
         private IRepository<Menu> _menuRepository;
         private IRepository<Unit> _unitRepository;
         private IRepository<Team> _teamRepository;
+        private IRepository<Permission> _permissionRepository;
+        private IRepository<Position> _positionRepository;
 
         // 2 :Danh mục của Tiến Anh 
         private IRepository<DM_LoaiBieuGia> _dM_LoaiBieuGiaRepository;
-       
-        
+
+
         public UnitOfWork(ExOneDbContext context)
         {
             _context = context;
@@ -163,6 +169,28 @@ namespace Authentication.Infrastructure.Repositories
                     _teamRepository = new Repository<Team>(_context);
                 }
                 return _teamRepository;
+            }
+        }
+        public IRepository<Permission> PermissionRepository
+        {
+            get
+            {
+                if (_permissionRepository == null)
+                {
+                    _permissionRepository = new Repository<Permission>(_context);
+                }
+                return _permissionRepository;
+            }
+        }
+        public IRepository<Position> PositionRepository
+        {
+            get
+            {
+                if (_positionRepository == null)
+                {
+                    _positionRepository = new Repository<Position>(_context);
+                }
+                return _positionRepository;
             }
         }
 

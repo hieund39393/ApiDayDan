@@ -45,7 +45,7 @@ namespace Authentication.Application.Queries.DM_LoaiBieuGiaQuery
                     Id = x.Id,
                     MaBieuGia = x.MaBieuGia,
                     TenBieuGia = x.TenBieuGia,
-                    NgayTao = x.CreatedDate,
+                    CreatedDate = x.CreatedDate,
                 });// select dữ liệu
             var totalRow = query.Count(); // tổng số lượng
             var queryPaging = query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize); // phân trang

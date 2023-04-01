@@ -15,6 +15,8 @@ namespace Authentication.Application.Queries.CommonQuery
     {
         Task<List<SelectItem>> ListModule();
         Task<List<MenuItemResponse>> ListMenu();
+        Task<List<SelectItem>> ListNhomQuyen();
+        Task<List<SelectItem>> ListChucVu();
     }
     public class CommonQuery : ICommonQuery
     {
@@ -23,6 +25,18 @@ namespace Authentication.Application.Queries.CommonQuery
         {
             _unitOfWork = unitOfWork;
         }
+
+        public async Task<List<SelectItem>> ListChucVu()
+        {
+            var data = await _unitOfWork.PositionRepository.GetQuery().AsNoTracking()
+               .Select(x => new SelectItem
+               {
+                   Name = x.Title,
+                   Value = x.Id.ToString().ToLower(),
+               }).ToListAsync();
+            return data;
+        }
+
         public async Task<List<MenuItemResponse>> ListMenu()
         {
             var data = await _unitOfWork.ModuleRepository.GetQuery().Include(x => x.Menus).AsNoTracking().
@@ -32,7 +46,7 @@ namespace Authentication.Application.Queries.CommonQuery
                     Name = x.Name,
                     Code = x.Code,
                     Order = x.Order,
-                    SubItems = x.Menus.Select(y => new MenuItemResponse
+                    SubItems = x.Menus.Where(m => m.IsActive).Select(y => new MenuItemResponse
                     {
 
                         Id = y.Id,
@@ -49,10 +63,21 @@ namespace Authentication.Application.Queries.CommonQuery
         public async Task<List<SelectItem>> ListModule()
         {
             var data = await _unitOfWork.ModuleRepository.GetQuery().AsNoTracking()
-                .Select(x=> new SelectItem
+                .Select(x => new SelectItem
                 {
                     Name = x.Name,
-                    Value = x.Id.ToString(),
+                    Value = x.Id.ToString().ToLower(),
+                }).ToListAsync();
+            return data;
+        }
+
+        public async Task<List<SelectItem>> ListNhomQuyen()
+        {
+            var data = await _unitOfWork.RoleRepository.GetQuery().AsNoTracking()
+                .Select(x => new SelectItem
+                {
+                    Name = x.Name,
+                    Value = x.Id.ToString().ToLower(),
                 }).ToListAsync();
             return data;
         }

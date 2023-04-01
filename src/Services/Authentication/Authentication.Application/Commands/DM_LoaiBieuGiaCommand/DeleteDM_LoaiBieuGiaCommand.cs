@@ -5,9 +5,8 @@ using MediatR;
 
 namespace Authentication.Application.Commands.DM_LoaiBieuGiaCommand
 {
-    public class DeleteDM_LoaiBieuGiaCommand : IRequest<bool> // kế thừa IRequest<bool>
+    public record DeleteDM_LoaiBieuGiaCommand(Guid id) : IRequest<bool> // kế thừa IRequest<bool>
     {
-        public Guid Id { get; set; } // thêm ID
     }
 
     //Tạo thêm 1 class Handler kế thừa IRequestHandler<DeleteDM_LoaiBieuGiaCommand, bool> rồi implement
@@ -21,7 +20,7 @@ namespace Authentication.Application.Commands.DM_LoaiBieuGiaCommand
         public async Task<bool> Handle(DeleteDM_LoaiBieuGiaCommand request, CancellationToken cancellationToken)
         {
             // tìm kiếm xem có ID trong bảng DM_LoaiBieuGia không
-            var entity = await _unitOfWork.DM_LoaiBieuGiaRepository.FindOneAsync(x => x.Id == request.Id);
+            var entity = await _unitOfWork.DM_LoaiBieuGiaRepository.FindOneAsync(x => x.Id == request.id);
             // nếu không có dữ liệu thì thêm mới
             if (entity == null)
             {

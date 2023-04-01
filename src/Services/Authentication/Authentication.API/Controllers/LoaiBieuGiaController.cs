@@ -9,6 +9,7 @@ using EVN.Core.Models;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
@@ -64,7 +65,7 @@ namespace Authentication.API.Controllers
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(typeof(ApiSuccessResult<bool>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Create([FromForm] CreateDM_LoaiBieuGiaCommand command)
+        public async Task<IActionResult> Create([FromBody] CreateDM_LoaiBieuGiaCommand command)
         {
             var user = await _mediator.Send(command);
             return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_CREATE_SUCCESS, "loại biểu giá")));
@@ -77,23 +78,23 @@ namespace Authentication.API.Controllers
         /// <returns></returns>
         [HttpPut]
         [ProducesResponseType(typeof(ApiSuccessResult<bool>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Update([FromForm] UpdateDM_LoaiBieuGiaCommand command)
+        public async Task<IActionResult> Update([FromBody] UpdateDM_LoaiBieuGiaCommand command)
         {
             var user = await _mediator.Send(command);
             return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_UPDATE_SUCCESS, "loại biểu giá")));
-        }   
-        
+        }
+
         /// <summary>
         /// Xoá loại biểu giá
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [ProducesResponseType(typeof(ApiSuccessResult<bool>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Update([FromForm] DeleteDM_LoaiBieuGiaCommand command)
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
-            var user = await _mediator.Send(command);
-            return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_DELETE_SUCCESS, "loại biểu giá")));
+            var data = await _mediator.Send(new DeleteDM_LoaiBieuGiaCommand(id));
+            return Ok(new ApiSuccessResult<bool>(data: data, message: string.Format(Resources.MSG_DELETE_SUCCESS, "loại biểu giá")));
         }
 
 

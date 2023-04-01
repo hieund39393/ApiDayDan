@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using Authentication.Infrastructure.AggregatesModel.UserAggregate;
+using Authentication.Infrastructure.AggregatesModel.MenuAggregate;
 
 namespace Authentication.Application.Queries.RoleQuery
 {
@@ -15,6 +16,7 @@ namespace Authentication.Application.Queries.RoleQuery
     {
         Task<PagingResultSP<RoleResponse>> GetListRole(RoleRequest request);
         Task<List<GetUserRoleResponse>> GetUserRole(Guid roleId);
+        Task<List<PermissionResponse>> GetPermission();
     }
     public class RoleQuery : IRoleQuery
     {
@@ -34,6 +36,7 @@ namespace Authentication.Application.Queries.RoleQuery
                 Id = x.Id,
                 Name = x.Name,
                 Description = x.Description,
+                Permissions = x.RoleClaims.Select(x => x.ClaimValue).ToList(),
                 CreatedDate = x.CreatedDate,
             });
             var totalRow = query.Count();
@@ -51,5 +54,53 @@ namespace Authentication.Application.Queries.RoleQuery
 
         }
 
+
+        public async Task<List<PermissionResponse>> GetPermission()
+        {
+            var listMenu = await _unitOfWork.ModuleRepository.GetQuery().AsNoTracking().Include(x => x.Menus).ThenInclude(x => x.Permissions)
+                .Select(x => new PermissionResponse
+                {
+                    Title = x.Name,
+                    Key = x.Code,
+                    Children = x.Menus.Select(m => new PermissionResponse
+                    {
+                        Title = m.Name,
+                        Key = m.Code,
+                        Children = m.Permissions.Select(k => new PermissionResponse
+                        {
+                            Title = k.Name,
+                            Key = k.Code,
+
+                        }).ToList(),
+                    }).ToList(),
+                })
+                .ToListAsync();
+
+
+            return listMenu;
+
+        }
+
+        //private List<PermissionResponse> MenuChild(int parentId, List<Menu> listMenu)
+        //{
+        //    var data = listMenu.Where(x => x.ParentId == parentId).Select(x => new PermissionResponse
+        //    {
+        //        Title = x.Name,
+        //        Key = x.Code,
+        //        Children = GetActionsByMenu(x.Code)
+        //    }).ToList();
+        //    return data;
+        //}
+
+        //private List<PermissionResponse> GetActionsByMenu(string menuCode)
+        //{
+        //    var das = _unitOfWork.PermissionRepository.GetQuery().ToList();
+        //    var data = _unitOfWork.PermissionRepository.GetQuery(x => x.MenuCode == menuCode).AsNoTracking().Select(x => new PermissionResponse
+        //    {
+        //        Title = x.Name,
+        //        Key = x.Code,
+        //    }).ToList();
+        //    return data;
+        //}
     }
 }

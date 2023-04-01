@@ -8,6 +8,6 @@ namespace Authentication.Application.Model.DM_LoaiBieuGia
         public Guid Id { get; set; }
         public string MaBieuGia { get; set; }
         public string TenBieuGia { get; set; }
-        public DateTime NgayTao { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }

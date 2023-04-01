@@ -18,13 +18,8 @@ namespace Authentication.Application.Commands.UserCommand
     public class CreateUserCommand : IRequest<bool>
     {
         public bool SSO { get; set; }
-        public Guid UnitId { get; set; }
-        public Guid DepartmentId { get; set; }
-        public Guid TeamId { get; set; }
-        public int Position { get; set; }
         public string UserName { get; set; }
         public string Name { get; set; }
-        public int? Gender { get; set; }
         public bool DefaultPassword { get; set; }
         public string Password { get; set; }
         public string ComfirmPassword { get; set; }
@@ -32,14 +27,9 @@ namespace Authentication.Application.Commands.UserCommand
         public string PhoneNumber { get; set; }
         public string Avatar { get; set; }
         public string Code { get; set; }
-        [Comment("Tên người dùng không dấu")]
-        public string NameUnsigned { get; set; }
         public bool Actived { get; set; }
+        public Guid? PositionId { get; set; }
 
-        /// <summary>
-        /// Chọn ảnh đại diện
-        /// </summary>
-        public IFormFile file { get; set; }
     }
 
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, bool>
@@ -58,20 +48,15 @@ namespace Authentication.Application.Commands.UserCommand
 
         public async Task<bool> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-
-            User user = _mapper.Map<User>(request);
-            user.Actived = true;
-            user.CreatedDate = DateTime.Now;
-            var unit = await _unitOfWork.UnitRepository.GetQuery(x => x.Id == request.UnitId).FirstOrDefaultAsync();
-            if (unit == null)
-            {
-                throw new EvnException(Resources.MSG_NOT_FOUND, "Đơn vị");
-            }
-            user.Unit = unit;
-            var data = await _userManager.FindByNameAsync(user.UserName);
+            var user = new User();
+            user.Name = request.Name;
+            user.Email = request.Email;
+            user.PhoneNumber = request.PhoneNumber;
+            user.PositionId = request.PositionId;
+            var data = await _userManager.FindByNameAsync(request.UserName);
             if (data == null)
             {
-                var createResult = await _userManager.CreateAsync(user, "");
+                var createResult = await _userManager.CreateAsync(user, request.Password);
                 if (createResult.Succeeded)
                 {
                     System.Console.WriteLine($"createResult.Succeeded = {createResult.Succeeded}");

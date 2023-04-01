@@ -1,4 +1,5 @@
-﻿using Authentication.Application.Model.Menu;
+﻿using Authentication.Application.Commands.MenuCommand;
+using Authentication.Application.Model.Menu;
 using Authentication.Application.Model.Role;
 using Authentication.Application.Model.User;
 using Authentication.Application.Queries.MenuQuery;
@@ -37,53 +38,21 @@ namespace Authentication.API.Controllers
             _MenuQuery = MenuQuery;
         }
 
-        ///// <summary>
-        ///// Thêm mới Menu
-        ///// </summary>
-        ///// <param name="command"></param>
-        ///// <returns></returns>
-        //[HttpPost]
-        //public async Task<IActionResult> Create([FromForm] MenuCreateOrUpdate command)
-        //{
-        //    var imageUrl = await _fileService.OnPostUploadAsync(command.FileAnhMenu);
-        //    command.Icon = imageUrl;
-        //    var user = await _mediator.Send(command);
-        //    return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_CREATE_SUCCESS, "Menu")));
-        //}
-
-
-        ///// <summary>
-        ///// Thay đổi thông tin Menu
-        ///// </summary>
-        ///// <param name="command"></param>
-        ///// <returns></returns>
-        //[HttpPut]
-        //public async Task<IActionResult> Update([FromBody] MenuCreateOrUpdate command)
-        //{
-        //    var imageUrl = await _fileService.OnPostUploadAsync(command.FileAnhMenu);
-        //    command.Icon = imageUrl;
-        //    var user = await _mediator.Send(command);
-        //    return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_UPDATE_SUCCESS, "Menu")));
-        //}
-
-        ///// <summary>
-        ///// Xóa Menu
-        ///// </summary>
-        ///// <param name="id"></param>
-        ///// <returns></returns>
-        ////[HasPermission(Permissions.All, Permissions.UnitDelete)]
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> Delete([FromRoute] Guid id)
-        //{
-        //    var user = await _mediator.Send(new MenuDeteleCommand(id));
-        //    return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_DELETE_SUCCESS, "Menu")));
-        //}
-
         /// <summary>
-        /// Danh sách menu phân trang
+        /// Thêm mới Menu
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="command"></param>
         /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] CreateOrEditMenuCommand command)
+        {
+            var user = await _mediator.Send(command);
+            return Ok(new ApiSuccessResult<bool>(data: user, message: command.Id == Guid.Empty ? string.Format(Resources.MSG_CREATE_SUCCESS, "trang") :
+                string.Format(Resources.MSG_UPDATE_SUCCESS, "trang")));
+        }
+
+
+
         [HttpGet]
         public async Task<IActionResult> ListMenu([FromQuery] MenuRequest request)
         {
