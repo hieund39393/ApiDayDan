@@ -41,7 +41,7 @@ namespace Authentication.API.Controllers
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(typeof(ApiSuccessResult<bool>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Create([FromForm] CreateUserCommand command)
+        public async Task<IActionResult> Create([FromBody] CreateUserCommand command)
         {
             var user = await _mediator.Send(command);
             return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_CREATE_SUCCESS, "người dùng")));
@@ -53,7 +53,7 @@ namespace Authentication.API.Controllers
        /// <returns></returns>
         [HttpPut]
         [ProducesResponseType(typeof(ApiSuccessResult<bool>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Update([FromForm] UpdateUserCommand command)
+        public async Task<IActionResult> Update([FromBody] UpdateUserCommand command)
         {
             var imageUrl = await _fileService.OnPostUploadAsync(command.file);
             command.Avatar = imageUrl;
