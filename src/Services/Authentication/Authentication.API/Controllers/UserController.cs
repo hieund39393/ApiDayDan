@@ -41,7 +41,7 @@ namespace Authentication.API.Controllers
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(typeof(ApiSuccessResult<bool>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Create([FromForm] CreateUserCommand command)
+        public async Task<IActionResult> Create([FromBody] CreateUserCommand command)
         {
             if (command.DefaultPassword == true || command.SSO == true)
             {
@@ -61,7 +61,7 @@ namespace Authentication.API.Controllers
        /// <returns></returns>
         [HttpPut]
         [ProducesResponseType(typeof(ApiSuccessResult<bool>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Update([FromForm] UpdateUserCommand command)
+        public async Task<IActionResult> Update([FromBody] UpdateUserCommand command)
         {
             var imageUrl = await _fileService.OnPostUploadAsync(command.file);
             command.Avatar = imageUrl;
