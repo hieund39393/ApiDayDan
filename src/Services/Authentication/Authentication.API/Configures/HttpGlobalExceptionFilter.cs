@@ -51,9 +51,14 @@ namespace Authentication.API.Configures
 
             if (context.ModelState.ErrorCount > 0)
             {
+                //var errors = context.ModelState.Where(v => v.Value.Errors.Count > 0)
+                //    .ToDictionary(
+                //        kvp => $"{char.ToLower(kvp.Key[0])}{kvp.Key.Substring(1)}",
+                //        kvp => kvp.Value.Errors.FirstOrDefault()?.ErrorMessage
+                //    );
                 var errors = context.ModelState.Where(v => v.Value.Errors.Count > 0)
                     .ToDictionary(
-                        kvp => $"{char.ToLower(kvp.Key[0])}{kvp.Key.Substring(1)}",
+                        kvp => string.IsNullOrEmpty(kvp.Key) ? kvp.Key : $"{char.ToLower(kvp.Key[0])}{kvp.Key.Substring(1)}",
                         kvp => kvp.Value.Errors.FirstOrDefault()?.ErrorMessage
                     );
 
