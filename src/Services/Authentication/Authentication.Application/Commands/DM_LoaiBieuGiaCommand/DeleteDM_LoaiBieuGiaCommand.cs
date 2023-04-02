@@ -7,6 +7,7 @@ namespace Authentication.Application.Commands.DM_LoaiBieuGiaCommand
 {
     public record DeleteDM_LoaiBieuGiaCommand(Guid id) : IRequest<bool> // kế thừa IRequest<bool>
     {
+
     }
 
     //Tạo thêm 1 class Handler kế thừa IRequestHandler<DeleteDM_LoaiBieuGiaCommand, bool> rồi implement

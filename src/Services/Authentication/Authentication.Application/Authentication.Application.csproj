@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Authentication.Infrastructure\Authentication.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Queries\NewFolder1\" />
+  </ItemGroup>
+
 </Project>

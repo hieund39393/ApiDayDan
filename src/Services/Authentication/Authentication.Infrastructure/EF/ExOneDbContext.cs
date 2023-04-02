@@ -15,6 +15,7 @@ using Authentication.Infrastructure.AggregatesModel.MenuAggregate;
 using Authentication.Infrastructure.AggregatesModel.PositionAggregate;
 using Authentication.Infrastructure.AggregatesModel.PermissionAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGia;
+using AAuthentication.Infrastructure.AggregatesModel.DM_BieuGia;
 
 namespace Authentication.Infrastructure.EF
 {
@@ -58,9 +59,11 @@ namespace Authentication.Infrastructure.EF
         public DbSet<Menu> Menu { get; set; }
         public DbSet<Permission> Permission { get; set; }
 
-        // danh mục của Tiến Anh
+        // danh mục của Tiến Anh cam sung
         public DbSet<DM_LoaiBieuGia> DM_LoaiBieuGia { get; set; }
 
+        //Danh muc Bieu gia - Kem M5
+        public DbSet<DM_BieuGia> DM_BieuGia { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -82,6 +85,9 @@ namespace Authentication.Infrastructure.EF
             
             //cấu hình của Tiến Anh
             builder.ApplyConfiguration(new DM_LoaiBieuGiaConfiguration());
+
+            //Cau hinh cua Kem M5
+            builder.ApplyConfiguration(new DM_BieuGiaConfiguration());
         }
 
         /// <summary>

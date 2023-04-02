@@ -1,4 +1,5 @@
-﻿using Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGia;
+﻿using AAuthentication.Infrastructure.AggregatesModel.DM_BieuGia;
+using Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGia;
 using Authentication.Infrastructure.AggregatesModel.MenuAggregate;
 using Authentication.Infrastructure.AggregatesModel.ModuleAggregate;
 using Authentication.Infrastructure.AggregatesModel.PermissionAggregate;
@@ -6,9 +7,6 @@ using Authentication.Infrastructure.AggregatesModel.PositionAggregate;
 using Authentication.Infrastructure.AggregatesModel.UserAggregate;
 using Authentication.Infrastructure.EF;
 using EVN.Core.Models.Interface;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Authentication.Infrastructure.Repositories
 {
@@ -29,6 +27,8 @@ namespace Authentication.Infrastructure.Repositories
         // 1 :Danh mục của Tiến Anh 
         IRepository<DM_LoaiBieuGia> DM_LoaiBieuGiaRepository { get; }
 
+        //1. DM bieu gia - Kem
+        IRepository<DM_BieuGia> DM_BieuGiaRepository { get; }
 
 
 
@@ -54,6 +54,8 @@ namespace Authentication.Infrastructure.Repositories
         // 2 :Danh mục của Tiến Anh 
         private IRepository<DM_LoaiBieuGia> _dM_LoaiBieuGiaRepository;
 
+        //Danh muc bieu gia - Kem
+        private IRepository<DM_BieuGia> _dM_BieuGiaRepository;
 
         public UnitOfWork(ExOneDbContext context)
         {
@@ -209,6 +211,18 @@ namespace Authentication.Infrastructure.Repositories
             }
         }
 
+        // 3 :Danh mục bieu gia của Kem
+        public IRepository<DM_BieuGia> DM_BieuGiaRepository
+        {
+            get
+            {
+                if (_dM_BieuGiaRepository == null)
+                {
+                    _dM_BieuGiaRepository = new Repository<DM_BieuGia>(_context);
+                }
+                return _dM_BieuGiaRepository;
+            }
+        }
 
 
 
