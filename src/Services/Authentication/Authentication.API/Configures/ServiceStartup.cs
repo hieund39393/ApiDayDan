@@ -1,5 +1,8 @@
 ﻿using Authentication.Application.Queries.CommonQuery;
+using Authentication.Application.Queries.DM_BieuGiaQuery;
+using Authentication.Application.Queries.DM_KhuVucQuery;
 using Authentication.Application.Queries.DM_LoaiBieuGiaQuery;
+using Authentication.Application.Queries.DM_VungQuery;
 using Authentication.Application.Queries.MenuQuery;
 using Authentication.Application.Queries.ModuleQuery;
 using Authentication.Application.Queries.RoleQuery;
@@ -45,6 +48,10 @@ namespace Authentication.API.Configurations
 
             //Danh mục Tiến Anh
             services.AddScoped<IDM_LoaiBieuGiaQuery, DM_LoaiBieuGiaQuery>(); // quy tắc Interface trước class sau
+            services.AddScoped<IDM_KhuVucQuery, DM_KhuVucQuery>(); // quy tắc Interface trước class sau
+            services.AddScoped<IDM_VungQuery, DM_VungQuery>(); // quy tắc Interface trước class sau
+          
+            services.AddScoped<IDM_BieuGiaQuery, DM_BieuGiaQuery>(); // quy tắc Interface trước class sau
             return services;
         }
     }

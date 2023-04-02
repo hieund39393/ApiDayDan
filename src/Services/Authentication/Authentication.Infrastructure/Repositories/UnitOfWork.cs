@@ -1,12 +1,14 @@
-﻿using Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGia;
+﻿using AAuthentication.Infrastructure.AggregatesModel.DM_BieuGia;
+using Authentication.Infrastructure.AggregatesModel.DM_KhuVuc;
+using Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGia;
+using Authentication.Infrastructure.AggregatesModel.DM_Vung;
 using Authentication.Infrastructure.AggregatesModel.MenuAggregate;
 using Authentication.Infrastructure.AggregatesModel.ModuleAggregate;
+using Authentication.Infrastructure.AggregatesModel.PermissionAggregate;
+using Authentication.Infrastructure.AggregatesModel.PositionAggregate;
 using Authentication.Infrastructure.AggregatesModel.UserAggregate;
 using Authentication.Infrastructure.EF;
 using EVN.Core.Models.Interface;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Authentication.Infrastructure.Repositories
 {
@@ -21,10 +23,16 @@ namespace Authentication.Infrastructure.Repositories
         IRepository<Menu> MenuRepository { get; }
         IRepository<Unit> UnitRepository { get; }
         IRepository<Team> TeamRepository { get; }
+        IRepository<Permission> PermissionRepository { get; }
+        IRepository<Position> PositionRepository { get; }
 
         // 1 :Danh mục của Tiến Anh 
         IRepository<DM_LoaiBieuGia> DM_LoaiBieuGiaRepository { get; }
+        IRepository<DM_KhuVuc> DM_KhuVucRepository { get; }
+        IRepository<DM_Vung> DM_VungRepository { get; }
 
+        //1. DM bieu gia - Kem
+        IRepository<DM_BieuGia> DM_BieuGiaRepository { get; }
 
 
 
@@ -44,11 +52,17 @@ namespace Authentication.Infrastructure.Repositories
         private IRepository<Menu> _menuRepository;
         private IRepository<Unit> _unitRepository;
         private IRepository<Team> _teamRepository;
+        private IRepository<Permission> _permissionRepository;
+        private IRepository<Position> _positionRepository;
 
         // 2 :Danh mục của Tiến Anh 
         private IRepository<DM_LoaiBieuGia> _dM_LoaiBieuGiaRepository;
-       
-        
+        private IRepository<DM_KhuVuc> _dM_KhuVucRepository;
+        private IRepository<DM_Vung> _dM_VungRepository;
+
+        //Danh muc bieu gia - Kem
+        private IRepository<DM_BieuGia> _dM_BieuGiaRepository;
+
         public UnitOfWork(ExOneDbContext context)
         {
             _context = context;
@@ -165,6 +179,28 @@ namespace Authentication.Infrastructure.Repositories
                 return _teamRepository;
             }
         }
+        public IRepository<Permission> PermissionRepository
+        {
+            get
+            {
+                if (_permissionRepository == null)
+                {
+                    _permissionRepository = new Repository<Permission>(_context);
+                }
+                return _permissionRepository;
+            }
+        }
+        public IRepository<Position> PositionRepository
+        {
+            get
+            {
+                if (_positionRepository == null)
+                {
+                    _positionRepository = new Repository<Position>(_context);
+                }
+                return _positionRepository;
+            }
+        }
 
 
 
@@ -179,8 +215,42 @@ namespace Authentication.Infrastructure.Repositories
                 }
                 return _dM_LoaiBieuGiaRepository;
             }
+        }     
+        public IRepository<DM_KhuVuc> DM_KhuVucRepository
+        {
+            get
+            {
+                if (_dM_KhuVucRepository == null)
+                {
+                    _dM_KhuVucRepository = new Repository<DM_KhuVuc>(_context);
+                }
+                return _dM_KhuVucRepository;
+            }
+        }      
+        public IRepository<DM_Vung> DM_VungRepository
+        {
+            get
+            {
+                if (_dM_VungRepository == null)
+                {
+                    _dM_VungRepository = new Repository<DM_Vung>(_context);
+                }
+                return _dM_VungRepository;
+            }
         }
 
+        // 3 :Danh mục bieu gia của Kem
+        public IRepository<DM_BieuGia> DM_BieuGiaRepository
+        {
+            get
+            {
+                if (_dM_BieuGiaRepository == null)
+                {
+                    _dM_BieuGiaRepository = new Repository<DM_BieuGia>(_context);
+                }
+                return _dM_BieuGiaRepository;
+            }
+        }
 
 
 

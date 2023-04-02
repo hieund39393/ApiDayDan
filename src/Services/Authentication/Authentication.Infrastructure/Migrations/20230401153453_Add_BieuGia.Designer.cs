@@ -4,6 +4,7 @@ using Authentication.Infrastructure.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Authentication.Infrastructure.Migrations
 {
     [DbContext(typeof(ExOneDbContext))]
-    partial class ExOneDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230401153453_Add_BieuGia")]
+    partial class Add_BieuGia
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,55 +23,6 @@ namespace Authentication.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("AAuthentication.Infrastructure.AggregatesModel.DM_BieuGia.DM_BieuGia", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Id bảng, khóa chính");
-
-                    b.Property<Guid?>("CreatedBy")
-                        .HasMaxLength(36)
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Mã người tạo");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2")
-                        .HasComment("Ngày tạo");
-
-                    b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false)
-                        .HasComment("Cờ xóa");
-
-                    b.Property<string>("MaBieuGia")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("TenBieuGia")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<Guid?>("UpdatedBy")
-                        .HasMaxLength(36)
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Mã người cập nhật");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2")
-                        .HasComment("Ngày cập nhật");
-
-                    b.Property<Guid?>("idLoaiBieuGia")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("idLoaiBieuGia");
-
-                    b.ToTable("DM_BieuGia", (string)null);
-                });
 
             modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.ActionsAggregate.Actions", b =>
                 {
@@ -117,6 +70,53 @@ namespace Authentication.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AUTH_Action", (string)null);
+                });
+
+            modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.DM_BieuGia.DM_BieuGia", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Id bảng, khóa chính");
+
+                    b.Property<Guid?>("CreatedBy")
+                        .HasMaxLength(36)
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Mã người tạo");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2")
+                        .HasComment("Ngày tạo");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasComment("Cờ xóa");
+
+                    b.Property<string>("MaBieuGia")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("TenBieuGia")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<Guid?>("UpdatedBy")
+                        .HasMaxLength(36)
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Mã người cập nhật");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2")
+                        .HasComment("Ngày cập nhật");
+
+                    b.Property<Guid?>("idLoaiBieuGia")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DM_BieuGia", (string)null);
                 });
 
             modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGia.DM_LoaiBieuGia", b =>
@@ -961,15 +961,6 @@ namespace Authentication.Infrastructure.Migrations
                     b.ToTable("AUTH_UserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("AAuthentication.Infrastructure.AggregatesModel.DM_BieuGia.DM_BieuGia", b =>
-                {
-                    b.HasOne("Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGia.DM_LoaiBieuGia", "DM_LoaiBieuGia")
-                        .WithMany("DM_BieuGia")
-                        .HasForeignKey("idLoaiBieuGia");
-
-                    b.Navigation("DM_LoaiBieuGia");
-                });
-
             modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.MenuAggregate.Menu", b =>
                 {
                     b.HasOne("Authentication.Infrastructure.AggregatesModel.ModuleAggregate.Module", "Module")
@@ -1095,11 +1086,6 @@ namespace Authentication.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGia.DM_LoaiBieuGia", b =>
-                {
-                    b.Navigation("DM_BieuGia");
                 });
 
             modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.MenuAggregate.Menu", b =>
