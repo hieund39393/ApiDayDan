@@ -1,4 +1,5 @@
 ﻿using AAuthentication.Infrastructure.AggregatesModel.DM_BieuGia;
+using Authentication.Infrastructure.AggregatesModel.DM_CongViec;
 using Authentication.Infrastructure.AggregatesModel.DM_KhuVuc;
 using Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGia;
 using Authentication.Infrastructure.AggregatesModel.DM_Vung;
@@ -30,6 +31,7 @@ namespace Authentication.Infrastructure.Repositories
         IRepository<DM_LoaiBieuGia> DM_LoaiBieuGiaRepository { get; }
         IRepository<DM_KhuVuc> DM_KhuVucRepository { get; }
         IRepository<DM_Vung> DM_VungRepository { get; }
+        IRepository<DM_CongViec> DM_CongViecRepository { get; }
 
         //1. DM bieu gia - Kem
         IRepository<DM_BieuGia> DM_BieuGiaRepository { get; }
@@ -59,6 +61,7 @@ namespace Authentication.Infrastructure.Repositories
         private IRepository<DM_LoaiBieuGia> _dM_LoaiBieuGiaRepository;
         private IRepository<DM_KhuVuc> _dM_KhuVucRepository;
         private IRepository<DM_Vung> _dM_VungRepository;
+        private IRepository<DM_CongViec> _dM_CongViecRepository;
 
         //Danh muc bieu gia - Kem
         private IRepository<DM_BieuGia> _dM_BieuGiaRepository;
@@ -236,6 +239,17 @@ namespace Authentication.Infrastructure.Repositories
                     _dM_VungRepository = new Repository<DM_Vung>(_context);
                 }
                 return _dM_VungRepository;
+            }
+        }      
+        public IRepository<DM_CongViec> DM_CongViecRepository
+        {
+            get
+            {
+                if (_dM_CongViecRepository == null)
+                {
+                    _dM_CongViecRepository = new Repository<DM_CongViec>(_context);
+                }
+                return _dM_CongViecRepository;
             }
         }
 
