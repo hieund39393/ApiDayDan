@@ -1,4 +1,5 @@
-﻿using Authentication.Application.Commands.DM_CongViecCommand;
+﻿using Authentication.Application.Commands.DM_BieuGiaCommand;
+using Authentication.Application.Commands.DM_CongViecCommand;
 using Authentication.Application.Model.DM_CongViec;
 using Authentication.Application.Queries.DM_CongViecQuery;
 using Authentication.Infrastructure.Properties;
@@ -6,6 +7,7 @@ using EVN.Core.Models;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
@@ -89,8 +91,8 @@ namespace Authentication.API.Controllers
         [ProducesResponseType(typeof(ApiSuccessResult<bool>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Update([FromRoute] DeleteDM_CongViecCommand command)
         {
-            var user = await _mediator.Send(command);
-            return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_DELETE_SUCCESS, "loại công việc")));
+            var data = await _mediator.Send(new DeleteDM_CongViecCommand(id));
+            return Ok(new ApiSuccessResult<bool>(data: data, message: string.Format(Resources.MSG_DELETE_SUCCESS, "loại công việc")));
         }
     }
 }
