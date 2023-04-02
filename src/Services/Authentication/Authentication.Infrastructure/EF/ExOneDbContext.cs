@@ -15,6 +15,8 @@ using Authentication.Infrastructure.AggregatesModel.MenuAggregate;
 using Authentication.Infrastructure.AggregatesModel.PositionAggregate;
 using Authentication.Infrastructure.AggregatesModel.PermissionAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGia;
+using Authentication.Infrastructure.AggregatesModel.DM_KhuVuc;
+using Authentication.Infrastructure.AggregatesModel.DM_Vung;
 
 namespace Authentication.Infrastructure.EF
 {
@@ -60,6 +62,8 @@ namespace Authentication.Infrastructure.EF
 
         // danh mục của Tiến Anh
         public DbSet<DM_LoaiBieuGia> DM_LoaiBieuGia { get; set; }
+        public DbSet<DM_KhuVuc> DM_KhuVuc { get; set; }
+        public DbSet<DM_Vung> DM_Vung { get; set; }
 
 
 

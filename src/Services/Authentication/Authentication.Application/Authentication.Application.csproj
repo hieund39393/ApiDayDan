@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Authentication.Infrastructure\Authentication.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Model\DM_Vung\" />
+  </ItemGroup>
+
 </Project>
