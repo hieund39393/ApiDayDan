@@ -5,9 +5,8 @@ using MediatR;
 
 namespace Authentication.Application.Commands.DM_LoaiBieuGiaCommand
 {
-    public class DeleteDM_LoaiBieuGiaCommand : IRequest<bool> // kế thừa IRequest<bool>
+    public record DeleteDM_LoaiBieuGiaCommand(Guid Id) : IRequest<bool> // kế thừa IRequest<bool>
     {
-        public Guid Id { get; set; } // thêm ID
     }
 
     //Tạo thêm 1 class Handler kế thừa IRequestHandler<DeleteDM_LoaiBieuGiaCommand, bool> rồi implement

@@ -6,6 +6,7 @@ using EVN.Core.Models;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
@@ -85,11 +86,11 @@ namespace Authentication.API.Controllers
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [ProducesResponseType(typeof(ApiSuccessResult<bool>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Update([FromForm] DeleteDM_KhuVucCommand command)
+        public async Task<IActionResult> Update([FromRoute] Guid id)
         {
-            var user = await _mediator.Send(command);
+            var user = await _mediator.Send(new DeleteDM_KhuVucCommand(id));
             return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_DELETE_SUCCESS, " khu vực")));
         }
     }
