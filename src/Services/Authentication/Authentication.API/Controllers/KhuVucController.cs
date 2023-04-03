@@ -4,7 +4,6 @@ using Authentication.Application.Queries.DM_KhuVucQuery;
 using Authentication.Infrastructure.Properties;
 using EVN.Core.Models;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -62,7 +61,7 @@ namespace Authentication.API.Controllers
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(typeof(ApiSuccessResult<bool>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Create([FromForm] CreateDM_KhuVucCommand command)
+        public async Task<IActionResult> Create([FromBody] CreateDM_KhuVucCommand command)
         {
             var user = await _mediator.Send(command);
             return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_CREATE_SUCCESS, " khu vực")));
@@ -75,7 +74,7 @@ namespace Authentication.API.Controllers
         /// <returns></returns>
         [HttpPut]
         [ProducesResponseType(typeof(ApiSuccessResult<bool>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Update([FromForm] UpdateDM_KhuVucCommand command)
+        public async Task<IActionResult> Update([FromBody] UpdateDM_KhuVucCommand command)
         {
             var user = await _mediator.Send(command);
             return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_UPDATE_SUCCESS, " khu vực")));
