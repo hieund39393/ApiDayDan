@@ -289,6 +289,10 @@ namespace EVN.Core.Common
 
             // Menu của quản trj danh mục
             public const string LoaiBieuGia = QTDM + "lbg";
+            public const string BieuGia = QTDM + "bg";
+            public const string CongViec = QTDM + "cv";
+            public const string Vung = QTDM + "vung";
+            public const string KhuVuc = QTDM + "kv";
 
             public const string View = ".v";
             public const string Create = ".c";

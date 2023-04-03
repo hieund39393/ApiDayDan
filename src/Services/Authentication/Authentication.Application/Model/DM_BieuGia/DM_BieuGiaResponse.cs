@@ -10,6 +10,7 @@ namespace Authentication.Application.Model.DM_BieuGia
     public class DM_BieuGiaResponse : BaseExtendEntities // kế thừa BaseExtendEntities dể phân trang, sea
     {
         public Guid Id { get; set; }
+        public Guid? idLoaiBieuGia { get; set; }
         public string MaBieuGia { get; set; }
         public string TenBieuGia { get; set; }
         public string TenLoaiBieuGia { get; set; }

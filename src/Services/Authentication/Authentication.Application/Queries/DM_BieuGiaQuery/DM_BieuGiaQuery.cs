@@ -47,13 +47,14 @@ namespace Authentication.Application.Queries.DM_BieuGiaQuery
 
               .Include(x => x.DM_LoaiBieuGia) // đoạn này join để lấy tên loại biểu giá 
               .Select(x => new DM_BieuGiaResponse()
-                {
-                    Id = x.Id,
-                    MaBieuGia = x.MaBieuGia,
-                    TenBieuGia = x.TenBieuGia,
-                    TenLoaiBieuGia = x.DM_LoaiBieuGia.TenBieuGia, // đoạn này mapping tên loại biểu giá
-                    CreatedDate = x.CreatedDate,
-                });// select dữ liệu
+              {
+                  Id = x.Id,
+                  MaBieuGia = x.MaBieuGia,
+                  TenBieuGia = x.TenBieuGia,
+                  TenLoaiBieuGia = x.DM_LoaiBieuGia.TenBieuGia, // đoạn này mapping tên loại biểu giá
+                  idLoaiBieuGia = x.idLoaiBieuGia, // đoạn này mapping tên loại biểu giá
+                  CreatedDate = x.CreatedDate,
+              });// select dữ liệu
             var totalRow = query.Count(); // tổng số lượng
             var queryPaging = query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize); // phân trang
             return await PagingResultSP<DM_BieuGiaResponse>.CreateAsyncLinq(queryPaging, totalRow, request.PageIndex, request.PageSize);
