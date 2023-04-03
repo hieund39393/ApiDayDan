@@ -66,7 +66,7 @@ namespace Authentication.API.Controllers
         public async Task<IActionResult> Create([FromBody] CreateDM_CongViecCommand command)
         {
             var user = await _mediator.Send(command);
-            return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_CREATE_SUCCESS, "loại công việc")));
+            return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_CREATE_SUCCESS, "công việc")));
         }
 
         /// <summary>
@@ -79,20 +79,20 @@ namespace Authentication.API.Controllers
         public async Task<IActionResult> Update([FromBody] UpdateDM_CongViecCommand command)
         {
             var user = await _mediator.Send(command);
-            return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_UPDATE_SUCCESS, "loại công việc")));
+            return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_UPDATE_SUCCESS, "công việc")));
         }
 
         /// <summary>
         /// Xoá công việc
         /// </summary>
-        /// <param name="command"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete]
         [ProducesResponseType(typeof(ApiSuccessResult<bool>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Update([FromRoute] DeleteDM_CongViecCommand command)
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             var data = await _mediator.Send(new DeleteDM_CongViecCommand(id));
-            return Ok(new ApiSuccessResult<bool>(data: data, message: string.Format(Resources.MSG_DELETE_SUCCESS, "loại công việc")));
+            return Ok(new ApiSuccessResult<bool>(data: data, message: string.Format(Resources.MSG_DELETE_SUCCESS, "công việc")));
         }
     }
 }

@@ -88,7 +88,7 @@ namespace Authentication.API.Controllers
         /// <summary>
         /// Xoá loại biểu giá
         /// </summary>
-        /// <param name="command"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("{id}")]
         [ProducesResponseType(typeof(ApiSuccessResult<bool>), (int)HttpStatusCode.OK)]
