@@ -20,7 +20,7 @@ namespace Authentication.Application.Commands.DM_KhuVucCommand
         public async Task<bool> Handle(DeleteDM_KhuVucCommand request, CancellationToken cancellationToken)
         {
             // tìm kiếm xem có ID trong bảng DM_KhuVuc không
-            var entity = await _unitOfWork.DM_KhuVucRepository.FindOneAsync(x => x.Id == request.Id);
+            var entity = await _unitOfWork.DM_KhuVucRepository.FindOneAsync(x => x.Id == request.id);
             // nếu không có dữ liệu thì thêm mới
             if (entity == null)
             {
