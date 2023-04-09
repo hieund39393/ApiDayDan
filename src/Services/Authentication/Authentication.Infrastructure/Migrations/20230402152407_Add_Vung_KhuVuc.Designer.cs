@@ -121,7 +121,7 @@ namespace Authentication.Infrastructure.Migrations
                     b.ToTable("AUTH_Action", (string)null);
                 });
 
-            modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.DM_KhuVuc.DM_KhuVuc", b =>
+            modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.DM_KhuVucAggregates.DM_KhuVuc", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()

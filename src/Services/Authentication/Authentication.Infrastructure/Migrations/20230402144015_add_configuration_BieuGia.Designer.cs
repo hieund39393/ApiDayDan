@@ -24,7 +24,7 @@ namespace Authentication.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("AAuthentication.Infrastructure.AggregatesModel.DM_BieuGia.DM_BieuGia", b =>
+            modelBuilder.Entity("AAuthentication.Infrastructure.AggregatesModel.DM_BieuGiaAggregate.DM_BieuGia", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -121,7 +121,7 @@ namespace Authentication.Infrastructure.Migrations
                     b.ToTable("AUTH_Action", (string)null);
                 });
 
-            modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGia.DM_LoaiBieuGia", b =>
+            modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGiaAggregate.DM_LoaiBieuGia", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -965,7 +965,7 @@ namespace Authentication.Infrastructure.Migrations
 
             modelBuilder.Entity("AAuthentication.Infrastructure.AggregatesModel.DM_BieuGia.DM_BieuGia", b =>
                 {
-                    b.HasOne("Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGia.DM_LoaiBieuGia", "DM_LoaiBieuGia")
+                    b.HasOne("Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGiaAggregate.DM_LoaiBieuGia", "DM_LoaiBieuGia")
                         .WithMany("DM_BieuGia")
                         .HasForeignKey("idLoaiBieuGia");
 
@@ -1099,7 +1099,7 @@ namespace Authentication.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGia.DM_LoaiBieuGia", b =>
+            modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGiaAggregate.DM_LoaiBieuGia", b =>
                 {
                     b.Navigation("DM_BieuGia");
                 });
