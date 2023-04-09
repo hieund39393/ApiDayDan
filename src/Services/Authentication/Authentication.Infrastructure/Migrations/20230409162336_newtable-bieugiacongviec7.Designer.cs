@@ -4,6 +4,7 @@ using Authentication.Infrastructure.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Authentication.Infrastructure.Migrations
 {
     [DbContext(typeof(ExOneDbContext))]
-    partial class ExOneDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230409162336_newtable-bieugiacongviec7")]
+    partial class newtablebieugiacongviec7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -182,9 +184,6 @@ namespace Authentication.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Id bảng, khóa chính");
 
-                    b.Property<Guid?>("CongViecID")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid?>("CreatedBy")
                         .HasMaxLength(36)
                         .HasColumnType("uniqueidentifier")
@@ -221,17 +220,14 @@ namespace Authentication.Infrastructure.Migrations
                         .HasDefaultValue(false)
                         .HasComment("Cờ xóa");
 
-                    b.Property<Guid?>("KhuVucID")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int>("Nam")
                         .HasColumnType("int");
 
                     b.Property<int>("Quy")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("SoLuong")
-                        .HasColumnType("numeric(18,1)");
+                    b.Property<int>("SoLuong")
+                        .HasColumnType("int");
 
                     b.Property<Guid?>("UpdatedBy")
                         .HasMaxLength(36)
@@ -241,9 +237,6 @@ namespace Authentication.Infrastructure.Migrations
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2")
                         .HasComment("Ngày cập nhật");
-
-                    b.Property<Guid?>("VungID")
-                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -267,10 +260,6 @@ namespace Authentication.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2")
                         .HasComment("Ngày tạo");
-
-                    b.Property<string>("DonViTinh")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()

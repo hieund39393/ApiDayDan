@@ -8,7 +8,6 @@ namespace Authentication.Infrastructure.AggregatesModel.DM_VungAggregate
     {
         public string TenVung { get; set; }
         public string GhiChu { get; set; }
-        public ICollection<ChiTietBieuGia> ChiTietBieuGia { get; set; } // cấu hình 1-N bảng biểu giá
         public ICollection<BieuGiaCongViec> BieuGiaCongViec { get; set; } // cấu hình 1-N bảng biểu giá công việc
 
     }
