@@ -1,4 +1,4 @@
-﻿using Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGia;
+﻿using Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGiaAggregate;
 using Authentication.Infrastructure.Properties;
 using Authentication.Infrastructure.Repositories;
 using EVN.Core.Exceptions;
