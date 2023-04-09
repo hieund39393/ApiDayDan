@@ -14,11 +14,13 @@ using Microsoft.Extensions.Configuration;
 using Authentication.Infrastructure.AggregatesModel.MenuAggregate;
 using Authentication.Infrastructure.AggregatesModel.PositionAggregate;
 using Authentication.Infrastructure.AggregatesModel.PermissionAggregate;
-using Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGia;
 using AAuthentication.Infrastructure.AggregatesModel.DM_BieuGia;
-using Authentication.Infrastructure.AggregatesModel.DM_KhuVuc;
-using Authentication.Infrastructure.AggregatesModel.DM_Vung;
-using Authentication.Infrastructure.AggregatesModel.DM_CongViec;
+using Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGiaAggregate;
+using Authentication.Infrastructure.AggregatesModel.DM_KhuVucAggregate;
+using Authentication.Infrastructure.AggregatesModel.DM_VungAggregate;
+using Authentication.Infrastructure.AggregatesModel.DM_CongViecAggregate;
+using Authentication.Infrastructure.AggregatesModel.ChiTietBieuGiaAggregate;
+using Authentication.Infrastructure.AggregatesModel.BieuGiaCongViecAggregate;
 
 namespace Authentication.Infrastructure.EF
 {
@@ -67,6 +69,8 @@ namespace Authentication.Infrastructure.EF
         public DbSet<DM_KhuVuc> DM_KhuVuc { get; set; }
         public DbSet<DM_Vung> DM_Vung { get; set; }
         public DbSet<DM_CongViec> DM_CongViec { get; set; }
+        public DbSet<ChiTietBieuGia> ChiTietBieuGia { get; set; }
+        public DbSet<BieuGiaCongViec> BieuGiaCongViec { get; set; }
 
         //Danh muc Bieu gia - Kem M5
         public DbSet<DM_BieuGia> DM_BieuGia { get; set; }
@@ -94,6 +98,8 @@ namespace Authentication.Infrastructure.EF
             builder.ApplyConfiguration(new DM_KhuVucConfiguration());
             builder.ApplyConfiguration(new DM_VungConfiguration());
             builder.ApplyConfiguration(new DM_CongViecConfiguration());
+            builder.ApplyConfiguration(new ChiTietBieuGiaConfiguration());
+            builder.ApplyConfiguration(new BieuGiaCongViecConfiguration());
 
             //Cau hinh cua Kem M5
             builder.ApplyConfiguration(new DM_BieuGiaConfiguration());

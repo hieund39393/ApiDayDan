@@ -1,8 +1,7 @@
 ﻿using Authentication.Infrastructure.EF.EntityConfigurations;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using Authentication.Infrastructure.AggregatesModel.DM_Vung;
-using Authentication.Infrastructure.AggregatesModel.DM_KhuVuc;
+using Authentication.Infrastructure.AggregatesModel.DM_KhuVucAggregate;
 
 namespace Authentication.Infrastructure.EntityConfigurations
 {

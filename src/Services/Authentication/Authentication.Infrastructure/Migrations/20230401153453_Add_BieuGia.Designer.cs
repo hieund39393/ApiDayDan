@@ -119,7 +119,7 @@ namespace Authentication.Infrastructure.Migrations
                     b.ToTable("DM_BieuGia", (string)null);
                 });
 
-            modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGia.DM_LoaiBieuGia", b =>
+            modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGiaAggregate.DM_LoaiBieuGia", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()

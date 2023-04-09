@@ -1,4 +1,4 @@
-﻿using Authentication.Infrastructure.AggregatesModel.DM_KhuVuc;
+﻿using Authentication.Infrastructure.AggregatesModel.DM_KhuVucAggregate;
 using Authentication.Infrastructure.Properties;
 using Authentication.Infrastructure.Repositories;
 using EVN.Core.Exceptions;

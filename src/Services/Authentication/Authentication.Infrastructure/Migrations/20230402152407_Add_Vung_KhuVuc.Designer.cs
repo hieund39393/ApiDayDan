@@ -121,7 +121,7 @@ namespace Authentication.Infrastructure.Migrations
                     b.ToTable("AUTH_Action", (string)null);
                 });
 
-            modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.DM_KhuVuc.DM_KhuVuc", b =>
+            modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.DM_KhuVucAggregates.DM_KhuVuc", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -165,7 +165,7 @@ namespace Authentication.Infrastructure.Migrations
                     b.ToTable("DM_KhuVuc", (string)null);
                 });
 
-            modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGia.DM_LoaiBieuGia", b =>
+            modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGiaAggregate.DM_LoaiBieuGia", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -209,7 +209,7 @@ namespace Authentication.Infrastructure.Migrations
                     b.ToTable("DM_LoaiBieuGia", (string)null);
                 });
 
-            modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.DM_Vung.DM_Vung", b =>
+            modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.DM_VungAggregate.DM_Vung", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -1053,7 +1053,7 @@ namespace Authentication.Infrastructure.Migrations
 
             modelBuilder.Entity("AAuthentication.Infrastructure.AggregatesModel.DM_BieuGia.DM_BieuGia", b =>
                 {
-                    b.HasOne("Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGia.DM_LoaiBieuGia", "DM_LoaiBieuGia")
+                    b.HasOne("Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGiaAggregate.DM_LoaiBieuGia", "DM_LoaiBieuGia")
                         .WithMany("DM_BieuGia")
                         .HasForeignKey("idLoaiBieuGia");
 
@@ -1187,7 +1187,7 @@ namespace Authentication.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGia.DM_LoaiBieuGia", b =>
+            modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGiaAggregate.DM_LoaiBieuGia", b =>
                 {
                     b.Navigation("DM_BieuGia");
                 });

@@ -1,8 +1,8 @@
 ﻿using AAuthentication.Infrastructure.AggregatesModel.DM_BieuGia;
-using Authentication.Infrastructure.AggregatesModel.DM_CongViec;
-using Authentication.Infrastructure.AggregatesModel.DM_KhuVuc;
-using Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGia;
-using Authentication.Infrastructure.AggregatesModel.DM_Vung;
+using Authentication.Infrastructure.AggregatesModel.DM_CongViecAggregate;
+using Authentication.Infrastructure.AggregatesModel.DM_KhuVucAggregate;
+using Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGiaAggregate;
+using Authentication.Infrastructure.AggregatesModel.DM_VungAggregate;
 using Authentication.Infrastructure.AggregatesModel.MenuAggregate;
 using Authentication.Infrastructure.AggregatesModel.ModuleAggregate;
 using Authentication.Infrastructure.AggregatesModel.PermissionAggregate;

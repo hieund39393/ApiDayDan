@@ -1,4 +1,4 @@
-﻿using Authentication.Infrastructure.AggregatesModel.DM_CongViec;
+﻿using Authentication.Infrastructure.AggregatesModel.DM_CongViecAggregate;
 using Authentication.Infrastructure.Properties;
 using Authentication.Infrastructure.Repositories;
 using EVN.Core.Exceptions;
