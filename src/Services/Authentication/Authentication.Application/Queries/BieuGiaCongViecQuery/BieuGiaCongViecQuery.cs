@@ -22,7 +22,7 @@ namespace Authentication.Application.Queries.BieuGiaCongViecQuery
         {
             //Tạo câu query
             var query = _unitOfWork.BieuGiaCongViecRepository.GetQuery()
-                .AsSplitQuery()
+                .AsSplitQuery()      // sử dụng include thì khai báo AsSplitQuery dể tăng tốc độ truy vấn
                 .Include(x => x.DM_BieuGia)
                 .Include(x => x.DM_KhuVuc)
                 .Include(x => x.DM_Vung)
