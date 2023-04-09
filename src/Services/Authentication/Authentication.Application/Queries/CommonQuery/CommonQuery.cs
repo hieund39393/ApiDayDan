@@ -32,6 +32,7 @@ namespace Authentication.Application.Queries.CommonQuery
                     Name = x.Name,
                     Code = x.Code,
                     Order = x.Order,
+                    Icon = x.Icon,
                     SubItems = x.Menus.Select(y => new MenuItemResponse
                     {
 
@@ -49,7 +50,7 @@ namespace Authentication.Application.Queries.CommonQuery
         public async Task<List<SelectItem>> ListModule()
         {
             var data = await _unitOfWork.ModuleRepository.GetQuery().AsNoTracking()
-                .Select(x=> new SelectItem
+                .Select(x => new SelectItem
                 {
                     Name = x.Name,
                     Value = x.Id.ToString(),
