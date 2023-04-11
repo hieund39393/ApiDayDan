@@ -25,7 +25,7 @@ namespace Authentication.Application.Queries.DM_LoaiBieuGiaQuery
         {
             var query = await _unitOfWork.DM_LoaiBieuGiaRepository.GetQuery().Select(x => new SelectItem
             {
-                Name = x.TenBieuGia,
+                Name = x.TenLoaiBieuGia,
                 Value = x.Id.ToString(),
             }).AsNoTracking().ToListAsync();
             return query;
@@ -37,14 +37,20 @@ namespace Authentication.Application.Queries.DM_LoaiBieuGiaQuery
             //Tạo câu query
             var query = _unitOfWork.DM_LoaiBieuGiaRepository.GetQuery(x =>
 
-            (string.IsNullOrEmpty(request.TenBieuGia) || x.TenBieuGia.Contains(request.TenBieuGia)) &&  //Tìm kiếm
-            (string.IsNullOrEmpty(request.MaBieuGia) || x.TenBieuGia.Contains(request.MaBieuGia))) 
-
+            (string.IsNullOrEmpty(request.TenLoaiBieuGia) || x.TenLoaiBieuGia.Contains(request.TenLoaiBieuGia)) &&  //Tìm kiếm
+            (string.IsNullOrEmpty(request.MaLoaiBieuGia) || x.TenLoaiBieuGia.Contains(request.MaLoaiBieuGia))) 
+                .AsSplitQuery()
+                .Include(x => x.DM_Vung)
+                .Include(x => x.DM_KhuVuc)
                 .Select(x => new DM_LoaiBieuGiaResponse()
                 {
                     Id = x.Id,
-                    MaBieuGia = x.MaBieuGia,
-                    TenBieuGia = x.TenBieuGia,
+                    MaLoaiBieuGia = x.MaLoaiBieuGia,
+                    TenLoaiBieuGia = x.TenLoaiBieuGia,
+                    KhuVucID= x.KhuVucID,
+                    VungID= x.VungID,
+                    TenKhuVuc = x.DM_KhuVuc.TenKhuVuc,
+                    TenVung = x.DM_Vung.TenVung,
                     NgayTao = x.CreatedDate,
                 });// select dữ liệu
             var totalRow = query.Count(); // tổng số lượng

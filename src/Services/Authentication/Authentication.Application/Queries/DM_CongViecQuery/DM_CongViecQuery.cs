@@ -45,6 +45,7 @@ namespace Authentication.Application.Queries.DM_CongViecQuery
                     Id = x.Id,
                     TenCongViec = x.TenCongViec,
                     MaCongViec = x.MaCongViec,
+                    DonViTinh = x.DonViTinh,
                     NgayTao = x.CreatedDate,
                 });// select dữ liệu
             var totalRow = query.Count(); // tổng số lượng

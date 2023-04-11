@@ -24,7 +24,7 @@ namespace Authentication.Application.Commands.DM_CongViecCommand
             // nếu không có dữ liệu thì thêm mới
             if (entity == null)
             {
-                throw new EvnException(string.Format(Resources.MSG_NOT_FOUND, "công việc"));
+                throw new EvnException(string.Format(Resources.MSG_NOT_FOUND, "Công việc"));
             }
 
             entity.IsDeleted = true; // xoá mềm 

@@ -8,8 +8,8 @@ namespace Authentication.Application.Commands.BieuGiaCongViecCommand
     public class UpdateBieuGiaCongViecCommand : IRequest<bool>
     {
         public Guid Id { get; set; }
-        public Guid BieuGiaID { get; set; }
-        public Guid CongViecID { get; set; }
+        public Guid IdBieuGia { get; set; }
+        public Guid IdCongViec { get; set; }
         public Guid VungID { get; set; }
         public Guid KhuVucID { get; set; }
     }
@@ -33,19 +33,15 @@ namespace Authentication.Application.Commands.BieuGiaCongViecCommand
             {
                 throw new EvnException(string.Format(Resources.MSG_NOT_FOUND, "biểu giá công việc"));
             }
-            var checkEntity = await _unitOfWork.BieuGiaCongViecRepository.FindOneAsync(x =>x.BieuGiaID == request.BieuGiaID &&
-                                                                                       x.CongViecID == request.CongViecID &&
-                                                                                       x.VungID == request.VungID &&
-                                                                                       x.KhuVucID == request.KhuVucID);
+            var checkEntity = await _unitOfWork.BieuGiaCongViecRepository.FindOneAsync(x =>x.IdBieuGia == request.IdBieuGia &&
+                                                                                       x.IdCongViec == request.IdCongViec);
             if (checkEntity != null)
             {
                 throw new EvnException(string.Format(Resources.MSG_IS_EXIST, "Biểu giá công việc"));
             }
 
-            entity.BieuGiaID = request.BieuGiaID;
-            entity.CongViecID = request.CongViecID;
-            entity.VungID = request.VungID;
-            entity.KhuVucID = request.KhuVucID;
+            entity.IdBieuGia = request.IdBieuGia;
+            entity.IdCongViec = request.IdCongViec;
             //thêm vào DB
             _unitOfWork.BieuGiaCongViecRepository.Update(entity);
             //lưu lại trong DB

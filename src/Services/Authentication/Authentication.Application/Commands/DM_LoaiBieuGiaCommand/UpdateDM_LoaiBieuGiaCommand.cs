@@ -8,8 +8,10 @@ namespace Authentication.Application.Commands.DM_LoaiBieuGiaCommand
     public class UpdateDM_LoaiBieuGiaCommand : IRequest<bool> // kế thừa IRequest<bool>
     {
         public Guid Id { get; set; } // thêm ID
-        public string TenBieuGia { get; set; }
-        public string MaBieuGia { get; set; }
+        public string TenLoaiBieuGia { get; set; }
+        public string MaLoaiBieuGia { get; set; }
+        public Guid? VungID { get; set; }
+        public Guid? KhuVucID { get; set; }
     }
 
     //Tạo thêm 1 class Handler kế thừa IRequestHandler<UpdateDM_LoaiBieuGiaCommand, bool> rồi implement
@@ -30,8 +32,11 @@ namespace Authentication.Application.Commands.DM_LoaiBieuGiaCommand
                 throw new EvnException(string.Format(Resources.MSG_NOT_FOUND, "Loại biểu giá"));
             }
 
-            entity.MaBieuGia = request.MaBieuGia;
-            entity.TenBieuGia = request.TenBieuGia;
+            entity.MaLoaiBieuGia = request.MaLoaiBieuGia;
+            entity.TenLoaiBieuGia = request.TenLoaiBieuGia;
+            entity.KhuVucID = request.KhuVucID;
+            entity.VungID = request.VungID;
+
             //thêm vào DB
             _unitOfWork.DM_LoaiBieuGiaRepository.Update(entity);
             //lưu lại trong DB

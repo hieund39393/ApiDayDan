@@ -10,6 +10,8 @@ namespace Authentication.Application.Commands.DM_CongViecCommand
         public Guid Id { get; set; } // thêm ID
         public string TenCongViec { get; set; }
         public string MaCongViec { get; set; }
+        public string DonViTinh { get; set; }
+
     }
 
     //Tạo thêm 1 class Handler kế thừa IRequestHandler<UpdateDM_CongViecCommand, bool> rồi implement
@@ -24,14 +26,28 @@ namespace Authentication.Application.Commands.DM_CongViecCommand
         {
             // tìm kiếm xem có ID trong bảng DM_CongViec không
             var entity = await _unitOfWork.DM_CongViecRepository.FindOneAsync(x => x.Id == request.Id);
-            // nếu không có dữ liệu
+            // nếu không có dữ liệu  
             if (entity == null)
             {
-                throw new EvnException(string.Format(Resources.MSG_NOT_FOUND, "công việc"));
+                throw new EvnException(string.Format(Resources.MSG_NOT_FOUND, "Công việc"));
+            }
+            if (entity.TenCongViec == request.TenCongViec && entity.MaCongViec == request.MaCongViec)
+            {
+                entity.DonViTinh = request.DonViTinh;
+            }
+            else
+            {
+                var checkEntity = await _unitOfWork.DM_CongViecRepository.FindOneAsync(x => x.TenCongViec == request.TenCongViec && x.MaCongViec == request.MaCongViec);
+                if (checkEntity != null)
+                {
+                    throw new EvnException(string.Format(Resources.MSG_IS_EXIST, "Công việc"));
+                }
+                entity.TenCongViec = request.TenCongViec;
+                entity.MaCongViec = request.MaCongViec;
+                entity.DonViTinh = request.DonViTinh;
             }
 
-            entity.TenCongViec = request.TenCongViec;
-            entity.MaCongViec = request.MaCongViec;
+
             //thêm vào DB
             _unitOfWork.DM_CongViecRepository.Update(entity);
             //lưu lại trong DB
