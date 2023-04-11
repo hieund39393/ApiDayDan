@@ -1,4 +1,5 @@
 ﻿using AAuthentication.Infrastructure.AggregatesModel.DM_BieuGia;
+using Authentication.Infrastructure.AggregatesModel.ChiTietBieuGiaAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_CongViecAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_KhuVucAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_VungAggregate;
@@ -23,6 +24,8 @@ namespace Authentication.Infrastructure.AggregatesModel.BieuGiaCongViecAggregate
         // Công việc
         public Guid? CongViecID { get; set; }
         public DM_CongViec DM_CongViec { get; set; }
+        //public ICollection<ChiTietBieuGia> ChiTietBieuGia { get; set; } // cấu hình 1-N bảng biểu giá
+
 
     }
 }

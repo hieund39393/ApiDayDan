@@ -1,4 +1,5 @@
 ﻿using AAuthentication.Infrastructure.AggregatesModel.DM_BieuGia;
+using Authentication.Infrastructure.AggregatesModel.BieuGiaCongViecAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_CongViecAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_KhuVucAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGiaAggregate;
@@ -32,6 +33,7 @@ namespace Authentication.Infrastructure.Repositories
         IRepository<DM_KhuVuc> DM_KhuVucRepository { get; }
         IRepository<DM_Vung> DM_VungRepository { get; }
         IRepository<DM_CongViec> DM_CongViecRepository { get; }
+        IRepository<BieuGiaCongViec> BieuGiaCongViecRepository { get; }
 
         //1. DM bieu gia - Kem
         IRepository<DM_BieuGia> DM_BieuGiaRepository { get; }
@@ -62,6 +64,7 @@ namespace Authentication.Infrastructure.Repositories
         private IRepository<DM_KhuVuc> _dM_KhuVucRepository;
         private IRepository<DM_Vung> _dM_VungRepository;
         private IRepository<DM_CongViec> _dM_CongViecRepository;
+        private IRepository<BieuGiaCongViec> _bieuGiaCongViecRepository;
 
         //Danh muc bieu gia - Kem
         private IRepository<DM_BieuGia> _dM_BieuGiaRepository;
@@ -207,7 +210,7 @@ namespace Authentication.Infrastructure.Repositories
 
 
 
-        // 3 :Danh mục của Tiến Anh 
+        #region :Danh mục của Tiến Anh 
         public IRepository<DM_LoaiBieuGia> DM_LoaiBieuGiaRepository
         {
             get
@@ -251,8 +254,20 @@ namespace Authentication.Infrastructure.Repositories
                 }
                 return _dM_CongViecRepository;
             }
+        }    
+        public IRepository<BieuGiaCongViec> BieuGiaCongViecRepository
+        {
+            get
+            {
+                if (_bieuGiaCongViecRepository == null)
+                {
+                    _bieuGiaCongViecRepository = new Repository<BieuGiaCongViec>(_context);
+                }
+                return _bieuGiaCongViecRepository;
+            }
         }
-
+        #endregion
+       
         // 3 :Danh mục bieu gia của Kem
         public IRepository<DM_BieuGia> DM_BieuGiaRepository
         {

@@ -13,6 +13,7 @@ namespace Authentication.Infrastructure.EntityConfigurations
             builder.HasKey(x => new { x.Id }); // Cấu hình Khoá chính
             builder.Property(x => x.TenCongViec).HasMaxLength(200); // Cấu hình độ dài tên 
             builder.Property(x => x.MaCongViec).HasMaxLength(20); // Cấu hình độ dài mã biểu giá
+            builder.Property(x => x.DonViTinh).HasMaxLength(50); // Cấu hình độ dài đơn vị tính
             ConfigureBase(builder);
         }
     }
