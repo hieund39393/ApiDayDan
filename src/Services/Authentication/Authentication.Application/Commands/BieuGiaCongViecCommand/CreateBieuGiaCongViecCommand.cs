@@ -8,8 +8,8 @@ namespace Authentication.Application.Commands.BieuGiaCongViecCommand
 {
     public class CreateBieuGiaCongViecCommand : IRequest<bool>
     {
-        public Guid BieuGiaID { get; set; }
-        public Guid CongViecID { get; set; }
+        public Guid IdBieuGia { get; set; }
+        public Guid IdCongViec { get; set; }
         public Guid VungID { get; set; }
         public Guid KhuVucID { get; set; }
     }
@@ -25,20 +25,16 @@ namespace Authentication.Application.Commands.BieuGiaCongViecCommand
         public async Task<bool> Handle(CreateBieuGiaCongViecCommand request, CancellationToken cancellationToken)
         {
             // tìm kiếm xem có trùng trong db không
-            var entity = await _unitOfWork.BieuGiaCongViecRepository.FindOneAsync(x => x.BieuGiaID == request.BieuGiaID &&
-                                                                                       x.CongViecID == request.CongViecID &&
-                                                                                       x.VungID == request.VungID &&
-                                                                                       x.KhuVucID == request.KhuVucID);
+            var entity = await _unitOfWork.BieuGiaCongViecRepository.FindOneAsync(x => x.IdBieuGia == request.IdBieuGia &&
+                                                                                       x.IdCongViec == request.IdCongViec);
             // nếu không có dữ liệu thì thêm mới
             if (entity == null)
             {
                 // Tạo model BieuGiaCongViec
                 var model = new BieuGiaCongViec
                 {
-                    BieuGiaID = request.BieuGiaID,
-                    CongViecID = request.CongViecID,
-                    VungID = request.VungID,
-                    KhuVucID = request.KhuVucID,
+                    IdBieuGia = request.IdBieuGia,
+                    IdCongViec = request.IdCongViec,
                 };
                 //thêm vào DB
                 _unitOfWork.BieuGiaCongViecRepository.Add(model);

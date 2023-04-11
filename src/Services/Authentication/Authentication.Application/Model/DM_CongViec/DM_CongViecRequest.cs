@@ -7,5 +7,6 @@ namespace Authentication.Application.Model.DM_CongViec
     {
         public string TenCongViec { get; set; }
         public string MaCongViec { get; set; }
+        public string DonViTinh { get; set; }
     }
 }

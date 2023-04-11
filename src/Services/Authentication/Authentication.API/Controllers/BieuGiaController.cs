@@ -1,13 +1,9 @@
 ﻿using Authentication.Application.Commands.DM_BieuGiaCommand;
-using Authentication.Application.Commands.DM_LoaiBieuGiaCommand;
 using Authentication.Application.Model.DM_BieuGia;
-using Authentication.Application.Model.DM_LoaiBieuGia;
 using Authentication.Application.Queries.DM_BieuGiaQuery;
-using Authentication.Application.Queries.DM_LoaiBieuGiaQuery;
 using Authentication.Infrastructure.Properties;
 using EVN.Core.Models;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;

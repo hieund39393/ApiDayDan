@@ -23,17 +23,15 @@ namespace Authentication.Application.Queries.BieuGiaCongViecQuery
             //Tạo câu query
             var query = _unitOfWork.BieuGiaCongViecRepository.GetQuery()
                 .AsSplitQuery()      // sử dụng include thì khai báo AsSplitQuery dể tăng tốc độ truy vấn
-                .Include(x => x.DM_BieuGia)
-                .Include(x => x.DM_KhuVuc)
-                .Include(x => x.DM_Vung)
-                .Include(x => x.DM_CongViec)
+                .Include(x => x.DM_BieuGias)
+                .Include(x => x.DM_CongViecs)
                 .Select(x => new BieuGiaCongViecResponse()
                 {
                     Id = x.Id,
-                    BieuGia = x.DM_BieuGia.TenBieuGia,
-                    Vung = x.DM_Vung.TenVung,
-                    KhuVuc = x.DM_KhuVuc.TenKhuVuc,
-                    TenCongViec = x.DM_CongViec.TenCongViec,
+                    IdCongViec= x.IdCongViec,
+                    IdBieuGia= x.IdBieuGia,
+                    TenBieuGia = x.DM_BieuGias.TenBieuGia,
+                    TenCongViec = x.DM_CongViecs.TenCongViec,
                 }).AsNoTracking();// select dữ liệu
             var totalRow = query.Count(); // tổng số lượng
             var queryPaging = query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize); // phân trang

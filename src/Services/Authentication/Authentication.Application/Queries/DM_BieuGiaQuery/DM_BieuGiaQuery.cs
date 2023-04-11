@@ -51,7 +51,7 @@ namespace Authentication.Application.Queries.DM_BieuGiaQuery
                   Id = x.Id,
                   MaBieuGia = x.MaBieuGia,
                   TenBieuGia = x.TenBieuGia,
-                  TenLoaiBieuGia = x.DM_LoaiBieuGia.TenBieuGia, // đoạn này mapping tên loại biểu giá
+                  TenLoaiBieuGia = x.DM_LoaiBieuGia.TenLoaiBieuGia, // đoạn này mapping tên loại biểu giá
                   idLoaiBieuGia = x.idLoaiBieuGia, // đoạn này mapping tên loại biểu giá
                   CreatedDate = x.CreatedDate,
               });// select dữ liệu

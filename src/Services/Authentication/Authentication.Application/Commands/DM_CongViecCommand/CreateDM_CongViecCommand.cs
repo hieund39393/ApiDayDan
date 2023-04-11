@@ -10,6 +10,7 @@ namespace Authentication.Application.Commands.DM_CongViecCommand
     {
         public string TenCongViec { get; set; } 
         public string MaCongViec { get; set; } 
+        public string DonViTinh { get; set; } 
     }
 
     //Tạo thêm 1 class Handler kế thừa IRequestHandler<CreateDM_CongViecCommand, bool> rồi implement
@@ -23,7 +24,7 @@ namespace Authentication.Application.Commands.DM_CongViecCommand
         public async Task<bool> Handle(CreateDM_CongViecCommand request, CancellationToken cancellationToken) 
         {
             // tìm kiếm xem có mã công việc trong db không
-            var entity = await _unitOfWork.DM_CongViecRepository.FindOneAsync(x => x.MaCongViec == request.MaCongViec);
+            var entity = await _unitOfWork.DM_CongViecRepository.FindOneAsync(x => x.TenCongViec == request.TenCongViec && x.MaCongViec == request.MaCongViec);
             // nếu không có dữ liệu thì thêm mới
             if (entity == null)
             {
@@ -32,6 +33,7 @@ namespace Authentication.Application.Commands.DM_CongViecCommand
                 {
                     MaCongViec = request.MaCongViec,
                     TenCongViec = request.TenCongViec,
+                    DonViTinh= request.DonViTinh,
                 };
                 //thêm vào DB
                 _unitOfWork.DM_CongViecRepository.Add(model);
@@ -40,7 +42,7 @@ namespace Authentication.Application.Commands.DM_CongViecCommand
                 return true;
             }
             // nếu đã tồn tạo 1 bản ghi
-            throw new EvnException(string.Format(Resources.MSG_IS_EXIST, "công việc"));
+            throw new EvnException(string.Format(Resources.MSG_IS_EXIST, "Công việc"));
         }
     }
 }

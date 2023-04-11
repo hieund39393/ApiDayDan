@@ -8,6 +8,8 @@ namespace Authentication.Application.Model.DM_CongViec
         public Guid Id { get; set; }
         public string TenCongViec { get; set; }
         public string MaCongViec { get; set; }
+        public string DonViTinh { get; set; }
+
         public DateTime NgayTao { get; set; }
     }
 }

@@ -8,8 +8,10 @@ namespace Authentication.Application.Commands.DM_LoaiBieuGiaCommand
 {
     public class CreateDM_LoaiBieuGiaCommand : IRequest<bool> // kế thừa IRequest<bool>
     {
-        public string TenBieuGia { get; set; } 
-        public string MaBieuGia { get; set; } 
+        public string TenLoaiBieuGia { get; set; } 
+        public string MaLoaiBieuGia { get; set; }
+        public Guid? VungID { get; set; }
+        public Guid? KhuVucID { get; set; }
     }
 
     //Tạo thêm 1 class Handler kế thừa IRequestHandler<CreateDM_LoaiBieuGiaCommand, bool> rồi implement
@@ -23,15 +25,17 @@ namespace Authentication.Application.Commands.DM_LoaiBieuGiaCommand
         public async Task<bool> Handle(CreateDM_LoaiBieuGiaCommand request, CancellationToken cancellationToken) 
         {
             // tìm kiếm xem có mã biểu giá trong db không
-            var entity = await _unitOfWork.DM_LoaiBieuGiaRepository.FindOneAsync(x => x.MaBieuGia == request.MaBieuGia);
+            var entity = await _unitOfWork.DM_LoaiBieuGiaRepository.FindOneAsync(x => x.MaLoaiBieuGia == request.MaLoaiBieuGia);
             // nếu không có dữ liệu thì thêm mới
             if (entity == null)
             {
                 // Tạo model DM_LoaiBieuGia
                 var model = new DM_LoaiBieuGia
                 {
-                    MaBieuGia = request.MaBieuGia,
-                    TenBieuGia = request.TenBieuGia,
+                    MaLoaiBieuGia = request.MaLoaiBieuGia,
+                    TenLoaiBieuGia = request.TenLoaiBieuGia,
+                    KhuVucID = request.KhuVucID,
+                    VungID= request.VungID,
                 };
                 //thêm vào DB
                 _unitOfWork.DM_LoaiBieuGiaRepository.Add(model);
