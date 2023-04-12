@@ -42,7 +42,7 @@ namespace Authentication.Application.Commands.DM_VatLieuChietTinhCommand
                 return true;
             }
             // nếu đã tồn tạo 1 bản ghi
-            throw new EvnException(string.Format(Resources.MSG_IS_EXIST, "Danh mục vật liệu chiết tinh"));
+            throw new EvnException(string.Format(Resources.MSG_IS_EXIST, "Vật liệu chiết tinh"));
         }
     }
 }

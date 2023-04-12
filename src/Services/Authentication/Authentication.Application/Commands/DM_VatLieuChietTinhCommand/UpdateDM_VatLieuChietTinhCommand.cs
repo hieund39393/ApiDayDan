@@ -28,12 +28,25 @@ namespace Authentication.Application.Commands.DM_VatLieuChietTinhCommand
             // nếu không có dữ liệu
             if (entity == null)
             {
-                throw new EvnException(string.Format(Resources.MSG_NOT_FOUND, "Danh mục vật liệu chiết tinh"));
+                throw new EvnException(string.Format(Resources.MSG_NOT_FOUND, "Vật liệu chiết tinh"));
+            }
+            if (entity.TenVatLieuChietTinh == request.TenVatLieuChietTinh && entity.MaVatLieuChietTinh == request.MaVatLieuChietTinh)
+            {
+                entity.DonViTinh = request.DonViTinh;
+            }
+            else
+            {
+                var checkEntity = await _unitOfWork.DM_VatLieuChietTinhRepository.FindOneAsync(x => x.TenVatLieuChietTinh == request.TenVatLieuChietTinh && x.MaVatLieuChietTinh == request.MaVatLieuChietTinh);
+                if (checkEntity != null)
+                {
+                    throw new EvnException(string.Format(Resources.MSG_IS_EXIST, "Vật liệu chiết tinh"));
+                }
+
+                entity.TenVatLieuChietTinh = request.TenVatLieuChietTinh;
+                entity.MaVatLieuChietTinh = request.MaVatLieuChietTinh;
+                entity.DonViTinh = request.DonViTinh;
             }
 
-            entity.TenVatLieuChietTinh = request.TenVatLieuChietTinh ;
-            entity.MaVatLieuChietTinh = request.MaVatLieuChietTinh ;
-            entity.DonViTinh = request.DonViTinh;
             //thêm vào DB
             _unitOfWork.DM_VatLieuChietTinhRepository.Update(entity);
             //lưu lại trong DB

@@ -28,12 +28,26 @@ namespace Authentication.Application.Commands.DM_VatLieuCommand
             // nếu không có dữ liệu
             if (entity == null)
             {
-                throw new EvnException(string.Format(Resources.MSG_NOT_FOUND, "Danh mục vật liệu"));
+                throw new EvnException(string.Format(Resources.MSG_NOT_FOUND, "Vật liệu"));
+            }
+            if (entity.TenVatLieu == request.TenVatLieu && entity.MaVatLieu == request.MaVatLieu)
+            {
+                entity.DonViTinh = request.DonViTinh;
+            }
+            else
+            {
+                var checkEntity = await _unitOfWork.DM_VatLieuRepository.FindOneAsync(x => x.TenVatLieu == request.TenVatLieu && x.MaVatLieu == request.MaVatLieu);
+                if (checkEntity != null)
+                {
+                    throw new EvnException(string.Format(Resources.MSG_IS_EXIST, "Vật liệu"));
+                }
+
+                entity.TenVatLieu = request.TenVatLieu;
+                entity.MaVatLieu = request.MaVatLieu;
+                entity.DonViTinh = request.DonViTinh;
             }
 
-            entity.TenVatLieu = request.TenVatLieu ;
-            entity.MaVatLieu = request.MaVatLieu ;
-            entity.DonViTinh = request.DonViTinh;
+
             //thêm vào DB
             _unitOfWork.DM_VatLieuRepository.Update(entity);
             //lưu lại trong DB

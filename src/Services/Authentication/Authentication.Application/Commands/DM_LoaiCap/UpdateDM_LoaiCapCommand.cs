@@ -30,10 +30,23 @@ namespace Authentication.Application.Commands.DM_LoaiCapCommand
             {
                 throw new EvnException(string.Format(Resources.MSG_NOT_FOUND, "Loại cáp"));
             }
+            if (entity.TenLoaiCap == request.TenLoaiCap && entity.MaLoaiCap == request.MaLoaiCap)
+            {
+                entity.DonViTinh = request.DonViTinh;
+            }
+            else
+            {
+                var checkEntity = await _unitOfWork.DM_LoaiCapRepository.FindOneAsync(x => x.TenLoaiCap == request.TenLoaiCap && x.MaLoaiCap == request.MaLoaiCap);
+                if (checkEntity != null)
+                {
+                    throw new EvnException(string.Format(Resources.MSG_IS_EXIST, "Loại cáp"));
+                }
+                entity.TenLoaiCap = request.TenLoaiCap;
+                entity.MaLoaiCap = request.MaLoaiCap;
+                entity.DonViTinh = request.DonViTinh;
+            }
 
-            entity.TenLoaiCap = request.TenLoaiCap ;
-            entity.MaLoaiCap = request.MaLoaiCap ;
-            entity.DonViTinh = request.DonViTinh;
+
             //thêm vào DB
             _unitOfWork.DM_LoaiCapRepository.Update(entity);
             //lưu lại trong DB
