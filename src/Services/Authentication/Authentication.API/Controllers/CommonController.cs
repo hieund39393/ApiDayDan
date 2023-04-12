@@ -35,5 +35,19 @@ namespace WebApplication1.Controllers
             return Ok(new ApiSuccessResult<List<MenuItemResponse>>(data: data));
         }
 
+        [HttpGet("list-nhom-quyen")]
+        public async Task<IActionResult> ListNhomQuyen()
+        {
+            var data = await _commonQuery.ListNhomQuyen();
+            return Ok(new ApiSuccessResult<List<SelectItem>>(data: data));
+        }
+
+        [HttpGet("list-chuc-vu")]
+        public async Task<IActionResult> ListChucVu()
+        {
+            var data = await _commonQuery.ListChucVu();
+            return Ok(new ApiSuccessResult<List<SelectItem>>(data: data));
+        }
+
     }
 }

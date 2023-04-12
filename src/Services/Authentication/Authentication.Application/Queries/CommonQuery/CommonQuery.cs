@@ -15,6 +15,9 @@ namespace Authentication.Application.Queries.CommonQuery
     {
         Task<List<SelectItem>> ListModule();
         Task<List<MenuItemResponse>> ListMenu();
+        Task<List<SelectItem>> ListNhomQuyen();
+        Task<List<SelectItem>> ListChucVu();
+
     }
     public class CommonQuery : ICommonQuery
     {
@@ -22,6 +25,16 @@ namespace Authentication.Application.Queries.CommonQuery
         public CommonQuery(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
+        }
+        public async Task<List<SelectItem>> ListChucVu()
+        {
+            var data = await _unitOfWork.PositionRepository.GetQuery().AsNoTracking()
+               .Select(x => new SelectItem
+               {
+                   Name = x.Title,
+                   Value = x.Id.ToString().ToLower(),
+               }).ToListAsync();
+            return data;
         }
         public async Task<List<MenuItemResponse>> ListMenu()
         {
@@ -54,6 +67,17 @@ namespace Authentication.Application.Queries.CommonQuery
                 {
                     Name = x.Name,
                     Value = x.Id.ToString(),
+                }).ToListAsync();
+            return data;
+        }
+
+        public async Task<List<SelectItem>> ListNhomQuyen()
+        {
+            var data = await _unitOfWork.RoleRepository.GetQuery().AsNoTracking()
+                .Select(x => new SelectItem
+                {
+                    Name = x.Name,
+                    Value = x.Id.ToString().ToLower(),
                 }).ToListAsync();
             return data;
         }

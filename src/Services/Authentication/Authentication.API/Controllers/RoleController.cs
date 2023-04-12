@@ -100,6 +100,11 @@ namespace Authentication.API.Controllers
             var data = await _mediator.Send(inputModel);
             return Ok(new ApiSuccessResult<bool>(data: data, message: string.Format(Resources.MSG_DELETE_SUCCESS, "phân quyền")));
         }
-
+        [HttpGet("list-permission")]
+        public async Task<IActionResult> GetPermission()
+        {
+            var data = await _rolequery.GetPermission();
+            return Ok(new ApiSuccessResult<List<PermissionResponse>>(data: data));
+        }
     }
 }
