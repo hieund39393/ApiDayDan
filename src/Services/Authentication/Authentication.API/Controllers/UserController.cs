@@ -45,12 +45,12 @@ namespace Authentication.API.Controllers
         {
             if (command.DefaultPassword == true || command.SSO == true)
             {
-                command.Password = "EVNHaNoi@12345";
-                command.ComfirmPassword = "EVNHaNoi@12345";
+                command.Password = "123456";
+                command.ComfirmPassword = "123456";
             }
 
-            var imageUrl = await _fileService.OnPostUploadAsync(command.file);
-            command.Avatar = imageUrl;
+            //var imageUrl = await _fileService.OnPostUploadAsync(command.file);
+            //command.Avatar = imageUrl;
             var user = await _mediator.Send(command);
             return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_CREATE_SUCCESS, "người dùng")));
         }

@@ -34,5 +34,6 @@ namespace WebApplication1.Controllers
             var data = await _commonQuery.ListMenu();
             return Ok(new ApiSuccessResult<List<MenuItemResponse>>(data: data));
         }
+
     }
 }

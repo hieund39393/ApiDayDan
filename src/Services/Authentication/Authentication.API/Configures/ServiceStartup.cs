@@ -29,11 +29,11 @@ namespace Authentication.API.Configurations
             services.AddIdentity<User, Role>(options =>
             {
                 //options.User.AllowedUserNameCharacters;
-                //options.Password.RequireDigit = true;
+                options.Password.RequireDigit = false;
                 options.Password.RequiredLength = 6;
-                //options.Password.RequireNonAlphanumeric = true;
-                //options.Password.RequireUppercase = true;
-                //options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
             })
             .AddEntityFrameworkStores<ExOneDbContext>()
             .AddDefaultTokenProviders();
@@ -53,7 +53,7 @@ namespace Authentication.API.Configurations
             services.AddScoped<IDM_KhuVucQuery, DM_KhuVucQuery>(); // quy tắc Interface trước class sau
             services.AddScoped<IDM_VungQuery, DM_VungQuery>(); // quy tắc Interface trước class sau
             services.AddScoped<IDM_CongViecQuery, DM_CongViecQuery>(); // quy tắc Interface trước class sau
-          
+
             services.AddScoped<IDM_BieuGiaQuery, DM_BieuGiaQuery>(); // quy tắc Interface trước class sau
             services.AddScoped<IBieuGiaCongViecQuery, BieuGiaCongViecQuery>(); // quy tắc Interface trước class sau
             return services;
