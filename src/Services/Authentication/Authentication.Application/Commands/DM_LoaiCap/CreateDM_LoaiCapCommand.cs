@@ -21,24 +21,24 @@ namespace Authentication.Application.Commands.DM_LoaiCapCommand
         {
             _unitOfWork = unitOfWork; // khai báo
         }
-        public async Task<bool> Handle(CreateDM_LoaiCapCommand request, CancellationToken cancellationToken) 
+        public async Task<bool> Handle(CreateDM_LoaiCapCommand request, CancellationToken cancellationToken)
         {
             // tìm kiếm xem có mã loại cáp trong db không
-            var entity = await _unitOfWork.DM_LoaiCapRepository.FindOneAsync(x => x.MaLoaiCap == request.MaLoaiCap);
+            var entity = await _unitOfWork.DM_LoaiCapRepository.FindOneAsync(x => x.MaLoaiCap == request.MaLoaiCap && x.TenLoaiCap == request.TenLoaiCap);
             // nếu không có dữ liệu thì thêm mới
             if (entity == null)
             {
                 // Tạo model DM_LoaiCap
                 var model = new DM_LoaiCap
                 {
-                    TenLoaiCap = request.TenLoaiCap ,
-                    MaLoaiCap = request.MaLoaiCap ,
+                    TenLoaiCap = request.TenLoaiCap,
+                    MaLoaiCap = request.MaLoaiCap,
                     DonViTinh = request.DonViTinh,
                 };
                 //thêm vào DB
                 _unitOfWork.DM_LoaiCapRepository.Add(model);
                 //lưu lại trong DB
-                await _unitOfWork.SaveChangesAsync(); 
+                await _unitOfWork.SaveChangesAsync();
                 return true;
             }
             // nếu đã tồn tạo 1 bản ghi
