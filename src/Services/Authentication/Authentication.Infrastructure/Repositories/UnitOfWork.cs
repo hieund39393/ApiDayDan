@@ -7,6 +7,7 @@ using Authentication.Infrastructure.AggregatesModel.DM_LoaiCapAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_VatLieuAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_VatLieuChietTinhAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_VungAggregate;
+using Authentication.Infrastructure.AggregatesModel.GiaCapAggregate;
 using Authentication.Infrastructure.AggregatesModel.MenuAggregate;
 using Authentication.Infrastructure.AggregatesModel.ModuleAggregate;
 using Authentication.Infrastructure.AggregatesModel.PermissionAggregate;
@@ -40,6 +41,7 @@ namespace Authentication.Infrastructure.Repositories
         IRepository<DM_LoaiCap> DM_LoaiCapRepository { get; }
         IRepository<DM_VatLieu> DM_VatLieuRepository { get; }
         IRepository<DM_VatLieuChietTinh> DM_VatLieuChietTinhRepository { get; }
+        IRepository<GiaCap> GiaCapRepository { get; }
 
         //1. DM bieu gia - Kem
         IRepository<DM_BieuGia> DM_BieuGiaRepository { get; }
@@ -74,6 +76,7 @@ namespace Authentication.Infrastructure.Repositories
         private IRepository<DM_LoaiCap> _dM_LoaiCapRepository;
         private IRepository<DM_VatLieu> _dM_VatLieuRepository;
         private IRepository<DM_VatLieuChietTinh> _dM_VatLieuChietTinhRepository;
+        private IRepository<GiaCap> _giaCapRepository;
 
         //Danh muc bieu gia - Kem
         private IRepository<DM_BieuGia> _dM_BieuGiaRepository;
@@ -306,6 +309,17 @@ namespace Authentication.Infrastructure.Repositories
                     _dM_VatLieuChietTinhRepository = new Repository<DM_VatLieuChietTinh>(_context);
                 }
                 return _dM_VatLieuChietTinhRepository;
+            }
+        }  
+        public IRepository<GiaCap> GiaCapRepository
+        {
+            get
+            {
+                if (_giaCapRepository == null)
+                {
+                    _giaCapRepository = new Repository<GiaCap>(_context);
+                }
+                return _giaCapRepository;
             }
         }
         #endregion
