@@ -7,6 +7,7 @@ using Authentication.Infrastructure.AggregatesModel.DM_LoaiCapAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_VatLieuAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_VatLieuChietTinhAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_VungAggregate;
+using Authentication.Infrastructure.AggregatesModel.DonGiaNhanCongAggregate;
 using Authentication.Infrastructure.AggregatesModel.DonGiaVatLieuAggregate;
 using Authentication.Infrastructure.AggregatesModel.GiaCapAggregate;
 using Authentication.Infrastructure.AggregatesModel.MenuAggregate;
@@ -15,6 +16,7 @@ using Authentication.Infrastructure.AggregatesModel.PermissionAggregate;
 using Authentication.Infrastructure.AggregatesModel.PositionAggregate;
 using Authentication.Infrastructure.AggregatesModel.UserAggregate;
 using Authentication.Infrastructure.EF;
+using Authentication.Infrastructure.EntityConfigurations;
 using EVN.Core.Models.Interface;
 
 namespace Authentication.Infrastructure.Repositories
@@ -44,6 +46,8 @@ namespace Authentication.Infrastructure.Repositories
         IRepository<DM_VatLieuChietTinh> DM_VatLieuChietTinhRepository { get; }
         IRepository<GiaCap> GiaCapRepository { get; }
         IRepository<DonGiaVatLieu> DonGiaVatLieuRepository { get; }
+        IRepository<DonGiaNhanCong> DonGiaNhanCongRepository { get; }
+
 
         //1. DM bieu gia - Kem
         IRepository<DM_BieuGia> DM_BieuGiaRepository { get; }
@@ -80,6 +84,7 @@ namespace Authentication.Infrastructure.Repositories
         private IRepository<DM_VatLieuChietTinh> _dM_VatLieuChietTinhRepository;
         private IRepository<GiaCap> _giaCapRepository;
         private IRepository<DonGiaVatLieu> _donGiaVatLieuRepository;
+        private IRepository<DonGiaNhanCong> _donGiaNhanCongRepository;
 
         //Danh muc bieu gia - Kem
         private IRepository<DM_BieuGia> _dM_BieuGiaRepository;
@@ -334,6 +339,17 @@ namespace Authentication.Infrastructure.Repositories
                     _donGiaVatLieuRepository = new Repository<DonGiaVatLieu>(_context);
                 }
                 return _donGiaVatLieuRepository;
+            }
+        } 
+        public IRepository<DonGiaNhanCong> DonGiaNhanCongRepository
+        {
+            get
+            {
+                if (_donGiaNhanCongRepository == null)
+                {
+                    _donGiaNhanCongRepository = new Repository<DonGiaNhanCong>(_context);
+                }
+                return _donGiaNhanCongRepository;
             }
         }
         #endregion
