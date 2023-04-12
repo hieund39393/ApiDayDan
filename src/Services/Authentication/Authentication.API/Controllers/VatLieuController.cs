@@ -1,54 +1,54 @@
-﻿using Authentication.Application.Commands.DM_VungCommand;
-using Authentication.Application.Model.DM_Vung;
-using Authentication.Application.Queries.DM_VungQuery;
+﻿using Authentication.Application.Commands.DM_VatLieuCommand;
+using Authentication.Application.Model.DM_VatLieu;
+using Authentication.Application.Queries.DM_VatLieuQuery;
 using Authentication.Infrastructure.Properties;
 using EVN.Core.Models;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using System;
 
 namespace Authentication.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class VungController : ControllerBase
+    public class VatLieuController : ControllerBase
     {
-        private readonly IDM_VungQuery _dM_VungQuery; //kế thừa interface
+        private readonly IDM_VatLieuQuery _dM_VatLieuQuery; //kế thừa interface
         private readonly IMediator _mediator; //kế thừa để sử dụng command
 
-        public VungController(IDM_VungQuery bieuGiaQuery, IMediator mediator)
+        public VatLieuController(IDM_VatLieuQuery bieuGiaQuery, IMediator mediator)
         {
-            _dM_VungQuery = bieuGiaQuery;
+            _dM_VatLieuQuery = bieuGiaQuery;
             _mediator = mediator;
         }
 
         /// <summary>
-        /// Danh sách tất cả vùng
+        /// Danh sách tất cả danh mục vật liệu
         /// </summary>
         /// <returns></returns>
         [HttpGet("get-all")]
         [ProducesResponseType(typeof(ApiSuccessResult<List<SelectItem>>), (int)HttpStatusCode.OK)] // trả về dữ liệu model cho FE
         public async Task<IActionResult> GetAll()
         {
-            var data = await _dM_VungQuery.GetAll();
+            var data = await _dM_VatLieuQuery.GetAll();
             return Ok(new ApiSuccessResult<List<SelectItem>>(data: data));
         }
 
         /// <summary>
-        /// Danh sách vùng có phân trang, tổng số , tìm kiếm
+        /// Danh sách danh mục vật liệu có phân trang, tổng số , tìm kiếm
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType(typeof(ApiSuccessResult<IList<DM_VungResponse>>), (int)HttpStatusCode.OK)] // trả về dữ liệu model cho FE
-        public async Task<IActionResult> GetListUser([FromQuery] DM_VungRequest request)
+        [ProducesResponseType(typeof(ApiSuccessResult<IList<DM_VatLieuResponse>>), (int)HttpStatusCode.OK)] // trả về dữ liệu model cho FE
+        public async Task<IActionResult> GetListUser([FromQuery] DM_VatLieuRequest request)
         {
-            var data = await _dM_VungQuery.GetList(request);
-            return Ok(new ApiSuccessResult<IList<DM_VungResponse>>
+            var data = await _dM_VatLieuQuery.GetList(request);
+            return Ok(new ApiSuccessResult<IList<DM_VatLieuResponse>>
             {
                 Data = data.Data,
                 Paging = data.Paging
@@ -56,33 +56,33 @@ namespace Authentication.API.Controllers
         }
 
         /// <summary>
-        /// Tạo mới vùng
+        /// Tạo mới danh mục vật liệu
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(typeof(ApiSuccessResult<bool>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Create([FromBody] CreateDM_VungCommand command)
+        public async Task<IActionResult> Create([FromBody] CreateDM_VatLieuCommand command)
         {
             var user = await _mediator.Send(command);
-            return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_CREATE_SUCCESS, "vùng")));
+            return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_CREATE_SUCCESS, "danh mục vật liệu")));
         }
 
         /// <summary>
-        /// Sửa vùng
+        /// Sửa danh mục vật liệu
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPut]
         [ProducesResponseType(typeof(ApiSuccessResult<bool>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Update([FromBody] UpdateDM_VungCommand command)
+        public async Task<IActionResult> Update([FromBody] UpdateDM_VatLieuCommand command)
         {
             var user = await _mediator.Send(command);
-            return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_UPDATE_SUCCESS, "vùng")));
+            return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_UPDATE_SUCCESS, "danh mục vật liệu")));
         }
 
         /// <summary>
-        /// Xoá vùng
+        /// Xoá danh mục vật liệu
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -90,8 +90,8 @@ namespace Authentication.API.Controllers
         [ProducesResponseType(typeof(ApiSuccessResult<bool>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
-            var user = await _mediator.Send(new DeleteDM_VungCommand(id));
-            return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_DELETE_SUCCESS, "vùng")));
+            var user = await _mediator.Send(new DeleteDM_VatLieuCommand(id));
+            return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_DELETE_SUCCESS, "danh mục vật liệu")));
         }
     }
 }

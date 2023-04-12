@@ -16,6 +16,7 @@ namespace Authentication.Application.Queries.DM_BieuGiaQuery
     {
         Task<PagingResultSP<DM_BieuGiaResponse>> GetList(DM_BieuGiaRequest request); // lấy danh sách có phân trang và tìm kiếm
         Task<List<SelectItem>> GetAll(); // lấy Tất cả danh sách trả về tên và value
+        Task<List<SelectItem>> GetBieuGiaByLoaiBieuGia(Guid IdLoaiBieuGia); // lấy Tất cả danh sách trả về tên và value
     }
     public class DM_BieuGiaQuery : IDM_BieuGiaQuery // kế thừa interface vừa tạo
     {
@@ -34,6 +35,15 @@ namespace Authentication.Application.Queries.DM_BieuGiaQuery
                 Value = x.Id.ToString(),
             }).AsNoTracking().ToListAsync();
             return query;
+        }
+
+        public async Task<List<SelectItem>> GetBieuGiaByLoaiBieuGia(Guid IdLoaiBieuGia)
+        {
+            return await _unitOfWork.DM_BieuGiaRepository.GetQuery(x => x.idLoaiBieuGia == IdLoaiBieuGia).Select(x => new SelectItem
+            { 
+                Name= x.TenBieuGia,
+                Value = x.Id.ToString(),
+            }).AsNoTracking().ToListAsync();
         }
 
         // lấy dữ liệu phân trang, tìm kiếm , số lượng

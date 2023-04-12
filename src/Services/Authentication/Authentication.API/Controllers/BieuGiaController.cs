@@ -36,6 +36,19 @@ namespace Authentication.API.Controllers
         {
             var data = await _bieuGiaQuery.GetAll();
             return Ok(new ApiSuccessResult<List<SelectItem>>(data: data));
+        }    
+        
+        /// <summary>
+        /// Select dữ liệu biểu giá theo loại biểu giá
+        /// </summary>
+        /// <param name="IdLoaiBieuGia"></param>
+        /// <returns></returns>
+        [HttpGet("get-by-loai-bieu-gia")]
+        [ProducesResponseType(typeof(ApiSuccessResult<List<SelectItem>>), (int)HttpStatusCode.OK)] // trả về dữ liệu model cho FE
+        public async Task<IActionResult> GetBieuGiaByLoaiBieuGia([FromQuery] Guid IdLoaiBieuGia)
+        {
+            var data = await _bieuGiaQuery.GetBieuGiaByLoaiBieuGia(IdLoaiBieuGia);
+            return Ok(new ApiSuccessResult<List<SelectItem>>(data: data));
         }
 
         /// <summary>

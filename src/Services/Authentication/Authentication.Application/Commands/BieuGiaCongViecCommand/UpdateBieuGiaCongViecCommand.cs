@@ -33,12 +33,12 @@ namespace Authentication.Application.Commands.BieuGiaCongViecCommand
             {
                 throw new EvnException(string.Format(Resources.MSG_NOT_FOUND, "biểu giá công việc"));
             }
-            var checkEntity = await _unitOfWork.BieuGiaCongViecRepository.FindOneAsync(x =>x.IdBieuGia == request.IdBieuGia &&
-                                                                                       x.IdCongViec == request.IdCongViec);
-            if (checkEntity != null)
-            {
-                throw new EvnException(string.Format(Resources.MSG_IS_EXIST, "Biểu giá công việc"));
-            }
+            //var checkEntity = await _unitOfWork.BieuGiaCongViecRepository.FindOneAsync(x =>x.IdBieuGia == request.IdBieuGia &&
+            //                                                                           x.IdCongViec == request.IdCongViec);
+            //if (checkEntity != null)
+            //{
+            //    throw new EvnException(string.Format(Resources.MSG_IS_EXIST, "Biểu giá công việc"));
+            //}
 
             entity.IdBieuGia = request.IdBieuGia;
             entity.IdCongViec = request.IdCongViec;

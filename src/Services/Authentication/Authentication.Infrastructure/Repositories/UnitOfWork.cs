@@ -3,6 +3,9 @@ using Authentication.Infrastructure.AggregatesModel.BieuGiaCongViecAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_CongViecAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_KhuVucAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGiaAggregate;
+using Authentication.Infrastructure.AggregatesModel.DM_LoaiCapAggregate;
+using Authentication.Infrastructure.AggregatesModel.DM_VatLieuAggregate;
+using Authentication.Infrastructure.AggregatesModel.DM_VatLieuChietTinhAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_VungAggregate;
 using Authentication.Infrastructure.AggregatesModel.MenuAggregate;
 using Authentication.Infrastructure.AggregatesModel.ModuleAggregate;
@@ -34,6 +37,9 @@ namespace Authentication.Infrastructure.Repositories
         IRepository<DM_Vung> DM_VungRepository { get; }
         IRepository<DM_CongViec> DM_CongViecRepository { get; }
         IRepository<BieuGiaCongViec> BieuGiaCongViecRepository { get; }
+        IRepository<DM_LoaiCap> DM_LoaiCapRepository { get; }
+        IRepository<DM_VatLieu> DM_VatLieuRepository { get; }
+        IRepository<DM_VatLieuChietTinh> DM_VatLieuChietTinhRepository { get; }
 
         //1. DM bieu gia - Kem
         IRepository<DM_BieuGia> DM_BieuGiaRepository { get; }
@@ -65,6 +71,9 @@ namespace Authentication.Infrastructure.Repositories
         private IRepository<DM_Vung> _dM_VungRepository;
         private IRepository<DM_CongViec> _dM_CongViecRepository;
         private IRepository<BieuGiaCongViec> _bieuGiaCongViecRepository;
+        private IRepository<DM_LoaiCap> _dM_LoaiCapRepository;
+        private IRepository<DM_VatLieu> _dM_VatLieuRepository;
+        private IRepository<DM_VatLieuChietTinh> _dM_VatLieuChietTinhRepository;
 
         //Danh muc bieu gia - Kem
         private IRepository<DM_BieuGia> _dM_BieuGiaRepository;
@@ -264,6 +273,39 @@ namespace Authentication.Infrastructure.Repositories
                     _bieuGiaCongViecRepository = new Repository<BieuGiaCongViec>(_context);
                 }
                 return _bieuGiaCongViecRepository;
+            }
+        }       
+        public IRepository<DM_LoaiCap> DM_LoaiCapRepository
+        {
+            get
+            {
+                if (_dM_LoaiCapRepository == null)
+                {
+                    _dM_LoaiCapRepository = new Repository<DM_LoaiCap>(_context);
+                }
+                return _dM_LoaiCapRepository;
+            }
+        }       
+        public IRepository<DM_VatLieu> DM_VatLieuRepository
+        {
+            get
+            {
+                if (_dM_VatLieuRepository == null)
+                {
+                    _dM_VatLieuRepository = new Repository<DM_VatLieu>(_context);
+                }
+                return _dM_VatLieuRepository;
+            }
+        }       
+        public IRepository<DM_VatLieuChietTinh> DM_VatLieuChietTinhRepository
+        {
+            get
+            {
+                if (_dM_VatLieuChietTinhRepository == null)
+                {
+                    _dM_VatLieuChietTinhRepository = new Repository<DM_VatLieuChietTinh>(_context);
+                }
+                return _dM_VatLieuChietTinhRepository;
             }
         }
         #endregion

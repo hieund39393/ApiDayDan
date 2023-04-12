@@ -1,54 +1,53 @@
-﻿using Authentication.Application.Commands.DM_VungCommand;
-using Authentication.Application.Model.DM_Vung;
-using Authentication.Application.Queries.DM_VungQuery;
+﻿using Authentication.Application.Commands.DM_LoaiCapCommand;
+using Authentication.Application.Model.DM_LoaiCap;
+using Authentication.Application.Queries.DM_LoaiCapQuery;
 using Authentication.Infrastructure.Properties;
 using EVN.Core.Models;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using System;
 
 namespace Authentication.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class VungController : ControllerBase
+    public class LoaiCapController : ControllerBase
     {
-        private readonly IDM_VungQuery _dM_VungQuery; //kế thừa interface
+        private readonly IDM_LoaiCapQuery _DM_LoaiCapQuery; //kế thừa interface
         private readonly IMediator _mediator; //kế thừa để sử dụng command
 
-        public VungController(IDM_VungQuery bieuGiaQuery, IMediator mediator)
+        public LoaiCapController(IDM_LoaiCapQuery bieuGiaQuery, IMediator mediator)
         {
-            _dM_VungQuery = bieuGiaQuery;
+            _DM_LoaiCapQuery = bieuGiaQuery;
             _mediator = mediator;
         }
 
         /// <summary>
-        /// Danh sách tất cả vùng
+        /// Danh sách tất cả loại cáp
         /// </summary>
         /// <returns></returns>
         [HttpGet("get-all")]
         [ProducesResponseType(typeof(ApiSuccessResult<List<SelectItem>>), (int)HttpStatusCode.OK)] // trả về dữ liệu model cho FE
         public async Task<IActionResult> GetAll()
         {
-            var data = await _dM_VungQuery.GetAll();
+            var data = await _DM_LoaiCapQuery.GetAll();
             return Ok(new ApiSuccessResult<List<SelectItem>>(data: data));
         }
 
         /// <summary>
-        /// Danh sách vùng có phân trang, tổng số , tìm kiếm
+        /// Danh sách loại cáp có phân trang, tổng số , tìm kiếm
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType(typeof(ApiSuccessResult<IList<DM_VungResponse>>), (int)HttpStatusCode.OK)] // trả về dữ liệu model cho FE
-        public async Task<IActionResult> GetListUser([FromQuery] DM_VungRequest request)
+        [ProducesResponseType(typeof(ApiSuccessResult<IList<DM_LoaiCapResponse>>), (int)HttpStatusCode.OK)] // trả về dữ liệu model cho FE
+        public async Task<IActionResult> GetListUser([FromQuery] DM_LoaiCapRequest request)
         {
-            var data = await _dM_VungQuery.GetList(request);
-            return Ok(new ApiSuccessResult<IList<DM_VungResponse>>
+            var data = await _DM_LoaiCapQuery.GetList(request);
+            return Ok(new ApiSuccessResult<IList<DM_LoaiCapResponse>>
             {
                 Data = data.Data,
                 Paging = data.Paging
@@ -56,33 +55,33 @@ namespace Authentication.API.Controllers
         }
 
         /// <summary>
-        /// Tạo mới vùng
+        /// Tạo mới loại cáp
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(typeof(ApiSuccessResult<bool>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Create([FromBody] CreateDM_VungCommand command)
+        public async Task<IActionResult> Create([FromBody] CreateDM_LoaiCapCommand command)
         {
             var user = await _mediator.Send(command);
-            return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_CREATE_SUCCESS, "vùng")));
+            return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_CREATE_SUCCESS, "loại cáp")));
         }
 
         /// <summary>
-        /// Sửa vùng
+        /// Sửa loại cáp
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPut]
         [ProducesResponseType(typeof(ApiSuccessResult<bool>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Update([FromBody] UpdateDM_VungCommand command)
+        public async Task<IActionResult> Update([FromBody] UpdateDM_LoaiCapCommand command)
         {
             var user = await _mediator.Send(command);
-            return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_UPDATE_SUCCESS, "vùng")));
+            return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_UPDATE_SUCCESS, "loại cáp")));
         }
 
         /// <summary>
-        /// Xoá vùng
+        /// Xoá loại cáp
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -90,8 +89,8 @@ namespace Authentication.API.Controllers
         [ProducesResponseType(typeof(ApiSuccessResult<bool>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
-            var user = await _mediator.Send(new DeleteDM_VungCommand(id));
-            return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_DELETE_SUCCESS, "vùng")));
+            var user = await _mediator.Send(new DeleteDM_LoaiCapCommand(id));
+            return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_DELETE_SUCCESS, "loại cáp")));
         }
     }
 }
