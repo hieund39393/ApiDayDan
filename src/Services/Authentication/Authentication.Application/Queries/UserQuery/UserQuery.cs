@@ -54,11 +54,13 @@ namespace Authentication.Application.Queries.UserQuery
                 .Include(x => x.UserRoles).ThenInclude(x => x.Role)
                 .Select(x => new UserResponse()
                 {
+
                     Id = x.Id,
                     Name = x.Name,
                     UserName = x.UserName,
                     Actived = x.Actived,
                     Email = x.Email,
+                    RoleId = x.UserRoles.Select(x => x.RoleId).ToList(),
                     CreatedDate = x.CreatedDate,
                 });
 

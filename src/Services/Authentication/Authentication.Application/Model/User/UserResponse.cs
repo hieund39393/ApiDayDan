@@ -15,6 +15,7 @@ namespace Authentication.Application.Model.User
         public string CMIS_CODE { get; set; }
         public string Email { get; set; }
         public bool Actived { get; set; }
+        public List<Guid> RoleId { get; set; }
         public DateTime CreatedDate { get; set; }
         public bool IsAdminRole { get; set; }
         [Comment("Mã đơn vị")]

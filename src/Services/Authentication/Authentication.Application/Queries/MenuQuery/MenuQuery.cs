@@ -39,7 +39,7 @@ namespace Authentication.Application.Queries.MenuQuery
                     Code = x.Code,
                     IsActive = x.IsActive,
                     ModuleName = x.Module.Name,
-                    ModuleCode = x.Module.Code,
+                    ModuleId = x.Module.Id,
                     CreatedDate = x.CreatedDate,
                 });
 
