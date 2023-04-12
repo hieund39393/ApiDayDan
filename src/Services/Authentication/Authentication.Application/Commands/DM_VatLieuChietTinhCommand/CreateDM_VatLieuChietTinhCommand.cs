@@ -24,7 +24,7 @@ namespace Authentication.Application.Commands.DM_VatLieuChietTinhCommand
         public async Task<bool> Handle(CreateDM_VatLieuChietTinhCommand request, CancellationToken cancellationToken) 
         {
             // tìm kiếm xem có mã loại cáp trong db không
-            var entity = await _unitOfWork.DM_VatLieuChietTinhRepository.FindOneAsync(x => x.MaVatLieuChietTinh == request.MaVatLieuChietTinh);
+            var entity = await _unitOfWork.DM_VatLieuChietTinhRepository.FindOneAsync(x => x.TenVatLieuChietTinh == request.TenVatLieuChietTinh && x.MaVatLieuChietTinh == request.MaVatLieuChietTinh );
             // nếu không có dữ liệu thì thêm mới
             if (entity == null)
             {
