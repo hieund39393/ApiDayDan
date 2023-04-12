@@ -7,6 +7,7 @@ using Authentication.Infrastructure.AggregatesModel.DM_LoaiCapAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_VatLieuAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_VatLieuChietTinhAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_VungAggregate;
+using Authentication.Infrastructure.AggregatesModel.DonGiaVatLieuAggregate;
 using Authentication.Infrastructure.AggregatesModel.GiaCapAggregate;
 using Authentication.Infrastructure.AggregatesModel.MenuAggregate;
 using Authentication.Infrastructure.AggregatesModel.ModuleAggregate;
@@ -42,6 +43,7 @@ namespace Authentication.Infrastructure.Repositories
         IRepository<DM_VatLieu> DM_VatLieuRepository { get; }
         IRepository<DM_VatLieuChietTinh> DM_VatLieuChietTinhRepository { get; }
         IRepository<GiaCap> GiaCapRepository { get; }
+        IRepository<DonGiaVatLieu> DonGiaVatLieuRepository { get; }
 
         //1. DM bieu gia - Kem
         IRepository<DM_BieuGia> DM_BieuGiaRepository { get; }
@@ -77,6 +79,7 @@ namespace Authentication.Infrastructure.Repositories
         private IRepository<DM_VatLieu> _dM_VatLieuRepository;
         private IRepository<DM_VatLieuChietTinh> _dM_VatLieuChietTinhRepository;
         private IRepository<GiaCap> _giaCapRepository;
+        private IRepository<DonGiaVatLieu> _donGiaVatLieuRepository;
 
         //Danh muc bieu gia - Kem
         private IRepository<DM_BieuGia> _dM_BieuGiaRepository;
@@ -320,6 +323,17 @@ namespace Authentication.Infrastructure.Repositories
                     _giaCapRepository = new Repository<GiaCap>(_context);
                 }
                 return _giaCapRepository;
+            }
+        }      
+        public IRepository<DonGiaVatLieu> DonGiaVatLieuRepository
+        {
+            get
+            {
+                if (_donGiaVatLieuRepository == null)
+                {
+                    _donGiaVatLieuRepository = new Repository<DonGiaVatLieu>(_context);
+                }
+                return _donGiaVatLieuRepository;
             }
         }
         #endregion
