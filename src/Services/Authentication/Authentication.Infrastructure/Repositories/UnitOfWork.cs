@@ -7,6 +7,7 @@ using Authentication.Infrastructure.AggregatesModel.DM_LoaiCapAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_VatLieuAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_VatLieuChietTinhAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_VungAggregate;
+using Authentication.Infrastructure.AggregatesModel.DonGiaChietTinhAggregate;
 using Authentication.Infrastructure.AggregatesModel.DonGiaNhanCongAggregate;
 using Authentication.Infrastructure.AggregatesModel.DonGiaVatLieuAggregate;
 using Authentication.Infrastructure.AggregatesModel.GiaCapAggregate;
@@ -47,6 +48,7 @@ namespace Authentication.Infrastructure.Repositories
         IRepository<GiaCap> GiaCapRepository { get; }
         IRepository<DonGiaVatLieu> DonGiaVatLieuRepository { get; }
         IRepository<DonGiaNhanCong> DonGiaNhanCongRepository { get; }
+        IRepository<DonGiaChietTinh> DonGiaChietTinhRepository { get; }
 
 
         //1. DM bieu gia - Kem
@@ -85,6 +87,7 @@ namespace Authentication.Infrastructure.Repositories
         private IRepository<GiaCap> _giaCapRepository;
         private IRepository<DonGiaVatLieu> _donGiaVatLieuRepository;
         private IRepository<DonGiaNhanCong> _donGiaNhanCongRepository;
+        private IRepository<DonGiaChietTinh> _donGiaChietTinhRepository;
 
         //Danh muc bieu gia - Kem
         private IRepository<DM_BieuGia> _dM_BieuGiaRepository;
@@ -350,6 +353,17 @@ namespace Authentication.Infrastructure.Repositories
                     _donGiaNhanCongRepository = new Repository<DonGiaNhanCong>(_context);
                 }
                 return _donGiaNhanCongRepository;
+            }
+        }   
+        public IRepository<DonGiaChietTinh> DonGiaChietTinhRepository
+        {
+            get
+            {
+                if (_donGiaChietTinhRepository == null)
+                {
+                    _donGiaChietTinhRepository = new Repository<DonGiaChietTinh>(_context);
+                }
+                return _donGiaChietTinhRepository;
             }
         }
         #endregion

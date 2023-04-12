@@ -1,4 +1,5 @@
-﻿using Authentication.Infrastructure.AggregatesModel.DonGiaVatLieuAggregate;
+﻿using Authentication.Infrastructure.AggregatesModel.DonGiaChietTinhAggregate;
+using Authentication.Infrastructure.AggregatesModel.DonGiaVatLieuAggregate;
 using EVN.Core.Models.Base;
 
 namespace Authentication.Infrastructure.AggregatesModel.DM_VatLieuAggregate
@@ -9,5 +10,6 @@ namespace Authentication.Infrastructure.AggregatesModel.DM_VatLieuAggregate
         public string MaVatLieu { get; set; }
         public string DonViTinh { get; set; }
         public ICollection<DonGiaVatLieu> DonGiaVatLieu { get; set; }
+        public ICollection<DonGiaChietTinh> DonGiaChietTinh { get; set; }
     }
 }

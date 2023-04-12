@@ -27,6 +27,7 @@ using Authentication.Infrastructure.AggregatesModel.DM_LoaiCapAggregate;
 using Authentication.Infrastructure.AggregatesModel.GiaCapAggregate;
 using Authentication.Infrastructure.AggregatesModel.DonGiaVatLieuAggregate;
 using Authentication.Infrastructure.AggregatesModel.DonGiaNhanCongAggregate;
+using Authentication.Infrastructure.AggregatesModel.DonGiaChietTinhAggregate;
 
 namespace Authentication.Infrastructure.EF
 {
@@ -83,6 +84,7 @@ namespace Authentication.Infrastructure.EF
         public DbSet<GiaCap> GiaCap { get; set; }
         public DbSet<DonGiaVatLieu> DonGiaVatLieu { get; set; }
         public DbSet<DonGiaNhanCong> DonGiaNhanCong { get; set; }
+        public DbSet<DonGiaChietTinh> DonGiaChietTinh { get; set; }
 
         //Danh muc Bieu gia - Kem M5
         public DbSet<DM_BieuGia> DM_BieuGia { get; set; }
@@ -118,6 +120,7 @@ namespace Authentication.Infrastructure.EF
             builder.ApplyConfiguration(new GiaCapConfiguration());
             builder.ApplyConfiguration(new DonGiaVatLieuConfiguration());
             builder.ApplyConfiguration(new DonGiaNhanCongConfiguration());
+            builder.ApplyConfiguration(new DonGiaChietTinhConfiguration());
 
             //Cau hinh cua Kem M5
             builder.ApplyConfiguration(new DM_BieuGiaConfiguration());
