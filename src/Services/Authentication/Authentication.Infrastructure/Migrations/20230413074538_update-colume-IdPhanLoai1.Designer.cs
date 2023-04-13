@@ -4,6 +4,7 @@ using Authentication.Infrastructure.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Authentication.Infrastructure.Migrations
 {
     [DbContext(typeof(ExOneDbContext))]
-    partial class ExOneDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230413074538_update-colume-IdPhanLoai1")]
+    partial class updatecolumeIdPhanLoai1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -598,7 +600,7 @@ namespace Authentication.Infrastructure.Migrations
                     b.Property<int>("IdPhanLoai")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("IdVatLieuChietTinh")
+                    b.Property<Guid?>("IdVatLieu")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsDeleted")
@@ -606,9 +608,6 @@ namespace Authentication.Infrastructure.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(false)
                         .HasComment("Cờ xóa");
-
-                    b.Property<decimal>("TongGia")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<Guid?>("UpdatedBy")
                         .HasMaxLength(36)
@@ -621,7 +620,7 @@ namespace Authentication.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdVatLieuChietTinh");
+                    b.HasIndex("IdVatLieu");
 
                     b.ToTable("DonGiaChietTinh", (string)null);
                 });
@@ -1627,11 +1626,11 @@ namespace Authentication.Infrastructure.Migrations
 
             modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.DonGiaChietTinhAggregate.DonGiaChietTinh", b =>
                 {
-                    b.HasOne("Authentication.Infrastructure.AggregatesModel.DM_VatLieuChietTinhAggregate.DM_VatLieuChietTinh", "DM_VatLieuChietTinh")
+                    b.HasOne("Authentication.Infrastructure.AggregatesModel.DM_VatLieuAggregate.DM_VatLieu", "DM_VatLieu")
                         .WithMany("DonGiaChietTinh")
-                        .HasForeignKey("IdVatLieuChietTinh");
+                        .HasForeignKey("IdVatLieu");
 
-                    b.Navigation("DM_VatLieuChietTinh");
+                    b.Navigation("DM_VatLieu");
                 });
 
             modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.DonGiaNhanCongAggregate.DonGiaNhanCong", b =>
@@ -1825,12 +1824,9 @@ namespace Authentication.Infrastructure.Migrations
 
             modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.DM_VatLieuAggregate.DM_VatLieu", b =>
                 {
-                    b.Navigation("DonGiaVatLieu");
-                });
-
-            modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.DM_VatLieuChietTinhAggregate.DM_VatLieuChietTinh", b =>
-                {
                     b.Navigation("DonGiaChietTinh");
+
+                    b.Navigation("DonGiaVatLieu");
                 });
 
             modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.DM_VungAggregate.DM_Vung", b =>

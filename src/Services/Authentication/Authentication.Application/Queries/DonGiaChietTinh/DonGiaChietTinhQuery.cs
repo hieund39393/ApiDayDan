@@ -40,15 +40,18 @@ namespace Authentication.Application.Queries.DonGiaChietTinhQuery
             //Tạo câu query
             var query = _unitOfWork.DonGiaChietTinhRepository.GetQuery(x => //Tìm kiếm
             (string.IsNullOrEmpty(request.SearchTerm) || x.DonGia.ToString().Contains(request.SearchTerm)))
-                .Include(x => x.DM_VatLieu)
+                .Include(x => x.DM_VatLieuChietTinh)
                 .Select(x => new DonGiaChietTinhResponse()
                 {
                     Id = x.Id,
-                    IdVatLieu = x.IdVatLieu,
-                    TenVatLieu = x.DM_VatLieu.TenVatLieu,
+                    IdVatLieuChietTinh = x.IdVatLieuChietTinh,
+                    TenVatLieuChietTinh = x.DM_VatLieuChietTinh.TenVatLieuChietTinh,
+                    MaVatLieuChietTinh = x.DM_VatLieuChietTinh.MaVatLieuChietTinh,
+                    DonViTinh = x.DM_VatLieuChietTinh.DonViTinh,
                     DonGia = x.DonGia,
                     PhanLoai = GetDescription((DonGiaChietTinhPhanLoai)x.IdPhanLoai) ,
                     IdPhanLoai = x.IdPhanLoai,
+                    TongGia = x.TongGia,
                     NgayTao = x.CreatedDate,
                 });// select dữ liệu
             var totalRow = query.Count(); // tổng số lượng

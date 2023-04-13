@@ -8,8 +8,10 @@ namespace Authentication.Application.Commands.DonGiaChietTinhCommand
     public class UpdateDonGiaChietTinhCommand : IRequest<bool> // kế thừa IRequest<bool>
     {
         public Guid Id { get; set; } // thêm ID
-        public Guid? IdVatLieu { get; set; }
+        public Guid? IdVatLieuChietTinh { get; set; }
         public decimal DonGia { get; set; }
+        public decimal TongGia { get; set; }
+
         public int IdPhanLoai{ get; set; }
     }
 
@@ -30,20 +32,22 @@ namespace Authentication.Application.Commands.DonGiaChietTinhCommand
             {
                 throw new EvnException(string.Format(Resources.MSG_NOT_FOUND, "Đơn giá chiết tinh"));
             }
-            if (entity.IdVatLieu == request.IdVatLieu)
+            if (entity.IdVatLieuChietTinh == request.IdVatLieuChietTinh)
             {
                 entity.DonGia = request.DonGia;
+                entity.TongGia = request.TongGia;
             }
             else
             {
-                var checkEntity = await _unitOfWork.DonGiaChietTinhRepository.FindOneAsync(x => entity.IdVatLieu == request.IdVatLieu);
+                var checkEntity = await _unitOfWork.DonGiaChietTinhRepository.FindOneAsync(x => entity.IdVatLieuChietTinh == request.IdVatLieuChietTinh);
                 if (checkEntity != null)
                 {
                     throw new EvnException(string.Format(Resources.MSG_IS_EXIST, "Đơn giá chiết tinh"));
                 }
-                entity.IdVatLieu = request.IdVatLieu;
+                entity.IdVatLieuChietTinh = request.IdVatLieuChietTinh;
                 entity.DonGia = request.DonGia;
                 entity.IdPhanLoai = request.IdPhanLoai;
+                entity.TongGia = request.TongGia;
             }
 
             //thêm vào DB

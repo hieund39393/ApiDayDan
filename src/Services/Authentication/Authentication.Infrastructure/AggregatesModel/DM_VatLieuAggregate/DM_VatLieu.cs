@@ -10,6 +10,5 @@ namespace Authentication.Infrastructure.AggregatesModel.DM_VatLieuAggregate
         public string MaVatLieu { get; set; }
         public string DonViTinh { get; set; }
         public ICollection<DonGiaVatLieu> DonGiaVatLieu { get; set; }
-        public ICollection<DonGiaChietTinh> DonGiaChietTinh { get; set; }
     }
 }

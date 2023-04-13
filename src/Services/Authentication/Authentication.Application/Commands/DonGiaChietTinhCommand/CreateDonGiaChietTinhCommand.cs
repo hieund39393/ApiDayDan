@@ -10,8 +10,10 @@ namespace Authentication.Application.Commands.DonGiaChietTinhCommand
 {
     public class CreateDonGiaChietTinhCommand : IRequest<bool> // kế thừa IRequest<bool>
     {
-        public Guid? IdVatLieu { get; set; }
+        public Guid? IdVatLieuChietTinh { get; set; }
         public decimal DonGia { get; set; }
+        public decimal TongGia { get; set; }
+
         public int IdPhanLoai{ get; set; }
     }
 
@@ -27,16 +29,19 @@ namespace Authentication.Application.Commands.DonGiaChietTinhCommand
         {
             // tìm kiếm xem có mã loại cáp trong db không
             var entity = await _unitOfWork.DonGiaChietTinhRepository.FindOneAsync(x =>
-            x.IdVatLieu == request.IdVatLieu);
+            x.IdVatLieuChietTinh == request.IdVatLieuChietTinh);
             // nếu không có dữ liệu thì thêm mới
             if (entity == null)
             {
                 // Tạo model DonGiaChietTinh
                 var model = new DonGiaChietTinh
                 {
-                    IdVatLieu = request.IdVatLieu,
+                    IdVatLieuChietTinh = request.IdVatLieuChietTinh,
                     DonGia = request.DonGia,
                     IdPhanLoai = request.IdPhanLoai,
+                    TongGia = request.TongGia,
+
+
                 };
                 //thêm vào DB
                 _unitOfWork.DonGiaChietTinhRepository.Add(model);
