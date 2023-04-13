@@ -10,6 +10,7 @@ namespace Authentication.Infrastructure.AggregatesModel.DM_CongViecAggregate
         public string MaCongViec { get; set; }
         public string DonViTinh { get; set; }
         public ICollection<BieuGiaCongViec> BieuGiaCongViec { get; set; } // cấu hình 1-N bảng biểu giá công việc
+        public ICollection<ChiTietBieuGia> ChiTietBieuGia { get; set; } // cấu hình 1-N bảng biểu giá công việc
 
 
     }

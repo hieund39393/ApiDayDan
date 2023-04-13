@@ -1,5 +1,6 @@
 ﻿using AAuthentication.Infrastructure.AggregatesModel.DM_BieuGia;
 using Authentication.Infrastructure.AggregatesModel.BieuGiaCongViecAggregate;
+using Authentication.Infrastructure.AggregatesModel.ChiTietBieuGiaAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_CongViecAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_KhuVucAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGiaAggregate;
@@ -49,6 +50,7 @@ namespace Authentication.Infrastructure.Repositories
         IRepository<DonGiaVatLieu> DonGiaVatLieuRepository { get; }
         IRepository<DonGiaNhanCong> DonGiaNhanCongRepository { get; }
         IRepository<DonGiaChietTinh> DonGiaChietTinhRepository { get; }
+        IRepository<ChiTietBieuGia> ChiTietBieuGiaRepository { get; }
 
 
         //1. DM bieu gia - Kem
@@ -88,6 +90,7 @@ namespace Authentication.Infrastructure.Repositories
         private IRepository<DonGiaVatLieu> _donGiaVatLieuRepository;
         private IRepository<DonGiaNhanCong> _donGiaNhanCongRepository;
         private IRepository<DonGiaChietTinh> _donGiaChietTinhRepository;
+        private IRepository<ChiTietBieuGia> _chiTietBieuGiaRepository;
 
         //Danh muc bieu gia - Kem
         private IRepository<DM_BieuGia> _dM_BieuGiaRepository;
@@ -364,6 +367,17 @@ namespace Authentication.Infrastructure.Repositories
                     _donGiaChietTinhRepository = new Repository<DonGiaChietTinh>(_context);
                 }
                 return _donGiaChietTinhRepository;
+            }
+        }      
+        public IRepository<ChiTietBieuGia> ChiTietBieuGiaRepository
+        {
+            get
+            {
+                if (_chiTietBieuGiaRepository == null)
+                {
+                    _chiTietBieuGiaRepository = new Repository<ChiTietBieuGia>(_context);
+                }
+                return _chiTietBieuGiaRepository;
             }
         }
         #endregion

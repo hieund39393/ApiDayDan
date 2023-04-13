@@ -1,4 +1,5 @@
 ﻿using Authentication.Application.Queries.BieuGiaCongViecQuery;
+using Authentication.Application.Queries.ChiTietBieuGiaQuery;
 using Authentication.Application.Queries.CommonQuery;
 using Authentication.Application.Queries.DM_BieuGiaQuery;
 using Authentication.Application.Queries.DM_CongViecQuery;
@@ -68,6 +69,7 @@ namespace Authentication.API.Configurations
             services.AddScoped<IDonGiaVatLieuQuery, DonGiaVatLieuQuery>(); // quy tắc Interface trước class sau
             services.AddScoped<IDonGiaNhanCongQuery, DonGiaNhanCongQuery>(); // quy tắc Interface trước class sau
             services.AddScoped<IDonGiaChietTinhQuery, DonGiaChietTinhQuery>(); // quy tắc Interface trước class sau
+            services.AddScoped<IChiTietBieuGiaQuery, ChiTietBieuGiaQuery>(); // quy tắc Interface trước class sau
           
             services.AddScoped<IDM_BieuGiaQuery, DM_BieuGiaQuery>(); // quy tắc Interface trước class sau
             services.AddScoped<IBieuGiaCongViecQuery, BieuGiaCongViecQuery>(); // quy tắc Interface trước class sau

@@ -7,7 +7,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://172.16.71.134"
+      "applicationUrl": "https://localhost:5081"
     }
   },
   "iisSettings": {
