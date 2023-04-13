@@ -294,6 +294,17 @@ namespace EVN.Core.Common
             public const string Vung = QTDM + "vung";
             public const string KhuVuc = QTDM + "kv";
 
+            public const string LoaiCap = QTDM + "lc";
+            public const string VatLieu = QTDM + "vl";
+            public const string VatLieuChietTinh = QTDM + "vlct";
+
+            // Menu của quản trị đơn giá
+
+            public const string DonGiaCap = QLTTDG + "dgc";
+            public const string DonGiaNhanCong = QLTTDG + "dgnc";
+            public const string DonGiaVatLieu = QLTTDG + "dgvl";
+            public const string DonGiaVatLieuChietTinh = QLTTDG + "dgvlct";
+
             public const string View = ".v";
             public const string Create = ".c";
             public const string Update = ".u";

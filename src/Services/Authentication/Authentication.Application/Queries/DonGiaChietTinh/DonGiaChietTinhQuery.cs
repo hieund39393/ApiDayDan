@@ -49,7 +49,7 @@ namespace Authentication.Application.Queries.DonGiaChietTinhQuery
                     MaVatLieuChietTinh = x.DM_VatLieuChietTinh.MaVatLieuChietTinh,
                     DonViTinh = x.DM_VatLieuChietTinh.DonViTinh,
                     DonGia = x.DonGia,
-                    PhanLoai = GetDescription((DonGiaChietTinhPhanLoai)x.IdPhanLoai) ,
+                    PhanLoai = GetDescription((DonGiaChietTinhPhanLoai)x.IdPhanLoai),
                     IdPhanLoai = x.IdPhanLoai,
                     TongGia = x.TongGia,
                     NgayTao = x.CreatedDate,
@@ -65,5 +65,6 @@ namespace Authentication.Application.Queries.DonGiaChietTinhQuery
             var attribute = Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) as DescriptionAttribute;
             return attribute == null ? value.ToString() : attribute.Description;
         }
+
     }
 }

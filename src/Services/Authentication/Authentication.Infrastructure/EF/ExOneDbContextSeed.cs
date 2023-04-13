@@ -45,7 +45,7 @@ namespace Authentication.Infrastructure.EF
 
                 listModule.Add(new Module { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C1"), Code = Permissions.QTHT, Name = "Quản trị hệ thống", Order = 1, Icon = "SettingOutlined" });
                 listModule.Add(new Module { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C2"), Code = Permissions.QTDM, Name = "Quản trị danh mục", Order = 2, Icon = "FormOutlined" });
-                listModule.Add(new Module { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C3"), Code = Permissions.QLDMBG, Name = "Quản lý danh mục biểu giá", Order = 3, Icon = "OrderedListOutlined" });
+                //listModule.Add(new Module { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C3"), Code = Permissions.QLDMBG, Name = "Quản lý danh mục biểu giá", Order = 3, Icon = "OrderedListOutlined" });
                 listModule.Add(new Module { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C4"), Code = Permissions.QLTTDG, Name = "Quản lý thông tin đơn giá", Order = 4, Icon = "BarChartOutlined" });
                 listModule.Add(new Module { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C5"), Code = Permissions.QLTTCTBG, Name = "Quản lý thông tin chi tiết biểu giá", Order = 5, Icon = "FundOutlined" });
                 listModule.Add(new Module { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C6"), Code = Permissions.HTBC, Name = "Hệ thống báo cáo", Order = 6, Icon = "PieChartOutlined" });
@@ -67,6 +67,18 @@ namespace Authentication.Infrastructure.EF
                 listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83832"), Code = $"{Permissions.CongViec}", Name = "Quản lý công việc", Url = "/cong-viec", Order = 3, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
                 listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83833"), Code = $"{Permissions.Vung}", Name = "Quản lý vùng", Url = "/vung", Order = 4, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
                 listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83834"), Code = $"{Permissions.KhuVuc}", Name = "Quản lý khu vực", Url = "/khu-vuc", Order = 5, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
+
+                listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83835"), Code = $"{Permissions.LoaiCap}", Name = "Quản lý loại cáp", Url = "/loai-cap", Order = 6, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
+                listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83836"), Code = $"{Permissions.VatLieu}", Name = "Quản lý vật liệu", Url = "/vat-lieu", Order = 7, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
+                listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83837"), Code = $"{Permissions.VatLieuChietTinh}", Name = "Quản lý vật liệu chiết tinh", Url = "/vat-lieu-chiet-tinh", Order = 8, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
+
+
+                // QUẢN TRỊ ĐƠN GIÁ
+                listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83838"), Code = $"{Permissions.DonGiaCap}", Name = "Đơn giá cáp", Url = "/don-gia-cap", Order = 1, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C4") });
+                listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83839"), Code = $"{Permissions.DonGiaNhanCong}", Name = "Đơn giá nhân công", Url = "/don-gia-nhan-cong", Order = 2, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C4") });
+                listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83840"), Code = $"{Permissions.DonGiaVatLieu}", Name = "Đơn vật liệu", Url = "/don-gia-vat-lieu", Order = 3, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C4") });
+                listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83841"), Code = $"{Permissions.DonGiaVatLieuChietTinh}", Name = "Đơn giá vật liệu chiết tinh", Url = "/don-gia-vat-lieu-chiet-tinh", Order = 4, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C4") });
+
                 context.Menu.AddRange(listMenu);
                 await context.SaveChangesAsync();
             }
