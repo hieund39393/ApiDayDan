@@ -54,5 +54,17 @@ namespace EVN.Core.Common
             NVNP = 16,
             #endregion
         }
+
+        public enum DonGiaChietTinhPhanLoai
+        {
+            [Description("Nhân Công")]
+            NhanCong = 1,
+            [Description("Vật liệu")]
+            VatLieu= 2, 
+            [Description("Máy thi công")]
+            MayThiCong = 3,
+        }
+
+
     }
 }

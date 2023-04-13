@@ -9,6 +9,8 @@ namespace Authentication.Application.Model.DonGiaChietTinh
         public Guid? IdVatLieu { get; set; }
         public string TenVatLieu { get; set; }
         public decimal DonGia { get; set; }
+        public string PhanLoai{ get; set; }
+        public int IdPhanLoai{ get; set; }
         public DateTime NgayTao { get; set; }
     }
 }

@@ -1,7 +1,10 @@
 ﻿using Authentication.Application.Model.DonGiaChietTinh;
 using Authentication.Infrastructure.Repositories;
+using EVN.Core.Extensions;
 using EVN.Core.SeedWork;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
+using static EVN.Core.Common.AppEnum;
 
 namespace Authentication.Application.Queries.DonGiaChietTinhQuery
 {
@@ -44,11 +47,20 @@ namespace Authentication.Application.Queries.DonGiaChietTinhQuery
                     IdVatLieu = x.IdVatLieu,
                     TenVatLieu = x.DM_VatLieu.TenVatLieu,
                     DonGia = x.DonGia,
+                    PhanLoai = GetDescription((DonGiaChietTinhPhanLoai)x.IdPhanLoai) ,
+                    IdPhanLoai = x.IdPhanLoai,
                     NgayTao = x.CreatedDate,
                 });// select dữ liệu
             var totalRow = query.Count(); // tổng số lượng
             var queryPaging = query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize); // phân trang
             return await PagingResultSP<DonGiaChietTinhResponse>.CreateAsyncLinq(queryPaging, totalRow, request.PageIndex, request.PageSize);
+        }
+
+        public static string GetDescription(Enum value)
+        {
+            var field = value.GetType().GetField(value.ToString());
+            var attribute = Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) as DescriptionAttribute;
+            return attribute == null ? value.ToString() : attribute.Description;
         }
     }
 }

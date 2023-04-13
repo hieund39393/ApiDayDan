@@ -8,6 +8,7 @@ using Authentication.Application.Queries.DM_LoaiCapQuery;
 using Authentication.Application.Queries.DM_VatLieuChietTinhQuery;
 using Authentication.Application.Queries.DM_VatLieuQuery;
 using Authentication.Application.Queries.DM_VungQuery;
+using Authentication.Application.Queries.DonGiaChietTinhQuery;
 using Authentication.Application.Queries.DonGiaNhanCongQuery;
 using Authentication.Application.Queries.DonGiaVatLieuQuery;
 using Authentication.Application.Queries.GiaCapQuery;
@@ -59,12 +60,14 @@ namespace Authentication.API.Configurations
             services.AddScoped<IDM_KhuVucQuery, DM_KhuVucQuery>(); // quy tắc Interface trước class sau
             services.AddScoped<IDM_VungQuery, DM_VungQuery>(); // quy tắc Interface trước class sau
             services.AddScoped<IDM_CongViecQuery, DM_CongViecQuery>(); // quy tắc Interface trước class sau
+           
             services.AddScoped<IDM_LoaiCapQuery, DM_LoaiCapQuery>(); // quy tắc Interface trước class sau
             services.AddScoped<IDM_VatLieuQuery, DM_VatLieuQuery>(); // quy tắc Interface trước class sau
             services.AddScoped<IDM_VatLieuChietTinhQuery, DM_VatLieuChietTinhQuery>(); // quy tắc Interface trước class sau
             services.AddScoped<IGiaCapQuery, GiaCapQuery>(); // quy tắc Interface trước class sau
             services.AddScoped<IDonGiaVatLieuQuery, DonGiaVatLieuQuery>(); // quy tắc Interface trước class sau
             services.AddScoped<IDonGiaNhanCongQuery, DonGiaNhanCongQuery>(); // quy tắc Interface trước class sau
+            services.AddScoped<IDonGiaChietTinhQuery, DonGiaChietTinhQuery>(); // quy tắc Interface trước class sau
           
             services.AddScoped<IDM_BieuGiaQuery, DM_BieuGiaQuery>(); // quy tắc Interface trước class sau
             services.AddScoped<IBieuGiaCongViecQuery, BieuGiaCongViecQuery>(); // quy tắc Interface trước class sau

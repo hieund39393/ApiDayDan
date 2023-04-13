@@ -10,8 +10,6 @@ namespace Authentication.Application.Commands.BieuGiaCongViecCommand
     {
         public Guid IdBieuGia { get; set; }
         public Guid IdCongViec { get; set; }
-        public Guid VungID { get; set; }
-        public Guid KhuVucID { get; set; }
     }
 
     //Tạo thêm 1 class Handler kế thừa IRequestHandler<CreateBieuGiaCongViecCommand, bool> rồi implement

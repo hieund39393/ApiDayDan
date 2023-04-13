@@ -7,6 +7,7 @@ namespace Authentication.Infrastructure.AggregatesModel.DonGiaChietTinhAggregate
     {
         public Guid? IdVatLieu { get; set; }
         public DM_VatLieu DM_VatLieu { get; set; }
+        public int IdPhanLoai { get; set; }
         public decimal DonGia{ get; set; }
     }
 }

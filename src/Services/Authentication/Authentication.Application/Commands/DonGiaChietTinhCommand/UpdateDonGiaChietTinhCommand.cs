@@ -10,6 +10,7 @@ namespace Authentication.Application.Commands.DonGiaChietTinhCommand
         public Guid Id { get; set; } // thêm ID
         public Guid? IdVatLieu { get; set; }
         public decimal DonGia { get; set; }
+        public int IdPhanLoai{ get; set; }
     }
 
     //Tạo thêm 1 class Handler kế thừa IRequestHandler<UpdateDonGiaChietTinhCommand, bool> rồi implement
@@ -42,6 +43,7 @@ namespace Authentication.Application.Commands.DonGiaChietTinhCommand
                 }
                 entity.IdVatLieu = request.IdVatLieu;
                 entity.DonGia = request.DonGia;
+                entity.IdPhanLoai = request.IdPhanLoai;
             }
 
             //thêm vào DB

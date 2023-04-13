@@ -12,6 +12,7 @@ namespace Authentication.Application.Commands.DonGiaChietTinhCommand
     {
         public Guid? IdVatLieu { get; set; }
         public decimal DonGia { get; set; }
+        public int IdPhanLoai{ get; set; }
     }
 
     //Tạo thêm 1 class Handler kế thừa IRequestHandler<CreateDonGiaChietTinhCommand, bool> rồi implement
@@ -35,6 +36,7 @@ namespace Authentication.Application.Commands.DonGiaChietTinhCommand
                 {
                     IdVatLieu = request.IdVatLieu,
                     DonGia = request.DonGia,
+                    IdPhanLoai = request.IdPhanLoai,
                 };
                 //thêm vào DB
                 _unitOfWork.DonGiaChietTinhRepository.Add(model);
