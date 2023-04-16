@@ -27,6 +27,19 @@ namespace Authentication.API.Controllers
         }
 
         /// <summary>
+        /// lấy danh sách đơn giá theo phân loại
+        /// </summary>
+        /// <param name="IdPhanLoai"></param>
+        /// <returns></returns>
+        [HttpGet("get-don-gia-phan-loai")]
+        [ProducesResponseType(typeof(ApiSuccessResult<IList<SelectItem>>), (int)HttpStatusCode.OK)] // trả về dữ liệu model cho FE
+        public async Task<IActionResult> GetDonGiaChietTinh([FromQuery] int IdPhanLoai)
+        {
+            var data = await _ChiTietBieuGiaQuery.GetDonGiaChietTinh(IdPhanLoai);
+            return Ok(new ApiSuccessResult<List<SelectItem>>(data: data));
+        }     
+        
+        /// <summary>
         /// lấy danh sách biểu giá theo loại biểu giá
         /// </summary>
         /// <param name="loaibieugia"></param>

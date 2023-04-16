@@ -11,6 +11,7 @@ namespace Authentication.Application.Queries.ChiTietBieuGiaQuery
 
         Task<List<ChiTietBieuGiaResponse>> GetList(ChiTietBieuGiaRequest request);
         Task<List<SelectItem>> GetBieuGiaByLoaiBieuGia(Guid loaiBieuGia);
+        Task<List<SelectItem>> GetDonGiaChietTinh(int IdPhanLoai);
     }
     public class ChiTietBieuGiaQuery : IChiTietBieuGiaQuery // kế thừa interface vừa tạo
     {
@@ -27,6 +28,18 @@ namespace Authentication.Application.Queries.ChiTietBieuGiaQuery
                 Name = x.TenBieuGia,
                 Value = x.Id.ToString()
             }).AsNoTracking().ToListAsync();
+        }
+
+        public async Task<List<SelectItem>> GetDonGiaChietTinh(int IdPhanLoai)
+        {
+            return await _unitOfWork.DonGiaChietTinhRepository.GetQuery(x => x.IdPhanLoai == IdPhanLoai)
+                .Include(x => x.DM_VatLieuChietTinh)
+                .Select(x => new SelectItem
+                {
+                    Name = x.DM_VatLieuChietTinh.TenVatLieuChietTinh + " / Tổng giá: "+  x.TongGia,
+                    Value = x.TongGia.ToString()
+
+                }).AsNoTracking().ToListAsync();
         }
 
         // lấy dữ liệu phân trang, tìm kiếm , số lượng
