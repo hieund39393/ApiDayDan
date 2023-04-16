@@ -5,6 +5,6 @@
     {
         public int Quy { get; set; }
         public int Nam { get; set; }
-        public Guid IDBieuGia { get; set; }
+        public Guid IdBieuGia { get; set; }
     }
 }

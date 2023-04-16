@@ -3,13 +3,14 @@ using Authentication.Infrastructure.Properties;
 using Authentication.Infrastructure.Repositories;
 using EVN.Core.Exceptions;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
 {
     public class CreateChiTietBieuGiaCommand : IRequest<bool>
     {
-        public Guid? IdBieuGia { get; set; }
-        public Guid? IdCongViec { get; set; }
+        public Guid? Id { get; set; }
         public int Nam { get; set; }
         public int Quy { get; set; }
         public decimal SoLuong { get; set; }
@@ -29,14 +30,19 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
         }
         public async Task<bool> Handle(CreateChiTietBieuGiaCommand request, CancellationToken cancellationToken)
         {
-            var entity = await _unitOfWork.ChiTietBieuGiaRepository.FindOneAsync(x => x.IDBieuGia == request.IdBieuGia & x.IDCongViec == request.IdCongViec);
-
+            var bieuGiaCongViec = await _unitOfWork.BieuGiaCongViecRepository.FindOneAsync(x => x.Id == request.Id);
+            if (bieuGiaCongViec == null)
+            {
+                throw new EvnException(string.Format(Resources.MSG_IS_EXIST, "Biểu giá công việc"));
+            }
+            var entity = await _unitOfWork.ChiTietBieuGiaRepository.FindOneAsync(x => x.IdBieuGiaCongViec == request.Id && x.Nam == request.Nam && x.Quy == request.Quy);
             if (entity == null)
             {
                 var model = new ChiTietBieuGia
                 {
-                    IDBieuGia = request.IdBieuGia,
-                    IDCongViec = request.IdCongViec,
+                    IdBieuGiaCongViec = bieuGiaCongViec.Id,
+                    IDBieuGia = bieuGiaCongViec.IdBieuGia,
+                    IDCongViec = bieuGiaCongViec.IdCongViec,
                     Nam = request.Nam,
                     Quy = request.Quy,
                     SoLuong = request.SoLuong,

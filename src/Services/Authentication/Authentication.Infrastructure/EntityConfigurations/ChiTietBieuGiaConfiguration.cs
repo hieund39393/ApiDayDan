@@ -20,6 +20,7 @@ namespace Authentication.Infrastructure.EntityConfigurations
             builder.Property(x => x.DonGia_MTC).HasColumnType("numeric(18,1)"); ;
             builder.HasOne(x => x.DM_BieuGia).WithMany(x => x.ChiTietBieuGia).HasForeignKey(x => x.IDBieuGia); // cấu hình 1-N loại biểu giá
             builder.HasOne(x => x.DM_CongViec).WithMany(x => x.ChiTietBieuGia).HasForeignKey(x => x.IDCongViec); // cấu hình 1-N loại công việc
+            builder.HasOne(x => x.BieuGiaCongViec).WithMany(x => x.ChiTietBieuGia).HasForeignKey(x => x.IdBieuGiaCongViec); // cấu hình 1-N Biểu giá công việc
 
             ConfigureBase(builder);
         }

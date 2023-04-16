@@ -1,4 +1,5 @@
 ﻿using AAuthentication.Infrastructure.AggregatesModel.DM_BieuGia;
+using Authentication.Infrastructure.AggregatesModel.ChiTietBieuGiaAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_CongViecAggregate;
 using EVN.Core.Models.Base;
 
@@ -13,5 +14,6 @@ namespace Authentication.Infrastructure.AggregatesModel.BieuGiaCongViecAggregate
         // Công việc
         public Guid? IdCongViec { get; set; }
         public DM_CongViec DM_CongViecs { get; set; }
+        public ICollection<ChiTietBieuGia> ChiTietBieuGia { get; set; }
     }
 }

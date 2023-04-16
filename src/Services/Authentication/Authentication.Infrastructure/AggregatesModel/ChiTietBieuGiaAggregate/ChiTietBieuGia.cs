@@ -1,4 +1,5 @@
 ﻿using AAuthentication.Infrastructure.AggregatesModel.DM_BieuGia;
+using Authentication.Infrastructure.AggregatesModel.BieuGiaCongViecAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_CongViecAggregate;
 using EVN.Core.Models.Base;
 
@@ -8,6 +9,7 @@ namespace Authentication.Infrastructure.AggregatesModel.ChiTietBieuGiaAggregate
     {
         public Guid? IDBieuGia { get; set; }
         public Guid? IDCongViec { get; set; }
+        public Guid? IdBieuGiaCongViec { get; set; }
         public int Nam { get; set; }
         public int Quy { get; set; }
         public decimal SoLuong { get; set; }
@@ -19,6 +21,7 @@ namespace Authentication.Infrastructure.AggregatesModel.ChiTietBieuGiaAggregate
         public decimal DonGia_MTC { get; set; }
         public DM_BieuGia DM_BieuGia { get; set; }
         public DM_CongViec DM_CongViec { get; set; }
+        public BieuGiaCongViec BieuGiaCongViec { get; set; }
 
     }
 }

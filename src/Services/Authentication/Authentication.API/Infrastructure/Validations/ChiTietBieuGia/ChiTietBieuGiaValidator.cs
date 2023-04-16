@@ -11,7 +11,7 @@ namespace Authentication.API.Infrastructure.Validations.ChiTietBieuGia
         {
             RuleFor(x => x.Quy).NotEmpty().WithMessage(string.Format(Resources.MSG_REQUIRED_FIELD, "Quý"));
             RuleFor(x => x.Nam).NotEmpty().WithMessage(string.Format(Resources.MSG_REQUIRED_FIELD, "Năm"));
-            RuleFor(x => x.IDBieuGia).NotEmpty().WithMessage(string.Format(Resources.MSG_REQUIRED_FIELD, "Biểu giá"));
+            RuleFor(x => x.IdBieuGia).NotEmpty().WithMessage(string.Format(Resources.MSG_REQUIRED_FIELD, "Chi tiết biểu giá"));
         }
     }
 }

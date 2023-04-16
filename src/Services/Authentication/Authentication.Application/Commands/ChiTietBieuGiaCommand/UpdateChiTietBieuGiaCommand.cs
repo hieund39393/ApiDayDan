@@ -8,8 +8,6 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
     public class UpdateChiTietBieuGiaCommand : IRequest<bool>
     {
         public Guid Id { get; set; }
-        public Guid? IdBieuGia { get; set; }
-        public Guid? IdCongViec { get; set; }
         public int Nam { get; set; }
         public int Quy { get; set; }
         public decimal SoLuong { get; set; }
@@ -29,17 +27,20 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
         }
         public async Task<bool> Handle(UpdateChiTietBieuGiaCommand request, CancellationToken cancellationToken)
         {
-            // tìm kiếm xem có ID trong bảng DM_LoaiCap không
-            var entity = await _unitOfWork.ChiTietBieuGiaRepository.FindOneAsync(x => x.Id == request.Id);
+            var entity = await _unitOfWork.ChiTietBieuGiaRepository.FindOneAsync(x => x.IdBieuGiaCongViec == request.Id && x.Nam == request.Nam && x.Quy == request.Quy);
             // nếu không có dữ liệu
             if (entity == null)
             {
                 throw new EvnException(string.Format(Resources.MSG_NOT_FOUND, "Chi tiết biểu giá"));
             }
-            if (entity.IDBieuGia == request.IdBieuGia && entity.IDCongViec == request.IdCongViec)
+            var bieuGiaCongViec = await _unitOfWork.BieuGiaCongViecRepository.FindOneAsync(x => x.Id == request.Id);
+            if (bieuGiaCongViec == null)
             {
-                entity.Nam = request.Nam;
-                entity.Quy = request.Quy;
+                throw new EvnException(string.Format(Resources.MSG_IS_EXIST, "Biểu giá công việc"));
+            }
+
+            if (entity.Id == request.Id && entity.Nam == request.Nam && entity.Quy == request.Quy)
+            {
                 entity.SoLuong = request.SoLuong;
                 entity.HeSoDieuChinh_K1nc = request.HeSoDieuChinh_K1nc;
                 entity.HeSoDieuChinh_K2nc = request.HeSoDieuChinh_K2nc;
@@ -51,10 +52,10 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
             }
             else
             {
-                var checkEntity = await _unitOfWork.ChiTietBieuGiaRepository.FindOneAsync(x => entity.IDBieuGia == request.IdBieuGia && entity.IDCongViec == request.IdCongViec);
+                var checkEntity = await _unitOfWork.ChiTietBieuGiaRepository.FindOneAsync(x =>entity.Id == request.Id && entity.Nam == request.Nam && entity.Quy == request.Quy);
                 if (checkEntity != null)
                 {
-                    throw new EvnException(string.Format(Resources.MSG_IS_EXIST, "Chi tiết biểu giá"));
+                    throw new EvnException(string.Format(Resources.MSG_IS_EXIST, "Năm và quý của chi tiết biểu giá"));
                 }
                 entity.Nam = request.Nam;
                 entity.Quy = request.Quy;
@@ -66,8 +67,6 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                 entity.DonGia_NC = request.DonGia_NC;
                 entity.DonGia_MTC = request.DonGia_MTC;
             }
-
-
             //thêm vào DB
             _unitOfWork.ChiTietBieuGiaRepository.Update(entity);
             //lưu lại trong DB
