@@ -72,6 +72,8 @@ namespace Authentication.Infrastructure.EF
                 listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83836"), Code = $"{Permissions.VatLieu}", Name = "Quản lý vật liệu", Url = "/vat-lieu", Order = 7, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
                 listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83837"), Code = $"{Permissions.VatLieuChietTinh}", Name = "Quản lý vật liệu chiết tinh", Url = "/vat-lieu-chiet-tinh", Order = 8, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
 
+                listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83843"), Code = $"{Permissions.BieuGiaCongViec}", Name = "Biểu giá công việc", Url = "/bieu-gia-cong-viec", Order = 9, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
+
 
                 // QUẢN TRỊ ĐƠN GIÁ
                 listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83838"), Code = $"{Permissions.DonGiaCap}", Name = "Đơn giá cáp", Url = "/don-gia-cap", Order = 1, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C4") });
@@ -79,6 +81,8 @@ namespace Authentication.Infrastructure.EF
                 listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83840"), Code = $"{Permissions.DonGiaVatLieu}", Name = "Đơn vật liệu", Url = "/don-gia-vat-lieu", Order = 3, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C4") });
                 listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83841"), Code = $"{Permissions.DonGiaVatLieuChietTinh}", Name = "Đơn giá vật liệu chiết tinh", Url = "/don-gia-vat-lieu-chiet-tinh", Order = 4, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C4") });
 
+                // QUẢN LÝ THÔNG TIN CHI TIẾT BIỂU GIÁ
+                listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83842"), Code = $"{Permissions.ChiTietBieuGia}", Name = "Chi tiết biểu giá", Url = "/chi-tiet-bieu-gia", Order = 1, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C5") });
                 context.Menu.AddRange(listMenu);
                 await context.SaveChangesAsync();
             }
