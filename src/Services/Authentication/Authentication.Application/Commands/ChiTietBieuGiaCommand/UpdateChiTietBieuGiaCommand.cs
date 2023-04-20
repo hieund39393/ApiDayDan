@@ -1,77 +1,91 @@
-﻿using Authentication.Infrastructure.Properties;
+﻿using Authentication.Application.Model.ChiTietBieuGia;
+using Authentication.Infrastructure.AggregatesModel.BieuGiaTongHopAggregate;
+using Authentication.Infrastructure.AggregatesModel.ChiTietBieuGiaAggregate;
+using Authentication.Infrastructure.Properties;
 using Authentication.Infrastructure.Repositories;
+using AutoMapper;
 using EVN.Core.Exceptions;
 using MediatR;
+using static EVN.Core.Common.AppEnum;
 
 namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
 {
     public class UpdateChiTietBieuGiaCommand : IRequest<bool>
     {
-        public Guid Id { get; set; }
-        public int Nam { get; set; }
-        public int Quy { get; set; }
-        public decimal SoLuong { get; set; }
-        public decimal HeSoDieuChinh_K1nc { get; set; }
-        public decimal HeSoDieuChinh_K2nc { get; set; }
-        public decimal HeSoDieuChinh_K2mnc { get; set; }
-        public decimal DonGia_VL { get; set; }
-        public decimal DonGia_NC { get; set; }
-        public decimal DonGia_MTC { get; set; }
+        public List<UpdateChiTietBieuGiaRequest> ChiSos { get; set; }
     }
     public class UpdateChiTietBieuGiaCommandHandler : IRequestHandler<UpdateChiTietBieuGiaCommand, bool>
     {
         private readonly IUnitOfWork _unitOfWork;
-        public UpdateChiTietBieuGiaCommandHandler(IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+        public UpdateChiTietBieuGiaCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
         public async Task<bool> Handle(UpdateChiTietBieuGiaCommand request, CancellationToken cancellationToken)
         {
-            var entity = await _unitOfWork.ChiTietBieuGiaRepository.FindOneAsync(x => x.IdBieuGiaCongViec == request.Id && x.Nam == request.Nam && x.Quy == request.Quy);
-            // nếu không có dữ liệu
-            if (entity == null)
+            var chiTietBG = request.ChiSos.FirstOrDefault();
+            if (chiTietBG == null) { return true; }
+
+            var bieuGiaTongHop = await _unitOfWork.BieuGiaTongHopRepository
+                .FindOneAsync(x => x.IdBieuGia == chiTietBG.IdBieuGia && x.Quy == chiTietBG.Quy && x.Nam == chiTietBG.Nam);
+            if (bieuGiaTongHop == null)
             {
-                throw new EvnException(string.Format(Resources.MSG_NOT_FOUND, "Chi tiết biểu giá"));
+                _unitOfWork.BieuGiaTongHopRepository.Add(new BieuGiaTongHop { IdBieuGia = chiTietBG.IdBieuGia, Quy = chiTietBG.Quy, Nam = chiTietBG.Nam });
             }
-            var bieuGiaCongViec = await _unitOfWork.BieuGiaCongViecRepository.FindOneAsync(x => x.Id == request.Id);
-            if (bieuGiaCongViec == null)
+            else if (bieuGiaTongHop.TinhTrang > TinhTrangEnum.TaoMoi.GetHashCode())
             {
-                throw new EvnException(string.Format(Resources.MSG_IS_EXIST, "Biểu giá công việc"));
+                var trangThai = bieuGiaTongHop.TinhTrang == 1 ? "gửi đi" : "duyệt";
+                throw new EvnException($"Biểu giá đã được {trangThai}, không thể cập nhật");
             }
 
-            if (entity.Id == request.Id && entity.Nam == request.Nam && entity.Quy == request.Quy)
-            {
-                entity.SoLuong = request.SoLuong;
-                entity.HeSoDieuChinh_K1nc = request.HeSoDieuChinh_K1nc;
-                entity.HeSoDieuChinh_K2nc = request.HeSoDieuChinh_K2nc;
-                entity.HeSoDieuChinh_K2mnc = request.HeSoDieuChinh_K2mnc;
-                entity.DonGia_VL = request.DonGia_VL;
-                entity.DonGia_NC = request.DonGia_NC;
-                entity.DonGia_MTC = request.DonGia_MTC;
+            var createList = new List<ChiTietBieuGia>();
 
-            }
-            else
+            foreach (var item in request.ChiSos)
             {
-                var checkEntity = await _unitOfWork.ChiTietBieuGiaRepository.FindOneAsync(x =>entity.Id == request.Id && entity.Nam == request.Nam && entity.Quy == request.Quy);
-                if (checkEntity != null)
+                if (item.Id == null)
                 {
-                    throw new EvnException(string.Format(Resources.MSG_IS_EXIST, "Năm và quý của chi tiết biểu giá"));
+                    var data = new ChiTietBieuGia()
+                    {
+                        IDBieuGia = item.IdBieuGia,
+                        IDCongViec = item.IdCongViec,
+                        SoLuong = item.SoLuong,
+                        HeSoDieuChinh_K1nc = item.HeSoDieuChinh_K1nc,
+                        HeSoDieuChinh_K2nc = item.HeSoDieuChinh_K2nc,
+                        HeSoDieuChinh_Kmtc = item.HeSoDieuChinh_Kmtc,
+                        DonGia_VL = item.DonGia_VL,
+                        DonGia_NC = item.DonGia_NC,
+                        DonGia_MTC = item.DonGia_MTC,
+                        Nam = item.Nam,
+                        Quy = item.Quy,
+                    };
+                    createList.Add(data);
                 }
-                entity.Nam = request.Nam;
-                entity.Quy = request.Quy;
-                entity.SoLuong = request.SoLuong;
-                entity.HeSoDieuChinh_K1nc = request.HeSoDieuChinh_K1nc;
-                entity.HeSoDieuChinh_K2nc = request.HeSoDieuChinh_K2nc;
-                entity.HeSoDieuChinh_K2mnc = request.HeSoDieuChinh_K2mnc;
-                entity.DonGia_VL = request.DonGia_VL;
-                entity.DonGia_NC = request.DonGia_NC;
-                entity.DonGia_MTC = request.DonGia_MTC;
+                else
+                {
+                    var data = await _unitOfWork.ChiTietBieuGiaRepository.FindOneAsync(x => x.Id == item.Id);
+                    if (data != null)
+                    {
+                        data.SoLuong = item.SoLuong;
+                        data.HeSoDieuChinh_K1nc = item.HeSoDieuChinh_K1nc;
+                        data.HeSoDieuChinh_K2nc = item.HeSoDieuChinh_K2nc;
+                        data.HeSoDieuChinh_Kmtc = item.HeSoDieuChinh_Kmtc;
+                        data.DonGia_VL = item.DonGia_VL;
+                        data.DonGia_NC = item.DonGia_NC;
+                        data.DonGia_MTC = item.DonGia_MTC;
+
+                        _unitOfWork.ChiTietBieuGiaRepository.Update(data);
+                    }
+                }
             }
-            //thêm vào DB
-            _unitOfWork.ChiTietBieuGiaRepository.Update(entity);
-            //lưu lại trong DB
+            if (createList.Any())
+            {
+                _unitOfWork.ChiTietBieuGiaRepository.AddRange(createList);
+            }
             await _unitOfWork.SaveChangesAsync();
             return true;
+
 
         }
     }

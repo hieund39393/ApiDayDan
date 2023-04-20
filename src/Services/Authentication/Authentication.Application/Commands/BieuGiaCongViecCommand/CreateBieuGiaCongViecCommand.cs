@@ -3,6 +3,7 @@ using Authentication.Infrastructure.Properties;
 using Authentication.Infrastructure.Repositories;
 using EVN.Core.Exceptions;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Authentication.Application.Commands.BieuGiaCongViecCommand
 {
@@ -10,6 +11,7 @@ namespace Authentication.Application.Commands.BieuGiaCongViecCommand
     {
         public Guid IdBieuGia { get; set; }
         public Guid IdCongViec { get; set; }
+        public bool CongViecChinh { get; set; }
     }
 
     //Tạo thêm 1 class Handler kế thừa IRequestHandler<CreateBieuGiaCongViecCommand, bool> rồi implement
@@ -23,8 +25,14 @@ namespace Authentication.Application.Commands.BieuGiaCongViecCommand
         public async Task<bool> Handle(CreateBieuGiaCongViecCommand request, CancellationToken cancellationToken)
         {
             // tìm kiếm xem có trùng trong db không
-            var entity = await _unitOfWork.BieuGiaCongViecRepository.FindOneAsync(x => x.IdBieuGia == request.IdBieuGia &&
-                                                                                       x.IdCongViec == request.IdCongViec);
+
+            var listBieuGia = await _unitOfWork.BieuGiaCongViecRepository.GetQuery(x => x.IdBieuGia == request.IdBieuGia).ToListAsync();
+            if (request.CongViecChinh == true && listBieuGia.Where(x => x.CongViecChinh).Count() > 0)
+            {
+                throw new EvnException("Biểu giá đã có công việc chính");
+            }
+
+            var entity = listBieuGia.FirstOrDefault(x => x.IdCongViec == request.IdCongViec);
             // nếu không có dữ liệu thì thêm mới
             if (entity == null)
             {
@@ -33,6 +41,7 @@ namespace Authentication.Application.Commands.BieuGiaCongViecCommand
                 {
                     IdBieuGia = request.IdBieuGia,
                     IdCongViec = request.IdCongViec,
+                    CongViecChinh = request.CongViecChinh
                 };
                 //thêm vào DB
                 _unitOfWork.BieuGiaCongViecRepository.Add(model);

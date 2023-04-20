@@ -115,7 +115,7 @@ namespace Authentication.API.Configures
             // 500 Internal Server Error
             else
             {
-                json.Message = ErrorMessage.MSG_SYSTEM_ERROR;
+                json.Message = "Lỗi hệ thống";
                 json.StatusCode = StatusCodes.Status500InternalServerError;
                 context.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 context.Result = new InternalServerErrorObjectResult(json);

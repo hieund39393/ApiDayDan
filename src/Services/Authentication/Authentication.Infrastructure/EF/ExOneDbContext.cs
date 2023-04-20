@@ -28,6 +28,7 @@ using Authentication.Infrastructure.AggregatesModel.GiaCapAggregate;
 using Authentication.Infrastructure.AggregatesModel.DonGiaVatLieuAggregate;
 using Authentication.Infrastructure.AggregatesModel.DonGiaNhanCongAggregate;
 using Authentication.Infrastructure.AggregatesModel.DonGiaChietTinhAggregate;
+using Authentication.Infrastructure.AggregatesModel.BieuGiaTongHopAggregate;
 
 namespace Authentication.Infrastructure.EF
 {
@@ -71,7 +72,6 @@ namespace Authentication.Infrastructure.EF
         public DbSet<Menu> Menu { get; set; }
         public DbSet<Permission> Permission { get; set; }
 
-        // danh mục của Tiến Anh cam sung
         public DbSet<DM_LoaiBieuGia> DM_LoaiBieuGia { get; set; }
         public DbSet<DM_KhuVuc> DM_KhuVuc { get; set; }
         public DbSet<DM_Vung> DM_Vung { get; set; }
@@ -85,6 +85,7 @@ namespace Authentication.Infrastructure.EF
         public DbSet<DonGiaVatLieu> DonGiaVatLieu { get; set; }
         public DbSet<DonGiaNhanCong> DonGiaNhanCong { get; set; }
         public DbSet<DonGiaChietTinh> DonGiaChietTinh { get; set; }
+        public DbSet<BieuGiaTongHop> BieuGiaTongHop { get; set; }
 
         //Danh muc Bieu gia - Kem M5
         public DbSet<DM_BieuGia> DM_BieuGia { get; set; }
@@ -106,8 +107,6 @@ namespace Authentication.Infrastructure.EF
             builder.ApplyConfiguration(new ModuleConfiguration());
             builder.ApplyConfiguration(new PermissionConfiguration());
          
-            
-            //cấu hình của Tiến Anh
             builder.ApplyConfiguration(new DM_LoaiBieuGiaConfiguration());
             builder.ApplyConfiguration(new DM_KhuVucConfiguration());
             builder.ApplyConfiguration(new DM_VungConfiguration());
@@ -121,6 +120,7 @@ namespace Authentication.Infrastructure.EF
             builder.ApplyConfiguration(new DonGiaVatLieuConfiguration());
             builder.ApplyConfiguration(new DonGiaNhanCongConfiguration());
             builder.ApplyConfiguration(new DonGiaChietTinhConfiguration());
+            builder.ApplyConfiguration(new BieuGiaTongHopConfiguration());
 
             //Cau hinh cua Kem M5
             builder.ApplyConfiguration(new DM_BieuGiaConfiguration());

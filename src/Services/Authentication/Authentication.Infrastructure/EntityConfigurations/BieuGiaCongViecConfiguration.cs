@@ -11,8 +11,8 @@ namespace Authentication.Infrastructure.EntityConfigurations
         {
             builder.ToTable("BieuGiaCongViec"); // tên bảng
             builder.HasKey(x => new { x.Id }); // Cấu hình Khoá chính
-            builder.HasOne(x => x.DM_BieuGias).WithMany(x => x.BieuGiaCongViec).HasForeignKey(x => x.IdBieuGia); // cấu hình 1-N loại danh mục biểu giá
-            builder.HasOne(x => x.DM_CongViecs).WithMany(x => x.BieuGiaCongViec).HasForeignKey(x => x.IdCongViec); // cấu hình 1-N công việc
+            builder.HasOne(x => x.DM_BieuGia).WithMany(x => x.BieuGiaCongViec).HasForeignKey(x => x.IdBieuGia); // cấu hình 1-N loại danh mục biểu giá
+            builder.HasOne(x => x.DM_CongViec).WithMany(x => x.BieuGiaCongViec).HasForeignKey(x => x.IdCongViec); // cấu hình 1-N công việc
             ConfigureBase(builder);
         }
     }

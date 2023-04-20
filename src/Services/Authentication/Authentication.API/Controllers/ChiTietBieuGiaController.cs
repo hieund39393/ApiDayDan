@@ -37,8 +37,8 @@ namespace Authentication.API.Controllers
         {
             var data = await _ChiTietBieuGiaQuery.GetDonGiaChietTinh(IdPhanLoai);
             return Ok(new ApiSuccessResult<List<SelectItem>>(data: data));
-        }     
-        
+        }
+
         /// <summary>
         /// lấy danh sách biểu giá theo loại biểu giá
         /// </summary>
@@ -59,39 +59,20 @@ namespace Authentication.API.Controllers
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(typeof(ApiSuccessResult<IList<ChiTietBieuGiaResponse>>), (int)HttpStatusCode.OK)] // trả về dữ liệu model cho FE
-        public async Task<IActionResult> GetListUser([FromQuery] ChiTietBieuGiaRequest request)
+        public async Task<IActionResult> GetList([FromQuery] ChiTietBieuGiaRequest request)
         {
             var data = await _ChiTietBieuGiaQuery.GetList(request);
-            return Ok(new ApiSuccessResult<IList<ChiTietBieuGiaResponse>>
+            return Ok(new ApiSuccessResult<ChiTietBieuGiaResult>
             {
                 Data = data
             });
         }
-
-        /// <summary>
-        /// Tạo mới chi tiết biểu giá
-        /// </summary>
-        /// <param name="command"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [ProducesResponseType(typeof(ApiSuccessResult<bool>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Create([FromBody] CreateChiTietBieuGiaCommand command)
-        {
-            var user = await _mediator.Send(command);
-            return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_CREATE_SUCCESS, "chi tiết biểu giá")));
-        }
-
-        /// <summary>
-        /// Sửa chi tiết biểu giá
-        /// </summary>
-        /// <param name="command"></param>
-        /// <returns></returns>
         [HttpPut]
         [ProducesResponseType(typeof(ApiSuccessResult<bool>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Update([FromBody] UpdateChiTietBieuGiaCommand command)
         {
-            var user = await _mediator.Send(command);
-            return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_UPDATE_SUCCESS, "chi tiết biểu giá")));
+            var data = await _mediator.Send(command);
+            return Ok(new ApiSuccessResult<bool>(data: data, message: string.Format(Resources.MSG_UPDATE_SUCCESS, "chi tiết biểu giá")));
         }
 
     }

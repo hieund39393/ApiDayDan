@@ -1,6 +1,4 @@
-﻿using EVN.Core.Attributes;
-using EVN.Core.Properties;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace EVN.Core.Common
 {
@@ -65,6 +63,14 @@ namespace EVN.Core.Common
             MayThiCong = 3,
         }
 
-
+        public enum TinhTrangEnum
+        {
+            [Description("tạo mới")]
+            TaoMoi = 0,
+            [Description("gửi duyệt")]
+            GuiDuyet = 1,
+            [Description("duyệt")]
+            DaDuyet = 2,
+        }
     }
 }

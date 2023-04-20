@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGiaAggregate;
 using Authentication.Infrastructure.AggregatesModel.ChiTietBieuGiaAggregate;
 using Authentication.Infrastructure.AggregatesModel.BieuGiaCongViecAggregate;
+using Authentication.Infrastructure.AggregatesModel.BieuGiaTongHopAggregate;
 
 namespace AAuthentication.Infrastructure.AggregatesModel.DM_BieuGia
 {
@@ -19,5 +20,6 @@ namespace AAuthentication.Infrastructure.AggregatesModel.DM_BieuGia
         public ICollection<ChiTietBieuGia> ChiTietBieuGia { get; set; } // cấu hình 1-N bảng biểu giá công việc
         public ICollection<BieuGiaCongViec> BieuGiaCongViec { get; set; } // cấu hình 1-N bảng biểu giá công việc
 
+        public ICollection<BieuGiaTongHop> BieuGiaTongHop { get; set; }
     }
 }

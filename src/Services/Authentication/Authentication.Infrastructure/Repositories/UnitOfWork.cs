@@ -1,5 +1,6 @@
 ﻿using AAuthentication.Infrastructure.AggregatesModel.DM_BieuGia;
 using Authentication.Infrastructure.AggregatesModel.BieuGiaCongViecAggregate;
+using Authentication.Infrastructure.AggregatesModel.BieuGiaTongHopAggregate;
 using Authentication.Infrastructure.AggregatesModel.ChiTietBieuGiaAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_CongViecAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_KhuVucAggregate;
@@ -37,7 +38,6 @@ namespace Authentication.Infrastructure.Repositories
         IRepository<Permission> PermissionRepository { get; }
         IRepository<Position> PositionRepository { get; }
 
-        // 1 :Danh mục của Tiến Anh 
         IRepository<DM_LoaiBieuGia> DM_LoaiBieuGiaRepository { get; }
         IRepository<DM_KhuVuc> DM_KhuVucRepository { get; }
         IRepository<DM_Vung> DM_VungRepository { get; }
@@ -51,6 +51,7 @@ namespace Authentication.Infrastructure.Repositories
         IRepository<DonGiaNhanCong> DonGiaNhanCongRepository { get; }
         IRepository<DonGiaChietTinh> DonGiaChietTinhRepository { get; }
         IRepository<ChiTietBieuGia> ChiTietBieuGiaRepository { get; }
+        IRepository<BieuGiaTongHop> BieuGiaTongHopRepository { get; }
 
 
         //1. DM bieu gia - Kem
@@ -77,7 +78,6 @@ namespace Authentication.Infrastructure.Repositories
         private IRepository<Permission> _permissionRepository;
         private IRepository<Position> _positionRepository;
 
-        // 2 :Danh mục của Tiến Anh 
         private IRepository<DM_LoaiBieuGia> _dM_LoaiBieuGiaRepository;
         private IRepository<DM_KhuVuc> _dM_KhuVucRepository;
         private IRepository<DM_Vung> _dM_VungRepository;
@@ -91,6 +91,7 @@ namespace Authentication.Infrastructure.Repositories
         private IRepository<DonGiaNhanCong> _donGiaNhanCongRepository;
         private IRepository<DonGiaChietTinh> _donGiaChietTinhRepository;
         private IRepository<ChiTietBieuGia> _chiTietBieuGiaRepository;
+        private IRepository<BieuGiaTongHop> _bieuGiaTongHopRepository;
 
         //Danh muc bieu gia - Kem
         private IRepository<DM_BieuGia> _dM_BieuGiaRepository;
@@ -236,7 +237,7 @@ namespace Authentication.Infrastructure.Repositories
 
 
 
-        #region :Danh mục của Tiến Anh 
+    
         public IRepository<DM_LoaiBieuGia> DM_LoaiBieuGiaRepository
         {
             get
@@ -379,8 +380,19 @@ namespace Authentication.Infrastructure.Repositories
                 }
                 return _chiTietBieuGiaRepository;
             }
+        }  
+        public IRepository<BieuGiaTongHop> BieuGiaTongHopRepository
+        {
+            get
+            {
+                if (_bieuGiaTongHopRepository == null)
+                {
+                    _bieuGiaTongHopRepository = new Repository<BieuGiaTongHop>(_context);
+                }
+                return _bieuGiaTongHopRepository;
+            }
         }
-        #endregion
+     
        
         // 3 :Danh mục bieu gia của Kem
         public IRepository<DM_BieuGia> DM_BieuGiaRepository

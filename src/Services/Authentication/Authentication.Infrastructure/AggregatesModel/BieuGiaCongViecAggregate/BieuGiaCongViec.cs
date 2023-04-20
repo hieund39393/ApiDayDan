@@ -5,15 +5,16 @@ using EVN.Core.Models.Base;
 
 namespace Authentication.Infrastructure.AggregatesModel.BieuGiaCongViecAggregate
 {
-    public class BieuGiaCongViec: BaseEntity
+    public class BieuGiaCongViec : BaseEntity
     {
         // biểu giá
         public Guid? IdBieuGia { get; set; }
-        public DM_BieuGia DM_BieuGias{ get; set; }
-          
+        public DM_BieuGia DM_BieuGia { get; set; }
+
         // Công việc
         public Guid? IdCongViec { get; set; }
-        public DM_CongViec DM_CongViecs { get; set; }
-        public ICollection<ChiTietBieuGia> ChiTietBieuGia { get; set; }
+        public DM_CongViec DM_CongViec { get; set; }
+
+        public bool CongViecChinh { get; set; }
     }
 }

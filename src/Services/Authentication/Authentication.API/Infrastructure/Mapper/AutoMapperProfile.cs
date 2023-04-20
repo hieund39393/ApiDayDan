@@ -1,7 +1,9 @@
-﻿using Authentication.Application.Commands.ModuleCommand;
+﻿using Authentication.Application.Commands.ChiTietBieuGiaCommand;
+using Authentication.Application.Commands.ModuleCommand;
 using Authentication.Application.Commands.RoleCommand;
 using Authentication.Application.Commands.UserCommand;
 using Authentication.Application.Model.Role;
+using Authentication.Infrastructure.AggregatesModel.ChiTietBieuGiaAggregate;
 using Authentication.Infrastructure.AggregatesModel.ModuleAggregate;
 using Authentication.Infrastructure.AggregatesModel.UserAggregate;
 using AutoMapper;
@@ -17,6 +19,7 @@ namespace Authentication.API.Infrastructure.Mapper
             CreateMap<RoleCreateOrUpdate, Role>();
             CreateMap<ModuleCreateOrUpdate, Module>();
             CreateMap<User, GetUserRoleResponse>();
+            CreateMap<UpdateChiTietBieuGiaCommand, ChiTietBieuGia>().ReverseMap();
         }
     }
 }
