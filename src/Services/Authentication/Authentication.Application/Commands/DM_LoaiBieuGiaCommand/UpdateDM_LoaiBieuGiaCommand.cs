@@ -10,7 +10,6 @@ namespace Authentication.Application.Commands.DM_LoaiBieuGiaCommand
         public Guid Id { get; set; } // thêm ID
         public string TenLoaiBieuGia { get; set; }
         public string MaLoaiBieuGia { get; set; }
-        public Guid? VungID { get; set; }
         public Guid? KhuVucID { get; set; }
     }
 
@@ -31,13 +30,18 @@ namespace Authentication.Application.Commands.DM_LoaiBieuGiaCommand
             {
                 throw new EvnException(string.Format(Resources.MSG_NOT_FOUND, "Loại biểu giá"));
             }
+            if (entity.IdKhuVuc == request.KhuVucID && entity.TenLoaiBieuGia == request.TenLoaiBieuGia)
+            {
+                return true;
+            }
+            else
+            {
+                var check = await _unitOfWork.DM_LoaiBieuGiaRepository.FindOneAsync(x => x.TenLoaiBieuGia == request.TenLoaiBieuGia && x.IdKhuVuc == request.KhuVucID);
+                if (check != null) throw new EvnException(string.Format(Resources.MSG_IS_EXIST, "Loại biểu giá"));
+                entity.TenLoaiBieuGia = request.TenLoaiBieuGia;
+                entity.IdKhuVuc = request.KhuVucID;
+            }
 
-            entity.MaLoaiBieuGia = request.MaLoaiBieuGia;
-            entity.TenLoaiBieuGia = request.TenLoaiBieuGia;
-            entity.KhuVucID = request.KhuVucID;
-            entity.VungID = request.VungID;
-
-            //thêm vào DB
             _unitOfWork.DM_LoaiBieuGiaRepository.Update(entity);
             //lưu lại trong DB
             await _unitOfWork.SaveChangesAsync();

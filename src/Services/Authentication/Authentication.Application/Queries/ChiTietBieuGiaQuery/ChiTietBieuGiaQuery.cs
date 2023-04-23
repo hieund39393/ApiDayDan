@@ -117,7 +117,7 @@ namespace Authentication.Application.Queries.ChiTietBieuGiaQuery
             result.CongTruocThue = result.KhaoSat + result.Tong;
             result.DonGiaTongHopTruocThue = soLuongCVC == 0 ? 0 : Math.Round(result.Tong / soLuongCVC, 2);
             result.DonGiaThu5 = result.DonGiaTongHopTruocThue;
-            result.DonGiaThu6 = congViecChinh == null ? 0 : Math.Round((result.CongTruocThue - (congViecChinh.DonGia_VL.Value * congViecChinh.SoLuong.Value)) / congViecChinh.SoLuong.Value, 0);
+            result.DonGiaThu6 = (congViecChinh == null || congViecChinh.SoLuong.Value == (decimal)0.00) ? 0 : Math.Round((result.CongTruocThue - (congViecChinh.DonGia_VL.Value * congViecChinh.SoLuong.Value)) / congViecChinh.SoLuong.Value, 0);
 
 
             var itemLast = new ChiTietBieuGiaResponse();
@@ -127,7 +127,7 @@ namespace Authentication.Application.Queries.ChiTietBieuGiaQuery
             result.ListBieuGia.Add(itemLast);
 
             var bieuGiaTongHop = await _unitOfWork.BieuGiaTongHopRepository
-                .FindOneAsync(x => x.IdBieuGia == request.IdBieuGia && x.Quy == request.Quy && x.Nam == request.Nam && x.TinhTrang == (int)TinhTrangEnum.TaoMoi);
+                .FindOneAsync(x => x.IdBieuGia == request.IdBieuGia && x.Quy == request.Quy && x.Nam == request.Nam && x.TinhTrang != (int)TinhTrangEnum.DaDuyet);
 
             if (bieuGiaTongHop != null)
             {

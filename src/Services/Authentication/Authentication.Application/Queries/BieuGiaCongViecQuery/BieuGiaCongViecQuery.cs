@@ -1,6 +1,7 @@
 ﻿using Authentication.Application.Model.BieuGiaCongViec;
 using Authentication.Infrastructure.Migrations;
 using Authentication.Infrastructure.Repositories;
+using EVN.Core.Extensions;
 using EVN.Core.SeedWork;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,19 +24,34 @@ namespace Authentication.Application.Queries.BieuGiaCongViecQuery
         {
             //Tạo câu query
             var query = _unitOfWork.BieuGiaCongViecRepository.GetQuery()
-                .AsSplitQuery()      // sử dụng include thì khai báo AsSplitQuery dể tăng tốc độ truy vấn
-                .Include(x => x.DM_BieuGia)
-                .Include(x => x.DM_CongViec)
                 .Select(x => new BieuGiaCongViecResponse()
                 {
                     Id = x.Id,
                     IdCongViec = x.IdCongViec,
                     IdBieuGia = x.IdBieuGia,
                     IdLoaiBieuGia = x.DM_BieuGia.idLoaiBieuGia,
+                    TenLoaiBieuGia = x.DM_BieuGia.DM_LoaiBieuGia.TenLoaiBieuGia,
                     TenBieuGia = x.DM_BieuGia.TenBieuGia,
                     TenCongViec = x.DM_CongViec.TenCongViec,
-                    CongViecChinh = x.CongViecChinh
-                }).AsNoTracking();// select dữ liệu
+                    CongViecChinh = x.CongViecChinh,
+                    IdKhuVuc = x.DM_BieuGia.DM_LoaiBieuGia.IdKhuVuc,
+                    VungKhuVuc = x.DM_BieuGia.DM_LoaiBieuGia.DM_KhuVuc.TenKhuVuc,
+                }).AsSplitQuery().AsNoTracking();
+
+            if (request.IdKhuVuc.HasValue)
+            {
+                query = query.Where(x => x.IdKhuVuc.HasValue && x.IdKhuVuc == request.IdKhuVuc);
+            }
+            if (request.IdLoaiBieuGia.HasValue)
+            {
+                query = query.Where(x => x.IdLoaiBieuGia.HasValue && x.IdLoaiBieuGia == request.IdLoaiBieuGia);
+            }
+            if (request.IdBieuGia.HasValue)
+            {
+                query = query.Where(x => x.IdBieuGia.HasValue && x.IdBieuGia == request.IdBieuGia);
+            }
+            query = query.OrderBy(x => x.VungKhuVuc).ThenBy(x => x.TenLoaiBieuGia).ThenBy(x => x.TenBieuGia);
+
             var totalRow = query.Count(); // tổng số lượng
             var queryPaging = query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize); // phân trang
             return await PagingResultSP<BieuGiaCongViecResponse>.CreateAsyncLinq(queryPaging, totalRow, request.PageIndex, request.PageSize);

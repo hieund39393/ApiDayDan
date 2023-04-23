@@ -1,5 +1,4 @@
 ﻿using Authentication.Infrastructure.AggregatesModel.DM_KhuVucAggregate;
-using Authentication.Infrastructure.AggregatesModel.DM_VungAggregate;
 using Authentication.Infrastructure.AggregatesModel.DonGiaNhanCongAggregate;
 using Authentication.Infrastructure.Properties;
 using Authentication.Infrastructure.Repositories;
@@ -31,7 +30,6 @@ namespace Authentication.Application.Commands.DonGiaNhanCongCommand
             var entity = await _unitOfWork.DonGiaNhanCongRepository.FindOneAsync(x =>
             x.CapBac == request.CapBac &&
             x.HeSo == request.HeSo &&
-            x.IdVung == request.IdVung &&
             x.IdKhuVuc == request.IdKhuVuc &&
             x.DonGia == request.DonGia);
             // nếu không có dữ liệu thì thêm mới
@@ -42,7 +40,6 @@ namespace Authentication.Application.Commands.DonGiaNhanCongCommand
                 {
                     CapBac = request.CapBac ,
                     HeSo = request.HeSo ,
-                    IdVung = request.IdVung ,
                     IdKhuVuc = request.IdKhuVuc ,
                     DonGia = request.DonGia,
                 };

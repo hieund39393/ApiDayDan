@@ -4,6 +4,7 @@ using Authentication.Infrastructure.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Authentication.Infrastructure.Migrations
 {
     [DbContext(typeof(ExOneDbContext))]
-    partial class ExOneDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230423081553_remove_MaLoaiBieuGia")]
+    partial class remove_MaLoaiBieuGia
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -198,12 +200,6 @@ namespace Authentication.Infrastructure.Migrations
 
                     b.Property<int>("Nam")
                         .HasColumnType("int");
-
-                    b.Property<DateTime?>("NgayXacNhan")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("NguoiXacNhan")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Quy")
                         .HasColumnType("int");
@@ -417,13 +413,9 @@ namespace Authentication.Infrastructure.Migrations
                         .HasDefaultValue(false)
                         .HasComment("Cờ xóa");
 
-                    b.Property<string>("MaLoaiBieuGia")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
                     b.Property<string>("TenLoaiBieuGia")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<Guid?>("UpdatedBy")
                         .HasMaxLength(36)

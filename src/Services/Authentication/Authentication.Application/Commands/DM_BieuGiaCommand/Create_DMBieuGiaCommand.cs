@@ -24,7 +24,7 @@ namespace Authentication.Application.Commands.DM_BieuGiaCommand
         public async Task<bool> Handle(Create_DMBieuGiaCommand request, CancellationToken cancellationToken)
         {
             // tìm kiếm xem có mã biểu giá trong db không
-            var entity = await _unitOfWork.DM_BieuGiaRepository.FindOneAsync(x => x.MaBieuGia == request.MaBieuGia);
+            var entity = await _unitOfWork.DM_BieuGiaRepository.FindOneAsync(x => x.TenBieuGia == request.TenBieuGia && x.idLoaiBieuGia == request.idLoaiBieuGia);
             // nếu không có dữ liệu thì thêm mới
             if (entity == null)
             {

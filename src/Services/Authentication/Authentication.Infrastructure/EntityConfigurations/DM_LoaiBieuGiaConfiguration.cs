@@ -11,10 +11,9 @@ namespace Authentication.Infrastructure.EntityConfigurations
         {
             builder.ToTable("DM_LoaiBieuGia"); // tên bảng
             builder.HasKey(x => new { x.Id }); // Cấu hình Khoá chính
-            builder.Property(x => x.TenLoaiBieuGia).HasMaxLength(200); // Cấu hình độ dài tên biểu giá
-            builder.Property(x => x.MaLoaiBieuGia).HasMaxLength(20); // Cấu hình độ dài mã biểu giá
-            builder.HasOne(x => x.DM_Vung).WithMany(x => x.DM_LoaiBieuGia).HasForeignKey(x => x.VungID); // cấu hình 1-N loại vùng
-            builder.HasOne(x => x.DM_KhuVuc).WithMany(x => x.DM_LoaiBieuGia).HasForeignKey(x => x.KhuVucID); // cấu hình 1-N loại khu vực
+            builder.Property(x => x.TenLoaiBieuGia).HasMaxLength(500); // Cấu hình độ dài tên biểu giá
+            builder.Property(x => x.MaLoaiBieuGia).HasMaxLength(100); // Cấu hình độ dài mã biểu giá
+            builder.HasOne(x => x.DM_KhuVuc).WithMany(x => x.DM_LoaiBieuGia).HasForeignKey(x => x.IdKhuVuc); // cấu hình 1-N loại khu vực
 
             ConfigureBase(builder);
         }

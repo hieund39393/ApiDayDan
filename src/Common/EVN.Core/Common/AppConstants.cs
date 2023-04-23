@@ -308,32 +308,32 @@ namespace EVN.Core.Common
 
             // Menu của quản trị BIỂU GIÁ
             public const string ChiTietBieuGia = QLTTCTBG + "ctbg";
+            public const string XacNhanBieuGia = QLTTCTBG + "xnbg";
+            public const string GuiDuyetBieuGia = QLTTCTBG + "gdbg";
 
             public const string View = ".v";
             public const string Create = ".c";
             public const string Update = ".u";
             public const string Delete = ".d";
 
+            public const string Send = ".s";
+            public const string Approve = ".a";
+
+            public const string Reject = ".reject";
+            public const string Print = ".print";
+            public const string ApplyPrice = ".apply_price";
+            public const string Receive = ".receive";
+            public const string Assign = ".assign";
 
             public const string ClaimType = "Permission";
             public const string AdminPermission = "admin";
             public const string All = "all";
 
-            public const string Approve = ".approve";
-            public const string Receive = ".receive";
-            public const string Assign = ".assign";
+
 
             public const string Department = "department";
             public const string Profile = "profile";
             public const string Unit = "unit";
-
-            public const string approvepprove = ".approve";
-            public const string Send = ".send";
-            public const string Reject = ".reject";
-            public const string Print = ".print";
-            public const string ApplyPrice = ".apply_price";
-
-
 
         }
 
@@ -354,6 +354,23 @@ namespace EVN.Core.Common
             public const string SupportedPlatformiOS = "ios";
             public const string SupportedPlatformAndroid = "android";
             public static string[] SupportedPlatforms = { SupportedPlatformWeb, SupportedPlatformiOS, SupportedPlatformAndroid };
+        }
+
+        public class LoaiBieuGiaList
+        {
+            public const string LapDatDaySauCongTo_V1_KV1 = "";
+            public const string LapDatDaySauCongTo_V1_KV2 = "";
+            public const string LapDatDaySauCongTo_V2 = "";
+
+            public const string ThayDayDanDienSauCongTo_V1_KV1 = "";
+            public const string ThayDayDanDienSauCongTo_V1_KV2 = "";
+            public const string ThayDayDanDienSauCongTo_V2 = "";
+            public const string ThayDoiCongSuatThayDoiLoaiCongTo_V1_KV1 = "";
+            public const string ThayDoiCongSuatThayDoiLoaiCongTo_V1_KV2 = "";
+            public const string ThayDoiCongSuatThayDoiLoaiCongTo_V2 = "";
+            public const string ThayDoiViTriThietBiDoDem_V1_KV1 = "";
+            public const string ThayDoiViTriThietBiDoDem_V1_KV2 = "";
+            public const string ThayDoiViTriThietBiDoDem_V2 = "";
         }
 
         public class NotificationType
