@@ -1,4 +1,6 @@
-﻿using Authentication.Infrastructure.AggregatesModel.MenuAggregate;
+﻿using Authentication.Infrastructure.AggregatesModel.DM_KhuVucAggregate;
+using Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGiaAggregate;
+using Authentication.Infrastructure.AggregatesModel.MenuAggregate;
 using Authentication.Infrastructure.AggregatesModel.ModuleAggregate;
 using Authentication.Infrastructure.AggregatesModel.PermissionAggregate;
 using Authentication.Infrastructure.AggregatesModel.PositionAggregate;
@@ -65,8 +67,8 @@ namespace Authentication.Infrastructure.EF
                 listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83830"), Code = $"{Permissions.LoaiBieuGia}", Name = "Quản lý loại biểu giá", Url = "/loai-bieu-gia", Order = 1, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
                 listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83831"), Code = $"{Permissions.BieuGia}", Name = "Quản lý biểu giá", Url = "/bieu-gia", Order = 2, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
                 listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83832"), Code = $"{Permissions.CongViec}", Name = "Quản lý công việc", Url = "/cong-viec", Order = 3, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
-                listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83833"), Code = $"{Permissions.Vung}", Name = "Quản lý vùng", Url = "/vung", Order = 4, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
-                listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83834"), Code = $"{Permissions.KhuVuc}", Name = "Quản lý khu vực", Url = "/khu-vuc", Order = 5, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
+                //listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83833"), Code = $"{Permissions.Vung}", Name = "Quản lý vùng", Url = "/vung", Order = 4, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
+                listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83834"), Code = $"{Permissions.KhuVuc}", Name = "Quản lý vùng/khu vực", Url = "/khu-vuc", Order = 5, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
 
                 listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83835"), Code = $"{Permissions.LoaiCap}", Name = "Quản lý loại cáp", Url = "/loai-cap", Order = 6, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
                 listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83836"), Code = $"{Permissions.VatLieu}", Name = "Quản lý vật liệu", Url = "/vat-lieu", Order = 7, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
@@ -78,11 +80,13 @@ namespace Authentication.Infrastructure.EF
                 // QUẢN TRỊ ĐƠN GIÁ
                 listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83838"), Code = $"{Permissions.DonGiaCap}", Name = "Đơn giá cáp", Url = "/don-gia-cap", Order = 1, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C4") });
                 listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83839"), Code = $"{Permissions.DonGiaNhanCong}", Name = "Đơn giá nhân công", Url = "/don-gia-nhan-cong", Order = 2, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C4") });
-                listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83840"), Code = $"{Permissions.DonGiaVatLieu}", Name = "Đơn vật liệu", Url = "/don-gia-vat-lieu", Order = 3, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C4") });
+                listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83840"), Code = $"{Permissions.DonGiaVatLieu}", Name = "Đơn giá vật liệu", Url = "/don-gia-vat-lieu", Order = 3, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C4") });
                 listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83841"), Code = $"{Permissions.DonGiaVatLieuChietTinh}", Name = "Đơn giá vật liệu chiết tinh", Url = "/don-gia-vat-lieu-chiet-tinh", Order = 4, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C4") });
 
                 // QUẢN LÝ THÔNG TIN CHI TIẾT BIỂU GIÁ
                 listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83842"), Code = $"{Permissions.ChiTietBieuGia}", Name = "Chi tiết biểu giá", Url = "/chi-tiet-bieu-gia", Order = 1, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C5") });
+                listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83845"), Code = $"{Permissions.GuiDuyetBieuGia}", Name = "Gửi duyệt biểu giá", Url = "/gui-duyet-bieu-gia", Order = 2, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C5") });
+                listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83846"), Code = $"{Permissions.XacNhanBieuGia}", Name = "Xác nhận biểu giá", Url = "/xac-nhan-bieu-gia", Order = 3, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C5") });
                 context.Menu.AddRange(listMenu);
                 await context.SaveChangesAsync();
             }
@@ -130,17 +134,74 @@ namespace Authentication.Infrastructure.EF
                 permissions.Add(new Permission { Name = "Sửa", Code = $"{Permissions.CongViec}{Permissions.Update}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83832") });
                 permissions.Add(new Permission { Name = "Xóa", Code = $"{Permissions.CongViec}{Permissions.Delete}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83832") });
 
-                // Quản lý khu vực
-                permissions.Add(new Permission { Name = "Xem", Code = $"{Permissions.Vung}{Permissions.View}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83833") });
-                permissions.Add(new Permission { Name = "Tạo", Code = $"{Permissions.Vung}{Permissions.Create}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83833") });
-                permissions.Add(new Permission { Name = "Sửa", Code = $"{Permissions.Vung}{Permissions.Update}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83833") });
-                permissions.Add(new Permission { Name = "Xóa", Code = $"{Permissions.Vung}{Permissions.Delete}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83833") });
-
-                // Quản lý vùng
+                // Quản lý vùng/ khu vực
                 permissions.Add(new Permission { Name = "Xem", Code = $"{Permissions.KhuVuc}{Permissions.View}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83834") });
                 permissions.Add(new Permission { Name = "Tạo", Code = $"{Permissions.KhuVuc}{Permissions.Create}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83834") });
                 permissions.Add(new Permission { Name = "Sửa", Code = $"{Permissions.KhuVuc}{Permissions.Update}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83834") });
                 permissions.Add(new Permission { Name = "Xóa", Code = $"{Permissions.KhuVuc}{Permissions.Delete}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83834") });
+
+                // Quản lý loại cáp
+                permissions.Add(new Permission { Name = "Xem", Code = $"{Permissions.LoaiCap}{Permissions.View}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83835") });
+                permissions.Add(new Permission { Name = "Tạo", Code = $"{Permissions.LoaiCap}{Permissions.Create}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83835") });
+                permissions.Add(new Permission { Name = "Sửa", Code = $"{Permissions.LoaiCap}{Permissions.Update}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83835") });
+                permissions.Add(new Permission { Name = "Xóa", Code = $"{Permissions.LoaiCap}{Permissions.Delete}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83835") });
+
+                // Quản lý vật liệu
+                permissions.Add(new Permission { Name = "Xem", Code = $"{Permissions.VatLieu}{Permissions.View}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83836") });
+                permissions.Add(new Permission { Name = "Tạo", Code = $"{Permissions.VatLieu}{Permissions.Create}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83836") });
+                permissions.Add(new Permission { Name = "Sửa", Code = $"{Permissions.VatLieu}{Permissions.Update}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83836") });
+                permissions.Add(new Permission { Name = "Xóa", Code = $"{Permissions.VatLieu}{Permissions.Delete}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83836") });
+
+                // Quản lý vật liệu chiết tinh
+                permissions.Add(new Permission { Name = "Xem", Code = $"{Permissions.VatLieuChietTinh}{Permissions.View}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83837") });
+                permissions.Add(new Permission { Name = "Tạo", Code = $"{Permissions.VatLieuChietTinh}{Permissions.Create}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83837") });
+                permissions.Add(new Permission { Name = "Sửa", Code = $"{Permissions.VatLieuChietTinh}{Permissions.Update}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83837") });
+                permissions.Add(new Permission { Name = "Xóa", Code = $"{Permissions.VatLieuChietTinh}{Permissions.Delete}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83837") });
+
+                // Biểu giá công việc
+                permissions.Add(new Permission { Name = "Xem", Code = $"{Permissions.BieuGiaCongViec}{Permissions.View}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83843") });
+                permissions.Add(new Permission { Name = "Tạo", Code = $"{Permissions.BieuGiaCongViec}{Permissions.Create}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83843") });
+                permissions.Add(new Permission { Name = "Sửa", Code = $"{Permissions.BieuGiaCongViec}{Permissions.Update}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83843") });
+                permissions.Add(new Permission { Name = "Xóa", Code = $"{Permissions.BieuGiaCongViec}{Permissions.Delete}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83843") });
+                #endregion
+
+
+                #region Quản lý thông tin đơn giá
+                // Đơn giá cáp
+                permissions.Add(new Permission { Name = "Xem", Code = $"{Permissions.DonGiaCap}{Permissions.View}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83838") });
+                permissions.Add(new Permission { Name = "Tạo", Code = $"{Permissions.DonGiaCap}{Permissions.Create}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83838") });
+                permissions.Add(new Permission { Name = "Sửa", Code = $"{Permissions.DonGiaCap}{Permissions.Update}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83838") });
+                permissions.Add(new Permission { Name = "Xóa", Code = $"{Permissions.DonGiaCap}{Permissions.Delete}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83838") });
+
+                // Đơn giá nhân công
+                permissions.Add(new Permission { Name = "Xem", Code = $"{Permissions.DonGiaNhanCong}{Permissions.View}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83839") });
+                permissions.Add(new Permission { Name = "Tạo", Code = $"{Permissions.DonGiaNhanCong}{Permissions.Create}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83839") });
+                permissions.Add(new Permission { Name = "Sửa", Code = $"{Permissions.DonGiaNhanCong}{Permissions.Update}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83839") });
+                permissions.Add(new Permission { Name = "Xóa", Code = $"{Permissions.DonGiaNhanCong}{Permissions.Delete}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83839") });
+
+
+                // Đơn giá vật liệu
+                permissions.Add(new Permission { Name = "Xem", Code = $"{Permissions.DonGiaVatLieu}{Permissions.View}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83840") });
+                permissions.Add(new Permission { Name = "Tạo", Code = $"{Permissions.DonGiaVatLieu}{Permissions.Create}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83840") });
+                permissions.Add(new Permission { Name = "Sửa", Code = $"{Permissions.DonGiaVatLieu}{Permissions.Update}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83840") });
+                permissions.Add(new Permission { Name = "Xóa", Code = $"{Permissions.DonGiaVatLieu}{Permissions.Delete}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83840") });
+
+                // Đơn giá vật liệu chiết tinh
+                permissions.Add(new Permission { Name = "Xem", Code = $"{Permissions.DonGiaVatLieuChietTinh}{Permissions.View}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83841") });
+                permissions.Add(new Permission { Name = "Tạo", Code = $"{Permissions.DonGiaVatLieuChietTinh}{Permissions.Create}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83841") });
+                permissions.Add(new Permission { Name = "Sửa", Code = $"{Permissions.DonGiaVatLieuChietTinh}{Permissions.Update}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83841") });
+                permissions.Add(new Permission { Name = "Xóa", Code = $"{Permissions.DonGiaVatLieuChietTinh}{Permissions.Delete}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83841") });
+
+                #endregion
+
+                #region QUẢN TRỊ CHI TIẾT BIỂU GIÁ
+                // Chi tiết biểu giá
+                permissions.Add(new Permission { Name = "Xem", Code = $"{Permissions.ChiTietBieuGia}{Permissions.View}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83842") });
+                permissions.Add(new Permission { Name = "Sửa", Code = $"{Permissions.ChiTietBieuGia}{Permissions.Update}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83842") });
+
+                // Xác nhận biểu giá
+                //permissions.Add(new Permission { Name = "Gửi duyệt", Code = $"{Permissions.XacNhanBieuGia}{Permissions.Send}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83844") });
+                //permissions.Add(new Permission { Name = "Duyệt", Code = $"{Permissions.XacNhanBieuGia}{Permissions.Approve}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83844") });
 
                 #endregion
                 context.Permission.AddRange(permissions);
@@ -165,6 +226,39 @@ namespace Authentication.Infrastructure.EF
                 positions.Add(new Position { Id = new Guid("E9CA3E167CD7A44D9BEC9E8B91258FFE"), Title = "Nhân viên", Value = PositionEnum.NhanVien.GetHashCode(), CreatedDate = DateTime.Now });
                 positions.Add(new Position { Id = new Guid("919FDA58162FA44BA242A94503351EF0"), Title = "Công nhân", Value = PositionEnum.CongNhan.GetHashCode(), CreatedDate = DateTime.Now });
                 context.Position.AddRange(positions);
+            }
+
+            if (!context.DM_KhuVuc.Any())
+            {
+                var listVungKhuVuc = new List<DM_KhuVuc>();
+
+                listVungKhuVuc.Add(new DM_KhuVuc { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C1"), TenKhuVuc = "Vùng I - Khu Vực 1" });
+                listVungKhuVuc.Add(new DM_KhuVuc { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C2"), TenKhuVuc = "Vùng I - Khu Vực 2" });
+                listVungKhuVuc.Add(new DM_KhuVuc { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C3"), TenKhuVuc = "Vùng II" });
+
+                context.DM_KhuVuc.AddRange(listVungKhuVuc);
+                await context.SaveChangesAsync();
+            }
+
+            if (!context.DM_LoaiBieuGia.Any())
+            {
+                var listLoaiBieuGia = new List<DM_LoaiBieuGia>();
+
+                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C1"), TenLoaiBieuGia = "Đơn giá lắp đặt dây sau công tơ" });
+                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C1"), TenLoaiBieuGia = "Đơn giá thay dây dẫn điện sau công tơ" });
+                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C1"), TenLoaiBieuGia = "Đơn giá thay đổi công suất SDĐ/Thay đổi loại công tơ" });
+                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C1"), TenLoaiBieuGia = "Đơn giá thay đổi vị trí thiết bị đo đếm" });
+                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C2"), TenLoaiBieuGia = "Đơn giá lắp đặt dây sau công tơ" });
+                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C2"), TenLoaiBieuGia = "Đơn giá thay dây dẫn điện sau công tơ" });
+                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C2"), TenLoaiBieuGia = "Đơn giá thay đổi công suất SDĐ/Thay đổi loại công tơ" });
+                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C2"), TenLoaiBieuGia = "Đơn giá thay đổi vị trí thiết bị đo đếm" });
+                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C3"), TenLoaiBieuGia = "Đơn giá lắp đặt dây sau công tơ" });
+                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C3"), TenLoaiBieuGia = "Đơn giá thay dây dẫn điện sau công tơ" });
+                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C3"), TenLoaiBieuGia = "Đơn giá thay đổi công suất SDĐ/Thay đổi loại công tơ" });
+                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C3"), TenLoaiBieuGia = "Đơn giá thay đổi vị trí thiết bị đo đếm" });
+
+                await context.DM_LoaiBieuGia.AddRangeAsync(listLoaiBieuGia);
+                await context.SaveChangesAsync();
             }
 
             await context.SaveChangesAsync();

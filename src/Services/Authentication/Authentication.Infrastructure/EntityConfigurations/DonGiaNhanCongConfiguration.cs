@@ -20,7 +20,6 @@ namespace Authentication.Infrastructure.EntityConfigurations
             builder.Property(x => x.CapBac).HasMaxLength(50); // Cấu hình độ dài cấp bậc
             builder.Property(x => x.DonGia).HasColumnType("numeric(18,1)"); // Cấu hình độ dài đơn giá
             builder.HasOne(x => x.KhuVuc).WithMany(x => x.DonGiaNhanCong).HasForeignKey(x => x.IdKhuVuc);
-            builder.HasOne(x => x.Vung).WithMany(x => x.DonGiaNhanCong).HasForeignKey(x => x.IdVung);
 
             ConfigureBase(builder);
         }

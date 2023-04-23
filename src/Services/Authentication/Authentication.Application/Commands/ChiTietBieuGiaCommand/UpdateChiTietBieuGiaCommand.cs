@@ -34,10 +34,9 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
             {
                 _unitOfWork.BieuGiaTongHopRepository.Add(new BieuGiaTongHop { IdBieuGia = chiTietBG.IdBieuGia, Quy = chiTietBG.Quy, Nam = chiTietBG.Nam });
             }
-            else if (bieuGiaTongHop.TinhTrang > TinhTrangEnum.TaoMoi.GetHashCode())
+            else if (bieuGiaTongHop.TinhTrang == TinhTrangEnum.DaDuyet.GetHashCode())
             {
-                var trangThai = bieuGiaTongHop.TinhTrang == 1 ? "gửi đi" : "duyệt";
-                throw new EvnException($"Biểu giá đã được {trangThai}, không thể cập nhật");
+                throw new EvnException($"Biểu giá đã được duyệt, không thể cập nhật");
             }
 
             var createList = new List<ChiTietBieuGia>();

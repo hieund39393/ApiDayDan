@@ -13,12 +13,13 @@ namespace Authentication.Application.Commands.DM_BieuGiaCommand
 {
     public class Update_DMBieuGiaCommand : IRequest<bool>
     {
-        public Guid Id { get; set; } 
+        public Guid Id { get; set; }
         public string TenBieuGia { get; set; }
         public string MaBieuGia { get; set; }
+        public Guid idLoaiBieuGia { get; set; }
     }
 
-    public class Update_DMBieuGiaCommandHandler : IRequestHandler<Update_DMBieuGiaCommand, bool> 
+    public class Update_DMBieuGiaCommandHandler : IRequestHandler<Update_DMBieuGiaCommand, bool>
     {
         private readonly IUnitOfWork _unitOfWork; // khai báo 
         public Update_DMBieuGiaCommandHandler(IUnitOfWork unitOfWork) //cấu hình dependence
@@ -34,9 +35,19 @@ namespace Authentication.Application.Commands.DM_BieuGiaCommand
             {
                 throw new EvnException(string.Format(Resources.MSG_NOT_FOUND, "biểu giá"));
             }
+            if (entity.idLoaiBieuGia == request.idLoaiBieuGia && entity.TenBieuGia == request.TenBieuGia)
+            {
+                entity.MaBieuGia = request.MaBieuGia;
+            }
+            else
+            {
+                var check = await _unitOfWork.DM_BieuGiaRepository.FindOneAsync(x => x.TenBieuGia == request.TenBieuGia && x.idLoaiBieuGia == request.idLoaiBieuGia);
+                if (check != null) throw new EvnException(string.Format(Resources.MSG_IS_EXIST, "Biểu giá"));
+                entity.MaBieuGia = request.MaBieuGia;
+                entity.TenBieuGia = request.TenBieuGia;
+                entity.idLoaiBieuGia = request.idLoaiBieuGia;
+            }
 
-            entity.MaBieuGia = request.MaBieuGia;
-            entity.TenBieuGia = request.TenBieuGia;
             //thêm vào DB
             _unitOfWork.DM_BieuGiaRepository.Update(entity);
             //lưu lại trong DB

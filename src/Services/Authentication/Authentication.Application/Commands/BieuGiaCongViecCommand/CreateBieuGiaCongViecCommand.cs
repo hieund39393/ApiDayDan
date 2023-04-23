@@ -32,7 +32,7 @@ namespace Authentication.Application.Commands.BieuGiaCongViecCommand
                 throw new EvnException("Biểu giá đã có công việc chính");
             }
 
-            var entity = listBieuGia.FirstOrDefault(x => x.IdCongViec == request.IdCongViec);
+            var entity = listBieuGia.FirstOrDefault(x => x.IdCongViec == request.IdCongViec && x.IdBieuGia == request.IdBieuGia);
             // nếu không có dữ liệu thì thêm mới
             if (entity == null)
             {

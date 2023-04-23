@@ -1,6 +1,4 @@
-﻿using Authentication.Infrastructure.AggregatesModel.DM_KhuVucAggregate;
-using Authentication.Infrastructure.AggregatesModel.DM_VungAggregate;
-using Authentication.Infrastructure.AggregatesModel.DonGiaChietTinhAggregate;
+﻿using Authentication.Infrastructure.AggregatesModel.DonGiaChietTinhAggregate;
 using Authentication.Infrastructure.Properties;
 using Authentication.Infrastructure.Repositories;
 using EVN.Core.Exceptions;

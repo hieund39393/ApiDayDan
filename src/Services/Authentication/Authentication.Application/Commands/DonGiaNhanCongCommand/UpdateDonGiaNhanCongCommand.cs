@@ -32,21 +32,20 @@ namespace Authentication.Application.Commands.DonGiaNhanCongCommand
             {
                 throw new EvnException(string.Format(Resources.MSG_NOT_FOUND, "Đơn giá nhân công"));
             }
-            if (entity.CapBac == request.CapBac && entity.HeSo == request.HeSo && entity.IdVung == request.IdVung && entity.IdKhuVuc == request.IdKhuVuc)
+            if (entity.CapBac == request.CapBac && entity.HeSo == request.HeSo && entity.IdKhuVuc == request.IdKhuVuc)
             {
                 entity.DonGia = request.DonGia;
             }
             else
             {
-                var checkEntity = await _unitOfWork.DonGiaNhanCongRepository.FindOneAsync(x => entity.CapBac == request.CapBac && entity.HeSo == request.HeSo && entity.IdVung == request.IdVung && entity.IdKhuVuc == request.IdKhuVuc);
+                var checkEntity = await _unitOfWork.DonGiaNhanCongRepository.FindOneAsync(x => entity.CapBac == request.CapBac && entity.HeSo == request.HeSo && entity.IdKhuVuc == request.IdKhuVuc);
                 if (checkEntity != null)
                 {
                     throw new EvnException(string.Format(Resources.MSG_IS_EXIST, "Đơn giá nhân công"));
                 }
-                entity.CapBac = request.CapBac ;
-                entity.HeSo = request.HeSo ;
-                entity.IdVung = request.IdVung ;
-                entity.IdKhuVuc = request.IdKhuVuc ;
+                entity.CapBac = request.CapBac;
+                entity.HeSo = request.HeSo;
+                entity.IdKhuVuc = request.IdKhuVuc;
                 entity.DonGia = request.DonGia;
             }
 

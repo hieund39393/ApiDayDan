@@ -1,4 +1,5 @@
 ﻿using Authentication.Application.Queries.BieuGiaCongViecQuery;
+using Authentication.Application.Queries.BieuGiaTongHopQuery;
 using Authentication.Application.Queries.ChiTietBieuGiaQuery;
 using Authentication.Application.Queries.CommonQuery;
 using Authentication.Application.Queries.DM_BieuGiaQuery;
@@ -8,7 +9,6 @@ using Authentication.Application.Queries.DM_LoaiBieuGiaQuery;
 using Authentication.Application.Queries.DM_LoaiCapQuery;
 using Authentication.Application.Queries.DM_VatLieuChietTinhQuery;
 using Authentication.Application.Queries.DM_VatLieuQuery;
-using Authentication.Application.Queries.DM_VungQuery;
 using Authentication.Application.Queries.DonGiaChietTinhQuery;
 using Authentication.Application.Queries.DonGiaNhanCongQuery;
 using Authentication.Application.Queries.DonGiaVatLieuQuery;
@@ -56,10 +56,8 @@ namespace Authentication.API.Configurations
             services.AddScoped<IModuleQuery, ModuleQuery>();
             services.AddScoped<IMenuQuery, MenuQuery>();
 
-            //Danh mục Tiến Anh
             services.AddScoped<IDM_LoaiBieuGiaQuery, DM_LoaiBieuGiaQuery>(); // quy tắc Interface trước class sau
             services.AddScoped<IDM_KhuVucQuery, DM_KhuVucQuery>(); // quy tắc Interface trước class sau
-            services.AddScoped<IDM_VungQuery, DM_VungQuery>(); // quy tắc Interface trước class sau
             services.AddScoped<IDM_CongViecQuery, DM_CongViecQuery>(); // quy tắc Interface trước class sau
            
             services.AddScoped<IDM_LoaiCapQuery, DM_LoaiCapQuery>(); // quy tắc Interface trước class sau
@@ -73,6 +71,7 @@ namespace Authentication.API.Configurations
           
             services.AddScoped<IDM_BieuGiaQuery, DM_BieuGiaQuery>(); // quy tắc Interface trước class sau
             services.AddScoped<IBieuGiaCongViecQuery, BieuGiaCongViecQuery>(); // quy tắc Interface trước class sau
+            services.AddScoped<IBieuGiaTongHopQuery, BieuGiaTongHopQuery>(); // quy tắc Interface trước class sau
             return services;
         }
     }

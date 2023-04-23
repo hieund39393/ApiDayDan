@@ -41,17 +41,15 @@ namespace Authentication.Application.Queries.DonGiaNhanCongQuery
             (string.IsNullOrEmpty(request.SearchTerm) || x.HeSo.Contains(request.SearchTerm)) &&  //Tìm kiếm
             (string.IsNullOrEmpty(request.SearchTerm) || x.DonGia.ToString().Contains(request.SearchTerm)) &&
             (string.IsNullOrEmpty(request.SearchTerm) || x.CapBac.Contains(request.SearchTerm)))
-                .Include(x => x.Vung)
                 .Include(x => x.KhuVuc)
                 .Select(x => new DonGiaNhanCongResponse()
                 {
                     Id = x.Id,
                     CapBac = x.CapBac,
                     HeSo = x.HeSo,
-                    IdVung = x.IdVung,
                     IdKhuVuc = x.IdKhuVuc,
                     DonGia = x.DonGia,
-                    VungKhuVuc = x.Vung.TenVung + " / " + x.KhuVuc.TenKhuVuc,
+                    VungKhuVuc = x.KhuVuc.TenKhuVuc,
                     NgayTao = x.CreatedDate,
                 });// select dữ liệu
             var totalRow = query.Count(); // tổng số lượng

@@ -42,13 +42,26 @@ namespace Authentication.API.Controllers
         }
 
         /// <summary>
+        /// Danh loại biểu giá theo vùng khu vực 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("get-by-khu-vuc")]
+        [ProducesResponseType(typeof(ApiSuccessResult<List<SelectItem>>), (int)HttpStatusCode.OK)] // trả về dữ liệu model cho FE
+        public async Task<IActionResult> GetByKhuVuc(Guid IdKhuVuc)
+        {
+            var data = await _bieuGiaQuery.GetByKhuVuc(IdKhuVuc);
+            return Ok(new ApiSuccessResult<List<SelectItem>>(data: data));
+        }
+
+
+        /// <summary>
         /// Danh sách  loại biểu giá có phân trang, tổng số , tìm kiếm
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(typeof(ApiSuccessResult<IList<DM_LoaiBieuGiaResponse>>), (int)HttpStatusCode.OK)] // trả về dữ liệu model cho FE
-        public async Task<IActionResult> GetListUser([FromQuery] DM_LoaiBieuGiaRequest request)
+        public async Task<IActionResult> GetList([FromQuery] DM_LoaiBieuGiaRequest request)
         {
             var data = await _bieuGiaQuery.GetList(request);
             return Ok(new ApiSuccessResult<IList<DM_LoaiBieuGiaResponse>>

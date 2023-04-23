@@ -8,7 +8,6 @@ using Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGiaAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_LoaiCapAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_VatLieuAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_VatLieuChietTinhAggregate;
-using Authentication.Infrastructure.AggregatesModel.DM_VungAggregate;
 using Authentication.Infrastructure.AggregatesModel.DonGiaChietTinhAggregate;
 using Authentication.Infrastructure.AggregatesModel.DonGiaNhanCongAggregate;
 using Authentication.Infrastructure.AggregatesModel.DonGiaVatLieuAggregate;
@@ -40,7 +39,6 @@ namespace Authentication.Infrastructure.Repositories
 
         IRepository<DM_LoaiBieuGia> DM_LoaiBieuGiaRepository { get; }
         IRepository<DM_KhuVuc> DM_KhuVucRepository { get; }
-        IRepository<DM_Vung> DM_VungRepository { get; }
         IRepository<DM_CongViec> DM_CongViecRepository { get; }
         IRepository<BieuGiaCongViec> BieuGiaCongViecRepository { get; }
         IRepository<DM_LoaiCap> DM_LoaiCapRepository { get; }
@@ -80,7 +78,6 @@ namespace Authentication.Infrastructure.Repositories
 
         private IRepository<DM_LoaiBieuGia> _dM_LoaiBieuGiaRepository;
         private IRepository<DM_KhuVuc> _dM_KhuVucRepository;
-        private IRepository<DM_Vung> _dM_VungRepository;
         private IRepository<DM_CongViec> _dM_CongViecRepository;
         private IRepository<BieuGiaCongViec> _bieuGiaCongViecRepository;
         private IRepository<DM_LoaiCap> _dM_LoaiCapRepository;
@@ -260,17 +257,7 @@ namespace Authentication.Infrastructure.Repositories
                 return _dM_KhuVucRepository;
             }
         }      
-        public IRepository<DM_Vung> DM_VungRepository
-        {
-            get
-            {
-                if (_dM_VungRepository == null)
-                {
-                    _dM_VungRepository = new Repository<DM_Vung>(_context);
-                }
-                return _dM_VungRepository;
-            }
-        }      
+   
         public IRepository<DM_CongViec> DM_CongViecRepository
         {
             get

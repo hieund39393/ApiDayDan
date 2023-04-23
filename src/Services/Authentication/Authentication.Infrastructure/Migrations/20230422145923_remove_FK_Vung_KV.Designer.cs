@@ -4,6 +4,7 @@ using Authentication.Infrastructure.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Authentication.Infrastructure.Migrations
 {
     [DbContext(typeof(ExOneDbContext))]
-    partial class ExOneDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230422145923_remove_FK_Vung_KV")]
+    partial class remove_FK_Vung_KV
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -198,12 +200,6 @@ namespace Authentication.Infrastructure.Migrations
 
                     b.Property<int>("Nam")
                         .HasColumnType("int");
-
-                    b.Property<DateTime?>("NgayXacNhan")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("NguoiXacNhan")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Quy")
                         .HasColumnType("int");
@@ -408,7 +404,7 @@ namespace Authentication.Infrastructure.Migrations
                         .HasColumnType("datetime2")
                         .HasComment("Ngày tạo");
 
-                    b.Property<Guid?>("IdKhuVuc")
+                    b.Property<Guid?>("DM_VungId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsDeleted")
@@ -417,13 +413,16 @@ namespace Authentication.Infrastructure.Migrations
                         .HasDefaultValue(false)
                         .HasComment("Cờ xóa");
 
+                    b.Property<Guid?>("KhuVucID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("MaLoaiBieuGia")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("TenLoaiBieuGia")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<Guid?>("UpdatedBy")
                         .HasMaxLength(36)
@@ -436,7 +435,9 @@ namespace Authentication.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdKhuVuc");
+                    b.HasIndex("DM_VungId");
+
+                    b.HasIndex("KhuVucID");
 
                     b.ToTable("DM_LoaiBieuGia", (string)null);
                 });
@@ -585,6 +586,44 @@ namespace Authentication.Infrastructure.Migrations
                     b.ToTable("DM_VatLieuChietTinh", (string)null);
                 });
 
+            modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.DM_VungAggregate.DM_Vung", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Id bảng, khóa chính");
+
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Mã người tạo");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2")
+                        .HasComment("Ngày tạo");
+
+                    b.Property<string>("GhiChu")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasComment("Cờ xóa");
+
+                    b.Property<string>("TenVung")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("UpdatedBy")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Mã người cập nhật");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2")
+                        .HasComment("Ngày cập nhật");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DM_Vung");
+                });
+
             modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.DonGiaChietTinhAggregate.DonGiaChietTinh", b =>
                 {
                     b.Property<Guid>("Id")
@@ -665,6 +704,9 @@ namespace Authentication.Infrastructure.Migrations
                     b.Property<Guid?>("IdKhuVuc")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("IdVung")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
@@ -683,6 +725,8 @@ namespace Authentication.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("IdKhuVuc");
+
+                    b.HasIndex("IdVung");
 
                     b.ToTable("DonGiaNhanCong", (string)null);
                 });
@@ -1633,9 +1677,13 @@ namespace Authentication.Infrastructure.Migrations
 
             modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGiaAggregate.DM_LoaiBieuGia", b =>
                 {
+                    b.HasOne("Authentication.Infrastructure.AggregatesModel.DM_VungAggregate.DM_Vung", null)
+                        .WithMany("DM_LoaiBieuGia")
+                        .HasForeignKey("DM_VungId");
+
                     b.HasOne("Authentication.Infrastructure.AggregatesModel.DM_KhuVucAggregate.DM_KhuVuc", "DM_KhuVuc")
                         .WithMany("DM_LoaiBieuGia")
-                        .HasForeignKey("IdKhuVuc");
+                        .HasForeignKey("KhuVucID");
 
                     b.Navigation("DM_KhuVuc");
                 });
@@ -1655,7 +1703,13 @@ namespace Authentication.Infrastructure.Migrations
                         .WithMany("DonGiaNhanCong")
                         .HasForeignKey("IdKhuVuc");
 
+                    b.HasOne("Authentication.Infrastructure.AggregatesModel.DM_VungAggregate.DM_Vung", "Vung")
+                        .WithMany("DonGiaNhanCong")
+                        .HasForeignKey("IdVung");
+
                     b.Navigation("KhuVuc");
+
+                    b.Navigation("Vung");
                 });
 
             modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.DonGiaVatLieuAggregate.DonGiaVatLieu", b =>
@@ -1844,6 +1898,13 @@ namespace Authentication.Infrastructure.Migrations
             modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.DM_VatLieuChietTinhAggregate.DM_VatLieuChietTinh", b =>
                 {
                     b.Navigation("DonGiaChietTinh");
+                });
+
+            modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.DM_VungAggregate.DM_Vung", b =>
+                {
+                    b.Navigation("DM_LoaiBieuGia");
+
+                    b.Navigation("DonGiaNhanCong");
                 });
 
             modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.MenuAggregate.Menu", b =>

@@ -17,7 +17,6 @@ using Authentication.Infrastructure.AggregatesModel.PermissionAggregate;
 using AAuthentication.Infrastructure.AggregatesModel.DM_BieuGia;
 using Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGiaAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_KhuVucAggregate;
-using Authentication.Infrastructure.AggregatesModel.DM_VungAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_CongViecAggregate;
 using Authentication.Infrastructure.AggregatesModel.ChiTietBieuGiaAggregate;
 using Authentication.Infrastructure.AggregatesModel.BieuGiaCongViecAggregate;
@@ -74,7 +73,6 @@ namespace Authentication.Infrastructure.EF
 
         public DbSet<DM_LoaiBieuGia> DM_LoaiBieuGia { get; set; }
         public DbSet<DM_KhuVuc> DM_KhuVuc { get; set; }
-        public DbSet<DM_Vung> DM_Vung { get; set; }
         public DbSet<DM_CongViec> DM_CongViec { get; set; }
         public DbSet<ChiTietBieuGia> ChiTietBieuGia { get; set; }
         public DbSet<BieuGiaCongViec> BieuGiaCongViec { get; set; }
@@ -109,7 +107,6 @@ namespace Authentication.Infrastructure.EF
          
             builder.ApplyConfiguration(new DM_LoaiBieuGiaConfiguration());
             builder.ApplyConfiguration(new DM_KhuVucConfiguration());
-            builder.ApplyConfiguration(new DM_VungConfiguration());
             builder.ApplyConfiguration(new DM_CongViecConfiguration());
             builder.ApplyConfiguration(new ChiTietBieuGiaConfiguration());
             builder.ApplyConfiguration(new BieuGiaCongViecConfiguration());

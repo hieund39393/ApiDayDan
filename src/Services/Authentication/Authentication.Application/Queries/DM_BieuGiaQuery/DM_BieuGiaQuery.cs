@@ -40,8 +40,8 @@ namespace Authentication.Application.Queries.DM_BieuGiaQuery
         public async Task<List<SelectItem>> GetBieuGiaByLoaiBieuGia(Guid IdLoaiBieuGia)
         {
             return await _unitOfWork.DM_BieuGiaRepository.GetQuery(x => x.idLoaiBieuGia == IdLoaiBieuGia).Select(x => new SelectItem
-            { 
-                Name= x.TenBieuGia,
+            {
+                Name = x.TenBieuGia,
                 Value = x.Id.ToString(),
             }).AsNoTracking().ToListAsync();
         }
@@ -55,12 +55,13 @@ namespace Authentication.Application.Queries.DM_BieuGiaQuery
             (string.IsNullOrEmpty(request.TenBieuGia) || x.TenBieuGia.Contains(request.TenBieuGia)) &&  //Tìm kiếm
             (string.IsNullOrEmpty(request.MaBieuGia) || x.TenBieuGia.Contains(request.MaBieuGia)))
 
-              .Include(x => x.DM_LoaiBieuGia) // đoạn này join để lấy tên loại biểu giá 
+              .Include(x => x.DM_LoaiBieuGia.DM_KhuVuc) // đoạn này join để lấy tên loại biểu giá 
               .Select(x => new DM_BieuGiaResponse()
               {
                   Id = x.Id,
                   MaBieuGia = x.MaBieuGia,
                   TenBieuGia = x.TenBieuGia,
+                  TenKhuVuc = x.DM_LoaiBieuGia.DM_KhuVuc.TenKhuVuc,
                   TenLoaiBieuGia = x.DM_LoaiBieuGia.TenLoaiBieuGia, // đoạn này mapping tên loại biểu giá
                   idLoaiBieuGia = x.idLoaiBieuGia, // đoạn này mapping tên loại biểu giá
                   CreatedDate = x.CreatedDate,

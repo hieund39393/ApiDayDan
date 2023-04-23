@@ -14,6 +14,7 @@ namespace Authentication.Application.Model.DM_BieuGia
         public string MaBieuGia { get; set; }
         public string TenBieuGia { get; set; }
         public string TenLoaiBieuGia { get; set; }
+        public string TenKhuVuc { get; set; }
 
         public DateTime CreatedDate { get; set; }
     }
