@@ -1,5 +1,6 @@
 ﻿using Authentication.Application.Model.Menu;
 using Authentication.Infrastructure.Repositories;
+using EVN.Core.Extensions;
 using EVN.Core.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -38,6 +39,8 @@ namespace Authentication.Application.Queries.CommonQuery
         }
         public async Task<List<MenuItemResponse>> ListMenu()
         {
+            var isSupperAdmin = TokenExtensions.IsSuperAdmin();
+            var listPermission = TokenExtensions.GetPermission();
             var data = await _unitOfWork.ModuleRepository.GetQuery().Include(x => x.Menus).AsNoTracking().
                 Select(x => new MenuItemResponse
                 {
@@ -46,7 +49,7 @@ namespace Authentication.Application.Queries.CommonQuery
                     Code = x.Code,
                     Order = x.Order,
                     Icon = x.Icon,
-                    SubItems = x.Menus.Select(y => new MenuItemResponse
+                    SubItems = x.Menus.Where(x => isSupperAdmin || listPermission.Contains(x.Code)).Select(y => new MenuItemResponse
                     {
 
                         Id = y.Id,
@@ -57,7 +60,7 @@ namespace Authentication.Application.Queries.CommonQuery
                     }).OrderBy(x => x.Order).ToList()
                 }).OrderBy(x => x.Order).ToListAsync();
 
-            return data;
+            return data.Where(x => x.SubItems.Any()).ToList();
         }
 
         public async Task<List<SelectItem>> ListModule()
