@@ -32,6 +32,31 @@ namespace EVN.Core.Extensions
         /// Get UserId
         /// </summary>
         /// <returns></returns>
+        public static List<string> GetPermission()
+        {
+            if (_httpContextAccessor == null) return new List<string>();
+            var claims = _httpContextAccessor.HttpContext.GetClaims();
+            var listPermission = claims?.Where(c => c.Type.Contains("Permission")).Select(x=>x.Value).ToList();
+            return listPermission;
+        }
+
+        /// <summary>
+        /// Get IsSuperAdmin
+        /// </summary>
+        /// <returns></returns>
+        public static bool IsSuperAdmin()
+        {
+            if (_httpContextAccessor == null) return false;
+            var isSuperAdmin = _httpContextAccessor.HttpContext.GetClaims().FirstOrDefault(x=>x.Type.Contains("IsSuperAdmin"))?.Value;
+            return bool.Parse(isSuperAdmin);
+        }
+
+
+
+        /// <summary>
+        /// Get UserId
+        /// </summary>
+        /// <returns></returns>
         public static string GetTokenSession()
         {
             if (_httpContextAccessor == null) return Guid.Empty.ToString();
