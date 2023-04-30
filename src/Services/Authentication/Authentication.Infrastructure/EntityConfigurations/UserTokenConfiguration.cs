@@ -14,6 +14,7 @@ namespace Authentication.Infrastructure.EF.EntityConfigurations
             builder.Property(x => x.UserId).IsRequired();
             builder.Property(x => x.LoginProvider).IsRequired().HasMaxLength(10);
             builder.Property(x => x.Name).IsRequired().HasMaxLength(20);
+            builder.Property(x => x.Value).HasMaxLength(4000);
             ConfigureBase(builder);
         }
 

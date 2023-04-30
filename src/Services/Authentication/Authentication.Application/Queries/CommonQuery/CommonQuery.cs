@@ -41,6 +41,8 @@ namespace Authentication.Application.Queries.CommonQuery
         {
             var isSupperAdmin = TokenExtensions.IsSuperAdmin();
             var listPermission = TokenExtensions.GetPermission();
+
+
             var data = await _unitOfWork.ModuleRepository.GetQuery().Include(x => x.Menus).AsNoTracking().
                 Select(x => new MenuItemResponse
                 {
@@ -51,7 +53,6 @@ namespace Authentication.Application.Queries.CommonQuery
                     Icon = x.Icon,
                     SubItems = x.Menus.Where(x => isSupperAdmin || listPermission.Contains(x.Code)).Select(y => new MenuItemResponse
                     {
-
                         Id = y.Id,
                         Name = y.Name,
                         Url = y.Url,

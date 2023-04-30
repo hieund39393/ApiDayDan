@@ -25,7 +25,7 @@ namespace Authentication.Application.Commands.UserCommand
         public Guid UnitId { get; set; }
         public Guid DepartmentId { get; set; }
         public Guid TeamId { get; set; }
-        public int Position { get; set; }
+        public Guid? PositionId { get; set; }
         public string UserName { get; set; }
         public string Name { get; set; }
         public int? Gender { get; set; }
@@ -60,30 +60,30 @@ namespace Authentication.Application.Commands.UserCommand
         public async Task<bool> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
 
-            var user = _mapper.Map<User>(request);
-            var data = (_unitOfWork.UserRepository.GetQuery(c => c.Id == user.Id)).FirstOrDefault();
+            var data = _unitOfWork.UserRepository.GetQuery(c => c.Id == request.Id).FirstOrDefault();
             if (data == null)
             {
                 throw new EvnException(string.Format(Resources.MSG_NOT_FOUND, "Người dùng"));
             }
 
-            data.Avatar = user.Avatar ?? data.Avatar;
-            data.UserName = user.UserName ?? data.UserName;
-            data.Name = user.Name ?? data.Name;
-            data.Gender = user.Gender ?? data.Gender;
-            data.Email = user.Email ?? data.Email;
-            data.PhoneNumber = user.PhoneNumber ?? data.PhoneNumber;
-            data.Actived = user.Actived;
+            data.UserName = request.UserName;
+            data.Name = request.Name;
+            data.Email = request.Email;
+            data.PhoneNumber = request.PhoneNumber;
+            data.Actived = request.Actived;
+            data.PositionId = request.PositionId;
+
             _unitOfWork.UserRepository.Update(data);
             if (request.DefaultPassword == true)
             {
                 await _userManager.RemovePasswordAsync(data);
-                var createResult = await _userManager.AddPasswordAsync(data, "EVNHaNoi@12345");
+                var createResult = await _userManager.AddPasswordAsync(data, "123456");
                 if (createResult.Succeeded)
                 {
                     await _unitOfWork.SaveChangesAsync();
                 }
             }
+            await _unitOfWork.SaveChangesAsync();
             return true;
         }
     }

@@ -36,8 +36,9 @@ namespace EVN.Core.Extensions
         {
             if (_httpContextAccessor == null) return new List<string>();
             var claims = _httpContextAccessor.HttpContext.GetClaims();
-            var listPermission = claims?.Where(c => c.Type.Contains("Permission")).Select(x=>x.Value).ToList();
-            return listPermission;
+            var stringPermission = claims?.Where(c => c.Type.Contains("Permission")).Select(x=>x.Value).FirstOrDefault();
+            var listPermissions = stringPermission.Split(',').ToList();
+            return listPermissions;
         }
 
         /// <summary>

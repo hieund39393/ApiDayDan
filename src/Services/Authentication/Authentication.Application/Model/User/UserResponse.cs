@@ -8,11 +8,12 @@ namespace Authentication.Application.Model.User
     public class UserResponse : BaseExtendEntities
     {
         public Guid Id { get; set; }
-        public Guid UnitId { get; set; }
+        public Guid? PositionId { get; set; }
         public string UnitName { get; set; }
         public string Name { get; set; }
+        public string PositionName { get; set; }
         public string UserName { get; set; }
-        public string CMIS_CODE { get; set; }
+        public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public bool Actived { get; set; }
         public List<Guid> RoleId { get; set; }
