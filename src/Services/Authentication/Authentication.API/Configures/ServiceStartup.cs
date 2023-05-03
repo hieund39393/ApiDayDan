@@ -22,6 +22,7 @@ using Authentication.Infrastructure.AggregatesModel.UserAggregate;
 using Authentication.Infrastructure.EF;
 using Authentication.Infrastructure.Repositories;
 using EVN.Core.Common.JwtToken;
+using EVN.Core.Infrastructure.Factory;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
@@ -59,7 +60,7 @@ namespace Authentication.API.Configurations
             services.AddScoped<IDM_LoaiBieuGiaQuery, DM_LoaiBieuGiaQuery>(); // quy tắc Interface trước class sau
             services.AddScoped<IDM_KhuVucQuery, DM_KhuVucQuery>(); // quy tắc Interface trước class sau
             services.AddScoped<IDM_CongViecQuery, DM_CongViecQuery>(); // quy tắc Interface trước class sau
-           
+
             services.AddScoped<IDM_LoaiCapQuery, DM_LoaiCapQuery>(); // quy tắc Interface trước class sau
             services.AddScoped<IDM_VatLieuQuery, DM_VatLieuQuery>(); // quy tắc Interface trước class sau
             services.AddScoped<IDM_VatLieuChietTinhQuery, DM_VatLieuChietTinhQuery>(); // quy tắc Interface trước class sau
@@ -68,10 +69,11 @@ namespace Authentication.API.Configurations
             services.AddScoped<IDonGiaNhanCongQuery, DonGiaNhanCongQuery>(); // quy tắc Interface trước class sau
             services.AddScoped<IDonGiaChietTinhQuery, DonGiaChietTinhQuery>(); // quy tắc Interface trước class sau
             services.AddScoped<IChiTietBieuGiaQuery, ChiTietBieuGiaQuery>(); // quy tắc Interface trước class sau
-          
+
             services.AddScoped<IDM_BieuGiaQuery, DM_BieuGiaQuery>(); // quy tắc Interface trước class sau
             services.AddScoped<IBieuGiaCongViecQuery, BieuGiaCongViecQuery>(); // quy tắc Interface trước class sau
             services.AddScoped<IBieuGiaTongHopQuery, BieuGiaTongHopQuery>(); // quy tắc Interface trước class sau
+            services.AddScoped<IExOneHttpClientFactory, ExOneHttpClientFactory>();
             return services;
         }
     }

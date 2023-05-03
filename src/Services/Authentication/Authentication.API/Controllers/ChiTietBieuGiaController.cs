@@ -1,7 +1,9 @@
 ﻿using Authentication.Application.Commands.ChiTietBieuGiaCommand;
 using Authentication.Application.Model.ChiTietBieuGia;
+using Authentication.Application.Model.DM_KhuVuc;
 using Authentication.Application.Model.Menu;
 using Authentication.Application.Queries.ChiTietBieuGiaQuery;
+using Authentication.Application.Queries.DM_KhuVucQuery;
 using Authentication.Infrastructure.Properties;
 using EVN.Core.Models;
 using MediatR;
@@ -75,5 +77,14 @@ namespace Authentication.API.Controllers
             return Ok(new ApiSuccessResult<bool>(data: data, message: string.Format(Resources.MSG_UPDATE_SUCCESS, "chi tiết biểu giá")));
         }
 
+        [HttpGet("get-don-gia")]
+        public async Task<IActionResult> GetDonGia([FromQuery] GetDonGiaRequest request)
+        {
+            var data = await _ChiTietBieuGiaQuery.GetDonGia(request);
+            return Ok(new ApiSuccessResult<List<GetDonGiaResponse>>
+            {
+                Data = data
+            });
+        }
     }
 }
