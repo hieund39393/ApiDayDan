@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Authentication.Application.Services;
+using Authentication.Infrastructure.AggregatesModel.PositionAggregate;
 
 namespace Authentication.Application.Queries.UserQuery
 {
@@ -59,14 +60,17 @@ namespace Authentication.Application.Queries.UserQuery
                     Name = x.Name,
                     UserName = x.UserName,
                     Actived = x.Actived,
+                    PositionId = x.PositionId,
+                    PositionName = x.Position.Title,
                     Email = x.Email,
+                    PhoneNumber = x.PhoneNumber,
                     RoleId = x.UserRoles.Select(x => x.RoleId).ToList(),
                     CreatedDate = x.CreatedDate,
                 });
 
             if (!string.IsNullOrEmpty(request.SearchTerm))
             {
-                query = query.Where(x => x.UserName.Contains(request.SearchTerm) || x.CMIS_CODE.Contains(request.SearchTerm) || x.Name.Contains(request.SearchTerm));
+                query = query.Where(x => x.UserName.Contains(request.SearchTerm) || x.Name.Contains(request.SearchTerm));
             }
             var totalRow = query.Count();
             var queryPaging = PagingAndSorting(request, query);

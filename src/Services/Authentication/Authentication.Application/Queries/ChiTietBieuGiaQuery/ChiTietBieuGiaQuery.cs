@@ -1,7 +1,10 @@
 ﻿using Authentication.Application.Model.ChiTietBieuGia;
-using Authentication.Infrastructure.Migrations;
+using Authentication.Application.Services;
 using Authentication.Infrastructure.Repositories;
+using EVN.Core.Infrastructure.Factory;
 using EVN.Core.Models;
+using EVN.Core.SeedWork;
+using EVN.Core.SeedWork.ExtendEntities;
 using Microsoft.EntityFrameworkCore;
 using static EVN.Core.Common.AppEnum;
 
@@ -14,13 +17,16 @@ namespace Authentication.Application.Queries.ChiTietBieuGiaQuery
         Task<ChiTietBieuGiaResult> GetList(ChiTietBieuGiaRequest request);
         Task<List<SelectItem>> GetBieuGiaByLoaiBieuGia(Guid loaiBieuGia);
         Task<List<SelectItem>> GetDonGiaChietTinh(int IdPhanLoai);
+        Task<List<GetDonGiaResponse>> GetDonGia(GetDonGiaRequest request);
     }
-    public class ChiTietBieuGiaQuery : IChiTietBieuGiaQuery // kế thừa interface vừa tạo
+    public class ChiTietBieuGiaQuery : BaseExtendEntities, IChiTietBieuGiaQuery // kế thừa interface vừa tạo
     {
         private readonly IUnitOfWork _unitOfWork; // khai báo 
-        public ChiTietBieuGiaQuery(IUnitOfWork unitOfWork)
+        private readonly IExOneHttpClientFactory _httpClientFactory;
+        public ChiTietBieuGiaQuery(IUnitOfWork unitOfWork, IExOneHttpClientFactory httpClientFactory)
         {
             _unitOfWork = unitOfWork;
+            _httpClientFactory = httpClientFactory;
         }
 
         public async Task<List<SelectItem>> GetBieuGiaByLoaiBieuGia(Guid loaiBieuGia)
@@ -30,6 +36,82 @@ namespace Authentication.Application.Queries.ChiTietBieuGiaQuery
                 Name = x.TenBieuGia,
                 Value = x.Id.ToString()
             }).AsNoTracking().ToListAsync();
+        }
+
+        public async Task<List<GetDonGiaResponse>> GetDonGia(GetDonGiaRequest request)
+        {
+            var result = new List<GetDonGiaResponse>();
+            switch (request.Nguon)
+            {
+                case 1:
+                    var httpClient = new BaseResponseService<ApiBaoGiaResponse>(_httpClientFactory);
+                    var data = await httpClient.GetResponseData("http://10.9.8.157:8087/Get_DonGiaCap_BaoGiaEVNHANOI");
+                    result = data.Select(x => new GetDonGiaResponse { Ten = x.TenVatTu, Ma = x.MaVatTuERP, DonGia = x.DonGia }).ToList();
+                    break;
+                case 2:
+                    result = await _unitOfWork.GiaCapRepository.GetQuery()
+                        .Select(x => new GetDonGiaResponse
+                        {
+                            Ten = x.VanBan,
+                            DonGia = x.DonGia.ToString(),
+                        }).ToListAsync();
+                    break;
+                case 3:
+                    result = await _unitOfWork.DonGiaVatLieuRepository.GetQuery()
+                        .Select(x => new GetDonGiaResponse
+                        {
+                            Ten = x.VanBan,
+                            DonGia = x.DonGia.ToString(),
+                        }).ToListAsync();
+                    break;
+                case 4:
+                    result = await _unitOfWork.DonGiaChietTinhRepository.GetQuery(x => x.IdPhanLoai == DonGiaChietTinhPhanLoai.VatLieu.GetHashCode()).Include(x => x.DM_VatLieuChietTinh)
+                        .Select(x => new GetDonGiaResponse
+                        {
+                            Ten = x.DM_VatLieuChietTinh.TenVatLieuChietTinh,
+                            Ma = x.DM_VatLieuChietTinh.MaVatLieuChietTinh,
+                            DonGia = x.DonGia.ToString(),
+                        }).ToListAsync();
+                    break;
+                case 5:
+                    result = await _unitOfWork.DonGiaNhanCongRepository.GetQuery()
+                       .Select(x => new GetDonGiaResponse
+                       {
+                           Ten = $"{x.KhuVuc.TenKhuVuc} - Hệ số: {x.HeSo} - Cấp bậc: {x.CapBac}",
+                           DonGia = x.DonGia.ToString(),
+                       }).ToListAsync();
+                    break;
+                case 6:
+                    result = await _unitOfWork.DonGiaChietTinhRepository.GetQuery(x => x.IdPhanLoai == DonGiaChietTinhPhanLoai.NhanCong.GetHashCode()).Include(x => x.DM_VatLieuChietTinh)
+                      .Select(x => new GetDonGiaResponse
+                      {
+                          Ten = x.DM_VatLieuChietTinh.TenVatLieuChietTinh,
+                          Ma = x.DM_VatLieuChietTinh.MaVatLieuChietTinh,
+                          DonGia = x.DonGia.ToString(),
+                      }).ToListAsync();
+                    break;
+                case 7:
+                    // code block
+                    break;
+                case 8:
+                    result = await _unitOfWork.DonGiaChietTinhRepository.GetQuery(x => x.IdPhanLoai == DonGiaChietTinhPhanLoai.MayThiCong.GetHashCode()).Include(x => x.DM_VatLieuChietTinh)
+                    .Select(x => new GetDonGiaResponse
+                    {
+                        Ten = x.DM_VatLieuChietTinh.TenVatLieuChietTinh,
+                        Ma = x.DM_VatLieuChietTinh.MaVatLieuChietTinh,
+                        DonGia = x.DonGia.ToString(),
+                    }).ToListAsync();
+                    break;
+                default:
+                    break;
+            }
+
+            if (!string.IsNullOrEmpty(request.SearchTerm))
+            {
+                result = result.Where(x => x.Ten.ToLower().Contains(request.SearchTerm.ToLower().Trim()) || x.Ma.ToLower().Contains(request.SearchTerm.ToLower().Trim())
+                ).ToList();
+            }
+            return result;
         }
 
         public async Task<List<SelectItem>> GetDonGiaChietTinh(int IdPhanLoai)

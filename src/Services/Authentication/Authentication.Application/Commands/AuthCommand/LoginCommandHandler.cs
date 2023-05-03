@@ -7,6 +7,7 @@ using EVN.Core.ConfigurationSettings;
 using EVN.Core.Exceptions;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using static EVN.Core.Common.AppConstants;
 
@@ -30,7 +31,8 @@ namespace Authentication.Application.Commands.AuthCommand
         }
         public async Task<LoginResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userManager.FindByNameAsync(request.UserName);
+            var user = await _userManager.Users.Include(x => x.UserRoles).ThenInclude(x => x.Role).ThenInclude(x => x.RoleClaims)
+                .FirstOrDefaultAsync(x => x.UserName == request.UserName && !x.IsDeleted, cancellationToken);
             if (user == null)
             {
                 throw new EvnException(Resources.MSG_INVALID_ACCOUNT);
@@ -43,30 +45,31 @@ namespace Authentication.Application.Commands.AuthCommand
                 throw new EvnException(Resources.MSG_INVALID_ACCOUNT);
             }
             await _userManager.ResetAccessFailedCountAsync(user);
-
-            var tokenModel = new TokenModel
+            var permissions = user.UserRoles.SelectMany(x => x.Role.RoleClaims.Select(y => y.ClaimValue)).ToList();
+            var tokenModel = new TokenModel()
             {
                 UserId = user.Id.ToString(),
-                Permissions = user.GetPermissions(ClaimType.Permissions),
+                Permissions = string.Join(",", permissions),
                 IsSuperAdmin = user.IsSuperAdmin,
                 Email = user.Email,
                 UserName = user.UserName,
                 Name = user.Name,
-                PhoneNumber = user.PhoneNumber
+                PhoneNumber = user.PhoneNumber,
             };
+
             var accessToken = _jwtHandler.CreateToken(tokenModel);
             var refreshToken = _jwtHandler.CreateRefreshToken();
 
             if (user.UserTokens == null)
                 user.UserTokens = new List<UserToken>();
-            user.UserTokens.Add(new UserToken()
-            {
-                CreatedDate = DateTime.Now,
-                UserId = user.Id,
-                LoginProvider = LoginProvider.Cms,
-                Name = Auth.AccessToken,
-                Value = accessToken
-            });
+            //user.UserTokens.Add(new UserToken()
+            //{
+            //    CreatedDate = DateTime.Now,
+            //    UserId = user.Id,
+            //    LoginProvider = LoginProvider.Cms,
+            //    Name = Auth.AccessToken,
+            //    Value = accessToken
+            //});
             user.UserTokens.Add(new UserToken()
             {
                 CreatedDate = DateTime.Now,
