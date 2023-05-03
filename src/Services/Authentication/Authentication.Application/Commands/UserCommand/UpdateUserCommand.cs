@@ -15,6 +15,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using EVN.Core.Common;
 
 namespace Authentication.Application.Commands.UserCommand
 {
@@ -77,7 +78,7 @@ namespace Authentication.Application.Commands.UserCommand
             if (request.DefaultPassword == true)
             {
                 await _userManager.RemovePasswordAsync(data);
-                var createResult = await _userManager.AddPasswordAsync(data, "123456");
+                var createResult = await _userManager.AddPasswordAsync(data, AppConstants.DefaulPass);
                 if (createResult.Succeeded)
                 {
                     await _unitOfWork.SaveChangesAsync();

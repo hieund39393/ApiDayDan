@@ -3,6 +3,7 @@ using Authentication.Application.Model.User;
 using Authentication.Application.Queries.UserQuery;
 using Authentication.Application.Services;
 using Authentication.Infrastructure.Properties;
+using EVN.Core.Common;
 using EVN.Core.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -45,8 +46,8 @@ namespace Authentication.API.Controllers
         {
             if (command.DefaultPassword == true || command.SSO == true)
             {
-                command.Password = "123456";
-                command.ComfirmPassword = "123456";
+                command.Password = AppConstants.DefaulPass;
+                command.ComfirmPassword = AppConstants.DefaulPass;
             }
 
             //var imageUrl = await _fileService.OnPostUploadAsync(command.file);
@@ -54,11 +55,11 @@ namespace Authentication.API.Controllers
             var user = await _mediator.Send(command);
             return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_CREATE_SUCCESS, "người dùng")));
         }
-       /// <summary>
-       /// Thay đổi thông tin người dùng
-       /// </summary>
-       /// <param name="command"></param>
-       /// <returns></returns>
+        /// <summary>
+        /// Thay đổi thông tin người dùng
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         [HttpPut]
         [ProducesResponseType(typeof(ApiSuccessResult<bool>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Update([FromBody] UpdateUserCommand command)

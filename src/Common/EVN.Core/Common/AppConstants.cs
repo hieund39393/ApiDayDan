@@ -11,7 +11,7 @@ namespace EVN.Core.Common
         //public const string DataTypes = "DataTypes";
         public const string SuperAdminRole = "Admin";
         public const string UserRole = "User";
-
+        public const string DefaulPass = "123456";
         public class Auth
         {
             public const string Authorization = "Authorization";
@@ -61,6 +61,7 @@ namespace EVN.Core.Common
         public class LoginProvider
         {
             public const string Cms = "Cms";
+            public const string SSO = "SSO";
         }
 
         /// <summary>
