@@ -66,7 +66,7 @@ namespace Authentication.Application.Services
 
         public string GetSyncAuthentication()
         {
-            var plainTextBytes = Encoding.UTF8.GetBytes($"user:pass");
+            var plainTextBytes = Encoding.UTF8.GetBytes($"EVNHANOI:Evnhanoi@123");
             return Convert.ToBase64String(plainTextBytes);
         }
     }

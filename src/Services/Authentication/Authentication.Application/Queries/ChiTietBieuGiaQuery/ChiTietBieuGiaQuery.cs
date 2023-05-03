@@ -44,7 +44,9 @@ namespace Authentication.Application.Queries.ChiTietBieuGiaQuery
             switch (request.Nguon)
             {
                 case 1:
-                    //var httpClien = new BaseResponseService<>
+                    var httpClient = new BaseResponseService<ApiBaoGiaResponse>(_httpClientFactory);
+                    var data = await httpClient.GetResponseData("http://10.9.8.157:8087/Get_DonGiaCap_BaoGiaEVNHANOI");
+                    result = data.Select(x => new GetDonGiaResponse { Ten = x.TenVatTu, Ma = x.MaVatTuERP, DonGia = x.DonGia }).ToList();
                     break;
                 case 2:
                     result = await _unitOfWork.GiaCapRepository.GetQuery()
@@ -106,7 +108,8 @@ namespace Authentication.Application.Queries.ChiTietBieuGiaQuery
 
             if (!string.IsNullOrEmpty(request.SearchTerm))
             {
-                result = result.Where(x => x.Ten.ToLower().Contains(request.SearchTerm.ToLower().Trim())).ToList();
+                result = result.Where(x => x.Ten.ToLower().Contains(request.SearchTerm.ToLower().Trim()) || x.Ma.ToLower().Contains(request.SearchTerm.ToLower().Trim())
+                ).ToList();
             }
             return result;
         }
