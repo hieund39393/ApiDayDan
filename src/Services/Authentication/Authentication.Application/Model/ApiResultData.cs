@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Authentication.Application.Model.ChiTietBieuGia;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,5 +22,12 @@ namespace Authentication.Application.Model
                 return JsonConvert.DeserializeObject<T>(Data);
             }
         }
+    }
+
+    public class ApiResultData2
+    {
+        public bool Suc { get; set; }
+        public string Msg { get; set; }
+        public List<ApiBaoGiaResponse> Data { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Authentication.Application.Model.ChiTietBieuGia;
+﻿using Authentication.Application.Model;
+using Authentication.Application.Model.ChiTietBieuGia;
 using Authentication.Application.Services;
 using Authentication.Infrastructure.Repositories;
 using EVN.Core.Infrastructure.Factory;
@@ -44,9 +45,9 @@ namespace Authentication.Application.Queries.ChiTietBieuGiaQuery
             switch (request.Nguon)
             {
                 case 1:
-                    var httpClient = new BaseResponseService<ApiBaoGiaResponse>(_httpClientFactory);
-                    var data = await httpClient.GetResponseData("http://10.9.8.157:8087/Get_DonGiaCap_BaoGiaEVNHANOI");
-                    result = data.Select(x => new GetDonGiaResponse { Ten = x.TenVatTu, Ma = x.MaVatTuERP, DonGia = x.DonGia }).ToList();
+                    var httpClient = new BaseResponseService<ApiResultData2>(_httpClientFactory);
+                    var data = await httpClient.GetResponseData2("http://10.9.8.157:8087/Get_DonGiaCap_BaoGiaEVNHANOI");
+                    result = data.Data.Select(x => new GetDonGiaResponse { Ten = x.TenVatTu, Ma = x.MaVatTuERP, DonGia = x.DonGia }).ToList();
                     break;
                 case 2:
                     result = await _unitOfWork.GiaCapRepository.GetQuery()

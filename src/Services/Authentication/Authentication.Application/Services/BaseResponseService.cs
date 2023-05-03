@@ -42,6 +42,16 @@ namespace Authentication.Application.Services
             return data;
         }
 
+        public async Task<T> GetResponseData2(string url)
+        {
+            var httpClient = _httpClientFactory.CreateClient();
+            httpClient.DefaultRequestHeaders.Add($"Authorization", $"Basic {GetSyncAuthentication()}");
+            var dataResponse = await httpClient.GetAsync(url);
+            var dataString = await dataResponse.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<T>(dataString);
+        }
+
+
         public async Task<ApiResultData<T>> GetStringResponse(string url)
         {
             var httpClient = _httpClientFactory.CreateClient();
