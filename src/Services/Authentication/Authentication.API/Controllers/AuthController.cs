@@ -31,6 +31,12 @@ namespace Authentication.API.Controllers
             var login = await _mediator.Send(commamd);
             return Ok(new ApiSuccessResult<LoginResponse>(data: login));
         }
-
+        [HttpPost("sso-login")]
+        [ProducesResponseType(typeof(ApiSuccessResult<LoginResponse>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> SSOLogin([FromBody] LoginSSoCommand commamd)
+        {
+            var login = await _mediator.Send(commamd);
+            return Ok(new ApiSuccessResult<LoginResponse>(data: login));
+        }
     }
 }

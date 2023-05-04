@@ -54,7 +54,7 @@ namespace Authentication.Application.Commands.AuthCommand
         public async Task<LoginResponse> Handle(LoginSSoCommand request, CancellationToken cancellationToken)
         {
             var httpClient = new BaseResponseService<ApiResultLoginSSO>(_httpClientFactory);
-            var respon = await httpClient.GetResponseData2($"http://10.9.171.42:3020/sso/serviceValidate?ticket={request.Ticket}+appCode={request.AppCode}");
+            var respon = await httpClient.GetResponseSSO($"http://10.9.171.42:3020/sso/serviceValidate?ticket={request.Ticket}&appCode={request.AppCode}");
             if (respon.Code != "API-000")
             {
                 throw new EvnException(respon.Message);
@@ -66,11 +66,12 @@ namespace Authentication.Application.Commands.AuthCommand
 
             if (user == null)
             {
+                user = new User();
                 user.Actived = true;
-                user.UserName = respon.Data.Identity.UserName;
-                user.Name = respon.Data.Identity.FullName;
-                user.Email = respon.Data.Identity.Email;
-                user.PhoneNumber = respon.Data.Identity.Phone;
+                user.UserName = respon?.Data?.Identity?.UserName;
+                user.Name = respon?.Data?.Identity?.FullName;
+                user.Email = respon?.Data?.Identity?.Email;
+                user.PhoneNumber = respon?.Data?.Identity?.Phone;
 
                 var createResult = await _userManager.CreateAsync(user, AppConstants.DefaulPass);
                 await _unitOfWork.SaveChangesAsync();

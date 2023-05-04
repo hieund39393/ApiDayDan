@@ -51,6 +51,13 @@ namespace Authentication.Application.Services
             return JsonConvert.DeserializeObject<T>(dataString);
         }
 
+        public async Task<T> GetResponseSSO(string url)
+        {
+            var httpClient = _httpClientFactory.CreateClient();
+            var dataResponse = await httpClient.GetAsync(url);
+            var dataString = await dataResponse.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<T>(dataString);
+        }
 
         public async Task<ApiResultData<T>> GetStringResponse(string url)
         {
