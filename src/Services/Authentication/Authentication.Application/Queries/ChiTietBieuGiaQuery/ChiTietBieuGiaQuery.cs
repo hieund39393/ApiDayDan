@@ -4,7 +4,6 @@ using Authentication.Application.Services;
 using Authentication.Infrastructure.Repositories;
 using EVN.Core.Infrastructure.Factory;
 using EVN.Core.Models;
-using EVN.Core.SeedWork;
 using EVN.Core.SeedWork.ExtendEntities;
 using Microsoft.EntityFrameworkCore;
 using static EVN.Core.Common.AppEnum;
@@ -130,6 +129,10 @@ namespace Authentication.Application.Queries.ChiTietBieuGiaQuery
         // lấy dữ liệu phân trang, tìm kiếm , số lượng
         public async Task<ChiTietBieuGiaResult> GetList(ChiTietBieuGiaRequest request)
         {
+
+            var quyTruoc = request.Quy == 1 ? 4 : request.Quy - 1;
+            var namTruoc = request.Quy == 1 ? request.Nam - 1 : request.Nam;
+
             var result = new ChiTietBieuGiaResult();
             decimal soLuongCVC = 0;
 
@@ -148,36 +151,49 @@ namespace Authentication.Application.Queries.ChiTietBieuGiaQuery
                     Nam = request.Nam,
                     Quy = request.Quy,
                     SoLuong = Math.Round(x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy) != null
-                    ? x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).SoLuong : 0, 2),
+                    ? x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).SoLuong :
+                     x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc).SoLuong, 2), //0
 
                     HeSoDieuChinh_K1nc = Math.Round(x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy) != null
-                    ? x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).HeSoDieuChinh_K1nc : 1, 2),
-
+                    ? x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).HeSoDieuChinh_K1nc :
+                    x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc).HeSoDieuChinh_K1nc, 2), //1
 
                     HeSoDieuChinh_K2nc = Math.Round(x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy) != null
-                    ? x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).HeSoDieuChinh_K2nc : 1, 2),
-
+                    ? x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).HeSoDieuChinh_K2nc :
+                    x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc).HeSoDieuChinh_K2nc, 2), // 1
 
                     HeSoDieuChinh_Kmtc = Math.Round(x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy) != null
-                    ? x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).HeSoDieuChinh_Kmtc : 1, 2),
+                    ? x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).HeSoDieuChinh_Kmtc :
+                    x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc).HeSoDieuChinh_Kmtc, 2), // 1
 
                     DonGia_VL = Math.Round(x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy) != null
-                    ? x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).DonGia_VL : 0, 2),
+                    ? x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).DonGia_VL :
+                    x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc).DonGia_VL, 2), // 0
 
                     DonGia_NC = Math.Round(x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy) != null
-                    ? x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).DonGia_NC : 0, 2),
+                    ? x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).DonGia_NC :
+                    x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc).DonGia_NC, 2), // 0
 
                     DonGia_MTC = Math.Round(x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy) != null
-                    ? x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).DonGia_MTC : 0, 2),
+                    ? x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).DonGia_MTC :
+                    x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc).DonGia_MTC, 2), // 0
 
                     CongViecChinh = x.CongViecChinh,
                 }).AsSplitQuery()
                 .ToListAsync();
 
 
+
             var stt = 1;
             foreach (var item in query)
             {
+                item.SoLuong = item.SoLuong ?? 0;
+                item.HeSoDieuChinh_K1nc = item.HeSoDieuChinh_K1nc ?? 1;
+                item.HeSoDieuChinh_K2nc = item.HeSoDieuChinh_K2nc ?? 1;
+                item.HeSoDieuChinh_Kmtc = item.HeSoDieuChinh_Kmtc ?? 1;
+                item.DonGia_VL = item.DonGia_VL ?? 0;
+                item.DonGia_NC = item.DonGia_NC ?? 0;
+                item.DonGia_MTC = item.DonGia_MTC ?? 0;
 
                 item.Stt = stt;
                 item.CPChung = Math.Round((decimal)65 / 100 * (item.DonGia_NC.Value), 2);                                                  //12            
