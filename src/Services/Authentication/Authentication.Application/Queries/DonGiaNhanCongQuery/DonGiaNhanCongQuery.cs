@@ -36,11 +36,7 @@ namespace Authentication.Application.Queries.DonGiaNhanCongQuery
         public async Task<PagingResultSP<DonGiaNhanCongResponse>> GetList(DonGiaNhanCongRequest request)
         {
             //Tạo câu query
-            var query = _unitOfWork.DonGiaNhanCongRepository.GetQuery(x =>
-
-            (string.IsNullOrEmpty(request.SearchTerm) || x.HeSo.Contains(request.SearchTerm)) &&  //Tìm kiếm
-            (string.IsNullOrEmpty(request.SearchTerm) || x.DonGia.ToString().Contains(request.SearchTerm)) &&
-            (string.IsNullOrEmpty(request.SearchTerm) || x.CapBac.Contains(request.SearchTerm)))
+            var query = _unitOfWork.DonGiaNhanCongRepository.GetQuery()
                 .Include(x => x.KhuVuc)
                 .Select(x => new DonGiaNhanCongResponse()
                 {
@@ -52,6 +48,11 @@ namespace Authentication.Application.Queries.DonGiaNhanCongQuery
                     VungKhuVuc = x.KhuVuc.TenKhuVuc,
                     NgayTao = x.CreatedDate,
                 });// select dữ liệu
+
+            if (!string.IsNullOrEmpty(request.SearchTerm))
+            {
+                query = query.Where(x => x.CapBac.Contains(request.SearchTerm.ToLower().Trim()) || x.HeSo.Contains(request.SearchTerm.ToLower().Trim()) || x.VungKhuVuc.ToLower().Contains(request.SearchTerm.ToLower().Trim()));
+            }
             var totalRow = query.Count(); // tổng số lượng
             var queryPaging = query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize); // phân trang
             return await PagingResultSP<DonGiaNhanCongResponse>.CreateAsyncLinq(queryPaging, totalRow, request.PageIndex, request.PageSize);

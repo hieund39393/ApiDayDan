@@ -13,6 +13,8 @@
         public decimal DonGiaThu5 { get; set; }
         public decimal DonGiaThu6 { get; set; }
         public decimal DonGiaThu7 { get; set; }
+        public bool ChuaCoDuLieu { get; set; }
+
 
     }
     public class ChiTietBieuGiaResponse
@@ -41,6 +43,5 @@
         public decimal? DonGiaTruocThue { get; set; }
         public decimal? GiaTriTruocThue { get; set; }
         public bool CongViecChinh { get; set; }
-
     }
 }

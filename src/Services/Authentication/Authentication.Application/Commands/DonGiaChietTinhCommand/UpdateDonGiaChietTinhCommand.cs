@@ -35,6 +35,7 @@ namespace Authentication.Application.Commands.DonGiaChietTinhCommand
             if (entity.IdVatLieuChietTinh == request.IdVatLieuChietTinh)
             {
                 entity.DonGia = request.DonGia;
+                entity.IdPhanLoai = request.IdPhanLoai;
                 entity.TongGia = request.TongGia;
             }
             else

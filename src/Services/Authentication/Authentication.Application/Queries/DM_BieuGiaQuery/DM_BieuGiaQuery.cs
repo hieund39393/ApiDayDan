@@ -50,11 +50,7 @@ namespace Authentication.Application.Queries.DM_BieuGiaQuery
         public async Task<PagingResultSP<DM_BieuGiaResponse>> GetList(DM_BieuGiaRequest request)
         {
             //Tạo câu query
-            var query = _unitOfWork.DM_BieuGiaRepository.GetQuery(x =>
-
-            (string.IsNullOrEmpty(request.TenBieuGia) || x.TenBieuGia.Contains(request.TenBieuGia)) &&  //Tìm kiếm
-            (string.IsNullOrEmpty(request.MaBieuGia) || x.TenBieuGia.Contains(request.MaBieuGia)))
-
+            var query = _unitOfWork.DM_BieuGiaRepository.GetQuery()
               .Include(x => x.DM_LoaiBieuGia.DM_KhuVuc) // đoạn này join để lấy tên loại biểu giá 
               .Select(x => new DM_BieuGiaResponse()
               {
@@ -66,6 +62,14 @@ namespace Authentication.Application.Queries.DM_BieuGiaQuery
                   idLoaiBieuGia = x.idLoaiBieuGia, // đoạn này mapping tên loại biểu giá
                   CreatedDate = x.CreatedDate,
               });// select dữ liệu
+
+            if (!string.IsNullOrEmpty(request.SearchTerm))
+            {
+                query = query.Where(x => x.TenKhuVuc.Contains(request.SearchTerm.ToLower().Trim()) || x.TenLoaiBieuGia.Contains(request.SearchTerm.ToLower().Trim()) || x.TenBieuGia.Contains(request.SearchTerm.ToLower().Trim()));
+
+            }
+
+
             var totalRow = query.Count(); // tổng số lượng
             var queryPaging = query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize); // phân trang
             return await PagingResultSP<DM_BieuGiaResponse>.CreateAsyncLinq(queryPaging, totalRow, request.PageIndex, request.PageSize);

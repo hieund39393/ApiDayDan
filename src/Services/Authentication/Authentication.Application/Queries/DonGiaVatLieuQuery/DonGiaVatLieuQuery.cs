@@ -36,10 +36,7 @@ namespace Authentication.Application.Queries.DonGiaVatLieuQuery
         public async Task<PagingResultSP<DonGiaVatLieuResponse>> GetList(DonGiaVatLieuRequest request)
         {
             //Tạo câu query
-            var query = _unitOfWork.DonGiaVatLieuRepository.GetQuery(x =>
-
-            (string.IsNullOrEmpty(request.SearchTerm) || x.VanBan.Contains(request.SearchTerm)) &&  //Tìm kiếm
-            (string.IsNullOrEmpty(request.SearchTerm) || x.DonGia.ToString().Contains(request.SearchTerm)))
+            var query = _unitOfWork.DonGiaVatLieuRepository.GetQuery()
                 .Include(x => x.DM_VatLieu)
                 .Select(x => new DonGiaVatLieuResponse()
                 {
@@ -52,6 +49,12 @@ namespace Authentication.Application.Queries.DonGiaVatLieuQuery
 
                     NgayTao = x.CreatedDate,
                 });// select dữ liệu
+
+            if (!string.IsNullOrEmpty(request.SearchTerm))
+            {
+                query = query.Where(x => x.TenVatLieu.Contains(request.SearchTerm.ToLower().Trim()) || x.VanBan.Contains(request.SearchTerm.ToLower().Trim()));
+            }
+
             var totalRow = query.Count(); // tổng số lượng
             var queryPaging = query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize); // phân trang
             return await PagingResultSP<DonGiaVatLieuResponse>.CreateAsyncLinq(queryPaging, totalRow, request.PageIndex, request.PageSize);

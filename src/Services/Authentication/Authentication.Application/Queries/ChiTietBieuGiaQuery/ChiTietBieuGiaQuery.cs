@@ -129,6 +129,7 @@ namespace Authentication.Application.Queries.ChiTietBieuGiaQuery
         // lấy dữ liệu phân trang, tìm kiếm , số lượng
         public async Task<ChiTietBieuGiaResult> GetList(ChiTietBieuGiaRequest request)
         {
+            var chuaCoDuLieu = false;
 
             var quyTruoc = request.Quy == 1 ? 4 : request.Quy - 1;
             var namTruoc = request.Quy == 1 ? request.Nam - 1 : request.Nam;
@@ -168,20 +169,22 @@ namespace Authentication.Application.Queries.ChiTietBieuGiaQuery
 
                     DonGia_VL = Math.Round(x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy) != null
                     ? x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).DonGia_VL :
-                    x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc).DonGia_VL, 2), // 0
+                    x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc).DonGia_VL, 0), // 0
 
                     DonGia_NC = Math.Round(x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy) != null
                     ? x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).DonGia_NC :
-                    x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc).DonGia_NC, 2), // 0
+                    x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc).DonGia_NC, 0), // 0
 
                     DonGia_MTC = Math.Round(x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy) != null
                     ? x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).DonGia_MTC :
-                    x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc).DonGia_MTC, 2), // 0
+                    x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc).DonGia_MTC, 0), // 0
 
                     CongViecChinh = x.CongViecChinh,
                 }).AsSplitQuery()
                 .ToListAsync();
 
+            decimal donGiaVatLieu = 0;
+            decimal donGiaNhanCong = 0;
 
 
             var stt = 1;
@@ -195,14 +198,25 @@ namespace Authentication.Application.Queries.ChiTietBieuGiaQuery
                 item.DonGia_NC = item.DonGia_NC ?? 0;
                 item.DonGia_MTC = item.DonGia_MTC ?? 0;
 
+                if (stt == 1 && item.Id == null) chuaCoDuLieu = true;
+                if (string.IsNullOrEmpty(item.MaNoiDungCongViec))
+                {
+                    donGiaVatLieu += (item.DonGia_VL.Value * item.SoLuong.Value);
+                }
+                else
+                {
+                    donGiaNhanCong += (item.DonGia_VL.Value * item.SoLuong.Value);
+                }
+
                 item.Stt = stt;
-                item.CPChung = Math.Round((decimal)65 / 100 * (item.DonGia_NC.Value), 2);                                                  //12            
-                item.CPNhaTam = Math.Round((item.DonGia_VL.Value + item.DonGia_NC.Value + item.DonGia_MTC.Value) * (decimal)1.2 / 100, 2);             //13                    
-                item.CPCongViecKhongXDDuocTuTK = Math.Round((item.DonGia_VL.Value + item.DonGia_NC.Value + item.DonGia_MTC.Value) * (decimal)2 / 100, 2); ; //14     
-                item.ThuNhapChiuThue = item.CPCongViecKhongXDDuocTuTK != 0 ? Math.Round((item.DonGia_VL.Value / item.CPCongViecKhongXDDuocTuTK.Value) * (decimal)6 / 100, 2) : 0;
-                item.DonGiaTruocThue = Math.Round(item.DonGia_VL.Value + item.DonGia_NC.Value + item.DonGia_MTC.Value + item.CPChung.Value + item.CPNhaTam.Value + item.CPCongViecKhongXDDuocTuTK.Value + item.ThuNhapChiuThue.Value, 2); ;
-                item.GiaTriTruocThue = Math.Round(item.SoLuong.Value * item.DonGiaTruocThue.Value, 2);
-                result.Tong += Math.Round(item.GiaTriTruocThue.Value, 2);
+                item.CPChung = string.IsNullOrEmpty(item.MaNoiDungCongViec) ? 0 : Math.Round((decimal)65 / 100 * (item.DonGia_NC.Value), 0);                                                  //12            
+                item.CPNhaTam = 0;             //13             tạm thời không cho công thức        
+                //item.CPNhaTam = Math.Round((item.DonGia_VL.Value + item.DonGia_NC.Value + item.DonGia_MTC.Value) * (decimal)1.2 / 100, 0);             //13                    
+                item.CPCongViecKhongXDDuocTuTK = string.IsNullOrEmpty(item.MaNoiDungCongViec) ? 0 : Math.Round((item.DonGia_VL.Value + item.DonGia_NC.Value + item.DonGia_MTC.Value) * (decimal)2 / 100, 0); ; //14     
+                item.ThuNhapChiuThue = string.IsNullOrEmpty(item.MaNoiDungCongViec) ? 0 : Math.Round((item.DonGia_VL.Value + item.DonGia_NC.Value + item.DonGia_MTC.Value + item.CPChung.Value + item.CPNhaTam.Value + item.CPCongViecKhongXDDuocTuTK.Value) * (decimal)6 / 100, 0);
+                item.DonGiaTruocThue = Math.Round(item.DonGia_VL.Value + item.DonGia_NC.Value + item.DonGia_MTC.Value + item.CPChung.Value + item.CPNhaTam.Value + item.CPCongViecKhongXDDuocTuTK.Value + item.ThuNhapChiuThue.Value, 0); ;
+                item.GiaTriTruocThue = Math.Round(item.SoLuong.Value * item.DonGiaTruocThue.Value, 0);
+                result.Tong += Math.Round(item.GiaTriTruocThue.Value, 0);
                 if (item.CongViecChinh && item.SoLuong > 0)
                 {
                     soLuongCVC = item.SoLuong.Value;
@@ -214,10 +228,9 @@ namespace Authentication.Application.Queries.ChiTietBieuGiaQuery
             result.ListBieuGia = query.OrderByDescending(x => x.CongViecChinh).ToList();
             result.KhaoSat = 0;
             result.CongTruocThue = result.KhaoSat + result.Tong;
-            result.DonGiaTongHopTruocThue = soLuongCVC == 0 ? 0 : Math.Round(result.Tong / soLuongCVC, 2);
+            result.DonGiaTongHopTruocThue = soLuongCVC == 0 ? 0 : Math.Round(result.Tong / soLuongCVC, 0);
             result.DonGiaThu5 = result.DonGiaTongHopTruocThue;
             result.DonGiaThu6 = (congViecChinh == null || congViecChinh.SoLuong.Value == (decimal)0.00) ? 0 : Math.Round((result.CongTruocThue - (congViecChinh.DonGia_VL.Value * congViecChinh.SoLuong.Value)) / congViecChinh.SoLuong.Value, 0);
-
 
             var itemLast = new ChiTietBieuGiaResponse();
             itemLast.NoiDungCongViec = "TỔNG CỘNG";
@@ -234,6 +247,9 @@ namespace Authentication.Application.Queries.ChiTietBieuGiaQuery
                 _unitOfWork.BieuGiaTongHopRepository.Update(bieuGiaTongHop);
                 await _unitOfWork.SaveChangesAsync();
             }
+
+            result.ChuaCoDuLieu = chuaCoDuLieu;
+            result.DonGiaThu7 = congViecChinh.SoLuong == 0 ? 0 : Math.Round((result.CongTruocThue - (donGiaVatLieu + (donGiaNhanCong * (decimal)1.06))) / congViecChinh.SoLuong.Value, 0);
 
             return result;
 

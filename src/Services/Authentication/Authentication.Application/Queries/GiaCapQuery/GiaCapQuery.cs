@@ -36,10 +36,7 @@ namespace Authentication.Application.Queries.GiaCapQuery
         public async Task<PagingResultSP<GiaCapResponse>> GetList(GiaCapRequest request)
         {
             //Tạo câu query
-            var query = _unitOfWork.GiaCapRepository.GetQuery(x =>
-
-            (string.IsNullOrEmpty(request.SearchTerm) || x.VanBan.Contains(request.SearchTerm)) &&  //Tìm kiếm
-            (string.IsNullOrEmpty(request.SearchTerm) || x.DonGia.ToString().Contains(request.SearchTerm)))
+            var query = _unitOfWork.GiaCapRepository.GetQuery()
                 .Include(x => x.DM_LoaiCap)
                 .Select(x => new GiaCapResponse()
                 {
@@ -52,6 +49,11 @@ namespace Authentication.Application.Queries.GiaCapQuery
 
                     NgayTao = x.CreatedDate,
                 });// select dữ liệu
+
+            if (!string.IsNullOrEmpty(request.SearchTerm))
+            {
+                query = query.Where(x => x.TenLoaiCap.Contains(request.SearchTerm.ToLower().Trim()) || x.VanBan.Contains(request.SearchTerm.ToLower().Trim()));
+            }
             var totalRow = query.Count(); // tổng số lượng
             var queryPaging = query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize); // phân trang
             return await PagingResultSP<GiaCapResponse>.CreateAsyncLinq(queryPaging, totalRow, request.PageIndex, request.PageSize);
