@@ -38,6 +38,19 @@ namespace Authentication.API.Controllers
             });
         }
 
+
+        [HttpGet("chi-tiet-pdf")]
+        [ProducesResponseType(typeof(ApiSuccessResult<IList<BieuGiaTongHopResponse>>), (int)HttpStatusCode.OK)] // trả về dữ liệu model cho FE
+        public async Task<IActionResult> ChiTietPDF([FromQuery] BieuGiaTongHopRequest request)
+        {
+            var data = await _bieuGiaTongHopQuery.GetList(request);
+            return Ok(new ApiSuccessResult<List<BieuGiaTongHopResponse>>
+            {
+                Data = data
+            });
+        }
+
+
         [HttpPut]
         [ProducesResponseType(typeof(ApiSuccessResult<IList<BieuGiaTongHopResponse>>), (int)HttpStatusCode.OK)] // trả về dữ liệu model cho FE
         public async Task<IActionResult> UpdateBieuGiaTongHop([FromBody] UpdateBieuGiaTongHopCommand request)

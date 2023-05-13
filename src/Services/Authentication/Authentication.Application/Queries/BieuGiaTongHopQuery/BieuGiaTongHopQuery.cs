@@ -7,6 +7,7 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
     public interface IBieuGiaTongHopQuery
     {
         Task<List<BieuGiaTongHopResponse>> GetList(BieuGiaTongHopRequest request);
+        Task<List<BieuGiaTongHopResponse>> ChiTietPDF(BieuGiaTongHopRequest request);
     }
     public class BieuGiaTongHopQuery : IBieuGiaTongHopQuery
     {
@@ -15,6 +16,12 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
         {
             _unitOfWork = unitOfWork;
         }
+
+        public async Task<List<BieuGiaTongHopResponse>> ChiTietPDF(BieuGiaTongHopRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<List<BieuGiaTongHopResponse>> GetList(BieuGiaTongHopRequest request)
         {
             var loaiBieuGia = await _unitOfWork.DM_LoaiBieuGiaRepository.GetQuery().AsNoTracking().ToListAsync();
