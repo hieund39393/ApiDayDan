@@ -15,6 +15,8 @@ namespace Authentication.Infrastructure.AggregatesModel.BieuGiaTongHopAggregate
         public int Quy { get; set; }
         public int Nam { get; set; }
         public decimal DonGia { get; set; }
+        public decimal DonGia2 { get; set; }
+        public decimal DonGia3 { get; set; }
         public int TinhTrang { get; set; }
         public DateTime? NgayXacNhan { get; set; }
         public Guid? NguoiXacNhan { get; set; }

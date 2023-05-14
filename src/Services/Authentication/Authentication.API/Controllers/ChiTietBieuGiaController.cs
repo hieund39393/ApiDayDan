@@ -61,9 +61,9 @@ namespace Authentication.API.Controllers
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(typeof(ApiSuccessResult<IList<ChiTietBieuGiaResponse>>), (int)HttpStatusCode.OK)] // trả về dữ liệu model cho FE
-        public async Task<IActionResult> GetList([FromQuery] ChiTietBieuGiaRequest request)
+        public async Task<IActionResult> GetList([FromQuery] GetListChiTietBieuGiaCommand request)
         {
-            var data = await _ChiTietBieuGiaQuery.GetList(request);
+            var data = await _mediator.Send(request);
             return Ok(new ApiSuccessResult<ChiTietBieuGiaResult>
             {
                 Data = data

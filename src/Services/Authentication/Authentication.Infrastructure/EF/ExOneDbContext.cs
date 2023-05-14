@@ -85,7 +85,6 @@ namespace Authentication.Infrastructure.EF
         public DbSet<DonGiaChietTinh> DonGiaChietTinh { get; set; }
         public DbSet<BieuGiaTongHop> BieuGiaTongHop { get; set; }
 
-        //Danh muc Bieu gia - Kem M5
         public DbSet<DM_BieuGia> DM_BieuGia { get; set; }
 
 

@@ -13,6 +13,10 @@ using Authentication.Application.Infrastructure;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.HttpOverrides;
 using Authentication.API.Configures;
+using DinkToPdf.Contracts;
+using DinkToPdf;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace Authentication.API
 {
@@ -34,6 +38,7 @@ namespace Authentication.API
             services.AddSingleton(appSettings);
             //Add DB context
             services.AddDatabaseModule(Configuration);
+            services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
 
             //Mediator, dependency
             services

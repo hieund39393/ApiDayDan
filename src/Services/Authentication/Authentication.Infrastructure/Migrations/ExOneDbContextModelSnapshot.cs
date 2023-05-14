@@ -187,6 +187,12 @@ namespace Authentication.Infrastructure.Migrations
                     b.Property<decimal>("DonGia")
                         .HasColumnType("numeric(18,2)");
 
+                    b.Property<decimal>("DonGia2")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("DonGia3")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<Guid>("IdBieuGia")
                         .HasColumnType("uniqueidentifier");
 

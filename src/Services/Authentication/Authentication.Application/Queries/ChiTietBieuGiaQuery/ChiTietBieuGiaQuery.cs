@@ -14,7 +14,7 @@ namespace Authentication.Application.Queries.ChiTietBieuGiaQuery
     public interface IChiTietBieuGiaQuery // tạo interface (Quy tắc : có chữ I ở đầu để biết nó là interface)
     {
 
-        Task<ChiTietBieuGiaResult> GetList(ChiTietBieuGiaRequest request);
+        //Task<ChiTietBieuGiaResult> GetList(ChiTietBieuGiaRequest request);
         Task<List<SelectItem>> GetBieuGiaByLoaiBieuGia(Guid loaiBieuGia);
         Task<List<SelectItem>> GetDonGiaChietTinh(int IdPhanLoai);
         Task<List<GetDonGiaResponse>> GetDonGia(GetDonGiaRequest request);
@@ -241,16 +241,17 @@ namespace Authentication.Application.Queries.ChiTietBieuGiaQuery
             var bieuGiaTongHop = await _unitOfWork.BieuGiaTongHopRepository
                 .FindOneAsync(x => x.IdBieuGia == request.IdBieuGia && x.Quy == request.Quy && x.Nam == request.Nam && x.TinhTrang != (int)TinhTrangEnum.DaDuyet);
 
-            if (bieuGiaTongHop != null)
-            {
-                bieuGiaTongHop.DonGia = result.DonGiaThu6;
-                _unitOfWork.BieuGiaTongHopRepository.Update(bieuGiaTongHop);
-                await _unitOfWork.SaveChangesAsync();
-            }
-
             result.ChuaCoDuLieu = chuaCoDuLieu;
             result.DonGiaThu7 = congViecChinh.SoLuong == 0 ? 0 : Math.Round((result.CongTruocThue - (donGiaVatLieu + (donGiaNhanCong * (decimal)1.06))) / congViecChinh.SoLuong.Value, 0);
 
+            if (bieuGiaTongHop != null)
+            {
+                bieuGiaTongHop.DonGia = result.DonGiaThu5;
+                bieuGiaTongHop.DonGia2 = result.DonGiaThu6;
+                bieuGiaTongHop.DonGia3 = result.DonGiaThu7;
+                _unitOfWork.BieuGiaTongHopRepository.Update(bieuGiaTongHop);
+                await _unitOfWork.SaveChangesAsync();
+            }
             return result;
 
         }

@@ -10,5 +10,6 @@ namespace Authentication.Application.Model.BieuGiaTongHop
     {
         public int Quy { get; set; }
         public int Nam { get; set; }
+        public int PhanLoai { get; set; }
     }
 }

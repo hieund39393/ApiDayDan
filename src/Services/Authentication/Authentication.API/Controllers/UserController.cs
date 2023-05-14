@@ -91,7 +91,7 @@ namespace Authentication.API.Controllers
         /// <returns></returns>
         [HttpPut("change-password")]
         [ProducesResponseType(typeof(ApiSuccessResult<bool>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> ChangePassWord([FromBody] ChangePassWordCommand command)
+        public async Task<IActionResult> ChangePassWord([FromBody] ChangeMyPassWordCommand command)
         {
             var user = await _mediator.Send(command);
             return Ok(new ApiSuccessResult<bool>(data: user, message: Resources.MSG_CHANGE_PASSWORD_SUCCESS));

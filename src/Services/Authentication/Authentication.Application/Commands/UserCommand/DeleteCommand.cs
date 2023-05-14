@@ -28,7 +28,7 @@ namespace Authentication.Application.Commands.UserCommand
             }
             data.IsDeleted = true;
             _unitOfWork.UserRepository.Update(data);
-            _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.SaveChangesAsync();
             return true;
         }
     }
