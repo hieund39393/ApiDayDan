@@ -43,5 +43,6 @@
         public decimal? DonGiaTruocThue { get; set; }
         public decimal? GiaTriTruocThue { get; set; }
         public bool CongViecChinh { get; set; }
+        public int? ThuTuHienThi { get; set; }
     }
 }

@@ -51,6 +51,7 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                     IdCongViec = x.DM_CongViec.Id,
                     Nam = request.Nam,
                     Quy = request.Quy,
+                    ThuTuHienThi = x.ThuTuHienThi,
                     SoLuong = Math.Round(x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy) != null
                     ? x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).SoLuong :
                      x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc).SoLuong, 2), //0
@@ -125,7 +126,7 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
             }
             var congViecChinh = query.Where(x => x.CongViecChinh).FirstOrDefault();
 
-            result.ListBieuGia = query.OrderByDescending(x => x.CongViecChinh).ToList();
+            result.ListBieuGia = query.OrderBy(x=>x.ThuTuHienThi).ToList();
             result.KhaoSat = 0;
             result.CongTruocThue = result.KhaoSat + result.Tong;
             result.DonGiaTongHopTruocThue = soLuongCVC == 0 ? 0 : Math.Round(result.Tong / soLuongCVC, 0);

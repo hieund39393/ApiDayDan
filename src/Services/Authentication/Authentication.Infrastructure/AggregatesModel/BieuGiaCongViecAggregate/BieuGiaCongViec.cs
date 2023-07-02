@@ -16,5 +16,6 @@ namespace Authentication.Infrastructure.AggregatesModel.BieuGiaCongViecAggregate
         public DM_CongViec DM_CongViec { get; set; }
 
         public bool CongViecChinh { get; set; }
+        public int ThuTuHienThi { get; set; }
     }
 }
