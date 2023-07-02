@@ -50,6 +50,7 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
             _unitOfWork.ChiTietBieuGiaRepository.AddRange(listChiTietBieuGia);
 
             bieuGiaCu.Id = Guid.NewGuid();
+            bieuGiaCu.TinhTrang = TinhTrangEnum.TaoMoi.GetHashCode();
             if (bieuGiaCu.Quy == 4)
             {
                 bieuGiaCu.Quy = 1;
