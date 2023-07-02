@@ -23,7 +23,7 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
         }
         public async Task<bool> Handle(SyncChiTietBieuGiaCommand request, CancellationToken cancellationToken)
         {
-            var bieuGiaCu = await _unitOfWork.BieuGiaTongHopRepository.GetQuery().OrderByDescending(x => x.Nam).ThenByDescending(x => x.Quy).AsNoTracking().FirstOrDefaultAsync();
+            var bieuGiaCu = await _unitOfWork.BieuGiaTongHopRepository.GetQuery(x=>x.TinhTrang == TinhTrangEnum.DaDuyet.GetHashCode()).OrderByDescending(x => x.Nam).ThenByDescending(x => x.Quy).AsNoTracking().FirstOrDefaultAsync();
             var chiTietBieuGiaCu = await _unitOfWork.ChiTietBieuGiaRepository.GetQuery(x => x.Nam == bieuGiaCu.Nam && x.Quy == bieuGiaCu.Quy).AsNoTracking().ToListAsync();
             var listChiTietBieuGia = new List<ChiTietBieuGia>();
             foreach (var item in chiTietBieuGiaCu)
@@ -40,14 +40,28 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                 }
                 var checkExist = await _unitOfWork.ChiTietBieuGiaRepository
                     .FindOneAsync(x => x.IDBieuGia == item.IDBieuGia && x.IDCongViec == item.IDCongViec && x.Nam == item.Nam && x.Quy == item.Quy);
-                if(checkExist == null)
+                if (checkExist == null)
                 {
-                listChiTietBieuGia.Add(item);
+                    listChiTietBieuGia.Add(item);
 
                 }
 
             }
             _unitOfWork.ChiTietBieuGiaRepository.AddRange(listChiTietBieuGia);
+
+            bieuGiaCu.Id = Guid.NewGuid();
+            if (bieuGiaCu.Quy == 4)
+            {
+                bieuGiaCu.Quy = 1;
+                bieuGiaCu.Nam += 1;
+            }
+            else
+            {
+                bieuGiaCu.Quy += 1;
+            }
+
+            _unitOfWork.BieuGiaTongHopRepository.Add(bieuGiaCu);
+
             await _unitOfWork.SaveChangesAsync();
             return true;
 
