@@ -27,7 +27,7 @@ namespace Authentication.Application.Commands.DonGiaChietTinhCommand
         {
             // tìm kiếm xem có mã loại cáp trong db không
             var entity = await _unitOfWork.DonGiaChietTinhRepository.FindOneAsync(x =>
-            x.IdVatLieuChietTinh == request.IdVatLieuChietTinh);
+            x.IdVatLieuChietTinh == request.IdVatLieuChietTinh && x.IdPhanLoai == request.IdPhanLoai);
             // nếu không có dữ liệu thì thêm mới
             if (entity == null)
             {

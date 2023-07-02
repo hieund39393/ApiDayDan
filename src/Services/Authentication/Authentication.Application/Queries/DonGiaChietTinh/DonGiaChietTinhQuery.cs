@@ -50,7 +50,7 @@ namespace Authentication.Application.Queries.DonGiaChietTinhQuery
                     DonGia = x.DonGia,
                     PhanLoai = GetDescription((DonGiaChietTinhPhanLoai)x.IdPhanLoai),
                     IdPhanLoai = x.IdPhanLoai,
-                    TongGia = x.TongGia,
+                    TongGia = x.DonGia,
                     NgayTao = x.CreatedDate,
                 });// select dữ liệu
 
