@@ -76,6 +76,13 @@ namespace Authentication.API.Controllers
             var data = await _mediator.Send(command);
             return Ok(new ApiSuccessResult<bool>(data: data, message: string.Format(Resources.MSG_UPDATE_SUCCESS, "chi tiết biểu giá")));
         }
+        [HttpPost("dong-bo")]
+        [ProducesResponseType(typeof(ApiSuccessResult<bool>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> DongBo([FromBody] SyncChiTietBieuGiaCommand command)
+        {
+            var data = await _mediator.Send(command);
+            return Ok(new ApiSuccessResult<bool>(data: data, message: string.Format("Đồng bộ chi tiết biểu giá thành công")));
+        }
 
         [HttpGet("get-don-gia")]
         public async Task<IActionResult> GetDonGia([FromQuery] GetDonGiaRequest request)
