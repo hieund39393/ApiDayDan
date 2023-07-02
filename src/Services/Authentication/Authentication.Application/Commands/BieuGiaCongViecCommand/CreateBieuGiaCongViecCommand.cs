@@ -10,7 +10,7 @@ namespace Authentication.Application.Commands.BieuGiaCongViecCommand
     public class CreateBieuGiaCongViecCommand : IRequest<bool>
     {
         public Guid IdBieuGia { get; set; }
-        public Guid IdCongViec { get; set; }
+        public List<Guid> IdCongViec { get; set; }
         public bool CongViecChinh { get; set; }
     }
 
@@ -32,25 +32,27 @@ namespace Authentication.Application.Commands.BieuGiaCongViecCommand
                 throw new EvnException("Biểu giá đã có công việc chính");
             }
 
-            var entity = listBieuGia.FirstOrDefault(x => x.IdCongViec == request.IdCongViec && x.IdBieuGia == request.IdBieuGia);
-            // nếu không có dữ liệu thì thêm mới
-            if (entity == null)
+            foreach (var item in request.IdCongViec)
             {
-                // Tạo model BieuGiaCongViec
-                var model = new BieuGiaCongViec
+                var entity = listBieuGia.FirstOrDefault(x => x.IdCongViec == item && x.IdBieuGia == request.IdBieuGia);
+                // nếu không có dữ liệu thì thêm mới
+                if (entity == null)
                 {
-                    IdBieuGia = request.IdBieuGia,
-                    IdCongViec = request.IdCongViec,
-                    CongViecChinh = request.CongViecChinh
-                };
-                //thêm vào DB
-                _unitOfWork.BieuGiaCongViecRepository.Add(model);
-                //lưu lại trong DB
-                await _unitOfWork.SaveChangesAsync();
-                return true;
+                    // Tạo model BieuGiaCongViec
+                    var model = new BieuGiaCongViec
+                    {
+                        IdBieuGia = request.IdBieuGia,
+                        IdCongViec = item,
+                        CongViecChinh = request.CongViecChinh
+                    };
+                    //thêm vào DB
+                    _unitOfWork.BieuGiaCongViecRepository.Add(model);
+                    //lưu lại trong DB
+                }
             }
-            // nếu đã tồn tạo 1 bản ghi
-            throw new EvnException(string.Format(Resources.MSG_IS_EXIST, "Biểu giá công việc"));
+
+            await _unitOfWork.SaveChangesAsync();
+            return true;
         }
     }
 }

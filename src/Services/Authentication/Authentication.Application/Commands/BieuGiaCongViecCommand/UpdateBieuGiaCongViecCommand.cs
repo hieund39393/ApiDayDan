@@ -34,7 +34,7 @@ namespace Authentication.Application.Commands.BieuGiaCongViecCommand
             {
                 throw new EvnException(string.Format(Resources.MSG_NOT_FOUND, "biểu giá công việc"));
             }
-            if (request.CongViecChinh && !entity.CongViecChinh && await _unitOfWork.BieuGiaCongViecRepository.GetQuery().AnyAsync(x => x.CongViecChinh))
+            if (request.CongViecChinh && !entity.CongViecChinh && await _unitOfWork.BieuGiaCongViecRepository.GetQuery().AnyAsync(x => x.IdBieuGia == request.IdBieuGia && x.CongViecChinh))
             {
                 throw new EvnException("Biểu giá đã có công việc chính");
             }
