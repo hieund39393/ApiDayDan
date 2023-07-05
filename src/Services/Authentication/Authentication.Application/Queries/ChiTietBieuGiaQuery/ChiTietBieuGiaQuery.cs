@@ -45,7 +45,7 @@ namespace Authentication.Application.Queries.ChiTietBieuGiaQuery
             {
                 case 1:
                     var httpClient = new BaseResponseService<ApiResultData2>(_httpClientFactory);
-                    var data = await httpClient.GetResponseData2("http://10.9.8.157:8087/Get_DonGiaCap_BaoGiaEVNHANOI");
+                    var data = await httpClient.GetResponseData2($"http://10.9.8.157:8087/Get_DonGiaCap_BaoGiaEVNHANOI?nam={request.Nam}&quy={request.Quy}");
                     result = data.Data.Select(x => new GetDonGiaResponse { Ten = x.TenVatTu, Ma = x.MaVatTuERP, DonGia = x.DonGia }).ToList();
                     break;
                 case 2:

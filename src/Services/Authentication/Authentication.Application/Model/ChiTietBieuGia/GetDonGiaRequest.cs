@@ -10,5 +10,7 @@ namespace Authentication.Application.Model.ChiTietBieuGia
     public class GetDonGiaRequest : PagingQuery
     {
         public int Nguon { get; set; }
+        public int Nam { get; set; }
+        public int Quy { get; set; }
     }
 }
