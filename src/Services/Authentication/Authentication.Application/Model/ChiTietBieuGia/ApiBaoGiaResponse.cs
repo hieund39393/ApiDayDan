@@ -8,7 +8,7 @@ namespace Authentication.Application.Model.ChiTietBieuGia
 {
     public class ApiBaoGiaResponse
     {
-        public string MaVatTuERP { get; set; }
+        public string MaVatTu { get; set; }
         public string TenVatTu { get; set; }
         public string DonGia { get; set; }
     }
