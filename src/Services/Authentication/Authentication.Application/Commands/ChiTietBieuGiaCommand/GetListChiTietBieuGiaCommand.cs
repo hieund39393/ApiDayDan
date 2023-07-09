@@ -109,7 +109,7 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                     donGiaNhanCong += (item.DonGia_VL.Value * item.SoLuong.Value);
                 }
 
-                item.Stt = stt;
+                item.Stt = stt.ToString();
                 item.CPChung = string.IsNullOrEmpty(item.MaNoiDungCongViec) ? 0 : Math.Round((decimal)65 / 100 * (item.DonGia_NC.Value), 0);                                                  //12            
                 item.CPNhaTam = 0;             //13             tạm thời không cho công thức        
                 //item.CPNhaTam = Math.Round((item.DonGia_VL.Value + item.DonGia_NC.Value + item.DonGia_MTC.Value) * (decimal)1.2 / 100, 0);             //13                    

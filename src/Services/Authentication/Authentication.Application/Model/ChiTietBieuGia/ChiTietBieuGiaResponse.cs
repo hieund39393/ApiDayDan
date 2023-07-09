@@ -19,7 +19,7 @@
     }
     public class ChiTietBieuGiaResponse
     {
-        public int? Stt { get; set; }
+        public string Stt { get; set; }
         public Guid? Id { get; set; }
         public Guid? IdBieuGia { get; set; }
         public string MaNoiDungCongViec { get; set; }
@@ -37,6 +37,8 @@
         public decimal? DonGia_MTC { get; set; }
 
         public decimal? CPChung { get; set; }
+        public decimal? CPChung2 { get; set; }
+        public decimal? CPChung3 { get; set; }
         public decimal? CPNhaTam { get; set; }
         public decimal? CPCongViecKhongXDDuocTuTK { get; set; }
         public decimal? ThuNhapChiuThue { get; set; }
@@ -44,5 +46,8 @@
         public decimal? GiaTriTruocThue { get; set; }
         public bool CongViecChinh { get; set; }
         public int? ThuTuHienThi { get; set; }
+
+        public int PhanLoai { get; set; }
+        public int tt { get; set; }
     }
 }

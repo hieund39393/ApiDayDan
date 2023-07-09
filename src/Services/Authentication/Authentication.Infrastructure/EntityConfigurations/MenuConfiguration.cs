@@ -18,6 +18,7 @@ namespace Authentication.Infrastructure.EntityConfigurations
             builder.Property(x => x.Name).HasMaxLength(256);
             builder.Property(x => x.Code).HasMaxLength(10);
             builder.HasOne(x => x.Module).WithMany(x => x.Menus).HasForeignKey(x => x.ModuleId);
+            builder.HasOne<Menu>().WithMany(x => x.Menus).HasForeignKey(x => x.ParenId);
             ConfigureBase(builder);
         }
     }

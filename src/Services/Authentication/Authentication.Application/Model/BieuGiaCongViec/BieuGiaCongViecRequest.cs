@@ -7,5 +7,6 @@ namespace Authentication.Application.Model.BieuGiaCongViec
         public Guid? IdKhuVuc { get; set; }
         public Guid? IdLoaiBieuGia { get; set; }
         public Guid? IdBieuGia { get; set; }
+        public string IdPhanLoai { get; set; }
     }
 }

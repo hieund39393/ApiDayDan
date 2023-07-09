@@ -14,5 +14,7 @@ namespace Authentication.Application.Model.BieuGiaCongViec
         public bool CongViecChinh { get; set; }
         public string TenLoaiBieuGia { get; set; }
         public string VungKhuVuc { get; set; }
+        public string PhanLoai { get; set; }
+        public string TenPhanLoai { get; set; }
     }
 }

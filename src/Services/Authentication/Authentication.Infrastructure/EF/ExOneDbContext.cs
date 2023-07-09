@@ -39,7 +39,7 @@ namespace Authentication.Infrastructure.EF
         public ExOneDbContext() : base()
         { }
         //Entities
-        
+
 
 
         public ExOneDbContext(DbContextOptions<ExOneDbContext> options) : base(options)
@@ -87,6 +87,18 @@ namespace Authentication.Infrastructure.EF
 
         public DbSet<DM_BieuGia> DM_BieuGia { get; set; }
 
+        // Cáp ngầm
+
+        public DbSet<DM_LoaiBieuGia_CapNgam> DM_LoaiBieuGia_CapNgam { get; set; }
+        public DbSet<DM_BieuGia_CapNgam> DM_BieuGia_CapNgam { get; set; }
+        public DbSet<DM_CongViec_CapNgam> DM_CongViec_CapNgam { get; set; }
+        public DbSet<BieuGiaCongViec_CapNgam> BieuGiaCongViec_CapNgam { get; set; }
+        public DbSet<DM_VatLieu_CapNgam> DM_VatLieu_CapNgam { get; set; }
+        public DbSet<DonGiaVatLieu_CapNgam> DonGiaVatLieu_CapNgam { get; set; }
+        public DbSet<DonGiaNhanCong_CapNgam> DonGiaNhanCong_CapNgam { get; set; }
+        public DbSet<ChiTietBieuGia_CapNgam> ChiTietBieuGia_CapNgam { get; set; }
+        public DbSet<BieuGiaTongHop_CapNgam> BieuGiaTongHop_CapNgam { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -103,7 +115,7 @@ namespace Authentication.Infrastructure.EF
             builder.ApplyConfiguration(new MenuConfiguration());
             builder.ApplyConfiguration(new ModuleConfiguration());
             builder.ApplyConfiguration(new PermissionConfiguration());
-         
+
             builder.ApplyConfiguration(new DM_LoaiBieuGiaConfiguration());
             builder.ApplyConfiguration(new DM_KhuVucConfiguration());
             builder.ApplyConfiguration(new DM_CongViecConfiguration());
@@ -117,6 +129,21 @@ namespace Authentication.Infrastructure.EF
             builder.ApplyConfiguration(new DonGiaNhanCongConfiguration());
             builder.ApplyConfiguration(new DonGiaChietTinhConfiguration());
             builder.ApplyConfiguration(new BieuGiaTongHopConfiguration());
+
+            builder.ApplyConfiguration(new DM_LoaiBieuGia_CapNgamConfiguration());
+            builder.ApplyConfiguration(new DM_BieuGia_CapNgamConfiguration());
+
+            builder.ApplyConfiguration(new DM_VatLieu_CapNgamConfiguration());
+            builder.ApplyConfiguration(new DM_CongViec_CapNgamConfiguration());
+
+            builder.ApplyConfiguration(new BieuGiaCongViec_CapNgamConfiguration());
+
+            builder.ApplyConfiguration(new DonGiaVatLieu_CapNgamConfiguration());
+            builder.ApplyConfiguration(new DonGiaNhanCong_CapNgamConfiguration());
+
+            builder.ApplyConfiguration(new ChiTietBieuGia_CapNgamConfiguration());
+            builder.ApplyConfiguration(new BieuGiaTongHop_CapNgamConfiguration());
+
 
             //Cau hinh cua Kem M5
             builder.ApplyConfiguration(new DM_BieuGiaConfiguration());

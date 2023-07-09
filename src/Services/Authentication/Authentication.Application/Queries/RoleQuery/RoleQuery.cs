@@ -58,20 +58,40 @@ namespace Authentication.Application.Queries.RoleQuery
         public async Task<List<PermissionResponse>> GetPermission()
         {
             var listMenu = await _unitOfWork.ModuleRepository.GetQuery().AsNoTracking().Include(x => x.Menus).ThenInclude(x => x.Permissions)
+                .Include(x => x.Menus).ThenInclude(y => y.Menus)
                 .Select(x => new PermissionResponse
                 {
                     Title = x.Name,
                     Key = x.Code,
-                    Children = x.Menus.Select(m => new PermissionResponse
+                    Children = x.Menus.Where(n => n.ParenId == null).Select(m => new PermissionResponse
                     {
                         Title = m.Name,
                         Key = m.Code,
-                        Children = m.Permissions.Select(k => new PermissionResponse
+                        Children = m.Menus.Any() ?
+                                        m.Menus.Select(k => new PermissionResponse
+                                        {
+                                            Title = k.Name,
+                                            Key = k.Code,
+                                            Children = k.Permissions.Select(p => new PermissionResponse
+                                            {
+                                                Title = p.Name,
+                                                Key = p.Code,
+                                            }).ToList(),
+                                        }).ToList()
+                        : m.Permissions.Select(k => new PermissionResponse
                         {
                             Title = k.Name,
                             Key = k.Code,
 
                         }).ToList(),
+
+
+                        //Children = m.Permissions.Select(k => new PermissionResponse
+                        //{
+                        //    Title = k.Name,
+                        //    Key = k.Code,
+
+                        //}).ToList(),
                     }).ToList(),
                 })
                 .ToListAsync();
@@ -80,6 +100,7 @@ namespace Authentication.Application.Queries.RoleQuery
             return listMenu;
 
         }
+
 
         //private List<PermissionResponse> MenuChild(int parentId, List<Menu> listMenu)
         //{

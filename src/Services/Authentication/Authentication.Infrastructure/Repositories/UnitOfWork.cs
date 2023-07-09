@@ -38,22 +38,32 @@ namespace Authentication.Infrastructure.Repositories
         IRepository<Position> PositionRepository { get; }
 
         IRepository<DM_LoaiBieuGia> DM_LoaiBieuGiaRepository { get; }
+        IRepository<DM_LoaiBieuGia_CapNgam> DM_LoaiBieuGia_CapNgamRepository { get; }
+
         IRepository<DM_KhuVuc> DM_KhuVucRepository { get; }
         IRepository<DM_CongViec> DM_CongViecRepository { get; }
+        IRepository<DM_CongViec_CapNgam> DM_CongViec_CapNgamRepository { get; }
+
         IRepository<BieuGiaCongViec> BieuGiaCongViecRepository { get; }
+        IRepository<BieuGiaCongViec_CapNgam> BieuGiaCongViec_CapNgamRepository { get; }
         IRepository<DM_LoaiCap> DM_LoaiCapRepository { get; }
         IRepository<DM_VatLieu> DM_VatLieuRepository { get; }
+        IRepository<DM_VatLieu_CapNgam> DM_VatLieu_CapNgamRepository { get; }
         IRepository<DM_VatLieuChietTinh> DM_VatLieuChietTinhRepository { get; }
         IRepository<GiaCap> GiaCapRepository { get; }
         IRepository<DonGiaVatLieu> DonGiaVatLieuRepository { get; }
+        IRepository<DonGiaVatLieu_CapNgam> DonGiaVatLieu_CapNgamRepository { get; }
         IRepository<DonGiaNhanCong> DonGiaNhanCongRepository { get; }
+        IRepository<DonGiaNhanCong_CapNgam> DonGiaNhanCong_CapNgamRepository { get; }
         IRepository<DonGiaChietTinh> DonGiaChietTinhRepository { get; }
         IRepository<ChiTietBieuGia> ChiTietBieuGiaRepository { get; }
+        IRepository<ChiTietBieuGia_CapNgam> ChiTietBieuGia_CapNgamRepository { get; }
         IRepository<BieuGiaTongHop> BieuGiaTongHopRepository { get; }
+        IRepository<BieuGiaTongHop_CapNgam> BieuGiaTongHop_CapNgamRepository { get; }
 
 
-        //1. DM bieu gia - Kem
         IRepository<DM_BieuGia> DM_BieuGiaRepository { get; }
+        IRepository<DM_BieuGia_CapNgam> DM_BieuGia_CapNgamRepository { get; }
 
 
 
@@ -77,21 +87,29 @@ namespace Authentication.Infrastructure.Repositories
         private IRepository<Position> _positionRepository;
 
         private IRepository<DM_LoaiBieuGia> _dM_LoaiBieuGiaRepository;
+        private IRepository<DM_LoaiBieuGia_CapNgam> _dM_LoaiBieuGia_CapNgamRepository;
         private IRepository<DM_KhuVuc> _dM_KhuVucRepository;
         private IRepository<DM_CongViec> _dM_CongViecRepository;
+        private IRepository<DM_CongViec_CapNgam> _dM_CongViec_CapNgamRepository;
         private IRepository<BieuGiaCongViec> _bieuGiaCongViecRepository;
+        private IRepository<BieuGiaCongViec_CapNgam> _bieuGiaCongViec_CapNgamRepository;
         private IRepository<DM_LoaiCap> _dM_LoaiCapRepository;
         private IRepository<DM_VatLieu> _dM_VatLieuRepository;
+        private IRepository<DM_VatLieu_CapNgam> _dM_VatLieu_CapNgamRepository;
         private IRepository<DM_VatLieuChietTinh> _dM_VatLieuChietTinhRepository;
         private IRepository<GiaCap> _giaCapRepository;
         private IRepository<DonGiaVatLieu> _donGiaVatLieuRepository;
+        private IRepository<DonGiaVatLieu_CapNgam> _donGiaVatLieu_CapNgamRepository;
         private IRepository<DonGiaNhanCong> _donGiaNhanCongRepository;
+        private IRepository<DonGiaNhanCong_CapNgam> _donGiaNhanCong_CapNgamRepository;
         private IRepository<DonGiaChietTinh> _donGiaChietTinhRepository;
         private IRepository<ChiTietBieuGia> _chiTietBieuGiaRepository;
+        private IRepository<ChiTietBieuGia_CapNgam> _chiTietBieuGia_CapNgamRepository;
         private IRepository<BieuGiaTongHop> _bieuGiaTongHopRepository;
+        private IRepository<BieuGiaTongHop_CapNgam> _bieuGiaTongHop_CapNgamRepository;
 
-        //Danh muc bieu gia - Kem
         private IRepository<DM_BieuGia> _dM_BieuGiaRepository;
+        private IRepository<DM_BieuGia_CapNgam> _dM_BieuGia_CapNgamRepository;
 
         public UnitOfWork(ExOneDbContext context)
         {
@@ -234,7 +252,7 @@ namespace Authentication.Infrastructure.Repositories
 
 
 
-    
+
         public IRepository<DM_LoaiBieuGia> DM_LoaiBieuGiaRepository
         {
             get
@@ -245,7 +263,19 @@ namespace Authentication.Infrastructure.Repositories
                 }
                 return _dM_LoaiBieuGiaRepository;
             }
-        }     
+        }
+
+        public IRepository<DM_LoaiBieuGia_CapNgam> DM_LoaiBieuGia_CapNgamRepository
+        {
+            get
+            {
+                if (_dM_LoaiBieuGia_CapNgamRepository == null)
+                {
+                    _dM_LoaiBieuGia_CapNgamRepository = new Repository<DM_LoaiBieuGia_CapNgam>(_context);
+                }
+                return _dM_LoaiBieuGia_CapNgamRepository;
+            }
+        }
         public IRepository<DM_KhuVuc> DM_KhuVucRepository
         {
             get
@@ -256,8 +286,8 @@ namespace Authentication.Infrastructure.Repositories
                 }
                 return _dM_KhuVucRepository;
             }
-        }      
-   
+        }
+
         public IRepository<DM_CongViec> DM_CongViecRepository
         {
             get
@@ -268,7 +298,18 @@ namespace Authentication.Infrastructure.Repositories
                 }
                 return _dM_CongViecRepository;
             }
-        }    
+        }
+        public IRepository<DM_CongViec_CapNgam> DM_CongViec_CapNgamRepository
+        {
+            get
+            {
+                if (_dM_CongViec_CapNgamRepository == null)
+                {
+                    _dM_CongViec_CapNgamRepository = new Repository<DM_CongViec_CapNgam>(_context);
+                }
+                return _dM_CongViec_CapNgamRepository;
+            }
+        }
         public IRepository<BieuGiaCongViec> BieuGiaCongViecRepository
         {
             get
@@ -279,7 +320,19 @@ namespace Authentication.Infrastructure.Repositories
                 }
                 return _bieuGiaCongViecRepository;
             }
-        }       
+        }
+
+        public IRepository<BieuGiaCongViec_CapNgam> BieuGiaCongViec_CapNgamRepository
+        {
+            get
+            {
+                if (_bieuGiaCongViec_CapNgamRepository == null)
+                {
+                    _bieuGiaCongViec_CapNgamRepository = new Repository<BieuGiaCongViec_CapNgam>(_context);
+                }
+                return _bieuGiaCongViec_CapNgamRepository;
+            }
+        }
         public IRepository<DM_LoaiCap> DM_LoaiCapRepository
         {
             get
@@ -290,7 +343,7 @@ namespace Authentication.Infrastructure.Repositories
                 }
                 return _dM_LoaiCapRepository;
             }
-        }       
+        }
         public IRepository<DM_VatLieu> DM_VatLieuRepository
         {
             get
@@ -301,7 +354,18 @@ namespace Authentication.Infrastructure.Repositories
                 }
                 return _dM_VatLieuRepository;
             }
-        }       
+        }
+        public IRepository<DM_VatLieu_CapNgam> DM_VatLieu_CapNgamRepository
+        {
+            get
+            {
+                if (_dM_VatLieu_CapNgamRepository == null)
+                {
+                    _dM_VatLieu_CapNgamRepository = new Repository<DM_VatLieu_CapNgam>(_context);
+                }
+                return _dM_VatLieu_CapNgamRepository;
+            }
+        }
         public IRepository<DM_VatLieuChietTinh> DM_VatLieuChietTinhRepository
         {
             get
@@ -312,7 +376,7 @@ namespace Authentication.Infrastructure.Repositories
                 }
                 return _dM_VatLieuChietTinhRepository;
             }
-        }  
+        }
         public IRepository<GiaCap> GiaCapRepository
         {
             get
@@ -323,7 +387,7 @@ namespace Authentication.Infrastructure.Repositories
                 }
                 return _giaCapRepository;
             }
-        }      
+        }
         public IRepository<DonGiaVatLieu> DonGiaVatLieuRepository
         {
             get
@@ -334,7 +398,18 @@ namespace Authentication.Infrastructure.Repositories
                 }
                 return _donGiaVatLieuRepository;
             }
-        } 
+        }
+        public IRepository<DonGiaVatLieu_CapNgam> DonGiaVatLieu_CapNgamRepository
+        {
+            get
+            {
+                if (_donGiaVatLieu_CapNgamRepository == null)
+                {
+                    _donGiaVatLieu_CapNgamRepository = new Repository<DonGiaVatLieu_CapNgam>(_context);
+                }
+                return _donGiaVatLieu_CapNgamRepository;
+            }
+        }
         public IRepository<DonGiaNhanCong> DonGiaNhanCongRepository
         {
             get
@@ -345,7 +420,18 @@ namespace Authentication.Infrastructure.Repositories
                 }
                 return _donGiaNhanCongRepository;
             }
-        }   
+        }
+        public IRepository<DonGiaNhanCong_CapNgam> DonGiaNhanCong_CapNgamRepository
+        {
+            get
+            {
+                if (_donGiaNhanCong_CapNgamRepository == null)
+                {
+                    _donGiaNhanCong_CapNgamRepository = new Repository<DonGiaNhanCong_CapNgam>(_context);
+                }
+                return _donGiaNhanCong_CapNgamRepository;
+            }
+        }
         public IRepository<DonGiaChietTinh> DonGiaChietTinhRepository
         {
             get
@@ -356,7 +442,7 @@ namespace Authentication.Infrastructure.Repositories
                 }
                 return _donGiaChietTinhRepository;
             }
-        }      
+        }
         public IRepository<ChiTietBieuGia> ChiTietBieuGiaRepository
         {
             get
@@ -367,7 +453,18 @@ namespace Authentication.Infrastructure.Repositories
                 }
                 return _chiTietBieuGiaRepository;
             }
-        }  
+        }
+        public IRepository<ChiTietBieuGia_CapNgam> ChiTietBieuGia_CapNgamRepository
+        {
+            get
+            {
+                if (_chiTietBieuGia_CapNgamRepository == null)
+                {
+                    _chiTietBieuGia_CapNgamRepository = new Repository<ChiTietBieuGia_CapNgam>(_context);
+                }
+                return _chiTietBieuGia_CapNgamRepository;
+            }
+        }
         public IRepository<BieuGiaTongHop> BieuGiaTongHopRepository
         {
             get
@@ -379,8 +476,19 @@ namespace Authentication.Infrastructure.Repositories
                 return _bieuGiaTongHopRepository;
             }
         }
-     
-       
+        public IRepository<BieuGiaTongHop_CapNgam> BieuGiaTongHop_CapNgamRepository
+        {
+            get
+            {
+                if (_bieuGiaTongHop_CapNgamRepository == null)
+                {
+                    _bieuGiaTongHop_CapNgamRepository = new Repository<BieuGiaTongHop_CapNgam>(_context);
+                }
+                return _bieuGiaTongHop_CapNgamRepository;
+            }
+        }
+
+
         // 3 :Danh mục bieu gia của Kem
         public IRepository<DM_BieuGia> DM_BieuGiaRepository
         {
@@ -391,6 +499,18 @@ namespace Authentication.Infrastructure.Repositories
                     _dM_BieuGiaRepository = new Repository<DM_BieuGia>(_context);
                 }
                 return _dM_BieuGiaRepository;
+            }
+        }
+
+        public IRepository<DM_BieuGia_CapNgam> DM_BieuGia_CapNgamRepository
+        {
+            get
+            {
+                if (_dM_BieuGia_CapNgamRepository == null)
+                {
+                    _dM_BieuGia_CapNgamRepository = new Repository<DM_BieuGia_CapNgam>(_context);
+                }
+                return _dM_BieuGia_CapNgamRepository;
             }
         }
 

@@ -295,22 +295,45 @@ namespace EVN.Core.Common
             public const string Vung = QTDM + "vung";
             public const string KhuVuc = QTDM + "kv";
 
+            public const string CapTrenKhong = QTDM + "ctk";
+            public const string CapNgam = QTDM + "cn";
+
             public const string LoaiCap = QTDM + "lc";
             public const string VatLieu = QTDM + "vl";
             public const string VatLieuChietTinh = QTDM + "vlct";
             public const string BieuGiaCongViec = QTDM + "bgcv";
 
+            // cáp ngầm
+            public const string LoaiBieuGiaCapNgam = QTDM + "lbgcn";
+            public const string BieuGiaCapNgam = QTDM + "bgcn";
+            public const string CongViecCapNgam = QTDM + "cvcn";
+            public const string BieuGiaCongViecCapNgam = QTDM + "bgcvcn";
+            public const string VatLieuCapNgam = QTDM + "vlcn";
+
+
             // Menu của quản trị đơn giá
+
+            public const string DGCapTrenKhong = QLTTDG + "ctk";
+            public const string DGCapNgam = QLTTDG + "cn";
 
             public const string DonGiaCap = QLTTDG + "dgc";
             public const string DonGiaNhanCong = QLTTDG + "dgnc";
             public const string DonGiaVatLieu = QLTTDG + "dgvl";
             public const string DonGiaVatLieuChietTinh = QLTTDG + "dgvlct";
+            public const string DonGiaNhanCongCapNgam = QLTTDG + "dgnccn";
+            public const string DonGiaVatLieuCapNgam = QLTTDG + "dgvlcn";
 
             // Menu của quản trị BIỂU GIÁ
+            public const string CTCapTrenKhong = QLTTCTBG + "ctk";
+            public const string CTCapNgam = QLTTCTBG + "cn";
+
             public const string ChiTietBieuGia = QLTTCTBG + "ctbg";
             public const string XacNhanBieuGia = QLTTCTBG + "xnbg";
             public const string GuiDuyetBieuGia = QLTTCTBG + "gdbg";
+
+            public const string ChiTietBieuGiaCapNgam = QLTTCTBG + "ctbgcn";
+            public const string XacNhanBieuGiaCapNgam = QLTTCTBG + "xnbgcn";
+            public const string GuiDuyetBieuGiaCapNgam = QLTTCTBG + "gdbgcn";
 
             public const string View = ".v";
             public const string Create = ".c";
