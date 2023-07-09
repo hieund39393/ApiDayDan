@@ -2,13 +2,7 @@
 using Authentication.Infrastructure.Repositories;
 using EVN.Core.Extensions;
 using EVN.Core.Models;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Authentication.Application.Queries.CommonQuery
 {
@@ -43,7 +37,7 @@ namespace Authentication.Application.Queries.CommonQuery
             var listPermission = TokenExtensions.GetPermission();
 
 
-            var data = await _unitOfWork.ModuleRepository.GetQuery().Include(x => x.Menus).AsNoTracking().
+            var data = await _unitOfWork.ModuleRepository.GetQuery().Include(x => x.Menus).ThenInclude(m => m.Menus).AsNoTracking().
                 Select(x => new MenuItemResponse
                 {
                     Id = x.Id,
@@ -51,13 +45,21 @@ namespace Authentication.Application.Queries.CommonQuery
                     Code = x.Code,
                     Order = x.Order,
                     Icon = x.Icon,
-                    SubItems = x.Menus.Where(x => isSupperAdmin || listPermission.Contains(x.Code)).Select(y => new MenuItemResponse
+                    SubItems = x.Menus.Where(x => (isSupperAdmin || listPermission.Contains(x.Code)) && x.ParenId == null).Select(y => new MenuItemResponse
                     {
                         Id = y.Id,
                         Name = y.Name,
                         Url = y.Url,
                         Code = y.Code,
                         Order = y.Order,
+                        SubItems = !y.Menus.Where(u => u.ParenId == y.Id).Any() ? null : y.Menus.Where(u => u.ParenId == y.Id).Select(s => new MenuItemResponse
+                        {
+                            Id = s.Id,
+                            Name = s.Name,
+                            Url = s.Url,
+                            Code = s.Code,
+                            Order = s.Order,
+                        }).OrderBy(s => s.Order).ToList(),
                     }).OrderBy(x => x.Order).ToList()
                 }).OrderBy(x => x.Order).ToListAsync();
 

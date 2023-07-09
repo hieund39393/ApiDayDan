@@ -13,6 +13,9 @@ namespace Authentication.Infrastructure.AggregatesModel.DM_KhuVucAggregate
         public ICollection<DM_LoaiBieuGia> DM_LoaiBieuGia { get; set; } // cấu hình 1-N bảng loại biểu giá
         public ICollection<DonGiaNhanCong> DonGiaNhanCong { get; set; } // cấu hình 1-N bảng loại biểu giá
 
+        public ICollection<DM_LoaiBieuGia_CapNgam> DM_LoaiBieuGia_CapNgam { get; set; } // cấu hình 1-N bảng loại biểu giá
+        public ICollection<DonGiaNhanCong_CapNgam> DonGiaNhanCong_CapNgam { get; set; } // cấu hình 1-N bảng loại biểu giá
+
 
     }
 }
