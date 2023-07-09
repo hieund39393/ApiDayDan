@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System;
 using Authentication.Application.Queries.BieuGiaCongViec_CapNgamQuery;
 using Authentication.Application.Model.BieuGiaCongViec;
+using System.Net.WebSockets;
+using System.Linq;
 
 namespace Authentication.API.Controllers
 {
@@ -32,9 +34,15 @@ namespace Authentication.API.Controllers
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(typeof(ApiSuccessResult<IList<BieuGiaCongViecResponse>>), (int)HttpStatusCode.OK)] // trả về dữ liệu model cho FE
-        public async Task<IActionResult> GetListUser([FromQuery] BieuGiaCongViecRequest request)
+        public async Task<IActionResult> GetList([FromQuery] BieuGiaCongViecRequest request)
         {
             var data = await _BieuGiaCongViec_CapNgamQuery.GetList(request);
+            foreach (var item in data.Data)
+            {
+                item.TenPhanLoai = _BieuGiaCongViec_CapNgamQuery.PhanLoai()
+                    .FirstOrDefault(x => x.Value == item.PhanLoai.ToString())?.Name;
+            }
+
             return Ok(new ApiSuccessResult<IList<BieuGiaCongViecResponse>>
             {
                 Data = data.Data,
@@ -79,6 +87,16 @@ namespace Authentication.API.Controllers
         {
             var user = await _mediator.Send(new DeleteBieuGiaCongViec_CapNgamCommand(id));
             return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_DELETE_SUCCESS, " biểu giá công việc cáp ngầm")));
+        }
+
+        [HttpGet("phanloai")]
+        public async Task<IActionResult> PhanLoai()
+        {
+            var data = _BieuGiaCongViec_CapNgamQuery.PhanLoai();
+            return Ok(new ApiSuccessResult<List<SelectItem>>
+            {
+                Data = data,
+            });
         }
     }
 }

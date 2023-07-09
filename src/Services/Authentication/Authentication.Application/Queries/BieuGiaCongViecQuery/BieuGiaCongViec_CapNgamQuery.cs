@@ -1,15 +1,23 @@
 ﻿using Authentication.Application.Model.BieuGiaCongViec;
+using Authentication.Infrastructure.AggregatesModel.MenuAggregate;
 using Authentication.Infrastructure.Migrations;
 using Authentication.Infrastructure.Repositories;
 using EVN.Core.Extensions;
+using EVN.Core.Helpers;
+using EVN.Core.Models;
 using EVN.Core.SeedWork;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
+using System;
+using static EVN.Core.Common.AppEnum;
 
 namespace Authentication.Application.Queries.BieuGiaCongViec_CapNgamQuery
 {
     public interface IBieuGiaCongViec_CapNgamQuery // tạo interface (Quy tắc : có chữ I ở đầu để biết nó là interface)
     {
         Task<PagingResultSP<BieuGiaCongViecResponse>> GetList(BieuGiaCongViecRequest request); // lấy danh sách có phân trang và tìm kiếm
+
+        List<SelectItem> PhanLoai();
     }
     public class BieuGiaCongViec_CapNgamQuery : IBieuGiaCongViec_CapNgamQuery // kế thừa interface vừa tạo
     {
@@ -28,7 +36,7 @@ namespace Authentication.Application.Queries.BieuGiaCongViec_CapNgamQuery
                 {
                     Id = x.Id,
                     IdCongViec = x.IdCongViec,
-                    PhanLoai = x.PhanLoai,
+                    PhanLoai = x.PhanLoai.ToString(),
                     IdBieuGia = x.IdBieuGia,
                     IdLoaiBieuGia = x.DM_BieuGia_CapNgam.idLoaiBieuGia,
                     TenLoaiBieuGia = x.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.TenLoaiBieuGia,
@@ -51,11 +59,41 @@ namespace Authentication.Application.Queries.BieuGiaCongViec_CapNgamQuery
             {
                 query = query.Where(x => x.IdBieuGia.HasValue && x.IdBieuGia == request.IdBieuGia);
             }
+            if (request.IdPhanLoai != null)
+            {
+                query = query.Where(x => x.PhanLoai == request.IdPhanLoai);
+            }
             query = query.OrderBy(x => x.VungKhuVuc).ThenBy(x => x.TenLoaiBieuGia).ThenBy(x => x.TenBieuGia);
 
             var totalRow = query.Count(); // tổng số lượng
             var queryPaging = query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize); // phân trang
             return await PagingResultSP<BieuGiaCongViecResponse>.CreateAsyncLinq(queryPaging, totalRow, request.PageIndex, request.PageSize);
+        }
+
+        public List<SelectItem> PhanLoai()
+        {
+            var data = new List<SelectItem>();
+            data.Add(new SelectItem
+            {
+                Name = "Vật liệu (ĐM 4970)",
+                Value = "1"
+            });
+            data.Add(new SelectItem
+            {
+                Name = "VL-NC-MTC theo ĐM 4970",
+                Value = "2"
+            });
+            data.Add(new SelectItem
+            {
+                Name = "VL_NC_MTC theo TT10/2019",
+                Value = "3"
+            });
+            data.Add(new SelectItem
+            {
+                Name = "VL_NC_MTC theo 22/2020/QĐ-UBND",
+                Value = "4"
+            });
+            return data;
         }
     }
 }

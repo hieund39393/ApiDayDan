@@ -1,8 +1,13 @@
 ﻿using Authentication.Application.Model.ChiTietBieuGia;
 using Authentication.Infrastructure.Repositories;
+using EVN.Core.Extensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
+using System.ComponentModel;
+using System.Reflection;
 using static EVN.Core.Common.AppEnum;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
 {
@@ -38,6 +43,9 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                 .AsNoTracking()
                 .Select(x => new ChiTietBieuGiaResponse
                 {
+                    //
+                    PhanLoai = x.PhanLoai,
+                    ThuTuHienThi = x.ThuTuHienThi,
                     Id = x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).Id,
                     IdBieuGia = x.DM_BieuGia_CapNgam.Id,
                     MaNoiDungCongViec = x.DM_CongViec_CapNgam.MaCongViec,
@@ -46,7 +54,6 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                     IdCongViec = x.DM_CongViec_CapNgam.Id,
                     Nam = request.Nam,
                     Quy = request.Quy,
-                    ThuTuHienThi = x.ThuTuHienThi,
                     SoLuong = Math.Round(x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy) != null
                     ? x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).SoLuong :
                      x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc).SoLuong, 2), //0
@@ -104,13 +111,15 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                     donGiaNhanCong += (item.DonGia_VL.Value * item.SoLuong.Value);
                 }
 
-                item.Stt = stt;
-                item.CPChung = string.IsNullOrEmpty(item.MaNoiDungCongViec) ? 0 : Math.Round((decimal)65 / 100 * (item.DonGia_NC.Value), 0);                                                  //12            
+                item.Stt = stt.ToString();
+                item.CPChung = item.PhanLoai == 2 ? (string.IsNullOrEmpty(item.MaNoiDungCongViec) ? 0 : Math.Round((decimal)65 / 100 * (item.DonGia_NC.Value), 0)) : 0;                                                  //12            
+                item.CPChung2 = item.PhanLoai == 3 ? (string.IsNullOrEmpty(item.MaNoiDungCongViec) ? 0 : Math.Round((decimal)6.2 / 100 * (item.DonGia_VL.Value + item.DonGia_NC.Value + item.DonGia_MTC.Value), 0)) : 0;                                                  //12            
+                item.CPChung3 = item.PhanLoai == 4 ? (string.IsNullOrEmpty(item.MaNoiDungCongViec) ? 0 : Math.Round((decimal)66 / 100 * (item.DonGia_NC.Value), 0)) : 0;                                                  //12            
                 item.CPNhaTam = 0;             //13             tạm thời không cho công thức        
                 //item.CPNhaTam = Math.Round((item.DonGia_VL.Value + item.DonGia_NC.Value + item.DonGia_MTC.Value) * (decimal)1.2 / 100, 0);             //13                    
                 item.CPCongViecKhongXDDuocTuTK = string.IsNullOrEmpty(item.MaNoiDungCongViec) ? 0 : Math.Round((item.DonGia_VL.Value + item.DonGia_NC.Value + item.DonGia_MTC.Value) * (decimal)2 / 100, 0); ; //14     
-                item.ThuNhapChiuThue = string.IsNullOrEmpty(item.MaNoiDungCongViec) ? 0 : Math.Round((item.DonGia_VL.Value + item.DonGia_NC.Value + item.DonGia_MTC.Value + item.CPChung.Value + item.CPNhaTam.Value + item.CPCongViecKhongXDDuocTuTK.Value) * (decimal)6 / 100, 0);
-                item.DonGiaTruocThue = Math.Round(item.DonGia_VL.Value + item.DonGia_NC.Value + item.DonGia_MTC.Value + item.CPChung.Value + item.CPNhaTam.Value + item.CPCongViecKhongXDDuocTuTK.Value + item.ThuNhapChiuThue.Value, 0); ;
+                item.ThuNhapChiuThue = string.IsNullOrEmpty(item.MaNoiDungCongViec) ? 0 : Math.Round((item.DonGia_VL.Value + item.DonGia_NC.Value + item.DonGia_MTC.Value + item.CPChung.Value + item.CPChung2.Value + item.CPChung3.Value + item.CPNhaTam.Value + item.CPCongViecKhongXDDuocTuTK.Value) * (decimal)6 / 100, 0);
+                item.DonGiaTruocThue = Math.Round(item.DonGia_VL.Value + item.DonGia_NC.Value + item.DonGia_MTC.Value + item.CPChung.Value + item.CPChung2.Value + item.CPChung3.Value + item.CPNhaTam.Value + item.CPCongViecKhongXDDuocTuTK.Value + item.ThuNhapChiuThue.Value, 0); ;
                 item.GiaTriTruocThue = Math.Round(item.SoLuong.Value * item.DonGiaTruocThue.Value, 0);
                 result.Tong += Math.Round(item.GiaTriTruocThue.Value, 0);
                 if (item.CongViecChinh && item.SoLuong > 0)
@@ -121,7 +130,32 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
             }
             var congViecChinh = query.Where(x => x.CongViecChinh).FirstOrDefault();
 
-            result.ListBieuGia = query.OrderBy(x=>x.ThuTuHienThi).ToList();
+            var listBieuGia = new List<ChiTietBieuGiaResponse>();
+            int t = 1;
+            int d = 1;
+            int ttt = 1;
+            foreach (var item in query.OrderBy(x => x.PhanLoai).ThenBy(x => x.ThuTuHienThi).ToList())
+            {
+                if (item.PhanLoai == t)
+                {
+                    listBieuGia.Add(new ChiTietBieuGiaResponse
+                    {
+                        Stt = ChuLaMa(t),
+                        NoiDungCongViec = GetEnumDescription((PhanLoaiEnum)item.PhanLoai)
+                    });
+                    t++;
+                    d = 1;
+                    item.tt = ttt;
+                    ttt++;
+                }
+                item.tt = ttt;
+                item.Stt = d.ToString();
+                listBieuGia.Add(item);
+                d++;
+                ttt++;
+            }
+
+            result.ListBieuGia = listBieuGia;
             result.KhaoSat = 0;
             result.CongTruocThue = result.KhaoSat + result.Tong;
             result.DonGiaTongHopTruocThue = soLuongCVC == 0 ? 0 : Math.Round(result.Tong / soLuongCVC, 0);
@@ -131,6 +165,7 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
             var itemLast = new ChiTietBieuGiaResponse();
             itemLast.NoiDungCongViec = "TỔNG CỘNG";
             itemLast.GiaTriTruocThue = result.Tong;
+
 
             result.ListBieuGia.Add(itemLast);
 
@@ -153,6 +188,45 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
 
             return result;
 
+        }
+
+        private string ChuLaMa(int num)
+        {
+            if (num == 1)
+            {
+                return "I";
+            }
+            else if (num == 2)
+            {
+                return "II";
+            }
+            else if (num == 3)
+            {
+                return "III";
+            }
+            else
+            {
+                return "IV";
+            }
+        }
+        private string GetEnumDescription(Enum value)
+        {
+            Type type = value.GetType();
+            string name = Enum.GetName(type, value);
+
+            if (name != null)
+            {
+                FieldInfo field = type.GetField(name);
+                if (field != null)
+                {
+                    if (Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) is DescriptionAttribute attribute)
+                    {
+                        return attribute.Description;
+                    }
+                }
+            }
+
+            return value.ToString();
         }
     }
 }

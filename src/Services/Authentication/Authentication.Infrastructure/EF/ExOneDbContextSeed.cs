@@ -163,10 +163,10 @@ namespace Authentication.Infrastructure.EF
                 permissions.Add(new Permission { Name = "Xóa", Code = $"{Permissions.CongViec}{Permissions.Delete}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83832") });
 
                 // Quản lý vùng/ khu vực
-                permissions.Add(new Permission { Name = "Xem", Code = $"{Permissions.KhuVuc}{Permissions.View}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83834") });
-                permissions.Add(new Permission { Name = "Tạo", Code = $"{Permissions.KhuVuc}{Permissions.Create}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83834") });
-                permissions.Add(new Permission { Name = "Sửa", Code = $"{Permissions.KhuVuc}{Permissions.Update}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83834") });
-                permissions.Add(new Permission { Name = "Xóa", Code = $"{Permissions.KhuVuc}{Permissions.Delete}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83834") });
+                // permissions.Add(new Permission { Name = "Xem", Code = $"{Permissions.KhuVuc}{Permissions.View}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83834") });
+                // permissions.Add(new Permission { Name = "Tạo", Code = $"{Permissions.KhuVuc}{Permissions.Create}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83834") });
+                // permissions.Add(new Permission { Name = "Sửa", Code = $"{Permissions.KhuVuc}{Permissions.Update}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83834") });
+                // permissions.Add(new Permission { Name = "Xóa", Code = $"{Permissions.KhuVuc}{Permissions.Delete}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83834") });
 
                 // Quản lý loại cáp
                 permissions.Add(new Permission { Name = "Xem", Code = $"{Permissions.LoaiCap}{Permissions.View}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83835") });

@@ -33,6 +33,7 @@ namespace Authentication.Application.Commands.DM_LoaiBieuGiaCommand
                 {
                     TenLoaiBieuGia = request.TenLoaiBieuGia,
                     IdKhuVuc = request.KhuVucID,
+                    MaLoaiBieuGia = request.MaLoaiBieuGia
                 };
                 //thêm vào DB
                 _unitOfWork.DM_LoaiBieuGiaRepository.Add(model);

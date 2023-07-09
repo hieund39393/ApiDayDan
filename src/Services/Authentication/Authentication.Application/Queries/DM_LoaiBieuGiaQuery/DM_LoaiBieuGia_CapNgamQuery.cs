@@ -56,7 +56,7 @@ namespace Authentication.Application.Queries.DM_LoaiBieuGia_CapNgamQuery
                 .Select(x => new DM_LoaiBieuGiaResponse()
                 {
                     Id = x.Id,
-                    //MaLoaiBieuGia = x.MaLoaiBieuGia,
+                    MaLoaiBieuGia = x.MaLoaiBieuGia,
                     TenLoaiBieuGia = x.TenLoaiBieuGia,
                     KhuVucID = x.IdKhuVuc,
                     TenKhuVuc = x.DM_KhuVuc.TenKhuVuc,

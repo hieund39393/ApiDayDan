@@ -95,7 +95,7 @@ namespace Authentication.API.Controllers
 
         [HttpPut]
         [ProducesResponseType(typeof(ApiSuccessResult<IList<BieuGiaTongHopResponse>>), (int)HttpStatusCode.OK)] // trả về dữ liệu model cho FE
-        public async Task<IActionResult> UpdateBieuGiaTongHop([FromBody] UpdateBieuGiaTongHopCommand request)
+        public async Task<IActionResult> UpdateBieuGiaTongHop([FromBody] UpdateBieuGiaTongHop_CapNgamCommand request)
         {
             var data = await _mediator.Send(request);
             return Ok(new ApiSuccessResult<bool>(data: data, message: request.TinhTrang == 0 ? "Gửi duyệt thành công" : "Duyệt thành công"));

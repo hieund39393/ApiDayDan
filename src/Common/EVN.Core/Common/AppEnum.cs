@@ -58,7 +58,7 @@ namespace EVN.Core.Common
             [Description("Nhân Công")]
             NhanCong = 1,
             [Description("Vật liệu")]
-            VatLieu= 2, 
+            VatLieu = 2,
             [Description("Máy thi công")]
             MayThiCong = 3,
         }
@@ -71,6 +71,18 @@ namespace EVN.Core.Common
             GuiDuyet = 1,
             [Description("duyệt")]
             DaDuyet = 2,
+        }
+
+        public enum PhanLoaiEnum
+        {
+            [Description("Vật liệu (ĐM 4970)")]
+            PL1 = 1,
+            [Description("VL-NC-MTC theo ĐM 4970")]
+            PL2 = 2,
+            [Description("VL_NC_MTC theo TT10/2019")]
+            PL3 = 3,
+            [Description("VL_NC_MTC theo 22/2020/QĐ-UBND")]
+            PL4 = 4,
         }
     }
 }
