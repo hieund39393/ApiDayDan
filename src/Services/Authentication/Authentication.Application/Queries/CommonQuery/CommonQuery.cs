@@ -1,8 +1,11 @@
-﻿using Authentication.Application.Model.Menu;
+﻿using Authentication.Application.Model.CauHinh;
+using Authentication.Application.Model.Menu;
 using Authentication.Infrastructure.Repositories;
 using EVN.Core.Extensions;
 using EVN.Core.Models;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
+using static EVN.Core.Common.AppEnum;
 
 namespace Authentication.Application.Queries.CommonQuery
 {
@@ -13,6 +16,8 @@ namespace Authentication.Application.Queries.CommonQuery
         Task<List<SelectItem>> ListNhomQuyen();
         Task<List<SelectItem>> ListChucVu();
 
+        Task<object> ListCauHinh(GetListCauHinhRequest request);
+
     }
     public class CommonQuery : ICommonQuery
     {
@@ -21,6 +26,31 @@ namespace Authentication.Application.Queries.CommonQuery
         {
             _unitOfWork = unitOfWork;
         }
+
+        public async Task<object> ListCauHinh(GetListCauHinhRequest request)
+        {
+            var data = await _unitOfWork.CauHinhBieuGiaRepository.GetQuery().Where(x => (string.IsNullOrEmpty(request.TenCauHinh) || x.TenCauHinh.ToLower().Contains(request.TenCauHinh.ToLower())
+            && (!request.PhanLoai.HasValue || x.PhanLoaiCap == request.PhanLoai)
+            && (!request.Nam.HasValue || x.Nam == request.Nam)
+            && (!request.Quy.HasValue || x.Quy == request.Quy)
+            )).Select(x => new GetListCauHinhResponse
+            {
+                TenCauHinh = GetDescription((TenCauHinhEnum)int.Parse(x.TenCauHinh)),
+                GiaTri = x.GiaTri,
+                Quy = x.Quy,
+                Nam = x.Nam,
+                TenPhanLoai = x.PhanLoaiCap == 1 ? "Cáp trên không" : "Cáp ngầm"
+            }).ToListAsync();
+
+            return data;
+        }
+        public static string GetDescription(Enum value)
+        {
+            var field = value.GetType().GetField(value.ToString());
+            var attribute = Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) as DescriptionAttribute;
+            return attribute == null ? value.ToString() : attribute.Description;
+        }
+
         public async Task<List<SelectItem>> ListChucVu()
         {
             var data = await _unitOfWork.PositionRepository.GetQuery().AsNoTracking()

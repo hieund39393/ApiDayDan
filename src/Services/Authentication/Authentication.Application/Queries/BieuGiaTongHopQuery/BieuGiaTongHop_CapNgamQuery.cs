@@ -164,7 +164,6 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
             {
                 var item = new BieuGiaTongHopResponse();
                 item.TenBieuGia = r.name;
-                item.DonVi = "m";
                 var listData = new List<string>();
                 foreach (var list in loaiBieuGia)
                 {

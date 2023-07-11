@@ -4,6 +4,7 @@ using Authentication.Infrastructure.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Authentication.Infrastructure.Migrations
 {
     [DbContext(typeof(ExOneDbContext))]
-    partial class ExOneDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230711150325_add_CauHinhBieuGia")]
+    partial class add_CauHinhBieuGia
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -413,7 +415,6 @@ namespace Authentication.Infrastructure.Migrations
                         .HasComment("Id bảng, khóa chính");
 
                     b.Property<Guid?>("CreatedBy")
-                        .HasMaxLength(36)
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Mã người tạo");
 
@@ -422,21 +423,17 @@ namespace Authentication.Infrastructure.Migrations
                         .HasComment("Ngày tạo");
 
                     b.Property<string>("GiaTri")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
-                        .HasDefaultValue(false)
                         .HasComment("Cờ xóa");
 
                     b.Property<int>("Nam")
                         .HasColumnType("int");
 
                     b.Property<string>("NoiDung")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PhanLoaiCap")
                         .HasColumnType("int");
@@ -445,11 +442,9 @@ namespace Authentication.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("TenCauHinh")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("UpdatedBy")
-                        .HasMaxLength(36)
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Mã người cập nhật");
 
@@ -459,7 +454,7 @@ namespace Authentication.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CauHinhBieuGia", (string)null);
+                    b.ToTable("CauHinhBieuGia");
                 });
 
             modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.ChiTietBieuGiaAggregate.ChiTietBieuGia", b =>

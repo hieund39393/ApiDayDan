@@ -28,6 +28,7 @@ using Authentication.Infrastructure.AggregatesModel.DonGiaVatLieuAggregate;
 using Authentication.Infrastructure.AggregatesModel.DonGiaNhanCongAggregate;
 using Authentication.Infrastructure.AggregatesModel.DonGiaChietTinhAggregate;
 using Authentication.Infrastructure.AggregatesModel.BieuGiaTongHopAggregate;
+using Authentication.Infrastructure.AggregatesModel.CauHinhAggregate;
 
 namespace Authentication.Infrastructure.EF
 {
@@ -99,6 +100,8 @@ namespace Authentication.Infrastructure.EF
         public DbSet<ChiTietBieuGia_CapNgam> ChiTietBieuGia_CapNgam { get; set; }
         public DbSet<BieuGiaTongHop_CapNgam> BieuGiaTongHop_CapNgam { get; set; }
 
+        public DbSet<CauHinhBieuGia> CauHinhBieuGia { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -147,6 +150,7 @@ namespace Authentication.Infrastructure.EF
 
             //Cau hinh cua Kem M5
             builder.ApplyConfiguration(new DM_BieuGiaConfiguration());
+            builder.ApplyConfiguration(new CauHinhBieuGiaConfiguration());
         }
 
         /// <summary>

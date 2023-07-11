@@ -287,6 +287,7 @@ namespace EVN.Core.Common
             public const string Menu = QTHT + "menu";
             public const string User = QTHT + "user";
             public const string Role = QTHT + "role";
+            public const string CauHinh = QTHT + "cauhinh";
 
             // Menu của quản trj danh mục
             public const string LoaiBieuGia = QTDM + "lbg";

@@ -84,5 +84,17 @@ namespace EVN.Core.Common
             [Description("VL_NC_MTC theo 22/2020/QĐ-UBND")]
             PL4 = 4,
         }
+
+        public enum TenCauHinhEnum
+        {
+            [Description("CP Chung")]
+            CH1 = 1,
+            [Description("CP nhà tạm")]
+            CH2 = 2,
+            [Description("CP công việc không XĐ được từ thiết kế")]
+            CH3 = 3,
+            [Description("Thu nhập chịu thuế TT")]
+            CH4 = 4,
+        }
     }
 }

@@ -62,6 +62,7 @@ namespace Authentication.Infrastructure.EF
                 listMenu.Add(new Menu { Id = new Guid("1E0A058FD1323C46ABE8061A890DC9EC"), Code = $"{Permissions.User}", Name = "Quản lý người dùng", Url = "/nguoi-dung", Order = 1, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C1") });
                 listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83828"), Code = $"{Permissions.Menu}", Name = "Quản lý menu", Url = "/menu", Order = 2, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C1") });
                 listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83829"), Code = $"{Permissions.Role}", Name = "Quản lý phân quyền", Url = "/phan-quyen", Order = 3, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C1") });
+                listMenu.Add(new Menu { Id = new Guid("E22A625E0334C04D928300BBF8C83822"), Code = $"{Permissions.CauHinh}", Name = "Quản lý cấu hình", Url = "/cau-hinh", Order = 4, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C1") });
 
                 // QUẢN TRỊ DANH MỤC
 
@@ -133,6 +134,11 @@ namespace Authentication.Infrastructure.EF
                 permissions.Add(new Permission { Name = "Tạo", Code = $"{Permissions.Menu}{Permissions.Create}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83829") });
                 permissions.Add(new Permission { Name = "Sửa", Code = $"{Permissions.Menu}{Permissions.Update}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83829") });
                 permissions.Add(new Permission { Name = "Xóa", Code = $"{Permissions.Menu}{Permissions.Delete}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83829") });
+                //quản lý cấu hình
+                permissions.Add(new Permission { Name = "Xem", Code = $"{Permissions.CauHinh}{Permissions.View}", MenuId = new Guid("E22A625E0334C04D928300BBF8C83822") });
+                permissions.Add(new Permission { Name = "Tạo", Code = $"{Permissions.CauHinh}{Permissions.Create}", MenuId = new Guid("E22A625E0334C04D928300BBF8C83822") });
+                permissions.Add(new Permission { Name = "Sửa", Code = $"{Permissions.CauHinh}{Permissions.Update}", MenuId = new Guid("E22A625E0334C04D928300BBF8C83822") });
+                permissions.Add(new Permission { Name = "Xóa", Code = $"{Permissions.CauHinh}{Permissions.Delete}", MenuId = new Guid("E22A625E0334C04D928300BBF8C83822") });
 
 
                 // Quản lý quyền                 
