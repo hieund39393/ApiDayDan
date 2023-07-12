@@ -48,12 +48,12 @@ namespace Authentication.API
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
-                    webBuilder.UseKestrel(options =>
-                    {
-                        options.Limits.MaxRequestBodySize = Convert.ToInt64(builder.Configuration["MaxRequestBodySize"]);
-                    })
-                .UseContentRoot(Directory.GetCurrentDirectory())
+                    webBuilder.UseStartup<Startup>()
+                //    webBuilder.UseKestrel(options =>
+                //    {
+                //        options.Limits.MaxRequestBodySize = Convert.ToInt64(builder.Configuration["MaxRequestBodySize"]);
+                //    })
+                //.UseContentRoot(Directory.GetCurrentDirectory())
                 .UseConfiguration(builder.Configuration)
                 .UseSerilog()
                 .UseDefaultServiceProvider(options => options.ValidateScopes = false);
