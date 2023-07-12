@@ -29,18 +29,20 @@ namespace Authentication.Application.Queries.CommonQuery
 
         public async Task<object> ListCauHinh(GetListCauHinhRequest request)
         {
-            var data = await _unitOfWork.CauHinhBieuGiaRepository.GetQuery().Where(x => (string.IsNullOrEmpty(request.TenCauHinh) || x.TenCauHinh.ToLower().Contains(request.TenCauHinh.ToLower())
-            && (!request.PhanLoai.HasValue || x.PhanLoaiCap == request.PhanLoai)
-            && (!request.Nam.HasValue || x.Nam == request.Nam)
-            && (!request.Quy.HasValue || x.Quy == request.Quy)
-            )).Select(x => new GetListCauHinhResponse
-            {
-                TenCauHinh = GetDescription((TenCauHinhEnum)int.Parse(x.TenCauHinh)),
-                GiaTri = x.GiaTri,
-                Quy = x.Quy,
-                Nam = x.Nam,
-                TenPhanLoai = x.PhanLoaiCap == 1 ? "Cáp trên không" : "Cáp ngầm"
-            }).ToListAsync();
+            var data = await _unitOfWork.CauHinhBieuGiaRepository.GetQuery()
+                .Where(x => (string.IsNullOrEmpty(request.TenCauHinh) || x.TenCauHinh.ToLower().Contains(request.TenCauHinh.ToLower())))
+                .Where(x => (request.PhanLoai == 0 || x.PhanLoaiCap == request.PhanLoai.Value))
+                .Where(x => (request.Nam == null || x.Nam == request.Nam.Value))
+                .Where(x => (request.Quy == null || x.Quy == request.Quy.Value))
+                .Select(x => new GetListCauHinhResponse
+                {
+                    TenCauHinh = GetDescription((TenCauHinhEnum)int.Parse(x.TenCauHinh)),
+                    GiaTri = x.GiaTri,
+                    Quy = x.Quy,
+                    Nam = x.Nam,
+                    PhanLoaiCap = x.PhanLoaiCap,
+                    TenPhanLoai = x.PhanLoaiCap == 1 ? "Cáp trên không" : "Cáp ngầm",
+                }).ToListAsync();
 
             return data;
         }

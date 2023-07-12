@@ -13,5 +13,6 @@ namespace Authentication.Application.Model.CauHinh
         public string GiaTri { get; set; }
         public int? Quy { get; set; }
         public int? Nam { get; set; }
+        public int PhanLoaiCap { get; set; }
     }
 }
