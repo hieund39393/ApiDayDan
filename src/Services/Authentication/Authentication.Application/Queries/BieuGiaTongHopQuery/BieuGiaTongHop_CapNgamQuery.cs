@@ -1,7 +1,11 @@
 ﻿using Authentication.Application.Model.BieuGiaTongHop;
+using Authentication.Infrastructure.AggregatesModel.PositionAggregate;
 using Authentication.Infrastructure.Repositories;
+using EVN.Core.Exceptions;
+using EVN.Core.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
+using static EVN.Core.Common.AppEnum;
 
 namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
 {
@@ -143,6 +147,9 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
 
         public async Task<List<BieuGiaTongHopResponse>> GetList(BieuGiaTongHopRequest request)
         {
+            var position = TokenExtensions.GetPosition();
+            if (string.IsNullOrEmpty(position)) throw new EvnException("Người dùng có chức vụ không đúng");
+
             var loaiBieuGia = await _unitOfWork.DM_LoaiBieuGia_CapNgamRepository.GetQuery().AsNoTracking().ToListAsync();
             var query = await _unitOfWork.BieuGiaTongHop_CapNgamRepository.GetQuery(x => x.Nam == request.Nam && x.Quy == request.Quy)
                 .Include(x => x.DM_BieuGia_CapNgam).ThenInclude(x => x.DM_LoaiBieuGia_CapNgam)
@@ -172,7 +179,33 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
                 }
                 item.ListData = listData;
                 item.TinhTrang = r.listBG.FirstOrDefault()?.TinhTrang ?? null;
-                listResponse.Add(item);
+
+                if (int.Parse(position) == (int)PositionEnum.LanhDaoB08 && item.TinhTrang >= 1)
+                {
+                    if (item.TinhTrang == 0)
+                    {
+                        throw new EvnException($"Biểu giá của quý {request.Quy} năm {request.Nam} chưa được chuyên viên B08 gửi lên");
+                    }
+                    listResponse.Add(item);
+                }
+
+                else if (int.Parse(position) == (int)PositionEnum.ChuyenVienB09 && item.TinhTrang >= 2)
+                {
+                    if (item.TinhTrang <= 1)
+                    {
+                        throw new EvnException($"Biểu giá của quý {request.Quy} năm {request.Nam} chưa được lãnh đạo B08 gửi lên");
+                    }
+
+                    listResponse.Add(item);
+                }
+                else if (int.Parse(position) == (int)PositionEnum.LanhDaoB09 && item.TinhTrang >= 3)
+                {
+                    if (item.TinhTrang <= 2)
+                    {
+                        throw new EvnException($"Biểu giá của quý {request.Quy} năm {request.Nam} chưa được chuyên viên B09 gửi lên");
+                    }
+                    listResponse.Add(item);
+                }
             }
 
             return listResponse;

@@ -16,11 +16,10 @@ namespace EVN.Core.Common
 
             [Description("Lãnh đạo B09")]
             LanhDaoB09 = 4,
-            [Description("Chuyên viên B08")]
+            [Description("Chuyên viên B09")]
             ChuyenVienB09 = 3,
             [Description("Lãnh đạo B08")]
             LanhDaoB08 = 2,
-
             [Description("Chuyên viên B08")]
             ChuyenVienB08 = 1,
 
@@ -68,6 +67,13 @@ namespace EVN.Core.Common
             CH3 = 3,
             [Description("Thu nhập chịu thuế TT")]
             CH4 = 4,
+
+            [Description("CP chung (ĐM 4970)")]
+            CH5 = 5, 
+            [Description("CP chung (TT12/2021)")]
+            CH6 = 6, 
+            [Description("CP chung (ĐM 22/2020)")]
+            CH7 = 7,
         }
     }
 }

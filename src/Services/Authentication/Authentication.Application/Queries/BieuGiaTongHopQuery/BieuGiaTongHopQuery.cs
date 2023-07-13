@@ -186,16 +186,31 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
                 {
                     listResponse.Add(item);
                 }
+
                 if (int.Parse(position) == (int)PositionEnum.LanhDaoB08 && item.TinhTrang >= 1)
                 {
+                    if (item.TinhTrang == 0)
+                    {
+                        throw new EvnException($"Biểu giá của quý {request.Quy} năm {request.Nam} chưa được chuyên viên B08 gửi lên");
+                    }
                     listResponse.Add(item);
                 }
+
                 else if (int.Parse(position) == (int)PositionEnum.ChuyenVienB09 && item.TinhTrang >= 2)
                 {
+                    if (item.TinhTrang <= 1)
+                    {
+                        throw new EvnException($"Biểu giá của quý {request.Quy} năm {request.Nam} chưa được lãnh đạo B08 gửi lên");
+                    }
+
                     listResponse.Add(item);
                 }
                 else if (int.Parse(position) == (int)PositionEnum.LanhDaoB09 && item.TinhTrang >= 3)
                 {
+                    if (item.TinhTrang <= 2)
+                    {
+                        throw new EvnException($"Biểu giá của quý {request.Quy} năm {request.Nam} chưa được chuyên viên B09 gửi lên");
+                    }
                     listResponse.Add(item);
                 }
             }

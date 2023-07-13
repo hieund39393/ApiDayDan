@@ -1,5 +1,6 @@
 ﻿using Authentication.Application.Model.ChiTietBieuGia;
 using Authentication.Infrastructure.Repositories;
+using EVN.Core.Exceptions;
 using EVN.Core.Extensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +30,19 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
 
         public async Task<ChiTietBieuGiaResult> Handle(GetListChiTietBieuGia_CapNgamCommand request, CancellationToken cancellationToken)
         {
+            var cauHinh = await _unitOfWork.CauHinhBieuGiaRepository.GetQuery(x => x.PhanLoaiCap == 1).ToListAsync();
+            var cpChung1 = cauHinh.Where(x => x.TenCauHinh == TenCauHinhEnum.CH5.GetHashCode().ToString()).OrderBy(x => x.Nam).ThenBy(x => x.Quy).FirstOrDefault()?.GiaTri;
+            var cpChung2 = cauHinh.Where(x => x.TenCauHinh == TenCauHinhEnum.CH6.GetHashCode().ToString()).OrderBy(x => x.Nam).ThenBy(x => x.Quy).FirstOrDefault()?.GiaTri;
+            var cpChung3 = cauHinh.Where(x => x.TenCauHinh == TenCauHinhEnum.CH7.GetHashCode().ToString()).OrderBy(x => x.Nam).ThenBy(x => x.Quy).FirstOrDefault()?.GiaTri;
+            var cpNhaTam = cauHinh.Where(x => x.TenCauHinh == TenCauHinhEnum.CH2.GetHashCode().ToString()).OrderBy(x => x.Nam).ThenBy(x => x.Quy).FirstOrDefault()?.GiaTri;
+            var cpCVKXD = cauHinh.Where(x => x.TenCauHinh == TenCauHinhEnum.CH3.GetHashCode().ToString()).OrderBy(x => x.Nam).ThenBy(x => x.Quy).FirstOrDefault()?.GiaTri;
+            var tnct = cauHinh.Where(x => x.TenCauHinh == TenCauHinhEnum.CH4.GetHashCode().ToString()).OrderBy(x => x.Nam).ThenBy(x => x.Quy).FirstOrDefault()?.GiaTri;
+
+            if (cpChung1 == null || cpChung2 == null || cpChung3 == null /* || cpNhaTam == null*/ || cpCVKXD == null || tnct == null)
+            {
+                throw new EvnException("Chưa có cấu hình biểu giá");
+            }
+
             var chuaCoDuLieu = false;
 
             var quyTruoc = request.Quy == 1 ? 4 : request.Quy - 1;
@@ -112,13 +126,13 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                 }
 
                 item.Stt = stt.ToString();
-                item.CPChung = item.PhanLoai == 2 ? (string.IsNullOrEmpty(item.MaNoiDungCongViec) ? 0 : Math.Round((decimal)65 / 100 * (item.DonGia_NC.Value), 0)) : 0;                                                  //12            
-                item.CPChung2 = item.PhanLoai == 3 ? (string.IsNullOrEmpty(item.MaNoiDungCongViec) ? 0 : Math.Round((decimal)6.2 / 100 * (item.DonGia_VL.Value + item.DonGia_NC.Value + item.DonGia_MTC.Value), 0)) : 0;                                                  //12            
-                item.CPChung3 = item.PhanLoai == 4 ? (string.IsNullOrEmpty(item.MaNoiDungCongViec) ? 0 : Math.Round((decimal)66 / 100 * (item.DonGia_NC.Value), 0)) : 0;                                                  //12            
+                item.CPChung = item.PhanLoai == 2 ? (string.IsNullOrEmpty(item.MaNoiDungCongViec) ? 0 : Math.Round(decimal.Parse(cpChung1) / 100 * (item.DonGia_NC.Value), 0)) : 0;                                                  //12            
+                item.CPChung2 = item.PhanLoai == 3 ? (string.IsNullOrEmpty(item.MaNoiDungCongViec) ? 0 : Math.Round(decimal.Parse(cpChung2) / 100 * (item.DonGia_VL.Value + item.DonGia_NC.Value + item.DonGia_MTC.Value), 0)) : 0;                                                  //12            
+                item.CPChung3 = item.PhanLoai == 4 ? (string.IsNullOrEmpty(item.MaNoiDungCongViec) ? 0 : Math.Round(decimal.Parse(cpChung3) / 100 * (item.DonGia_NC.Value), 0)) : 0;                                                  //12            
                 item.CPNhaTam = 0;             //13             tạm thời không cho công thức        
                 //item.CPNhaTam = Math.Round((item.DonGia_VL.Value + item.DonGia_NC.Value + item.DonGia_MTC.Value) * (decimal)1.2 / 100, 0);             //13                    
-                item.CPCongViecKhongXDDuocTuTK = string.IsNullOrEmpty(item.MaNoiDungCongViec) ? 0 : Math.Round((item.DonGia_VL.Value + item.DonGia_NC.Value + item.DonGia_MTC.Value) * (decimal)2 / 100, 0); ; //14     
-                item.ThuNhapChiuThue = string.IsNullOrEmpty(item.MaNoiDungCongViec) ? 0 : Math.Round((item.DonGia_VL.Value + item.DonGia_NC.Value + item.DonGia_MTC.Value + item.CPChung.Value + item.CPChung2.Value + item.CPChung3.Value + item.CPNhaTam.Value + item.CPCongViecKhongXDDuocTuTK.Value) * (decimal)6 / 100, 0);
+                item.CPCongViecKhongXDDuocTuTK = string.IsNullOrEmpty(item.MaNoiDungCongViec) ? 0 : Math.Round((item.DonGia_VL.Value + item.DonGia_NC.Value + item.DonGia_MTC.Value) * decimal.Parse(cpCVKXD) / 100, 0); ; //14     
+                item.ThuNhapChiuThue = string.IsNullOrEmpty(item.MaNoiDungCongViec) ? 0 : Math.Round((item.DonGia_VL.Value + item.DonGia_NC.Value + item.DonGia_MTC.Value + item.CPChung.Value + item.CPChung2.Value + item.CPChung3.Value + item.CPNhaTam.Value + item.CPCongViecKhongXDDuocTuTK.Value) * decimal.Parse(tnct) / 100, 0);
                 item.DonGiaTruocThue = Math.Round(item.DonGia_VL.Value + item.DonGia_NC.Value + item.DonGia_MTC.Value + item.CPChung.Value + item.CPChung2.Value + item.CPChung3.Value + item.CPNhaTam.Value + item.CPCongViecKhongXDDuocTuTK.Value + item.ThuNhapChiuThue.Value, 0); ;
                 item.GiaTriTruocThue = Math.Round(item.SoLuong.Value * item.DonGiaTruocThue.Value, 0);
                 result.Tong += Math.Round(item.GiaTriTruocThue.Value, 0);
