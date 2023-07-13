@@ -65,16 +65,24 @@ namespace EVN.Core.Extensions
             return claims?.FirstOrDefault(c => c.Type.Contains("jti"))?.Value;
         }
 
-        /// <summary>
-        /// Get UserId
-        /// </summary>
-        /// <returns></returns>
-        public static string GetUnitId()
+        ///// <summary>
+        ///// Get UserId
+        ///// </summary>
+        ///// <returns></returns>
+        //public static string GetUnitId()
+        //{
+        //    if (_httpContextAccessor == null) return Guid.Empty.ToString();
+        //    var unitClaim = _httpContextAccessor.HttpContext.User.FindAll(ClaimType.UnitId);
+        //    return unitClaim.First().Value;
+        //}
+
+        public static string GetPosition()
         {
             if (_httpContextAccessor == null) return Guid.Empty.ToString();
-            var unitClaim = _httpContextAccessor.HttpContext.User.FindAll(JwtClaimTypes.UnitId);
+            var unitClaim = _httpContextAccessor.HttpContext.User.FindAll(ClaimType.Position);
             return unitClaim.First().Value;
         }
+
 
         public static bool CheckPermission(string[] permissions)
         {

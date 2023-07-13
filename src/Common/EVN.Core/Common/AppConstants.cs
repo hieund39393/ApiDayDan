@@ -102,6 +102,10 @@ namespace EVN.Core.Common
             /// </summary>
             public const string PhoneNumber = "PhoneNumber";
             /// <summary>
+            /// Chức vụ
+            /// </summary>
+            public const string Position = "Position";
+            /// <summary>
             /// TokenFor
             /// </summary>
             public const string TokenFor = "TokenFor";
@@ -250,11 +254,7 @@ namespace EVN.Core.Common
             public const string Remove = "remove";
         }
 
-        public class JwtClaimTypes
-        {
-            public const string UnitId = "UnitId";
-        }
-
+  
         public class Permissions
         {
             // Module Code
@@ -287,6 +287,7 @@ namespace EVN.Core.Common
             public const string Menu = QTHT + "menu";
             public const string User = QTHT + "user";
             public const string Role = QTHT + "role";
+            public const string CauHinh = QTHT + "cauhinh";
 
             // Menu của quản trj danh mục
             public const string LoaiBieuGia = QTDM + "lbg";

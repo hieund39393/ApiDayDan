@@ -1,7 +1,10 @@
 ﻿using Authentication.Application.Model.BieuGiaTongHop;
 using Authentication.Infrastructure.Repositories;
+using EVN.Core.Exceptions;
+using EVN.Core.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
+using static EVN.Core.Common.AppEnum;
 
 namespace Authentication.Application.Queries.BieuGiaTongHopQuery
 {
@@ -146,6 +149,9 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
 
         public async Task<List<BieuGiaTongHopResponse>> GetList(BieuGiaTongHopRequest request)
         {
+            var position = TokenExtensions.GetPosition();
+            if (string.IsNullOrEmpty(position)) throw new EvnException("Người dùng có chức vụ không đúng");
+
             var loaiBieuGia = await _unitOfWork.DM_LoaiBieuGiaRepository.GetQuery().AsNoTracking().ToListAsync();
             var query = await _unitOfWork.BieuGiaTongHopRepository.GetQuery(x => x.Nam == request.Nam && x.Quy == request.Quy)
                 .Include(x => x.DM_BieuGia).ThenInclude(x => x.DM_LoaiBieuGia)
@@ -176,7 +182,19 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
                 }
                 item.ListData = listData;
                 item.TinhTrang = r.listBG.FirstOrDefault()?.TinhTrang ?? null;
-                listResponse.Add(item);
+
+                if (int.Parse(position) == (int)PositionEnum.LanhDaoB08 && item.TinhTrang >= 1)
+                {
+                    listResponse.Add(item);
+                }
+                else if (int.Parse(position) == (int)PositionEnum.ChuyenVienB09 && item.TinhTrang >= 2)
+                {
+                    listResponse.Add(item);
+                }
+                else if (int.Parse(position) == (int)PositionEnum.LanhDaoB09 && item.TinhTrang >= 3)
+                {
+                    listResponse.Add(item);
+                }
             }
 
             return listResponse;

@@ -6,6 +6,7 @@ using EVN.Core.Attributes;
 
 namespace EVN.Core.Extensions
 {
+   
     public static class EnumExtension
     {
         public static string GetDescription<T>(this T e) where T : IConvertible
@@ -92,6 +93,13 @@ namespace EVN.Core.Extensions
             return isIgnore;
         }
 
-       
+
+        public static string GetDescription(Enum value)
+        {
+            var field = value.GetType().GetField(value.ToString());
+            var attribute = Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) as DescriptionAttribute;
+            return attribute == null ? value.ToString() : attribute.Description;
+        }
+
     }
 }

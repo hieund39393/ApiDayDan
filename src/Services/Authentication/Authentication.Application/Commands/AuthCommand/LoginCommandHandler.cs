@@ -55,6 +55,7 @@ namespace Authentication.Application.Commands.AuthCommand
                 UserName = user.UserName,
                 Name = user.Name,
                 PhoneNumber = user.PhoneNumber,
+                Position = user.Position.Value
             };
 
             var accessToken = _jwtHandler.CreateToken(tokenModel);

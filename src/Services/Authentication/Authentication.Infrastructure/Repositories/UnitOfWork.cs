@@ -1,6 +1,7 @@
 ﻿using AAuthentication.Infrastructure.AggregatesModel.DM_BieuGia;
 using Authentication.Infrastructure.AggregatesModel.BieuGiaCongViecAggregate;
 using Authentication.Infrastructure.AggregatesModel.BieuGiaTongHopAggregate;
+using Authentication.Infrastructure.AggregatesModel.CauHinhAggregate;
 using Authentication.Infrastructure.AggregatesModel.ChiTietBieuGiaAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_CongViecAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_KhuVucAggregate;
@@ -64,6 +65,7 @@ namespace Authentication.Infrastructure.Repositories
 
         IRepository<DM_BieuGia> DM_BieuGiaRepository { get; }
         IRepository<DM_BieuGia_CapNgam> DM_BieuGia_CapNgamRepository { get; }
+        IRepository<CauHinhBieuGia> CauHinhBieuGiaRepository { get; }
 
 
 
@@ -110,6 +112,7 @@ namespace Authentication.Infrastructure.Repositories
 
         private IRepository<DM_BieuGia> _dM_BieuGiaRepository;
         private IRepository<DM_BieuGia_CapNgam> _dM_BieuGia_CapNgamRepository;
+        private IRepository<CauHinhBieuGia> _cauHinhBieuGiaRepository;
 
         public UnitOfWork(ExOneDbContext context)
         {
@@ -485,6 +488,17 @@ namespace Authentication.Infrastructure.Repositories
                     _bieuGiaTongHop_CapNgamRepository = new Repository<BieuGiaTongHop_CapNgam>(_context);
                 }
                 return _bieuGiaTongHop_CapNgamRepository;
+            }
+        }
+        public IRepository<CauHinhBieuGia> CauHinhBieuGiaRepository
+        {
+            get
+            {
+                if (_cauHinhBieuGiaRepository == null)
+                {
+                    _cauHinhBieuGiaRepository = new Repository<CauHinhBieuGia>(_context);
+                }
+                return _cauHinhBieuGiaRepository;
             }
         }
 

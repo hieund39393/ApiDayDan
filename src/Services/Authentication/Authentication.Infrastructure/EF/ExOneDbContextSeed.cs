@@ -62,6 +62,7 @@ namespace Authentication.Infrastructure.EF
                 listMenu.Add(new Menu { Id = new Guid("1E0A058FD1323C46ABE8061A890DC9EC"), Code = $"{Permissions.User}", Name = "Quản lý người dùng", Url = "/nguoi-dung", Order = 1, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C1") });
                 listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83828"), Code = $"{Permissions.Menu}", Name = "Quản lý menu", Url = "/menu", Order = 2, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C1") });
                 listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83829"), Code = $"{Permissions.Role}", Name = "Quản lý phân quyền", Url = "/phan-quyen", Order = 3, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C1") });
+                listMenu.Add(new Menu { Id = new Guid("E22A625E0334C04D928300BBF8C83822"), Code = $"{Permissions.CauHinh}", Name = "Quản lý cấu hình", Url = "/cau-hinh", Order = 4, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C1") });
 
                 // QUẢN TRỊ DANH MỤC
 
@@ -133,6 +134,11 @@ namespace Authentication.Infrastructure.EF
                 permissions.Add(new Permission { Name = "Tạo", Code = $"{Permissions.Menu}{Permissions.Create}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83829") });
                 permissions.Add(new Permission { Name = "Sửa", Code = $"{Permissions.Menu}{Permissions.Update}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83829") });
                 permissions.Add(new Permission { Name = "Xóa", Code = $"{Permissions.Menu}{Permissions.Delete}", MenuId = new Guid("E17A625E0334C04D928300BBF8C83829") });
+                //quản lý cấu hình
+                permissions.Add(new Permission { Name = "Xem", Code = $"{Permissions.CauHinh}{Permissions.View}", MenuId = new Guid("E22A625E0334C04D928300BBF8C83822") });
+                permissions.Add(new Permission { Name = "Tạo", Code = $"{Permissions.CauHinh}{Permissions.Create}", MenuId = new Guid("E22A625E0334C04D928300BBF8C83822") });
+                permissions.Add(new Permission { Name = "Sửa", Code = $"{Permissions.CauHinh}{Permissions.Update}", MenuId = new Guid("E22A625E0334C04D928300BBF8C83822") });
+                permissions.Add(new Permission { Name = "Xóa", Code = $"{Permissions.CauHinh}{Permissions.Delete}", MenuId = new Guid("E22A625E0334C04D928300BBF8C83822") });
 
 
                 // Quản lý quyền                 
@@ -240,19 +246,10 @@ namespace Authentication.Infrastructure.EF
             {
                 List<Position> positions = new List<Position>();
                 positions.Add(new Position { Id = new Guid("A803B9302260C647960DC65AB20AD553"), Title = "Quản trị viên", Value = PositionEnum.Administrator.GetHashCode(), CreatedDate = DateTime.Now });
-                positions.Add(new Position { Id = new Guid("63B7B10A719245409815FC3296F0341F"), Title = "Tổng giám đốc", Value = PositionEnum.TongGiamDoc.GetHashCode(), CreatedDate = DateTime.Now });
-                positions.Add(new Position { Id = new Guid("C2561F284076114CB824B39D1F366F2B"), Title = "Phó tổng giám đốc", Value = PositionEnum.PhoTongGiamDoc.GetHashCode(), CreatedDate = DateTime.Now });
-                positions.Add(new Position { Id = new Guid("E17B5211E053D840A7C6E12C312DA8B1"), Title = "Trưởng ban kỹ thuật", Value = PositionEnum.TruongBanKyThuat.GetHashCode(), CreatedDate = DateTime.Now });
-                positions.Add(new Position { Id = new Guid("35EEEB98CF39BC47A0A2B1E93D5F0E20"), Title = "Phó trưởng ban kỹ thuật", Value = PositionEnum.PhoTruongBanKyThuat.GetHashCode(), CreatedDate = DateTime.Now });
-                positions.Add(new Position { Id = new Guid("D16AD90DB6F27E48A73F59194F55F444"), Title = "Chuyên viên", Value = PositionEnum.ChuyenVien.GetHashCode(), CreatedDate = DateTime.Now });
-                positions.Add(new Position { Id = new Guid("FA95767484EA1741B8BC84B4444F2CB0"), Title = "Giám đốc", Value = PositionEnum.GiamDoc.GetHashCode(), CreatedDate = DateTime.Now });
-                positions.Add(new Position { Id = new Guid("F391BE860CA2AB4E869FC700C63CC5B6"), Title = "Phó giám đốc", Value = PositionEnum.PhoGiamDoc.GetHashCode(), CreatedDate = DateTime.Now });
-                positions.Add(new Position { Id = new Guid("3A3DC165F1505B4DAE5D2B02873CD184"), Title = "Trưởng phòng kỹ thuật", Value = PositionEnum.TruongPhongKyThuat.GetHashCode(), CreatedDate = DateTime.Now });
-                positions.Add(new Position { Id = new Guid("E2342C808E83E7419335E4BF0CF84B53"), Title = "Phó phòng kỹ thuật", Value = PositionEnum.PhoPhongKyThuat.GetHashCode(), CreatedDate = DateTime.Now });
-                positions.Add(new Position { Id = new Guid("65CC60AEC4FF37428E4D92F15C621C50"), Title = "Đội trưởng", Value = PositionEnum.DoiTruong.GetHashCode(), CreatedDate = DateTime.Now });
-                positions.Add(new Position { Id = new Guid("7414F6643B0405418DE28A140157B3C7"), Title = "Đội phó", Value = PositionEnum.DoiPho.GetHashCode(), CreatedDate = DateTime.Now });
-                positions.Add(new Position { Id = new Guid("E9CA3E167CD7A44D9BEC9E8B91258FFE"), Title = "Nhân viên", Value = PositionEnum.NhanVien.GetHashCode(), CreatedDate = DateTime.Now });
-                positions.Add(new Position { Id = new Guid("919FDA58162FA44BA242A94503351EF0"), Title = "Công nhân", Value = PositionEnum.CongNhan.GetHashCode(), CreatedDate = DateTime.Now });
+                positions.Add(new Position { Id = new Guid("63B7B10A719245409815FC3296F0341F"), Title = "Lãnh đạo B09", Value = PositionEnum.LanhDaoB09.GetHashCode(), CreatedDate = DateTime.Now });
+                positions.Add(new Position { Id = new Guid("C2561F284076114CB824B39D1F366F2B"), Title = "Chuyên viên B09", Value = PositionEnum.ChuyenVienB09.GetHashCode(), CreatedDate = DateTime.Now });
+                positions.Add(new Position { Id = new Guid("E17B5211E053D840A7C6E12C312DA8B1"), Title = "Lãnh đạo B08", Value = PositionEnum.LanhDaoB08.GetHashCode(), CreatedDate = DateTime.Now });
+                positions.Add(new Position { Id = new Guid("35EEEB98CF39BC47A0A2B1E93D5F0E20"), Title = "Chuyên viên B08", Value = PositionEnum.ChuyenVienB08.GetHashCode(), CreatedDate = DateTime.Now });
                 context.Position.AddRange(positions);
             }
 
