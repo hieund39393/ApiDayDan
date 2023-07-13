@@ -15,13 +15,14 @@ namespace EVN.Core.Common
             Administrator = 0,
 
             [Description("Lãnh đạo B09")]
-            LanhDaoB09 = 1,
-            [Description("Phó tổng giám đốc")]
-            ChuyenVienB09 = 2,
-            [Description("Lãnh đạo B08")]
-            LanhDaoB08 = 3,
+            LanhDaoB09 = 4,
             [Description("Chuyên viên B08")]
-            ChuyenVienB08 = 4,
+            ChuyenVienB09 = 3,
+            [Description("Lãnh đạo B08")]
+            LanhDaoB08 = 2,
+
+            [Description("Chuyên viên B08")]
+            ChuyenVienB08 = 1,
 
         }
 
