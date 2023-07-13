@@ -182,7 +182,10 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
                 }
                 item.ListData = listData;
                 item.TinhTrang = r.listBG.FirstOrDefault()?.TinhTrang ?? null;
-
+                if (int.Parse(position) == (int)PositionEnum.ChuyenVienB08 && item.TinhTrang >= 0)
+                {
+                    listResponse.Add(item);
+                }
                 if (int.Parse(position) == (int)PositionEnum.LanhDaoB08 && item.TinhTrang >= 1)
                 {
                     listResponse.Add(item);

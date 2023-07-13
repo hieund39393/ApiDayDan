@@ -18,7 +18,7 @@ namespace Authentication.Application.Commands.UserCommand
     public class CreateUserCommand : IRequest<bool>
     {
         public bool SSO { get; set; }
-        public int Position { get; set; }
+        public Guid? PositionId { get; set; }
         public string UserName { get; set; }
         public string Name { get; set; }
         public bool DefaultPassword { get; set; }
@@ -52,6 +52,7 @@ namespace Authentication.Application.Commands.UserCommand
             user.Name = request.Name;
             user.Email = request.Email;
             user.PhoneNumber = request.PhoneNumber;
+            user.PositionId = request.PositionId;
             var password = request.Password;
             var data = await _userManager.FindByNameAsync(user.UserName);
             if (data == null)

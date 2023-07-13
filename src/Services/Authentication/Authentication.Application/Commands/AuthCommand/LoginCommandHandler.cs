@@ -31,7 +31,7 @@ namespace Authentication.Application.Commands.AuthCommand
         }
         public async Task<LoginResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userManager.Users.Include(x => x.UserRoles).ThenInclude(x => x.Role).ThenInclude(x => x.RoleClaims)
+            var user = await _userManager.Users.Include(x => x.UserRoles).ThenInclude(x => x.Role).ThenInclude(x => x.RoleClaims).Include(x=>x.Position)
                 .FirstOrDefaultAsync(x => x.UserName == request.UserName && !x.IsDeleted, cancellationToken);
             if (user == null)
             {
@@ -55,7 +55,7 @@ namespace Authentication.Application.Commands.AuthCommand
                 UserName = user.UserName,
                 Name = user.Name,
                 PhoneNumber = user.PhoneNumber,
-                Position = user.Position.Value
+                Position = user.Position?.Value
             };
 
             var accessToken = _jwtHandler.CreateToken(tokenModel);
