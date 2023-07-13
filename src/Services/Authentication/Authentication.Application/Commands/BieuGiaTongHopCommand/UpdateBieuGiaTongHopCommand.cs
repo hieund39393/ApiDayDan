@@ -33,7 +33,7 @@ namespace Authentication.Application.Commands.BieuGiaTongHopCommand
             {
                 item.TinhTrang = request.TinhTrang + 1;
 
-                if (item.TinhTrang == 2)
+                if (item.TinhTrang >= 2)
                 {
                     item.NguoiXacNhan = userId;
                     item.NgayXacNhan = DateTime.Now;
