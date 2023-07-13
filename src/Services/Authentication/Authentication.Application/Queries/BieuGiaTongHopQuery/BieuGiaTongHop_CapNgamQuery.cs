@@ -180,7 +180,12 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
                 item.ListData = listData;
                 item.TinhTrang = r.listBG.FirstOrDefault()?.TinhTrang ?? null;
 
-                if (int.Parse(position) == (int)PositionEnum.LanhDaoB08 && item.TinhTrang >= 1)
+                if (int.Parse(position) == (int)PositionEnum.ChuyenVienB08 && item.TinhTrang >= 0)
+                {
+                    listResponse.Add(item);
+                }
+
+                if (int.Parse(position) == (int)PositionEnum.LanhDaoB08)
                 {
                     if (item.TinhTrang == 0)
                     {
@@ -189,7 +194,7 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
                     listResponse.Add(item);
                 }
 
-                else if (int.Parse(position) == (int)PositionEnum.ChuyenVienB09 && item.TinhTrang >= 2)
+                else if (int.Parse(position) == (int)PositionEnum.ChuyenVienB09)
                 {
                     if (item.TinhTrang <= 1)
                     {
@@ -198,7 +203,7 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
 
                     listResponse.Add(item);
                 }
-                else if (int.Parse(position) == (int)PositionEnum.LanhDaoB09 && item.TinhTrang >= 3)
+                else if (int.Parse(position) == (int)PositionEnum.LanhDaoB09)
                 {
                     if (item.TinhTrang <= 2)
                     {

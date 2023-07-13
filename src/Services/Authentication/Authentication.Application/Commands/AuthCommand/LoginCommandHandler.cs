@@ -55,7 +55,7 @@ namespace Authentication.Application.Commands.AuthCommand
                 UserName = user.UserName,
                 Name = user.Name,
                 PhoneNumber = user.PhoneNumber,
-                Position = user.Position?.Value
+                Position = user.Position?.Value.ToString(),
             };
 
             var accessToken = _jwtHandler.CreateToken(tokenModel);
@@ -81,7 +81,7 @@ namespace Authentication.Application.Commands.AuthCommand
             });
             await _userManager.UpdateAsync(user);
             var result = new LoginResponse(accessToken, _option.Jwt.TokenLifeTimeForWeb, refreshToken,
-                user.Id, user.UserName, user.Name, user.PhoneNumber, user.Email, tokenModel.Permissions, tokenModel.IsSuperAdmin);
+                user.Id, user.UserName, user.Name, user.PhoneNumber, user.Email, tokenModel.Permissions, tokenModel.IsSuperAdmin,tokenModel.Position);
             return result;
         }
     }

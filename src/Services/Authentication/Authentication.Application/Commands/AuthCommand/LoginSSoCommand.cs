@@ -116,7 +116,7 @@ namespace Authentication.Application.Commands.AuthCommand
             await _unitOfWork.SaveChangesAsync();
 
             var result = new LoginResponse(accessToken, _option.Jwt.TokenLifeTimeForWeb, refreshToken,
-                user.Id, user.UserName, user.Name, user.PhoneNumber, user.Email, tokenModel.Permissions, tokenModel.IsSuperAdmin);
+                user.Id, user.UserName, user.Name, user.PhoneNumber, user.Email, tokenModel.Permissions, tokenModel.IsSuperAdmin, tokenModel.Position);
             return result;
 
 

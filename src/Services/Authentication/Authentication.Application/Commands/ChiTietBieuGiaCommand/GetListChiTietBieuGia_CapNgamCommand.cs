@@ -30,13 +30,13 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
 
         public async Task<ChiTietBieuGiaResult> Handle(GetListChiTietBieuGia_CapNgamCommand request, CancellationToken cancellationToken)
         {
-            var cauHinh = await _unitOfWork.CauHinhBieuGiaRepository.GetQuery(x => x.PhanLoaiCap == 1).ToListAsync();
+            var cauHinh = await _unitOfWork.CauHinhBieuGiaRepository.GetQuery(x => x.PhanLoaiCap == 2).ToListAsync();
             var cpChung1 = cauHinh.Where(x => x.TenCauHinh == TenCauHinhEnum.CH5.GetHashCode().ToString()).OrderBy(x => x.Nam).ThenBy(x => x.Quy).FirstOrDefault()?.GiaTri;
             var cpChung2 = cauHinh.Where(x => x.TenCauHinh == TenCauHinhEnum.CH6.GetHashCode().ToString()).OrderBy(x => x.Nam).ThenBy(x => x.Quy).FirstOrDefault()?.GiaTri;
             var cpChung3 = cauHinh.Where(x => x.TenCauHinh == TenCauHinhEnum.CH7.GetHashCode().ToString()).OrderBy(x => x.Nam).ThenBy(x => x.Quy).FirstOrDefault()?.GiaTri;
-            var cpNhaTam = cauHinh.Where(x => x.TenCauHinh == TenCauHinhEnum.CH2.GetHashCode().ToString()).OrderBy(x => x.Nam).ThenBy(x => x.Quy).FirstOrDefault()?.GiaTri;
-            var cpCVKXD = cauHinh.Where(x => x.TenCauHinh == TenCauHinhEnum.CH3.GetHashCode().ToString()).OrderBy(x => x.Nam).ThenBy(x => x.Quy).FirstOrDefault()?.GiaTri;
-            var tnct = cauHinh.Where(x => x.TenCauHinh == TenCauHinhEnum.CH4.GetHashCode().ToString()).OrderBy(x => x.Nam).ThenBy(x => x.Quy).FirstOrDefault()?.GiaTri;
+            //var cpNhaTam = cauHinh.Where(x => x.TenCauHinh == TenCauHinhEnum.CH2.GetHashCode().ToString()).OrderBy(x => x.Nam).ThenBy(x => x.Quy).FirstOrDefault()?.GiaTri;
+            var cpCVKXD = cauHinh.Where(x => x.TenCauHinh == TenCauHinhEnum.CH8.GetHashCode().ToString()).OrderBy(x => x.Nam).ThenBy(x => x.Quy).FirstOrDefault()?.GiaTri;
+            var tnct = cauHinh.Where(x => x.TenCauHinh == TenCauHinhEnum.CH9.GetHashCode().ToString()).OrderBy(x => x.Nam).ThenBy(x => x.Quy).FirstOrDefault()?.GiaTri;
 
             if (cpChung1 == null || cpChung2 == null || cpChung3 == null /* || cpNhaTam == null*/ || cpCVKXD == null || tnct == null)
             {

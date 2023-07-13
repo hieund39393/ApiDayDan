@@ -74,6 +74,10 @@ namespace EVN.Core.Common
             CH6 = 6, 
             [Description("CP chung (ĐM 22/2020)")]
             CH7 = 7,
+            [Description("CP công việc không XĐ được từ thiết kế")]
+            CH8 = 8,
+            [Description("Thu nhập chịu thuế TT")]
+            CH9 = 9,
         }
     }
 }
