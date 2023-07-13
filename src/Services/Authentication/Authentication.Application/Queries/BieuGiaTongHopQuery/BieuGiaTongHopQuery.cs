@@ -70,63 +70,66 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
             StringBuilder stringData3 = new StringBuilder();
 
             // DG1
+
+            int index = 0;
             for (int i = 0; i < listResponse.Count; i++)
             {
                 stringData.Append($"<tr><td class='center'>{i + 1}</td>");
                 stringData.Append($"<td>{listResponse[i].TenBieuGia}</td>");
                 stringData.Append($"<td class='center'>{listResponse[i].DonVi}</td>");
-                stringData.Append($"<td class='center'>{listData[0]}</td>");
-                stringData.Append($"<td class='center'>{listData[1]}</td>");
-                stringData.Append($"<td class='center'>{listData[2]}</td>");
-                stringData.Append($"<td class='center'>{listData[3]}</td>");
-                stringData.Append($"<td class='center'>{listData[4]}</td>");
-                stringData.Append($"<td class='center'>{listData[5]}</td>");
-                stringData.Append($"<td class='center'>{listData[6]}</td>");
-                stringData.Append($"<td class='center'>{listData[7]}</td>");
-                stringData.Append($"<td class='center'>{listData[8]}</td>");
-                stringData.Append($"<td class='center'>{listData[9]}</td>");
-                stringData.Append($"<td class='center'>{listData[10]}</td>");
-                stringData.Append($"<td class='center'>{listData[11]}</td></tr>");
+                stringData.Append($"<td class='center'>{listData[index]}</td>"); index++;
+                stringData.Append($"<td class='center'>{listData[index]}</td>"); index++;
+                stringData.Append($"<td class='center'>{listData[index]}</td>"); index++;
+                stringData.Append($"<td class='center'>{listData[index]}</td>"); index++;
+                stringData.Append($"<td class='center'>{listData[index]}</td>"); index++;
+                stringData.Append($"<td class='center'>{listData[index]}</td>"); index++;
+                stringData.Append($"<td class='center'>{listData[index]}</td>"); index++;
+                stringData.Append($"<td class='center'>{listData[index]}</td>"); index++;
+                stringData.Append($"<td class='center'>{listData[index]}</td>"); index++;
+                stringData.Append($"<td class='center'>{listData[index]}</td>"); index++;
+                stringData.Append($"<td class='center'>{listData[index]}</td>"); index++;
+                stringData.Append($"<td class='center'>{listData[index]}</td></tr>"); index++;
             }
 
             // DG2
+            int index1 = 0;
             for (int i = 0; i < listResponse.Count; i++)
             {
                 stringData2.Append($"<tr><td class='center'>{i + 1}</td>");
                 stringData2.Append($"<td>{listResponse[i].TenBieuGia}</td>");
                 stringData2.Append($"<td class='center'>{listResponse[i].DonVi}</td>");
-                stringData2.Append($"<td class='center'>{listData2[0]}</td>");
-                stringData2.Append($"<td class='center'>{listData2[1]}</td>");
-                stringData2.Append($"<td class='center'>{listData2[2]}</td>");
-                stringData2.Append($"<td class='center'>{listData2[3]}</td>");
-                stringData2.Append($"<td class='center'>{listData2[4]}</td>");
-                stringData2.Append($"<td class='center'>{listData2[5]}</td>");
-                stringData2.Append($"<td class='center'>{listData2[6]}</td>");
-                stringData2.Append($"<td class='center'>{listData2[7]}</td>");
-                stringData2.Append($"<td class='center'>{listData2[8]}</td>");
-                stringData2.Append($"<td class='center'>{listData2[9]}</td>");
-                stringData2.Append($"<td class='center'>{listData2[10]}</td>");
-                stringData2.Append($"<td class='center'>{listData2[11]}</td></tr>");
+                stringData2.Append($"<td class='center'>{listData2[index1]}</td>"); index1++;
+                stringData2.Append($"<td class='center'>{listData2[index1]}</td>"); index1++;
+                stringData2.Append($"<td class='center'>{listData2[index1]}</td>"); index1++;
+                stringData2.Append($"<td class='center'>{listData2[index1]}</td>"); index1++;
+                stringData2.Append($"<td class='center'>{listData2[index1]}</td>"); index1++;
+                stringData2.Append($"<td class='center'>{listData2[index1]}</td>"); index1++;
+                stringData2.Append($"<td class='center'>{listData2[index1]}</td>"); index1++;
+                stringData2.Append($"<td class='center'>{listData2[index1]}</td>"); index1++;
+                stringData2.Append($"<td class='center'>{listData2[index1]}</td>"); index1++;
+                stringData2.Append($"<td class='center'>{listData2[index1]}</td>"); index1++;
+                stringData2.Append($"<td class='center'>{listData2[index1]}</td>"); index1++;
+                stringData2.Append($"<td class='center'>{listData2[index1]}</td></tr>"); index1++;
             }
-
             // DG3
+            int index2 = 0;
             for (int i = 0; i < listResponse.Count; i++)
             {
                 stringData3.Append($"<tr><td class='center'>{i + 1}</td>");
                 stringData3.Append($"<td>{listResponse[i].TenBieuGia}</td>");
                 stringData3.Append($"<td class='center'>{listResponse[i].DonVi}</td>");
-                stringData3.Append($"<td class='center'>{listData3[0]}</td>");
-                stringData3.Append($"<td class='center'>{listData3[1]}</td>");
-                stringData3.Append($"<td class='center'>{listData3[2]}</td>");
-                stringData3.Append($"<td class='center'>{listData3[3]}</td>");
-                stringData3.Append($"<td class='center'>{listData3[4]}</td>");
-                stringData3.Append($"<td class='center'>{listData3[5]}</td>");
-                stringData3.Append($"<td class='center'>{listData3[6]}</td>");
-                stringData3.Append($"<td class='center'>{listData3[7]}</td>");
-                stringData3.Append($"<td class='center'>{listData3[8]}</td>");
-                stringData3.Append($"<td class='center'>{listData3[9]}</td>");
-                stringData3.Append($"<td class='center'>{listData3[10]}</td>");
-                stringData3.Append($"<td class='center'>{listData3[11]}</td></tr>");
+                stringData3.Append($"<td class='center'>{listData3[index2]}</td>"); index2++;
+                stringData3.Append($"<td class='center'>{listData3[index2]}</td>"); index2++;
+                stringData3.Append($"<td class='center'>{listData3[index2]}</td>"); index2++;
+                stringData3.Append($"<td class='center'>{listData3[index2]}</td>"); index2++;
+                stringData3.Append($"<td class='center'>{listData3[index2]}</td>"); index2++;
+                stringData3.Append($"<td class='center'>{listData3[index2]}</td>"); index2++;
+                stringData3.Append($"<td class='center'>{listData3[index2]}</td>"); index2++;
+                stringData3.Append($"<td class='center'>{listData3[index2]}</td>"); index2++;
+                stringData3.Append($"<td class='center'>{listData3[index2]}</td>"); index2++;
+                stringData3.Append($"<td class='center'>{listData3[index2]}</td>"); index2++;
+                stringData3.Append($"<td class='center'>{listData3[index2]}</td>"); index2++;
+                stringData3.Append($"<td class='center'>{listData3[index2]}</td></tr>"); index2++;
             }
 
             var data = tempHtml.Replace("{data}", stringData.ToString());
