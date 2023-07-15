@@ -117,7 +117,7 @@ namespace EVN.Core.Common.JwtToken
                 new Claim(ClaimType.Permissions, model.Permissions ?? string.Empty),
                 new Claim(ClaimType.IsSuperAdmin, model.IsSuperAdmin.ToString()),
                 new Claim(ClaimType.PhoneNumber, model.PhoneNumber ?? string.Empty),
-                new Claim(ClaimType.Position, model.Position.ToString() ?? string.Empty),
+                new Claim(ClaimType.Position, model.Position?.ToString() ?? string.Empty),
                 new Claim(ClaimType.Email, model.Email ?? string.Empty),
                 new Claim(ClaimType.UserName, model.UserName ?? string.Empty),
                 new Claim(ClaimType.Name, model.Name ?? string.Empty)

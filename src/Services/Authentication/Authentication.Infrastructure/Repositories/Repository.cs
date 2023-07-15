@@ -12,7 +12,7 @@ namespace Authentication.Infrastructure.Repositories
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        protected readonly DbContext Context;
+        protected readonly ExOneDbContext Context;
         private readonly Type _type;
 
         public Repository(ExOneDbContext context)
@@ -35,7 +35,7 @@ namespace Authentication.Infrastructure.Repositories
         {
             Context.Update(entity);
         }
-        
+
         public void UpdateRange(IEnumerable<TEntity> entities)
         {
             Context.UpdateRange(entities);

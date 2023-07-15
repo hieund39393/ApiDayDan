@@ -1,6 +1,8 @@
 ﻿using Authentication.Infrastructure.AggregatesModel.CauHinhAggregate;
 using Authentication.Infrastructure.Repositories;
+using EVN.Core.Exceptions;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +31,10 @@ namespace Authentication.Application.Commands.CauHinhCommand
 
         public async Task<bool> Handle(CreateCauHinhCommand request, CancellationToken cancellationToken)
         {
+            var checkExist = await _unitOfWork.CauHinhBieuGiaRepository
+                .GetAny(x => x.PhanLoaiCap == request.PhanLoai && x.Quy == request.Quy && x.Nam == request.Nam && x.TenCauHinh == request.TenCauHinh);
+            if (checkExist) throw new EvnException("Cấu hình đã tồn tại");
+
             var data = new CauHinhBieuGia
             {
                 PhanLoaiCap = request.PhanLoai,

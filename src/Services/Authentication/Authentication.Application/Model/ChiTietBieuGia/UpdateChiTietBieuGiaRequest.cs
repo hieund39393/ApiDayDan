@@ -15,7 +15,7 @@ namespace Authentication.Application.Model.ChiTietBieuGia
         public Guid IdCongViec { get; set; }
         public string NoiDungCongViec { get; set; }
         public string DonVi { get; set; }
-        public decimal SoLuong { get; set; }
+        public decimal SoLuong { get; set; } = 0;
         public decimal HeSoDieuChinh_K1nc { get; set; }
         public decimal HeSoDieuChinh_K2nc { get; set; }
         public decimal HeSoDieuChinh_Kmtc { get; set; }

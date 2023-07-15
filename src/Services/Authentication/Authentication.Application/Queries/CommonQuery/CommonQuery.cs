@@ -5,6 +5,7 @@ using EVN.Core.Extensions;
 using EVN.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
+using System.Net.WebSockets;
 using static EVN.Core.Common.AppEnum;
 
 namespace Authentication.Application.Queries.CommonQuery
@@ -29,11 +30,11 @@ namespace Authentication.Application.Queries.CommonQuery
 
         public async Task<object> ListCauHinh(GetListCauHinhRequest request)
         {
-            var data = await _unitOfWork.CauHinhBieuGiaRepository.GetQuery()
+            var data = _unitOfWork.CauHinhBieuGiaRepository.GetQuery()
                 .Where(x => (string.IsNullOrEmpty(request.TenCauHinh) || x.TenCauHinh.ToLower().Contains(request.TenCauHinh.ToLower())))
-                .Where(x => (request.PhanLoai == 0 || x.PhanLoaiCap == request.PhanLoai.Value))
-                .Where(x => (request.Nam == null || x.Nam == request.Nam.Value))
-                .Where(x => (request.Quy == null || x.Quy == request.Quy.Value))
+                .Where(x => (request.PhanLoai == null || x.PhanLoaiCap == request.PhanLoai.Value))
+                .ToLookup(x => new { x.TenCauHinh, x.PhanLoaiCap })
+                .Select(x=>x.OrderBy(x=>x.Nam).ThenBy(x=>x.Quy).Last())
                 .Select(x => new GetListCauHinhResponse
                 {
                     TenCauHinh = GetDescription((TenCauHinhEnum)int.Parse(x.TenCauHinh)),
@@ -42,7 +43,8 @@ namespace Authentication.Application.Queries.CommonQuery
                     Nam = x.Nam,
                     PhanLoaiCap = x.PhanLoaiCap,
                     TenPhanLoai = x.PhanLoaiCap == 1 ? "Cáp trên không" : "Cáp ngầm",
-                }).ToListAsync();
+                })
+                .ToList();
 
             return data;
         }
