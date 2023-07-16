@@ -1,4 +1,6 @@
-﻿using Authentication.Infrastructure.Properties;
+﻿using Authentication.Infrastructure.AggregatesModel.DonGiaNhanCongAggregate;
+using Authentication.Infrastructure.AggregatesModel.DonGiaVatLieuAggregate;
+using Authentication.Infrastructure.Properties;
 using Authentication.Infrastructure.Repositories;
 using EVN.Core.Exceptions;
 using MediatR;
@@ -11,6 +13,7 @@ namespace Authentication.Application.Commands.DonGiaVatLieuCommand
         public Guid IdVatLieu { get; set; }
         public string VanBan { get; set; }
         public decimal DonGia { get; set; }
+        public decimal? DinhMuc { get; set; }
     }
 
     //Tạo thêm 1 class Handler kế thừa IRequestHandler<UpdateDonGiaVatLieuCommand, bool> rồi implement
@@ -30,9 +33,26 @@ namespace Authentication.Application.Commands.DonGiaVatLieuCommand
             {
                 throw new EvnException(string.Format(Resources.MSG_NOT_FOUND, "Đơn giá vật liệu"));
             }
+
+
+            //var model = new DonGiaVatLieu()
+            //{
+            //    IdVatLieu = entity.IdVatLieu,
+            //    VanBan = entity.VanBan,
+            //    DonGiaCu = entity.DonGia,
+            //    DonGia = request.DonGia,
+            //    DinhMucCu = entity.DinhMuc,
+            //    DinhMuc = request.DinhMuc,
+            //};
+            //_unitOfWork.DonGiaVatLieuRepository.Add(model);
+
+
             if (entity.IdVatLieu == request.IdVatLieu && entity.VanBan == request.VanBan)
             {
+                entity.DonGiaCu = entity.DonGia;
                 entity.DonGia = request.DonGia;
+                entity.DinhMucCu = entity.DinhMuc;
+                entity.DinhMuc = request.DinhMuc;
             }
             else
             {
@@ -43,12 +63,13 @@ namespace Authentication.Application.Commands.DonGiaVatLieuCommand
                 }
                 entity.IdVatLieu = request.IdVatLieu;
                 entity.VanBan = request.VanBan;
+                entity.DonGiaCu = entity.DonGia;
                 entity.DonGia = request.DonGia;
+                entity.DinhMucCu = entity.DinhMuc;
+                entity.DinhMuc = request.DinhMuc;
             }
 
-            //thêm vào DB
             _unitOfWork.DonGiaVatLieuRepository.Update(entity);
-            //lưu lại trong DB
             await _unitOfWork.SaveChangesAsync();
             return true;
         }

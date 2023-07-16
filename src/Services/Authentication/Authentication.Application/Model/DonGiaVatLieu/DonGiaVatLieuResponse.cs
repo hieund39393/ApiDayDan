@@ -11,6 +11,8 @@ namespace Authentication.Application.Model.DonGiaVatLieu
         public string DonViTinh { get; set; }
         public string VanBan { get; set; }
         public decimal DonGia{ get; set; }
-        public DateTime NgayTao { get; set; }
+        public decimal? DinhMuc{ get; set; }
+        public string NgayTao { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }

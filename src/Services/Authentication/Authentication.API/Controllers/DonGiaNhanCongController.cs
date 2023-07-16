@@ -48,11 +48,19 @@ namespace Authentication.API.Controllers
         public async Task<IActionResult> GetListUser([FromQuery] DonGiaNhanCongRequest request)
         {
             var data = await _DonGiaNhanCongQuery.GetList(request);
-            return Ok(new ApiSuccessResult<IList<DonGiaNhanCongResponse>>
+            return Ok(new ApiSuccessResult<List<DonGiaNhanCongResponse>>
             {
-                Data = data.Data,
-                Paging = data.Paging
+                Data = data
             });
+        }
+
+
+        [HttpGet("get-all")]
+        [ProducesResponseType(typeof(ApiSuccessResult<IList<DonGiaNhanCongResponse>>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetAll()
+        {
+            var data = await _DonGiaNhanCongQuery.GetAll();
+            return Ok(new ApiSuccessResult<List<SelectItem>>(data: data));
         }
 
         /// <summary>

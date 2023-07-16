@@ -29,6 +29,7 @@ using Authentication.Infrastructure.AggregatesModel.DonGiaNhanCongAggregate;
 using Authentication.Infrastructure.AggregatesModel.DonGiaChietTinhAggregate;
 using Authentication.Infrastructure.AggregatesModel.BieuGiaTongHopAggregate;
 using Authentication.Infrastructure.AggregatesModel.CauHinhAggregate;
+using Authentication.Infrastructure.AggregatesModel.DM_MTCAggregate;
 
 namespace Authentication.Infrastructure.EF
 {
@@ -101,6 +102,14 @@ namespace Authentication.Infrastructure.EF
         public DbSet<BieuGiaTongHop_CapNgam> BieuGiaTongHop_CapNgam { get; set; }
 
         public DbSet<CauHinhBieuGia> CauHinhBieuGia { get; set; }
+        public DbSet<CauHinhChietTinh> CauHinhChietTinh { get; set; }
+        public DbSet<CauHinhChietTinh_CapNgam> CauHinhChietTinh_CapNgam { get; set; }
+
+        public DbSet<DM_MTC> DM_MTC { get; set; }
+        public DbSet<DM_MTC_CapNgam> DM_MTC_CapNgam { get; set; }
+
+        public DbSet<DonGiaMTC> DonGiaMTC { get; set; }
+        public DbSet<DonGiaMTC_CapNgam> DonGiaMTC_CapNgam { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -151,6 +160,13 @@ namespace Authentication.Infrastructure.EF
             //Cau hinh cua Kem M5
             builder.ApplyConfiguration(new DM_BieuGiaConfiguration());
             builder.ApplyConfiguration(new CauHinhBieuGiaConfiguration());
+
+            builder.ApplyConfiguration(new CauHinhChietTinhConfiguration());
+            builder.ApplyConfiguration(new CauHinhChietTinh_CapNgamConfiguration());
+            builder.ApplyConfiguration(new DM_MTCConfiguration());
+            builder.ApplyConfiguration(new DM_MTC_CapNgamConfiguration());
+            builder.ApplyConfiguration(new DonGiaMTC_CapNgamConfiguration());
+            builder.ApplyConfiguration(new DonGiaMTCConfiguration());
         }
 
         /// <summary>

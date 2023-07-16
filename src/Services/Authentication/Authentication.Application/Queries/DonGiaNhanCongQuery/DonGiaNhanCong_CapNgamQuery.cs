@@ -11,7 +11,7 @@ namespace Authentication.Application.Queries.DonGiaNhanCong_CapNgamQuery
     {
 
         Task<PagingResultSP<DonGiaNhanCongResponse>> GetList(DonGiaNhanCongRequest request); // lấy danh sách có phân trang và tìm kiếm
-                                                                                             //  Task<List<SelectItem>> GetAll(); // lấy Tất cả danh sách trả về tên và value
+        Task<List<SelectItem>> GetAll();                                                                                 //  Task<List<SelectItem>> GetAll(); // lấy Tất cả danh sách trả về tên và value
     }
     public class DonGiaNhanCong_CapNgamQuery : IDonGiaNhanCong_CapNgamQuery // kế thừa interface vừa tạo
     {
@@ -21,18 +21,16 @@ namespace Authentication.Application.Queries.DonGiaNhanCong_CapNgamQuery
             _unitOfWork = unitOfWork;
         }
 
-        // lấy Tất cả danh sách trả về tên và value thường dùng cho combobox
-        //public async Task<List<SelectItem>> GetAll()
-        //{
-        //    var query = await _unitOfWork.DonGiaNhanCong_CapNgamRepository.GetQuery().Select(x => new SelectItem
-        //    {
-        //        Name = x.,
-        //        Value = x.Id.ToString(),
-        //    }).AsNoTracking().ToListAsync();
-        //    return query;
-        //}
+        public async Task<List<SelectItem>> GetAll()
+        {
+            var query = await _unitOfWork.DonGiaNhanCong_CapNgamRepository.GetQuery().Include(x => x.KhuVuc).Select(x => new SelectItem
+            {
+                Name = $"{x.CapBac} ({x.KhuVuc.TenKhuVuc})",
+                Value = x.Id.ToString(),
+            }).AsNoTracking().ToListAsync();
+            return query;
+        }
 
-        // lấy dữ liệu phân trang, tìm kiếm , số lượng
         public async Task<PagingResultSP<DonGiaNhanCongResponse>> GetList(DonGiaNhanCongRequest request)
         {
             //Tạo câu query
@@ -45,8 +43,9 @@ namespace Authentication.Application.Queries.DonGiaNhanCong_CapNgamQuery
                     HeSo = x.HeSo,
                     IdKhuVuc = x.IdKhuVuc,
                     DonGia = x.DonGia,
+                    DinhMuc = x.DinhMuc,
                     VungKhuVuc = x.KhuVuc.TenKhuVuc,
-                    NgayTao = x.CreatedDate,
+                    NgayTao = x.CreatedDate.ToString("dd/MM/yyyy"),
                 });// select dữ liệu
 
             if (!string.IsNullOrEmpty(request.SearchTerm))

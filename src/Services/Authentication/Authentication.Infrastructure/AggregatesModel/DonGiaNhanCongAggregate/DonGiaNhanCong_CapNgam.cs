@@ -10,5 +10,9 @@ namespace Authentication.Infrastructure.AggregatesModel.DonGiaNhanCongAggregate
         public Guid? IdKhuVuc { get; set; }
         public DM_KhuVuc KhuVuc { get; set; }
         public decimal DonGia { get; set; }
+        public decimal? DonGiaCu { get; set; }
+
+        public decimal? DinhMuc { get; set; }
+        public decimal? DinhMucCu { get; set; }
     }
 }

@@ -16,7 +16,7 @@ namespace Authentication.Application.Queries.ChiTietBieuGiaQuery
 
         //Task<ChiTietBieuGiaResult> GetList(ChiTietBieuGiaRequest request);
         Task<List<SelectItem>> GetBieuGiaByLoaiBieuGia(Guid loaiBieuGia);
-        Task<List<SelectItem>> GetDonGiaChietTinh(int IdPhanLoai);
+        //Task<List<SelectItem>> GetDonGiaChietTinh(int IdPhanLoai);
         Task<List<GetDonGiaResponse>> GetDonGia(GetDonGiaRequest request);
     }
     public class ChiTietBieuGiaQuery : BaseExtendEntities, IChiTietBieuGiaQuery // kế thừa interface vừa tạo
@@ -65,14 +65,14 @@ namespace Authentication.Application.Queries.ChiTietBieuGiaQuery
                         }).ToListAsync();
                     break;
                 case 4:
-                    result = await _unitOfWork.DonGiaChietTinhRepository.GetQuery(x => x.IdPhanLoai == DonGiaChietTinhPhanLoai.VatLieu.GetHashCode()).Include(x => x.DM_VatLieuChietTinh)
-                        .Select(x => new GetDonGiaResponse
-                        {
-                            Ten = x.DM_VatLieuChietTinh.TenVatLieuChietTinh,
-                            Ma = x.DM_VatLieuChietTinh.MaVatLieuChietTinh,
-                            DonGia = x.DonGia.ToString(),
-                        }).ToListAsync();
-                    break;
+                    //result = await _unitOfWork.DonGiaChietTinhRepository.GetQuery(x => x.IdPhanLoai == DonGiaChietTinhPhanLoai.VatLieu.GetHashCode()).Include(x => x.DM_VatLieuChietTinh)
+                    //    .Select(x => new GetDonGiaResponse
+                    //    {
+                    //        Ten = x.DM_VatLieuChietTinh.TenVatLieuChietTinh,
+                    //        Ma = x.DM_VatLieuChietTinh.MaVatLieuChietTinh,
+                    //        DonGia = x.DonGia.ToString(),
+                    //    }).ToListAsync();
+                    //break;
                 case 5:
                     result = await _unitOfWork.DonGiaNhanCongRepository.GetQuery()
                        .Select(x => new GetDonGiaResponse
@@ -82,25 +82,25 @@ namespace Authentication.Application.Queries.ChiTietBieuGiaQuery
                        }).ToListAsync();
                     break;
                 case 6:
-                    result = await _unitOfWork.DonGiaChietTinhRepository.GetQuery(x => x.IdPhanLoai == DonGiaChietTinhPhanLoai.NhanCong.GetHashCode()).Include(x => x.DM_VatLieuChietTinh)
-                      .Select(x => new GetDonGiaResponse
-                      {
-                          Ten = x.DM_VatLieuChietTinh.TenVatLieuChietTinh,
-                          Ma = x.DM_VatLieuChietTinh.MaVatLieuChietTinh,
-                          DonGia = x.DonGia.ToString(),
-                      }).ToListAsync();
+                    //result = await _unitOfWork.DonGiaChietTinhRepository.GetQuery(x => x.IdPhanLoai == DonGiaChietTinhPhanLoai.NhanCong.GetHashCode()).Include(x => x.DM_VatLieuChietTinh)
+                    //  .Select(x => new GetDonGiaResponse
+                    //  {
+                    //      Ten = x.DM_VatLieuChietTinh.TenVatLieuChietTinh,
+                    //      Ma = x.DM_VatLieuChietTinh.MaVatLieuChietTinh,
+                    //      DonGia = x.DonGia.ToString(),
+                    //  }).ToListAsync();
                     break;
                 case 7:
                     // code block
                     break;
                 case 8:
-                    result = await _unitOfWork.DonGiaChietTinhRepository.GetQuery(x => x.IdPhanLoai == DonGiaChietTinhPhanLoai.MayThiCong.GetHashCode()).Include(x => x.DM_VatLieuChietTinh)
-                    .Select(x => new GetDonGiaResponse
-                    {
-                        Ten = x.DM_VatLieuChietTinh.TenVatLieuChietTinh,
-                        Ma = x.DM_VatLieuChietTinh.MaVatLieuChietTinh,
-                        DonGia = x.DonGia.ToString(),
-                    }).ToListAsync();
+                    //result = await _unitOfWork.DonGiaChietTinhRepository.GetQuery(x => x.IdPhanLoai == DonGiaChietTinhPhanLoai.MayThiCong.GetHashCode()).Include(x => x.DM_VatLieuChietTinh)
+                    //.Select(x => new GetDonGiaResponse
+                    //{
+                    //    Ten = x.DM_VatLieuChietTinh.TenVatLieuChietTinh,
+                    //    Ma = x.DM_VatLieuChietTinh.MaVatLieuChietTinh,
+                    //    DonGia = x.DonGia.ToString(),
+                    //}).ToListAsync();
                     break;
                 default:
                     break;
@@ -114,17 +114,17 @@ namespace Authentication.Application.Queries.ChiTietBieuGiaQuery
             return result;
         }
 
-        public async Task<List<SelectItem>> GetDonGiaChietTinh(int IdPhanLoai)
-        {
-            return await _unitOfWork.DonGiaChietTinhRepository.GetQuery(x => x.IdPhanLoai == IdPhanLoai)
-                .Include(x => x.DM_VatLieuChietTinh)
-                .Select(x => new SelectItem
-                {
-                    Name = x.DM_VatLieuChietTinh.TenVatLieuChietTinh + " / Tổng giá: " + x.TongGia,
-                    Value = x.TongGia.ToString()
+        //public async Task<List<SelectItem>> GetDonGiaChietTinh(int IdPhanLoai)
+        //{
+        //    return await _unitOfWork.DonGiaChietTinhRepository.GetQuery(x => x.IdPhanLoai == IdPhanLoai)
+        //        .Include(x => x.DM_VatLieuChietTinh)
+        //        .Select(x => new SelectItem
+        //        {
+        //            Name = x.DM_VatLieuChietTinh.TenVatLieuChietTinh + " / Tổng giá: " + x.TongGia,
+        //            Value = x.TongGia.ToString()
 
-                }).AsNoTracking().ToListAsync();
-        }
+        //        }).AsNoTracking().ToListAsync();
+        //}
 
         // lấy dữ liệu phân trang, tìm kiếm , số lượng
         public async Task<ChiTietBieuGiaResult> GetList(ChiTietBieuGiaRequest request)

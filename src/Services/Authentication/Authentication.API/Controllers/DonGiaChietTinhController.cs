@@ -44,30 +44,17 @@ namespace Authentication.API.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType(typeof(ApiSuccessResult<IList<DonGiaChietTinhResponse>>), (int)HttpStatusCode.OK)] // trả về dữ liệu model cho FE
+        [ProducesResponseType(typeof(ApiSuccessResult<List<DonGiaChietTinhResponse>>), (int)HttpStatusCode.OK)] // trả về dữ liệu model cho FE
         public async Task<IActionResult> GetListUser([FromQuery] DonGiaChietTinhRequest request)
         {
             var data = await _DonGiaChietTinhQuery.GetList(request);
-            return Ok(new ApiSuccessResult<IList<DonGiaChietTinhResponse>>
+            return Ok(new ApiSuccessResult<List<DonGiaChietTinhResponse>>
             {
-                Data = data.Data,
-                Paging = data.Paging
+                Data = data,
             });
         }
 
-        /// <summary>
-        /// Tạo mới đơn giá chiết tinh
-        /// </summary>
-        /// <param name="command"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [ProducesResponseType(typeof(ApiSuccessResult<bool>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Create([FromBody] CreateDonGiaChietTinhCommand command)
-        {
-            var user = await _mediator.Send(command);
-            return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_CREATE_SUCCESS, "đơn giá chiết tinh")));
-        }
-
+       
         /// <summary>
         /// Sửa đơn giá chiết tinh
         /// </summary>
@@ -81,17 +68,6 @@ namespace Authentication.API.Controllers
             return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_UPDATE_SUCCESS, "đơn giá chiết tinh")));
         }
 
-        /// <summary>
-        /// Xoá đơn giá chiết tinh
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [HttpDelete("{id}")]
-        [ProducesResponseType(typeof(ApiSuccessResult<bool>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Delete([FromRoute] Guid id)
-        {
-            var user = await _mediator.Send(new DeleteDonGiaChietTinhCommand(id));
-            return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_DELETE_SUCCESS, "đơn giá chiết tinh")));
-        }
+      
     }
 }

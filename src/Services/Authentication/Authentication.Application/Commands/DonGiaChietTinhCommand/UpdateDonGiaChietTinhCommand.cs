@@ -1,18 +1,14 @@
-﻿using Authentication.Infrastructure.Properties;
+﻿using Authentication.Application.Model.DonGiaChietTinh;
+using Authentication.Infrastructure.AggregatesModel.DonGiaChietTinhAggregate;
 using Authentication.Infrastructure.Repositories;
-using EVN.Core.Exceptions;
 using MediatR;
 
 namespace Authentication.Application.Commands.DonGiaChietTinhCommand
 {
     public class UpdateDonGiaChietTinhCommand : IRequest<bool> // kế thừa IRequest<bool>
     {
-        public Guid Id { get; set; } // thêm ID
-        public Guid? IdVatLieuChietTinh { get; set; }
-        public decimal DonGia { get; set; }
-        public decimal TongGia { get; set; }
+        public List<DonGiaChietTinhResponse> DonGia { get; set; }
 
-        public int IdPhanLoai{ get; set; }
     }
 
     //Tạo thêm 1 class Handler kế thừa IRequestHandler<UpdateDonGiaChietTinhCommand, bool> rồi implement
@@ -25,35 +21,96 @@ namespace Authentication.Application.Commands.DonGiaChietTinhCommand
         }
         public async Task<bool> Handle(UpdateDonGiaChietTinhCommand request, CancellationToken cancellationToken)
         {
-            // tìm kiếm xem có ID trong bảng DonGiaChietTinh không
-            var entity = await _unitOfWork.DonGiaChietTinhRepository.FindOneAsync(x => x.Id == request.Id);
-            // nếu không có dữ liệu
-            if (entity == null)
+            //var listDMDGC = request.DonGia.Where(x => x.IsDonGiaCu || x.IsDinhMucCu).ToList();
+            //foreach (var item in listDMDGC)
+            //{
+            //    if (item.IsDonGiaCu || item.IsDinhMucCu)
+            //    {
+            //        switch (item.PhanLoai)
+            //        {
+            //            case 1:
+            //                var vlEntity = await _unitOfWork.DonGiaVatLieuRepository.GetQuery(x => x.Id == item.IdVatLieu).OrderByDescending(x => x.CreatedDate).FirstOrDefaultAsync();
+            //                if (item.IsDinhMucCu)
+            //                {
+            //                    vlEntity.DinhMucCu = null;
+            //                }
+            //                if (item.IsDonGiaCu)
+            //                {
+            //                    vlEntity.DonGiaCu = null;
+            //                }
+            //                _unitOfWork.DonGiaVatLieuRepository.Update(vlEntity);
+            //                break;
+            //            case 2:
+            //                var ncEntity = await _unitOfWork.DonGiaNhanCongRepository.GetQuery(x => x.Id == item.IdVatLieu).OrderByDescending(x => x.CreatedDate).FirstOrDefaultAsync();
+            //                if (item.IsDinhMucCu)
+            //                {
+            //                    ncEntity.DinhMucCu = null;
+            //                }
+            //                if (item.IsDonGiaCu)
+            //                {
+            //                    ncEntity.DonGiaCu = null;
+            //                }
+            //                _unitOfWork.DonGiaNhanCongRepository.Update(ncEntity);
+            //                break;
+            //            case 3:
+            //                var mtcEntity = await _unitOfWork.DonGiaMTCRepository.GetQuery(x => x.Id == item.IdVatLieu).OrderByDescending(x => x.CreatedDate).FirstOrDefaultAsync();
+            //                if (item.IsDinhMucCu)
+            //                {
+            //                    mtcEntity.DinhMucCu = null;
+            //                }
+            //                if (item.IsDonGiaCu)
+            //                {
+            //                    mtcEntity.DonGiaCu = null;
+            //                }
+            //                _unitOfWork.DonGiaMTCRepository.Update(mtcEntity);
+            //                break;
+            //            default:
+            //                break;
+            //        }
+            //    }
+            //}
+
+            var data = request.DonGia.GroupBy(x => x.IdCongViec).Select(x => new { IdCongViec = x.Key, DonGia = x.Where(y => y.Level == 3).ToList() });
+
+            foreach (var item in data)
             {
-                throw new EvnException(string.Format(Resources.MSG_NOT_FOUND, "Đơn giá chiết tinh"));
-            }
-            if (entity.IdVatLieuChietTinh == request.IdVatLieuChietTinh)
-            {
-                entity.DonGia = request.DonGia;
-                entity.IdPhanLoai = request.IdPhanLoai;
-                entity.TongGia = request.TongGia;
-            }
-            else
-            {
-                var checkEntity = await _unitOfWork.DonGiaChietTinhRepository.FindOneAsync(x => entity.IdVatLieuChietTinh == request.IdVatLieuChietTinh);
-                if (checkEntity != null)
+                var entity = new DonGiaChietTinh();
+                entity.IdCongViec = item.IdCongViec;
+                entity.DonGiaVatLieu = 0;
+                entity.DonGiaNhanCong = 0;
+                entity.DonGiaMTC = 0;
+
+                foreach (var dg in item.DonGia)
                 {
-                    throw new EvnException(string.Format(Resources.MSG_IS_EXIST, "Đơn giá chiết tinh"));
+                    if (dg.PhanLoai == 1)
+                    {
+                        entity.DonGiaVatLieu += (dg.DinhMuc * dg.DGVL);
+                    }
+                    else if (dg.PhanLoai == 2)
+                    {
+                        entity.DonGiaNhanCong += (dg.DinhMuc * dg.DGNC);
+                    }
+                    else if (dg.PhanLoai == 3)
+                    {
+                        entity.DonGiaMTC += (dg.DinhMuc * dg.DGMTC);
+                    }
                 }
-                entity.IdVatLieuChietTinh = request.IdVatLieuChietTinh;
-                entity.DonGia = request.DonGia;
-                entity.IdPhanLoai = request.IdPhanLoai;
-                entity.TongGia = request.TongGia;
+
+                //var checkExist = await _unitOfWork.DonGiaChietTinhRepository.FindOneAsync(x => x.IdCongViec == entity.IdCongViec);
+                //if (checkExist != null)
+                //{
+                //    checkExist.DonGiaVatLieu = entity.DonGiaVatLieu;
+                //    checkExist.DonGiaNhanCong = entity.DonGiaNhanCong;
+                //    checkExist.DonGiaMTC = entity.DonGiaMTC;
+                //    _unitOfWork.DonGiaChietTinhRepository.Update(checkExist);
+                //}
+                //else
+                //{
+                    _unitOfWork.DonGiaChietTinhRepository.Add(entity);
+                //}
+
             }
 
-            //thêm vào DB
-            _unitOfWork.DonGiaChietTinhRepository.Update(entity);
-            //lưu lại trong DB
             await _unitOfWork.SaveChangesAsync();
             return true;
         }

@@ -48,10 +48,9 @@ namespace Authentication.API.Controllers
         public async Task<IActionResult> GetListUser([FromQuery] DonGiaVatLieuRequest request)
         {
             var data = await _DonGiaVatLieu_CapNgamQuery.GetList(request);
-            return Ok(new ApiSuccessResult<IList<DonGiaVatLieuResponse>>
+            return Ok(new ApiSuccessResult<List<DonGiaVatLieuResponse>>
             {
-                Data = data.Data,
-                Paging = data.Paging
+                Data = data,
             });
         }
 

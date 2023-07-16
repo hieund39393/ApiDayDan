@@ -10,7 +10,7 @@ namespace Authentication.Application.Queries.DonGiaVatLieuQuery
     public interface IDonGiaVatLieuQuery // tạo interface (Quy tắc : có chữ I ở đầu để biết nó là interface)
     {
 
-        Task<PagingResultSP<DonGiaVatLieuResponse>> GetList(DonGiaVatLieuRequest request); // lấy danh sách có phân trang và tìm kiếm
+        Task<List<DonGiaVatLieuResponse>> GetList(DonGiaVatLieuRequest request); // lấy danh sách có phân trang và tìm kiếm
         Task<List<SelectItem>> GetAll(); // lấy Tất cả danh sách trả về tên và value
     }
     public class DonGiaVatLieuQuery : IDonGiaVatLieuQuery // kế thừa interface vừa tạo
@@ -33,7 +33,7 @@ namespace Authentication.Application.Queries.DonGiaVatLieuQuery
         }
 
         // lấy dữ liệu phân trang, tìm kiếm , số lượng
-        public async Task<PagingResultSP<DonGiaVatLieuResponse>> GetList(DonGiaVatLieuRequest request)
+        public async Task<List<DonGiaVatLieuResponse>> GetList(DonGiaVatLieuRequest request)
         {
             //Tạo câu query
             var query = _unitOfWork.DonGiaVatLieuRepository.GetQuery()
@@ -46,18 +46,21 @@ namespace Authentication.Application.Queries.DonGiaVatLieuQuery
                     DonViTinh = x.DM_VatLieu.DonViTinh,
                     VanBan = x.VanBan,
                     DonGia = x.DonGia,
-
-                    NgayTao = x.CreatedDate,
+                    DinhMuc = x.DinhMuc,
+                    CreatedDate = x.CreatedDate,
+                    NgayTao = x.CreatedDate.ToString("dd/MM/yyyy"),
                 });// select dữ liệu
 
             if (!string.IsNullOrEmpty(request.SearchTerm))
             {
                 query = query.Where(x => x.TenVatLieu.Contains(request.SearchTerm.ToLower().Trim()) || x.VanBan.Contains(request.SearchTerm.ToLower().Trim()));
             }
+            var rs = await query.OrderBy(x => x.IdVatLieu).ToListAsync();
+            return rs;
 
-            var totalRow = query.Count(); // tổng số lượng
-            var queryPaging = query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize); // phân trang
-            return await PagingResultSP<DonGiaVatLieuResponse>.CreateAsyncLinq(queryPaging, totalRow, request.PageIndex, request.PageSize);
+            //var totalRow = query.Count(); // tổng số lượng
+            //var queryPaging = query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize); // phân trang
+            //return await PagingResultSP<DonGiaVatLieuResponse>.CreateAsyncLinq(queryPaging, totalRow, request.PageIndex, request.PageSize);
         }
     }
 }

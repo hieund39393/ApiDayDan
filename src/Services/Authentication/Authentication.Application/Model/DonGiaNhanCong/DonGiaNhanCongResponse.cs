@@ -11,7 +11,8 @@ namespace Authentication.Application.Model.DonGiaNhanCong
         public Guid? IdVung { get; set; }
         public Guid? IdKhuVuc { get; set; }
         public decimal DonGia { get; set; }
+        public decimal? DinhMuc{ get; set; }
         public string VungKhuVuc { get;set; }
-        public DateTime NgayTao{ get;set; }
+        public string NgayTao{ get;set; }
     }
 }

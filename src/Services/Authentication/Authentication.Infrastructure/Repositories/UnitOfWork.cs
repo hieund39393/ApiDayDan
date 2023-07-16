@@ -7,6 +7,7 @@ using Authentication.Infrastructure.AggregatesModel.DM_CongViecAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_KhuVucAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGiaAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_LoaiCapAggregate;
+using Authentication.Infrastructure.AggregatesModel.DM_MTCAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_VatLieuAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_VatLieuChietTinhAggregate;
 using Authentication.Infrastructure.AggregatesModel.DonGiaChietTinhAggregate;
@@ -66,6 +67,13 @@ namespace Authentication.Infrastructure.Repositories
         IRepository<DM_BieuGia> DM_BieuGiaRepository { get; }
         IRepository<DM_BieuGia_CapNgam> DM_BieuGia_CapNgamRepository { get; }
         IRepository<CauHinhBieuGia> CauHinhBieuGiaRepository { get; }
+        IRepository<CauHinhChietTinh> CauHinhChietTinhRepository { get; }
+        IRepository<CauHinhChietTinh_CapNgam> CauHinhChietTinh_CapNgamRepository { get; }
+        IRepository<DM_MTC> DM_MTCRepository { get; }
+        IRepository<DM_MTC_CapNgam> DM_MTC_CapNgamRepository { get; }
+
+        IRepository<DonGiaMTC> DonGiaMTCRepository { get; }
+        IRepository<DonGiaMTC_CapNgam> DonGiaMTC_CapNgamRepository { get; }
 
 
 
@@ -113,6 +121,14 @@ namespace Authentication.Infrastructure.Repositories
         private IRepository<DM_BieuGia> _dM_BieuGiaRepository;
         private IRepository<DM_BieuGia_CapNgam> _dM_BieuGia_CapNgamRepository;
         private IRepository<CauHinhBieuGia> _cauHinhBieuGiaRepository;
+
+        private IRepository<CauHinhChietTinh> _cauHinhChietTinhRepository;
+        private IRepository<CauHinhChietTinh_CapNgam> _cauHinhChietTinh_CapNgamRepository;
+        private IRepository<DM_MTC> _dm_MTCRepository;
+        private IRepository<DM_MTC_CapNgam> _dm_MTC_CapNgamRepository;
+
+        private IRepository<DonGiaMTC> _donGiaMTCRepository;
+        private IRepository<DonGiaMTC_CapNgam> _donGiaMTC_CapNgamRepository;
 
         public UnitOfWork(ExOneDbContext context)
         {
@@ -528,7 +544,75 @@ namespace Authentication.Infrastructure.Repositories
             }
         }
 
+        public IRepository<CauHinhChietTinh> CauHinhChietTinhRepository
+        {
+            get
+            {
+                if (_cauHinhChietTinhRepository == null)
+                {
+                    _cauHinhChietTinhRepository = new Repository<CauHinhChietTinh>(_context);
+                }
+                return _cauHinhChietTinhRepository;
+            }
+        }
 
+        public IRepository<CauHinhChietTinh_CapNgam> CauHinhChietTinh_CapNgamRepository
+        {
+            get
+            {
+                if (_cauHinhChietTinh_CapNgamRepository == null)
+                {
+                    _cauHinhChietTinh_CapNgamRepository = new Repository<CauHinhChietTinh_CapNgam>(_context);
+                }
+                return _cauHinhChietTinh_CapNgamRepository;
+            }
+        }
+        public IRepository<DM_MTC> DM_MTCRepository
+        {
+            get
+            {
+                if (_dm_MTCRepository == null)
+                {
+                    _dm_MTCRepository = new Repository<DM_MTC>(_context);
+                }
+                return _dm_MTCRepository;
+            }
+        }
+
+        public IRepository<DM_MTC_CapNgam> DM_MTC_CapNgamRepository
+        {
+            get
+            {
+                if (_dm_MTC_CapNgamRepository == null)
+                {
+                    _dm_MTC_CapNgamRepository = new Repository<DM_MTC_CapNgam>(_context);
+                }
+                return _dm_MTC_CapNgamRepository;
+            }
+        }
+
+        public IRepository<DonGiaMTC> DonGiaMTCRepository
+        {
+            get
+            {
+                if (_donGiaMTCRepository == null)
+                {
+                    _donGiaMTCRepository = new Repository<DonGiaMTC>(_context);
+                }
+                return _donGiaMTCRepository;
+            }
+        }
+        public IRepository<DonGiaMTC_CapNgam> DonGiaMTC_CapNgamRepository
+        {
+            get
+            {
+                if (_donGiaMTC_CapNgamRepository == null)
+                {
+                    _donGiaMTC_CapNgamRepository = new Repository<DonGiaMTC_CapNgam>(_context);
+                }
+                return _donGiaMTC_CapNgamRepository;
+            }
+        }
 
 
         public async Task SaveChangesAsync()

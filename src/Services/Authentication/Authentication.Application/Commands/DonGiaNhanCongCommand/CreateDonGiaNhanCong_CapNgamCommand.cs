@@ -13,6 +13,7 @@ namespace Authentication.Application.Commands.DonGiaNhanCong_CapNgamCommand
         public Guid? IdVung { get; set; }
         public Guid? IdKhuVuc { get; set; }
         public decimal DonGia { get; set; }
+        public decimal? DinhMuc { get; set; }
     }
 
     //Tạo thêm 1 class Handler kế thừa IRequestHandler<CreateDonGiaNhanCong_CapNgamCommand, bool> rồi implement
@@ -41,6 +42,7 @@ namespace Authentication.Application.Commands.DonGiaNhanCong_CapNgamCommand
                     HeSo = request.HeSo ,
                     IdKhuVuc = request.IdKhuVuc ,
                     DonGia = request.DonGia,
+                    DinhMuc = request.DinhMuc,
                 };
                 //thêm vào DB
                 _unitOfWork.DonGiaNhanCong_CapNgamRepository.Add(model);

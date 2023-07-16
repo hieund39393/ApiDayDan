@@ -2,6 +2,7 @@
 using Authentication.Application.Queries.BieuGiaCongViecQuery;
 using Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery;
 using Authentication.Application.Queries.BieuGiaTongHopQuery;
+using Authentication.Application.Queries.CauHinhChietTinhQuery;
 using Authentication.Application.Queries.ChiTietBieuGia_CapNgamQuery;
 using Authentication.Application.Queries.ChiTietBieuGiaQuery;
 using Authentication.Application.Queries.CommonQuery;
@@ -13,10 +14,13 @@ using Authentication.Application.Queries.DM_KhuVucQuery;
 using Authentication.Application.Queries.DM_LoaiBieuGia_CapNgamQuery;
 using Authentication.Application.Queries.DM_LoaiBieuGiaQuery;
 using Authentication.Application.Queries.DM_LoaiCapQuery;
+using Authentication.Application.Queries.DM_MTCQuery;
 using Authentication.Application.Queries.DM_VatLieu_CapNgamQuery;
 using Authentication.Application.Queries.DM_VatLieuChietTinhQuery;
 using Authentication.Application.Queries.DM_VatLieuQuery;
 using Authentication.Application.Queries.DonGiaChietTinhQuery;
+using Authentication.Application.Queries.DonGiaMTC_CapNgamQuery;
+using Authentication.Application.Queries.DonGiaMTCQuery;
 using Authentication.Application.Queries.DonGiaNhanCong_CapNgamQuery;
 using Authentication.Application.Queries.DonGiaNhanCongQuery;
 using Authentication.Application.Queries.DonGiaVatLieu_CapNgamQuery;
@@ -93,6 +97,12 @@ namespace Authentication.API.Configurations
             services.AddScoped<IDM_VatLieu_CapNgamQuery, DM_VatLieu_CapNgamQuery>();
             services.AddScoped<IDonGiaNhanCong_CapNgamQuery, DonGiaNhanCong_CapNgamQuery>();
             services.AddScoped<IDonGiaVatLieu_CapNgamQuery, DonGiaVatLieu_CapNgamQuery>();
+
+            services.AddScoped<ICauHinhChietTinhQuery, CauHinhChietTinhQuery>();
+            services.AddScoped<IDM_MTCQuery, DM_MTCQuery>();
+            services.AddScoped<IDM_MTCQuery, DM_MTCQuery>();
+            services.AddScoped<IDonGiaMTCQuery, DonGiaMTCQuery>();
+            services.AddScoped<IDonGiaMTC_CapNgamQuery, DonGiaMTC_CapNgamQuery>();
             return services;
         }
     }

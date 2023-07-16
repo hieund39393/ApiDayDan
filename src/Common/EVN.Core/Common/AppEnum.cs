@@ -69,15 +69,25 @@ namespace EVN.Core.Common
             CH4 = 4,
 
             [Description("CP chung (ĐM 4970)")]
-            CH5 = 5, 
+            CH5 = 5,
             [Description("CP chung (TT12/2021)")]
-            CH6 = 6, 
+            CH6 = 6,
             [Description("CP chung (ĐM 22/2020)")]
             CH7 = 7,
             [Description("CP công việc không XĐ được từ thiết kế")]
             CH8 = 8,
             [Description("Thu nhập chịu thuế TT")]
             CH9 = 9,
+        }
+
+        public enum PhanLoaiChietTinhEnum
+        {
+            [Description("Vật liệu")]
+            VatLieu = 1,
+            [Description("Nhân công")]
+            NhanCong = 2,
+            [Description("MTC")]
+            MTC = 3,
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Authentication.Infrastructure.Properties;
+﻿using Authentication.Infrastructure.AggregatesModel.DonGiaVatLieuAggregate;
+using Authentication.Infrastructure.Properties;
 using Authentication.Infrastructure.Repositories;
 using EVN.Core.Exceptions;
 using MediatR;
@@ -11,6 +12,7 @@ namespace Authentication.Application.Commands.DonGiaVatLieu_CapNgamCommand
         public Guid IdVatLieu { get; set; }
         public string VanBan { get; set; }
         public decimal DonGia { get; set; }
+        public decimal? DinhMuc { get; set; }
     }
 
     //Tạo thêm 1 class Handler kế thừa IRequestHandler<UpdateDonGiaVatLieu_CapNgamCommand, bool> rồi implement
@@ -30,24 +32,41 @@ namespace Authentication.Application.Commands.DonGiaVatLieu_CapNgamCommand
             {
                 throw new EvnException(string.Format(Resources.MSG_NOT_FOUND, "Đơn giá vật liệu cáp ngầm"));
             }
-            if (entity.IdVatLieu == request.IdVatLieu && entity.VanBan == request.VanBan)
-            {
-                entity.DonGia = request.DonGia;
-            }
-            else
-            {
-                var checkEntity = await _unitOfWork.DonGiaVatLieu_CapNgamRepository.FindOneAsync(x => x.IdVatLieu == request.IdVatLieu && x.VanBan == request.VanBan);
-                if (checkEntity != null)
-                {
-                    throw new EvnException(string.Format(Resources.MSG_IS_EXIST, "Đơn giá vật liệu cáp ngầm"));
-                }
-                entity.IdVatLieu = request.IdVatLieu;
-                entity.VanBan = request.VanBan;
-                entity.DonGia = request.DonGia;
-            }
 
-            //thêm vào DB
-            _unitOfWork.DonGiaVatLieu_CapNgamRepository.Update(entity);
+            var model = new DonGiaVatLieu_CapNgam()
+            {
+                IdVatLieu = entity.IdVatLieu,
+                VanBan = entity.VanBan,
+                DonGiaCu = entity.DonGia,
+                DonGia = request.DonGia,
+                DinhMucCu = entity.DinhMuc,
+                DinhMuc = request.DinhMuc,
+            };
+            _unitOfWork.DonGiaVatLieu_CapNgamRepository.Add(model);
+
+
+            //if (entity.IdVatLieu == request.IdVatLieu && entity.VanBan == request.VanBan)
+            //{
+            //    entity.DonGia = request.DonGia;
+            //    entity.DinhMucCu = entity.DinhMuc;
+            //    entity.DinhMuc = request.DinhMuc;
+            //}
+            //else
+            //{
+            //    var checkEntity = await _unitOfWork.DonGiaVatLieu_CapNgamRepository.FindOneAsync(x => x.IdVatLieu == request.IdVatLieu && x.VanBan == request.VanBan);
+            //    if (checkEntity != null)
+            //    {
+            //        throw new EvnException(string.Format(Resources.MSG_IS_EXIST, "Đơn giá vật liệu cáp ngầm"));
+            //    }
+            //    entity.IdVatLieu = request.IdVatLieu;
+            //    entity.VanBan = request.VanBan;
+            //    entity.DonGia = request.DonGia;
+            //    entity.DinhMucCu = entity.DinhMuc;
+            //    entity.DinhMuc = request.DinhMuc;
+            //}
+
+            ////thêm vào DB
+            //_unitOfWork.DonGiaVatLieu_CapNgamRepository.Update(entity);
             //lưu lại trong DB
             await _unitOfWork.SaveChangesAsync();
             return true;

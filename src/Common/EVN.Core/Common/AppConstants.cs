@@ -301,6 +301,7 @@ namespace EVN.Core.Common
 
             public const string LoaiCap = QTDM + "lc";
             public const string VatLieu = QTDM + "vl";
+            public const string MTC = QTDM + "mtc";
             public const string VatLieuChietTinh = QTDM + "vlct";
             public const string BieuGiaCongViec = QTDM + "bgcv";
 
@@ -310,6 +311,7 @@ namespace EVN.Core.Common
             public const string CongViecCapNgam = QTDM + "cvcn";
             public const string BieuGiaCongViecCapNgam = QTDM + "bgcvcn";
             public const string VatLieuCapNgam = QTDM + "vlcn";
+            public const string MTCCapNgam = QTDM + "mtccn";
 
 
             // Menu của quản trị đơn giá
@@ -320,9 +322,13 @@ namespace EVN.Core.Common
             public const string DonGiaCap = QLTTDG + "dgc";
             public const string DonGiaNhanCong = QLTTDG + "dgnc";
             public const string DonGiaVatLieu = QLTTDG + "dgvl";
+            public const string DonGiaMTC = QLTTDG + "dgmtc";
             public const string DonGiaVatLieuChietTinh = QLTTDG + "dgvlct";
+            public const string CauHinhChietTinh = QLTTDG + "chct";
+            public const string CauHinhChietTinhCapNgam = QLTTDG + "chctcn";
             public const string DonGiaNhanCongCapNgam = QLTTDG + "dgnccn";
             public const string DonGiaVatLieuCapNgam = QLTTDG + "dgvlcn";
+            public const string DonGiaMTCCapNgam = QLTTDG + "dgmtccn";
 
             // Menu của quản trị BIỂU GIÁ
             public const string CTCapTrenKhong = QLTTCTBG + "ctk";

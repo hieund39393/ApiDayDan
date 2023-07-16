@@ -25,6 +25,15 @@ namespace Authentication.API.Controllers
             _mediator = mediator;
         }
 
+
+        [HttpGet("get-all")]
+        [ProducesResponseType(typeof(ApiSuccessResult<IList<DonGiaNhanCongResponse>>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetAll()
+        {
+            var data = await _DonGiaNhanCong_CapNgamQuery.GetAll();
+            return Ok(new ApiSuccessResult<List<SelectItem>>(data: data));
+        }
+
         /// <summary>
         /// Danh sách đơn giá nhân công cáp ngầm có phân trang, tổng số , tìm kiếm
         /// </summary>
