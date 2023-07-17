@@ -61,9 +61,9 @@ namespace Authentication.Application.Queries.ChiTietBieuGia_CapNgamQuery
                     result = await _unitOfWork.DonGiaNhanCong_CapNgamRepository.GetQuery()
                        .Select(x => new GetDonGiaResponse
                        {
-                           Ten = $"{x.KhuVuc.TenKhuVuc} - Hệ số: {x.HeSo} - Cấp bậc: {x.CapBac}",
+                           Ten = $"{x.NhanCong_CapNgam.KhuVuc.TenKhuVuc} - Hệ số: {x.NhanCong_CapNgam.HeSo} - Cấp bậc: {x.NhanCong_CapNgam.CapBac}",
                            DonGia = x.DonGia.ToString(),
-                       }).ToListAsync();
+                       }).ToListAsync();                                                                                                                                                                                  
                     break;
 
                 default:
@@ -78,7 +78,7 @@ namespace Authentication.Application.Queries.ChiTietBieuGia_CapNgamQuery
             return result;
         }
 
-      
+
 
         // lấy dữ liệu phân trang, tìm kiếm , số lượng
         public async Task<ChiTietBieuGiaResult> GetList(ChiTietBieuGiaRequest request)

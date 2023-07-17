@@ -30,6 +30,7 @@ using Authentication.Infrastructure.AggregatesModel.DonGiaChietTinhAggregate;
 using Authentication.Infrastructure.AggregatesModel.BieuGiaTongHopAggregate;
 using Authentication.Infrastructure.AggregatesModel.CauHinhAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_MTCAggregate;
+using Authentication.Infrastructure.AggregatesModel.DM_NhanCongAggregate;
 
 namespace Authentication.Infrastructure.EF
 {
@@ -111,6 +112,9 @@ namespace Authentication.Infrastructure.EF
         public DbSet<DonGiaMTC> DonGiaMTC { get; set; }
         public DbSet<DonGiaMTC_CapNgam> DonGiaMTC_CapNgam { get; set; }
 
+        public DbSet<DM_NhanCong> DM_NhanCong { get; set; }
+        public DbSet<DM_NhanCong_CapNgam> DM_NhanCong_CapNgam { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -167,6 +171,9 @@ namespace Authentication.Infrastructure.EF
             builder.ApplyConfiguration(new DM_MTC_CapNgamConfiguration());
             builder.ApplyConfiguration(new DonGiaMTC_CapNgamConfiguration());
             builder.ApplyConfiguration(new DonGiaMTCConfiguration());
+
+            builder.ApplyConfiguration(new DM_NhanCongConfiguration());
+            builder.ApplyConfiguration(new DM_NhanCong_CapNgamConfiguration());
         }
 
         /// <summary>

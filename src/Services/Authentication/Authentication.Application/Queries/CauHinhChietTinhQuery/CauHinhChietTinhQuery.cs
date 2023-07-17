@@ -53,8 +53,8 @@ namespace Authentication.Application.Queries.CauHinhChietTinhQuery
         {
             var listData = await _unitOfWork.CauHinhChietTinhRepository.GetQuery(x => x.IdCongViec == request.IdCongViec && x.PhanLoai == (int)PhanLoaiChietTinhEnum.NhanCong)
                 .AsNoTracking().Select(x => x.IdChiTiet).ToListAsync();
-            var result = await _unitOfWork.DonGiaNhanCongRepository.GetQuery(x => listData.Contains(x.IdKhuVuc)).Include(x => x.KhuVuc)
-                 .Select(x => x.IdKhuVuc.Value).Distinct().ToListAsync();
+            var result = await _unitOfWork.DM_NhanCongRepository.GetQuery(x => listData.Contains(x.Id))
+                .Select(x => x.Id).ToListAsync();
             return result;
         }
 

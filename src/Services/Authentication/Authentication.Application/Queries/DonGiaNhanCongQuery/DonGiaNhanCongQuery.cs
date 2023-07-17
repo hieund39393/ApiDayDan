@@ -23,53 +23,38 @@ namespace Authentication.Application.Queries.DonGiaNhanCongQuery
 
         public async Task<List<SelectItem>> GetAll()
         {
-            var query = await _unitOfWork.DonGiaNhanCongRepository.GetQuery().Include(x => x.KhuVuc).AsNoTracking()
-            .ToListAsync();
-
-            var result = query.GroupBy(x => new { x.IdKhuVuc, x.HeSo, x.CapBac }).Select(x => x.OrderByDescending(y => y.CreatedDate).First()).ToList()
-                .Select(x => new SelectItem
-                {
-                    Name = $"{x.CapBac} ({x.KhuVuc.TenKhuVuc})",
-                    Value = x.IdKhuVuc.ToString(),
-                }).ToList();
-            return result;
+            var query = await _unitOfWork.DonGiaNhanCongRepository.GetQuery()
+                 .Include(x => x.NhanCong).ThenInclude(x => x.KhuVuc)
+                 .Select(x => new SelectItem
+                 {
+                     Name = $"{x.NhanCong.CapBac} ({x.NhanCong.KhuVuc.TenKhuVuc})",
+                     Value = x.Id.ToString(),
+                 }).AsNoTracking().ToListAsync();
+            return query;
         }
 
-        // lấy Tất cả danh sách trả về tên và value thường dùng cho combobox
-        //public async Task<List<SelectItem>> GetAll()
-        //{
-        //    var query = await _unitOfWork.DonGiaNhanCongRepository.GetQuery().Select(x => new SelectItem
-        //    {
-        //        Name = x.,
-        //        Value = x.Id.ToString(),
-        //    }).AsNoTracking().ToListAsync();
-        //    return query;
-        //}
-
-        // lấy dữ liệu phân trang, tìm kiếm , số lượng
         public async Task<List<DonGiaNhanCongResponse>> GetList(DonGiaNhanCongRequest request)
         {
             //Tạo câu query
             var query = _unitOfWork.DonGiaNhanCongRepository.GetQuery()
-                .Include(x => x.KhuVuc)
+                .Include(x => x.NhanCong).ThenInclude(x => x.KhuVuc)
                 .Select(x => new DonGiaNhanCongResponse()
                 {
                     Id = x.Id,
-                    CapBac = x.CapBac,
-                    HeSo = x.HeSo,
-                    IdKhuVuc = x.IdKhuVuc,
+                    NhanCong = $"{x.NhanCong.CapBac} ({x.NhanCong.KhuVuc.TenKhuVuc})",
                     DonGia = x.DonGia,
+                    IdNhanCong = x.IdNhanCong.Value,
                     DinhMuc = x.DinhMuc,
-                    VungKhuVuc = x.KhuVuc.TenKhuVuc,
                     NgayTao = x.CreatedDate.ToString("dd/MM/yyyy"),
                 });// select dữ liệu
 
             if (!string.IsNullOrEmpty(request.SearchTerm))
             {
-                query = query.Where(x => x.CapBac.Contains(request.SearchTerm.ToLower().Trim()) || x.HeSo.Contains(request.SearchTerm.ToLower().Trim()) || x.VungKhuVuc.ToLower().Contains(request.SearchTerm.ToLower().Trim()));
+                query = query.Where(x => x.NhanCong.Contains(request.SearchTerm.ToLower().Trim()));
             }
-            var rs = await query.OrderBy(x => x.IdKhuVuc).ToListAsync();
+            var rs = await query.OrderBy(x => x.IdNhanCong).ToListAsync();
             return rs;
+
         }
     }
 }

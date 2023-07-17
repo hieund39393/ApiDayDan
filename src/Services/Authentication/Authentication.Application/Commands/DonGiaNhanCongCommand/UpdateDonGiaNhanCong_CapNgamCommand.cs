@@ -38,43 +38,12 @@ namespace Authentication.Application.Commands.DonGiaNhanCong_CapNgamCommand
 
             var model = new DonGiaNhanCong_CapNgam()
             {
-                IdKhuVuc = entity.IdKhuVuc,
-                HeSo = entity.HeSo,
-                CapBac = entity.CapBac,
-                DonGiaCu = entity.DonGia,
                 DonGia = request.DonGia,
-                DinhMucCu = entity.DinhMuc,
                 DinhMuc = request.DinhMuc,
             };
             _unitOfWork.DonGiaNhanCong_CapNgamRepository.Add(model);
 
 
-            //if (entity.CapBac == request.CapBac && entity.HeSo == request.HeSo && entity.IdKhuVuc == request.IdKhuVuc)
-            //{
-            //    entity.DonGiaCu = entity.DonGia;
-            //    entity.DonGia = request.DonGia;
-            //    entity.DinhMucCu = entity.DinhMuc;
-            //    entity.DinhMuc = request.DinhMuc;
-            //}
-            //else
-            //{
-            //    var checkEntity = await _unitOfWork.DonGiaNhanCong_CapNgamRepository.FindOneAsync(x => entity.CapBac == request.CapBac && entity.HeSo == request.HeSo && entity.IdKhuVuc == request.IdKhuVuc);
-            //    if (checkEntity != null)
-            //    {
-            //        throw new EvnException(string.Format(Resources.MSG_IS_EXIST, "Đơn giá nhân công cáp ngầm"));
-            //    }
-            //    entity.CapBac = request.CapBac;
-            //    entity.HeSo = request.HeSo;
-            //    entity.IdKhuVuc = request.IdKhuVuc;
-            //    entity.DonGiaCu = entity.DonGia;
-            //    entity.DonGia = request.DonGia;
-            //    entity.DinhMucCu = entity.DinhMuc;
-            //    entity.DinhMuc = request.DinhMuc;
-            //}
-
-            ////thêm vào DB
-            //_unitOfWork.DonGiaNhanCong_CapNgamRepository.Update(entity);
-            //lưu lại trong DB
             await _unitOfWork.SaveChangesAsync();
             return true;
         }

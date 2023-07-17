@@ -65,19 +65,19 @@ namespace Authentication.Application.Queries.ChiTietBieuGiaQuery
                         }).ToListAsync();
                     break;
                 case 4:
-                    //result = await _unitOfWork.DonGiaChietTinhRepository.GetQuery(x => x.IdPhanLoai == DonGiaChietTinhPhanLoai.VatLieu.GetHashCode()).Include(x => x.DM_VatLieuChietTinh)
-                    //    .Select(x => new GetDonGiaResponse
-                    //    {
-                    //        Ten = x.DM_VatLieuChietTinh.TenVatLieuChietTinh,
-                    //        Ma = x.DM_VatLieuChietTinh.MaVatLieuChietTinh,
-                    //        DonGia = x.DonGia.ToString(),
-                    //    }).ToListAsync();
-                    //break;
+                //result = await _unitOfWork.DonGiaChietTinhRepository.GetQuery(x => x.IdPhanLoai == DonGiaChietTinhPhanLoai.VatLieu.GetHashCode()).Include(x => x.DM_VatLieuChietTinh)
+                //    .Select(x => new GetDonGiaResponse
+                //    {
+                //        Ten = x.DM_VatLieuChietTinh.TenVatLieuChietTinh,
+                //        Ma = x.DM_VatLieuChietTinh.MaVatLieuChietTinh,
+                //        DonGia = x.DonGia.ToString(),
+                //    }).ToListAsync();
+                //break;
                 case 5:
                     result = await _unitOfWork.DonGiaNhanCongRepository.GetQuery()
                        .Select(x => new GetDonGiaResponse
                        {
-                           Ten = $"{x.KhuVuc.TenKhuVuc} - Hệ số: {x.HeSo} - Cấp bậc: {x.CapBac}",
+                           Ten = $"{x.NhanCong.KhuVuc.TenKhuVuc} - Hệ số: {x.NhanCong.HeSo} - Cấp bậc: {x.NhanCong.CapBac}",
                            DonGia = x.DonGia.ToString(),
                        }).ToListAsync();
                     break;
