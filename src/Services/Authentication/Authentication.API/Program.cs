@@ -33,11 +33,11 @@ namespace Authentication.API
             LogHelper.Logger = CreateSystemLogger();
 
             Log.Information("Applying migrations ({AuthenticationDbContext})...");
-            host.MigrateDbContext<ExOneDbContext>((context, services) =>
-            {
-                var userManager = (UserManager<User>)services.GetService(typeof(UserManager<User>));
-                new ExOneDbContextSeed().SeedAsync(context, userManager).Wait();
-            });
+            //host.MigrateDbContext<ExOneDbContext>((context, services) =>
+            //{
+            //    var userManager = (UserManager<User>)services.GetService(typeof(UserManager<User>));
+            //    new ExOneDbContextSeed().SeedAsync(context, userManager).Wait();
+            //});
 
             Log.Information("Starting web host ({AuthenticationDbContext})...");
             host.Run();

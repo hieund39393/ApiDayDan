@@ -43,52 +43,54 @@ namespace Authentication.API.Controllers
         }
 
 
-        [HttpGet("chi-tiet-pdf")]
+        [HttpGet("chi-tiet")]
         [ProducesResponseType(typeof(ApiSuccessResult<IList<BieuGiaTongHopResponse>>), (int)HttpStatusCode.OK)] // trả về dữ liệu model cho FE
         public async Task<IActionResult> ChiTietPDF([FromQuery] ChiTietPDFRequest request)
         {
             var data = await _bieuGiaTongHopQuery.ChiTietPDF(request);
-            var i = 0;
-            var listDonGia = new List<byte[]>();
+            return Ok(data);
 
-            foreach (var item in data)
-            {
-                string fileName = $"BieuGia_Quy{request.Quy}_Nam{request.Nam}_PhanLoai{i + 1}";
+            //var i = 0;
+            //var listDonGia = new List<byte[]>();
+
+            //foreach (var item in data)
+            //{
+            //    string fileName = $"BieuGia_Quy{request.Quy}_Nam{request.Nam}_PhanLoai{i + 1}";
 
 
-                var glb = new GlobalSettings
-                {
-                    ColorMode = ColorMode.Color,
-                    Orientation = Orientation.Landscape,
-                    PaperSize = PaperKind.A4,
-                    Margins = new MarginSettings()
-                    {
-                        Bottom = 10,
-                        Left = 10,
-                        Right = 10,
-                        Top = 15,
-                    },
-                    DocumentTitle = fileName,
-                };
+            //    var glb = new GlobalSettings
+            //    {
+            //        ColorMode = ColorMode.Color,
+            //        Orientation = Orientation.Landscape,
+            //        PaperSize = PaperKind.A4,
+            //        Margins = new MarginSettings()
+            //        {
+            //            Bottom = 10,
+            //            Left = 10,
+            //            Right = 10,
+            //            Top = 15,
+            //        },
+            //        DocumentTitle = fileName,
+            //    };
 
-                var objectSettings = new ObjectSettings
-                {
-                    PagesCount = true,
-                    HtmlContent = data[i],
-                    WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = null }
-                };
+            //    var objectSettings = new ObjectSettings
+            //    {
+            //        PagesCount = true,
+            //        HtmlContent = data[i],
+            //        WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = null }
+            //    };
 
-                var pdf = new HtmlToPdfDocument
-                {
-                    GlobalSettings = glb,
-                    Objects = { objectSettings }
-                };
+            //    var pdf = new HtmlToPdfDocument
+            //    {
+            //        GlobalSettings = glb,
+            //        Objects = { objectSettings }
+            //    };
 
-                listDonGia.Add(_converter.Convert(pdf));
-                i++;
-            }
+            //    listDonGia.Add(_converter.Convert(pdf));
+            //    i++;
+            //}
 
-            return Ok(listDonGia);
+            //return Ok(listDonGia);
         }
 
 
