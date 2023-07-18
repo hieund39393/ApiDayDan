@@ -12,7 +12,7 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
     public interface IBieuGiaTongHopQuery
     {
         Task<List<BieuGiaTongHopResponse>> GetList(BieuGiaTongHopRequest request);
-        Task<List<object>> ChiTietPDF(ChiTietPDFRequest request);
+        Task<object> ChiTietPDF(ChiTietPDFRequest request);
     }
     public class BieuGiaTongHopQuery : IBieuGiaTongHopQuery
     {
@@ -22,7 +22,7 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<List<object>> ChiTietPDF(ChiTietPDFRequest request)
+        public async Task<object> ChiTietPDF(ChiTietPDFRequest request)
         {
             var loaiBieuGia = await _unitOfWork.DM_LoaiBieuGiaRepository.GetQuery().AsNoTracking().ToListAsync();
             var query = await _unitOfWork.BieuGiaTongHopRepository.GetQuery(x => x.Nam == request.Nam && x.Quy == request.Quy)

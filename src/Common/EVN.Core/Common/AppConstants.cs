@@ -254,7 +254,7 @@ namespace EVN.Core.Common
             public const string Remove = "remove";
         }
 
-  
+
         public class Permissions
         {
             // Module Code
@@ -336,10 +336,12 @@ namespace EVN.Core.Common
             public const string CTCapTrenKhong = QLTTCTBG + "ctk";
             public const string CTCapNgam = QLTTCTBG + "cn";
 
+            public const string DongBoBieuGia = QLTTCTBG + "dbbg";
             public const string ChiTietBieuGia = QLTTCTBG + "ctbg";
             public const string XacNhanBieuGia = QLTTCTBG + "xnbg";
             public const string GuiDuyetBieuGia = QLTTCTBG + "gdbg";
 
+            public const string DongBoBieuGiaCapNgam = QLTTCTBG + "dbbgcn";
             public const string ChiTietBieuGiaCapNgam = QLTTCTBG + "ctbgcn";
             public const string XacNhanBieuGiaCapNgam = QLTTCTBG + "xnbgcn";
             public const string GuiDuyetBieuGiaCapNgam = QLTTCTBG + "gdbgcn";
