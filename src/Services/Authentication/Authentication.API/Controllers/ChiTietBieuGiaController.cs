@@ -84,6 +84,16 @@ namespace Authentication.API.Controllers
             return Ok(new ApiSuccessResult<bool>(data: data, message: string.Format("Đồng bộ chi tiết biểu giá thành công")));
         }
 
+        [HttpGet("check-data")]
+        public async Task<IActionResult> CheckData([FromQuery] ChiTietBieuGiaRequest request)
+        {
+            var data = await _ChiTietBieuGiaQuery.KiemTraDuLieu(request);
+            return Ok(new ApiSuccessResult<int>
+            {
+                Data = data
+            });
+        }
+
         [HttpGet("get-don-gia")]
         public async Task<IActionResult> GetDonGia([FromQuery] GetDonGiaRequest request)
         {

@@ -1,4 +1,5 @@
-﻿using Authentication.Application.Model;
+﻿using Authentication.Application.Commands.ChiTietBieuGiaCommand;
+using Authentication.Application.Model;
 using Authentication.Application.Model.ChiTietBieuGia;
 using Authentication.Application.Services;
 using Authentication.Infrastructure.Repositories;
@@ -18,6 +19,7 @@ namespace Authentication.Application.Queries.ChiTietBieuGiaQuery
         Task<List<SelectItem>> GetBieuGiaByLoaiBieuGia(Guid loaiBieuGia);
         //Task<List<SelectItem>> GetDonGiaChietTinh(int IdPhanLoai);
         Task<List<GetDonGiaResponse>> GetDonGia(GetDonGiaRequest request);
+        Task<int> KiemTraDuLieu(ChiTietBieuGiaRequest request);
     }
     public class ChiTietBieuGiaQuery : BaseExtendEntities, IChiTietBieuGiaQuery // kế thừa interface vừa tạo
     {
@@ -256,5 +258,25 @@ namespace Authentication.Application.Queries.ChiTietBieuGiaQuery
 
         }
 
+        public async Task<int> KiemTraDuLieu(ChiTietBieuGiaRequest request)
+        {
+            //var quyTruoc = request.Quy == 1 ? 4 : request.Quy - 1;
+            //var namTruoc = request.Quy == 1 ? request.Nam - 1 : request.Nam;
+
+            var data = await _unitOfWork.BieuGiaTongHopRepository.GetQuery(x => x.Quy == request.Quy && x.Nam == request.Nam).AsNoTracking().FirstOrDefaultAsync();
+
+            if (data == null)
+            {
+                return 0;
+            }
+            if (data.TinhTrang == 0)
+            {
+                return 1;
+            }
+            else
+            {
+                return 2;
+            }
+        }
     }
 }

@@ -13,9 +13,8 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
 {
     public class SyncChiTietBieuGiaCommand : IRequest<bool>
     {
-        public int Nam { get; set; }
-        public int Quy { get; set; }
-        public int LoaiDongBo { get; set; }
+        public int? Nam { get; set; }
+        public int? Quy { get; set; }
     }
     public class SyncChiTietBieuGiaCommandHandler : IRequestHandler<SyncChiTietBieuGiaCommand, bool>
     {
@@ -26,10 +25,12 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
         }
         public async Task<bool> Handle(SyncChiTietBieuGiaCommand request, CancellationToken cancellationToken)
         {
-            var bieuGiaCu = await _unitOfWork.BieuGiaTongHopRepository.GetQuery(x => x.TinhTrang == TinhTrangEnum.DaDuyet.GetHashCode()).OrderByDescending(x => x.Nam).ThenByDescending(x => x.Quy).AsNoTracking().FirstOrDefaultAsync();
+           
 
-            if (request.LoaiDongBo == 1)
+            if (request.Quy == null && request.Nam == null)
             {
+                var bieuGiaCu = await _unitOfWork.BieuGiaTongHopRepository.GetQuery(x => x.TinhTrang == 4).OrderByDescending(x => x.Nam).ThenByDescending(x => x.Quy).AsNoTracking().FirstOrDefaultAsync();
+
                 var chiTietBieuGiaCu = await _unitOfWork.ChiTietBieuGiaRepository.GetQuery(x => x.Nam == bieuGiaCu.Nam && x.Quy == bieuGiaCu.Quy).AsNoTracking().ToListAsync();
                 var listChiTietBieuGia = new List<ChiTietBieuGia>();
                 foreach (var item in chiTietBieuGiaCu)
@@ -69,8 +70,10 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
 
                 _unitOfWork.BieuGiaTongHopRepository.Add(bieuGiaCu);
             }
-            else if (request.LoaiDongBo == 2)
+            else
             {
+                var bieuGiaCu = await _unitOfWork.BieuGiaTongHopRepository.GetQuery(x => x.TinhTrang == 0).OrderByDescending(x => x.Nam).ThenByDescending(x => x.Quy).AsNoTracking().FirstOrDefaultAsync();
+
                 if (bieuGiaCu.Nam != request.Nam || bieuGiaCu.Quy != request.Quy)
                 {
                     throw new EvnException($"Quý {request.Quy} năm {request.Nam} chưa có dữ liệu vui lòng đồng bộ dữ liệu của quý trước khi thực hiện thay đổi đơn giá");
@@ -81,26 +84,26 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                 var listBieuGiaCongViec = await _unitOfWork.BieuGiaCongViecRepository.GetQuery(x => listIdBieuGiaCu.Contains(x.IdBieuGia))
                     .Include(x => x.DM_CongViec).AsNoTracking().ToListAsync();
 
-                var listDonGiaCap = await _unitOfWork.GiaCapRepository.GetQuery().GroupBy(x => x.IdLoaiCap).Select(x => x.OrderByDescending(y => y.CreatedDate).First())
-                    .Include(z => z.DM_LoaiCap).AsNoTracking().ToListAsync();
+                var listDonGiaCap = await _unitOfWork.GiaCapRepository.GetQuery().Include(z => z.DM_LoaiCap).GroupBy(x => x.IdLoaiCap).Select(x => x.OrderByDescending(y => y.CreatedDate).First())
+                    .AsNoTracking().ToListAsync();
 
-                var listDonGiaChietTinh = await _unitOfWork.DonGiaChietTinhRepository.GetQuery()
-                    .GroupBy(x => x.IdCongViec).Select(x => x.OrderByDescending(y => y.CreatedDate).First()).Include(z => z.DM_CongViec).AsNoTracking().ToListAsync();
+                var listDonGiaChietTinh = await _unitOfWork.DonGiaChietTinhRepository.GetQuery().Include(z => z.DM_CongViec)
+                    .GroupBy(x => x.IdCongViec).Select(x => x.OrderByDescending(y => y.CreatedDate).First()).AsNoTracking().ToListAsync();
 
-                var listDonGiaVatLieu = await _unitOfWork.DonGiaVatLieuRepository.GetQuery()
-                    .GroupBy(x => x.IdVatLieu).Select(x => x.OrderByDescending(y => y.CreatedDate).First()).Include(z => z.DM_VatLieu).AsNoTracking().ToListAsync();
+                var listDonGiaVatLieu = await _unitOfWork.DonGiaVatLieuRepository.GetQuery().Include(z => z.DM_VatLieu)
+                    .GroupBy(x => x.IdVatLieu).Select(x => x.OrderByDescending(y => y.CreatedDate).First()).AsNoTracking().ToListAsync();
 
                 var listChiTietBieuGia = new List<ChiTietBieuGia>();
 
                 foreach (var item in chiTietBieuGiaCu)
                 {
-                    var cap = listBieuGiaCongViec.Where(x => x.IdCongViec == item.IDCongViec && x.IdBieuGia == item.IDBieuGia).FirstOrDefault();
-                    if (cap.CongViecChinh)
+                    var congViec = listBieuGiaCongViec.Where(x => x.IdCongViec == item.IDCongViec && x.IdBieuGia == item.IDBieuGia).FirstOrDefault();
+                    if (congViec.CongViecChinh)
                     {
-                        var giaCap = listDonGiaCap.Where(x => x.DM_LoaiCap.MaLoaiCap.Trim() == cap.DM_CongViec.MaCongViec.Trim()).FirstOrDefault()?.DonGia;
+                        var giaCap = listDonGiaCap.Where(x => x.DM_LoaiCap.MaLoaiCap.Trim() == congViec.DM_CongViec.MaCongViec.Trim()).FirstOrDefault()?.DonGia;
                         item.DonGia_VL = giaCap.Value;
                     }
-                    else if (!string.IsNullOrEmpty(item.DM_CongViec.MaCongViec) && item.DM_CongViec.MaCongViec.ToUpper().StartsWith("D"))
+                    else if (!string.IsNullOrEmpty(congViec.DM_CongViec.MaCongViec) && congViec.DM_CongViec.MaCongViec.ToUpper().StartsWith("D"))
                     {
                         var donGiaCT = listDonGiaChietTinh.Where(x => x.IdCongViec == item.IDCongViec).FirstOrDefault();
                         item.DonGia_VL = donGiaCT.DonGiaVatLieu ?? item.DonGia_VL;
@@ -109,7 +112,7 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                     }
                     else
                     {
-                        var vatLieu = listDonGiaVatLieu.Where(x => x.IdVatLieu == item.IDCongViec).FirstOrDefault();
+                        var vatLieu = listDonGiaVatLieu.Where(x => x.DM_VatLieu.MaVatLieu != null && ( x.DM_VatLieu.MaVatLieu.Trim() == congViec.DM_CongViec.MaCongViec.Trim())).FirstOrDefault();
                         item.DonGia_VL = vatLieu?.DonGia ?? item.DonGia_VL;
                     }
 
