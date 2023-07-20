@@ -20,7 +20,6 @@ using Authentication.Infrastructure.AggregatesModel.DM_KhuVucAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_CongViecAggregate;
 using Authentication.Infrastructure.AggregatesModel.ChiTietBieuGiaAggregate;
 using Authentication.Infrastructure.AggregatesModel.BieuGiaCongViecAggregate;
-using Authentication.Infrastructure.AggregatesModel.DM_VatLieuChietTinhAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_VatLieuAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_LoaiCapAggregate;
 using Authentication.Infrastructure.AggregatesModel.GiaCapAggregate;
@@ -80,7 +79,6 @@ namespace Authentication.Infrastructure.EF
         public DbSet<ChiTietBieuGia> ChiTietBieuGia { get; set; }
         public DbSet<BieuGiaCongViec> BieuGiaCongViec { get; set; }
         public DbSet<DM_LoaiCap> DM_LoaiCap { get; set; }
-        public DbSet<DM_VatLieuChietTinh> DM_VatLieuChietTinh { get; set; }
         public DbSet<DM_VatLieu> DM_VatLieu { get; set; }
         public DbSet<GiaCap> GiaCap { get; set; }
         public DbSet<DonGiaVatLieu> DonGiaVatLieu { get; set; }
@@ -114,6 +112,7 @@ namespace Authentication.Infrastructure.EF
 
         public DbSet<DM_NhanCong> DM_NhanCong { get; set; }
         public DbSet<DM_NhanCong_CapNgam> DM_NhanCong_CapNgam { get; set; }
+        public DbSet<DM_LoaiCap_CapNgam> DM_LoaiCap_CapNgam { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -137,7 +136,6 @@ namespace Authentication.Infrastructure.EF
             builder.ApplyConfiguration(new DM_CongViecConfiguration());
             builder.ApplyConfiguration(new ChiTietBieuGiaConfiguration());
             builder.ApplyConfiguration(new BieuGiaCongViecConfiguration());
-            builder.ApplyConfiguration(new DM_VatLiecChietTinhConfiguration());
             builder.ApplyConfiguration(new DM_VatLieuConfiguration());
             builder.ApplyConfiguration(new DM_LoaiCapConfiguration());
             builder.ApplyConfiguration(new GiaCapConfiguration());
@@ -174,6 +172,7 @@ namespace Authentication.Infrastructure.EF
 
             builder.ApplyConfiguration(new DM_NhanCongConfiguration());
             builder.ApplyConfiguration(new DM_NhanCong_CapNgamConfiguration());
+            builder.ApplyConfiguration(new GiaCap_CapNgamConfiguration());
         }
 
         /// <summary>

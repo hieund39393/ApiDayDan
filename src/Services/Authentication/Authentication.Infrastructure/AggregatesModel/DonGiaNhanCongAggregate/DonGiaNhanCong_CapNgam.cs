@@ -13,5 +13,6 @@ namespace Authentication.Infrastructure.AggregatesModel.DonGiaNhanCongAggregate
 
         public decimal? DinhMuc { get; set; }
         public decimal? DinhMucCu { get; set; }
+        public int VungKhuVuc { get; set; }
     }
 }

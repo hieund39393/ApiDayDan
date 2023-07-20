@@ -20,7 +20,7 @@
         public string CPCVKXD { get; set; }
         public string TNCT { get; set; }
 
-
+        public bool ChuaCoDuLieuBieuGia { get; set; }
     }
     public class ChiTietBieuGiaResponse
     {

@@ -1,5 +1,6 @@
 ﻿using Authentication.Infrastructure.AggregatesModel.BieuGiaCongViecAggregate;
 using Authentication.Infrastructure.AggregatesModel.ChiTietBieuGiaAggregate;
+using Authentication.Infrastructure.AggregatesModel.DonGiaChietTinhAggregate;
 using EVN.Core.Models.Base;
 
 namespace Authentication.Infrastructure.AggregatesModel.DM_CongViecAggregate
@@ -12,6 +13,6 @@ namespace Authentication.Infrastructure.AggregatesModel.DM_CongViecAggregate
         public ICollection<BieuGiaCongViec_CapNgam> BieuGiaCongViec_CapNgam { get; set; } // cấu hình 1-N bảng biểu giá công việc
         public ICollection<ChiTietBieuGia_CapNgam> ChiTietBieuGia_CapNgam { get; set; } // cấu hình 1-N bảng biểu giá công việc
 
-
+        public ICollection<DonGiaChietTinh_CapNgam> DonGiaChietTinh_CapNgams { get; set; }
     }
 }

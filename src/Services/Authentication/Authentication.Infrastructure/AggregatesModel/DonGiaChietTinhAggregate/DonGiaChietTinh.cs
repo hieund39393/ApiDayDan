@@ -1,6 +1,4 @@
 ﻿using Authentication.Infrastructure.AggregatesModel.DM_CongViecAggregate;
-using Authentication.Infrastructure.AggregatesModel.DM_VatLieuAggregate;
-using Authentication.Infrastructure.AggregatesModel.DM_VatLieuChietTinhAggregate;
 using EVN.Core.Models.Base;
 
 namespace Authentication.Infrastructure.AggregatesModel.DonGiaChietTinhAggregate

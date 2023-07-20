@@ -10,7 +10,6 @@ using Authentication.Infrastructure.AggregatesModel.DM_LoaiCapAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_MTCAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_NhanCongAggregate;
 using Authentication.Infrastructure.AggregatesModel.DM_VatLieuAggregate;
-using Authentication.Infrastructure.AggregatesModel.DM_VatLieuChietTinhAggregate;
 using Authentication.Infrastructure.AggregatesModel.DonGiaChietTinhAggregate;
 using Authentication.Infrastructure.AggregatesModel.DonGiaNhanCongAggregate;
 using Authentication.Infrastructure.AggregatesModel.DonGiaVatLieuAggregate;
@@ -56,7 +55,6 @@ namespace Authentication.Infrastructure.Repositories
         IRepository<DM_NhanCong> DM_NhanCongRepository { get; }
         IRepository<DM_NhanCong_CapNgam> DM_NhanCong_CapNgamRepository { get; }
 
-        IRepository<DM_VatLieuChietTinh> DM_VatLieuChietTinhRepository { get; }
         IRepository<GiaCap> GiaCapRepository { get; }
         IRepository<DonGiaVatLieu> DonGiaVatLieuRepository { get; }
         IRepository<DonGiaVatLieu_CapNgam> DonGiaVatLieu_CapNgamRepository { get; }
@@ -116,7 +114,6 @@ namespace Authentication.Infrastructure.Repositories
         private IRepository<DM_NhanCong_CapNgam> _dM_NhanCong_CapNgamRepository;
 
 
-        private IRepository<DM_VatLieuChietTinh> _dM_VatLieuChietTinhRepository;
         private IRepository<GiaCap> _giaCapRepository;
         private IRepository<DonGiaVatLieu> _donGiaVatLieuRepository;
         private IRepository<DonGiaVatLieu_CapNgam> _donGiaVatLieu_CapNgamRepository;
@@ -419,18 +416,6 @@ namespace Authentication.Infrastructure.Repositories
             }
         }
 
-
-        public IRepository<DM_VatLieuChietTinh> DM_VatLieuChietTinhRepository
-        {
-            get
-            {
-                if (_dM_VatLieuChietTinhRepository == null)
-                {
-                    _dM_VatLieuChietTinhRepository = new Repository<DM_VatLieuChietTinh>(_context);
-                }
-                return _dM_VatLieuChietTinhRepository;
-            }
-        }
         public IRepository<GiaCap> GiaCapRepository
         {
             get

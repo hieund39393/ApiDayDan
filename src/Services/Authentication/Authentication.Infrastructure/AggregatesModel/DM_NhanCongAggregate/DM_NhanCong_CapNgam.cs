@@ -12,5 +12,6 @@ namespace Authentication.Infrastructure.AggregatesModel.DM_NhanCongAggregate
         public Guid? IdKhuVuc { get; set; }
         public DM_KhuVuc KhuVuc { get; set; }
         public ICollection<DonGiaNhanCong_CapNgam> DonGiaNhanCong_CapNgam { get; set; }
+
     }
 }

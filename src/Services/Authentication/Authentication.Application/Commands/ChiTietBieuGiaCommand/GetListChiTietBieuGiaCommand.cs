@@ -120,6 +120,8 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                 {
                     var giaCap = listDonGiaCap.Where(x => x.DM_LoaiCap.MaLoaiCap.Trim() == item.MaNoiDungCongViec).FirstOrDefault()?.DonGia;
                     item.DonGia_VL = giaCap ?? 0;
+                    item.DonGia_NC = item.DonGia_NC ?? 0;
+                    item.DonGia_MTC = item.DonGia_MTC ?? 0;
                 }
                 else if (!string.IsNullOrEmpty(item.MaNoiDungCongViec) && item.MaNoiDungCongViec.ToUpper().StartsWith("D"))
                 {
@@ -132,6 +134,8 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                 {
                     var vatLieu = listDonGiaVatLieu.Where(x => x.DM_VatLieu.MaVatLieu != null && (x.DM_VatLieu.MaVatLieu.Trim() == item.MaNoiDungCongViec.Trim())).FirstOrDefault();
                     item.DonGia_VL = vatLieu?.DonGia ?? 0;
+                    item.DonGia_NC = item.DonGia_NC ?? 0;
+                    item.DonGia_MTC = item.DonGia_MTC ?? 0;
                 }
 
                 //item.DonGia_VL = item.DonGia_VL ?? 0;
@@ -201,6 +205,16 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
             result.CPCVKXD = cpCVKXD;
             result.TNCT = tnct;
 
+            if (chuaCoDuLieu)
+            {
+                var checkDataExist = await _unitOfWork.ChiTietBieuGiaRepository.GetQuery(x => x.IDBieuGia == request.IdBieuGia)
+                    .AsNoTracking().FirstOrDefaultAsync();
+                if (checkDataExist == null)
+                {
+                    result.ChuaCoDuLieuBieuGia = true;
+
+                }
+            }
             return result;
 
         }

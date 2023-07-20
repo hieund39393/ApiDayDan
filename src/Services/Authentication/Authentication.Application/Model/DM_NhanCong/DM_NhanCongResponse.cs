@@ -8,7 +8,6 @@ namespace Authentication.Application.Model.DonGiaNhanCong
         public Guid   Id { get; set; }
         public string CapBac { get; set; }
         public string HeSo { get; set; }
-        public Guid? IdVung { get; set; }
         public Guid? IdKhuVuc { get; set; }
         public string NgayTao{ get;set; }
         public string VungKhuVuc { get; set; }

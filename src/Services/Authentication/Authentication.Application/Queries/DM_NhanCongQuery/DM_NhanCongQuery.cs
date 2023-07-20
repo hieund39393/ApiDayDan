@@ -43,7 +43,7 @@ namespace Authentication.Application.Queries.DM_NhanCongQuery
                     Id = x.Id,
                     CapBac = x.CapBac,
                     HeSo = x.HeSo,
-                    IdVung = x.IdKhuVuc,
+                    IdKhuVuc = x.IdKhuVuc,
                     VungKhuVuc = x.KhuVuc.TenKhuVuc,
                     NgayTao = x.CreatedDate.ToString("dd/MM/yyyy"),
                 });// select dữ liệu

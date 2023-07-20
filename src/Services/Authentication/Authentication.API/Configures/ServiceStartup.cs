@@ -14,11 +14,11 @@ using Authentication.Application.Queries.DM_KhuVucQuery;
 using Authentication.Application.Queries.DM_LoaiBieuGia_CapNgamQuery;
 using Authentication.Application.Queries.DM_LoaiBieuGiaQuery;
 using Authentication.Application.Queries.DM_LoaiCapQuery;
+using Authentication.Application.Queries.DM_MTC_CapNgamQuery;
 using Authentication.Application.Queries.DM_MTCQuery;
 using Authentication.Application.Queries.DM_NhanCong_CapNgamQuery;
 using Authentication.Application.Queries.DM_NhanCongQuery;
 using Authentication.Application.Queries.DM_VatLieu_CapNgamQuery;
-using Authentication.Application.Queries.DM_VatLieuChietTinhQuery;
 using Authentication.Application.Queries.DM_VatLieuQuery;
 using Authentication.Application.Queries.DonGiaChietTinhQuery;
 using Authentication.Application.Queries.DonGiaMTC_CapNgamQuery;
@@ -78,7 +78,6 @@ namespace Authentication.API.Configurations
 
             services.AddScoped<IDM_LoaiCapQuery, DM_LoaiCapQuery>(); // quy tắc Interface trước class sau
             services.AddScoped<IDM_VatLieuQuery, DM_VatLieuQuery>(); // quy tắc Interface trước class sau
-            services.AddScoped<IDM_VatLieuChietTinhQuery, DM_VatLieuChietTinhQuery>(); // quy tắc Interface trước class sau
             services.AddScoped<IGiaCapQuery, GiaCapQuery>(); // quy tắc Interface trước class sau
             services.AddScoped<IDonGiaVatLieuQuery, DonGiaVatLieuQuery>(); // quy tắc Interface trước class sau
             services.AddScoped<IDonGiaNhanCongQuery, DonGiaNhanCongQuery>(); // quy tắc Interface trước class sau
@@ -102,7 +101,7 @@ namespace Authentication.API.Configurations
 
             services.AddScoped<ICauHinhChietTinhQuery, CauHinhChietTinhQuery>();
             services.AddScoped<IDM_MTCQuery, DM_MTCQuery>();
-            services.AddScoped<IDM_MTCQuery, DM_MTCQuery>();
+            services.AddScoped<IDM_MTC_CapNgamQuery, DM_MTC_CapNgamQuery>();
             services.AddScoped<IDonGiaMTCQuery, DonGiaMTCQuery>();
             services.AddScoped<IDonGiaMTC_CapNgamQuery, DonGiaMTC_CapNgamQuery>();
 

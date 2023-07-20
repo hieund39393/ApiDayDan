@@ -322,10 +322,12 @@ namespace EVN.Core.Common
             public const string DGCapNgam = QLTTDG + "cn";
 
             public const string DonGiaCap = QLTTDG + "dgc";
+            public const string DonGiaCapCapNgam = QLTTDG + "dgccn";
             public const string DonGiaNhanCong = QLTTDG + "dgnc";
             public const string DonGiaVatLieu = QLTTDG + "dgvl";
             public const string DonGiaMTC = QLTTDG + "dgmtc";
             public const string DonGiaVatLieuChietTinh = QLTTDG + "dgvlct";
+            public const string DonGiaVatLieuChietTinhCapNgam = QLTTDG + "dgvlctcn";
             public const string CauHinhChietTinh = QLTTDG + "chct";
             public const string CauHinhChietTinhCapNgam = QLTTDG + "chctcn";
             public const string DonGiaNhanCongCapNgam = QLTTDG + "dgnccn";
