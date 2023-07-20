@@ -99,6 +99,14 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
             decimal donGiaVatLieu = 0;
             decimal donGiaNhanCong = 0;
 
+            var listDonGiaCap = await _unitOfWork.GiaCapRepository.GetQuery().Include(z => z.DM_LoaiCap).GroupBy(x => x.IdLoaiCap).Select(x => x.OrderByDescending(y => y.CreatedDate).First())
+                .AsNoTracking().ToListAsync();
+
+            var listDonGiaChietTinh = await _unitOfWork.DonGiaChietTinhRepository.GetQuery().Include(z => z.DM_CongViec)
+                .GroupBy(x => x.IdCongViec).Select(x => x.OrderByDescending(y => y.CreatedDate).First()).AsNoTracking().ToListAsync();
+
+            var listDonGiaVatLieu = await _unitOfWork.DonGiaVatLieuRepository.GetQuery().Include(z => z.DM_VatLieu)
+                .GroupBy(x => x.IdVatLieu).Select(x => x.OrderByDescending(y => y.CreatedDate).First()).AsNoTracking().ToListAsync();
 
             var stt = 1;
             foreach (var item in query)
@@ -107,9 +115,28 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                 item.HeSoDieuChinh_K1nc = item.HeSoDieuChinh_K1nc ?? 1;
                 item.HeSoDieuChinh_K2nc = item.HeSoDieuChinh_K2nc ?? 1;
                 item.HeSoDieuChinh_Kmtc = item.HeSoDieuChinh_Kmtc ?? 1;
-                item.DonGia_VL = item.DonGia_VL ?? 0;
-                item.DonGia_NC = item.DonGia_NC ?? 0;
-                item.DonGia_MTC = item.DonGia_MTC ?? 0;
+
+                if (item.CongViecChinh)
+                {
+                    var giaCap = listDonGiaCap.Where(x => x.DM_LoaiCap.MaLoaiCap.Trim() == item.MaNoiDungCongViec).FirstOrDefault()?.DonGia;
+                    item.DonGia_VL = giaCap ?? 0;
+                }
+                else if (!string.IsNullOrEmpty(item.MaNoiDungCongViec) && item.MaNoiDungCongViec.ToUpper().StartsWith("D"))
+                {
+                    var donGiaCT = listDonGiaChietTinh.Where(x => x.IdCongViec == item.IdCongViec).FirstOrDefault();
+                    item.DonGia_VL = donGiaCT.DonGiaVatLieu ?? 0;
+                    item.DonGia_NC = donGiaCT.DonGiaNhanCong ?? 0;
+                    item.DonGia_MTC = donGiaCT.DonGiaMTC ?? 0;
+                }
+                else
+                {
+                    var vatLieu = listDonGiaVatLieu.Where(x => x.DM_VatLieu.MaVatLieu != null && (x.DM_VatLieu.MaVatLieu.Trim() == item.MaNoiDungCongViec.Trim())).FirstOrDefault();
+                    item.DonGia_VL = vatLieu?.DonGia ?? 0;
+                }
+
+                //item.DonGia_VL = item.DonGia_VL ?? 0;
+                //item.DonGia_NC = item.DonGia_NC ?? 0;
+                //item.DonGia_MTC = item.DonGia_MTC ?? 0;
 
                 if (stt == 1 && item.Id == null) chuaCoDuLieu = true;
                 if (string.IsNullOrEmpty(item.MaNoiDungCongViec))
