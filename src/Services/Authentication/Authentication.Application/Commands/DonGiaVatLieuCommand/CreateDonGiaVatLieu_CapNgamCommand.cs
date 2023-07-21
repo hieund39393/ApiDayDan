@@ -12,6 +12,7 @@ namespace Authentication.Application.Commands.DonGiaVatLieuCommand
         public string VanBan { get; set; }
         public decimal DonGia { get; set; }
         public decimal? DinhMuc { get; set; }
+        public int VungKhuVuc { get; set; }
     }
 
     //Tạo thêm 1 class Handler kế thừa IRequestHandler<CreateDonGiaVatLieu_CapNgamCommand, bool> rồi implement
@@ -36,6 +37,7 @@ namespace Authentication.Application.Commands.DonGiaVatLieuCommand
                     VanBan = request.VanBan,
                     DonGia = request.DonGia,
                     DinhMuc = request.DinhMuc,
+                    VungKhuVuc = request.VungKhuVuc,
                 };
                 //thêm vào DB
                 _unitOfWork.DonGiaVatLieu_CapNgamRepository.Add(model);

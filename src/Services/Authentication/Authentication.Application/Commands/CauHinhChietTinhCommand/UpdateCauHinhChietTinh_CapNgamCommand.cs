@@ -1,18 +1,21 @@
-﻿using Authentication.Infrastructure.Properties;
+﻿using Authentication.Infrastructure.AggregatesModel.DonGiaChietTinhAggregate;
+using Authentication.Infrastructure.Properties;
 using Authentication.Infrastructure.Repositories;
 using EVN.Core.Exceptions;
+using EVN.Core.Helpers;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using static EVN.Core.Common.AppEnum;
 
-namespace Authentication.Application.Commands.CauHinhChietTinh_CapNgamCommand
+namespace Authentication.Application.Commands.CauHinhChietTinhCommand
 {
     public class UpdateCauHinhChietTinh_CapNgamCommand : IRequest<bool>
     {
-        public Guid Id { get; set; }
-        public Guid IdBieuGia { get; set; }
         public Guid IdCongViec { get; set; }
-        public bool CongViecChinh { get; set; }
-        public int PhanLoai { get; set; }
+        public List<Guid> IdVatLieu { get; set; }
+        public List<Guid> IdNhanCong { get; set; }
+        public List<Guid> IdMTC { get; set; }
+        public int VungKhuVuc { get; set; }
     }
 
     //Tạo thêm 1 class Handler kế thừa IRequestHandler<UpdateCauHinhChietTinh_CapNgamCommand, bool> rồi implement
@@ -27,14 +30,41 @@ namespace Authentication.Application.Commands.CauHinhChietTinh_CapNgamCommand
         {
 
 
-            // tìm kiếm xem có ID trong bảng CauHinhChietTinh_CapNgam không
-            var entity = await _unitOfWork.CauHinhChietTinh_CapNgamRepository.FindOneAsync(x => x.Id == request.Id);
+            // tìm kiếm xem có ID trong bảng CauHinhChietTinh không
+            var listData = await _unitOfWork.CauHinhChietTinhRepository.GetQuery(x => x.IdCongViec == request.IdCongViec).ToListAsync();
+            foreach(var item in listData)
+            {
+                item.IsDeleted = true;
+                _unitOfWork.CauHinhChietTinhRepository.Update(item);
+            }
 
-            // nếu không có dữ liệu
-         
-            //thêm vào DB
-            _unitOfWork.CauHinhChietTinh_CapNgamRepository.Update(entity);
-            //lưu lại trong DB
+            var listCauHinh = new List<CauHinhChietTinh_CapNgam>();
+            if (request.IdVatLieu.Any())
+            {
+                foreach (var item in request.IdVatLieu)
+                {
+                    listCauHinh.Add(new CauHinhChietTinh_CapNgam { IdCongViec = request.IdCongViec, IdChiTiet = item, PhanLoai = PhanLoaiChietTinhEnum.VatLieu.GetHashCode(), VungKhuVuc = request.VungKhuVuc });
+                }
+            }
+            if (request.IdNhanCong.Any())
+            {
+                foreach (var item in request.IdNhanCong)
+                {
+                    listCauHinh.Add(new CauHinhChietTinh_CapNgam { IdCongViec = request.IdCongViec, IdChiTiet = item, PhanLoai = PhanLoaiChietTinhEnum.NhanCong.GetHashCode(), VungKhuVuc = request.VungKhuVuc });
+                }
+            }
+            if (request.IdMTC.Any())
+            {
+                foreach (var item in request.IdMTC)
+                {
+                    listCauHinh.Add(new CauHinhChietTinh_CapNgam { IdCongViec = request.IdCongViec, IdChiTiet = item, PhanLoai = PhanLoaiChietTinhEnum.MTC.GetHashCode(), VungKhuVuc = request.VungKhuVuc });
+                }
+            }
+            if (listCauHinh.Any())
+            {
+                _unitOfWork.CauHinhChietTinh_CapNgamRepository.AddRange(listCauHinh);
+            }
+
             await _unitOfWork.SaveChangesAsync();
             return true;
         }

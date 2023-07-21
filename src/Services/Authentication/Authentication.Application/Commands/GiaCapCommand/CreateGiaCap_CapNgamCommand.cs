@@ -6,38 +6,39 @@ using MediatR;
 
 namespace Authentication.Application.Commands.GiaCapCommand
 {
-    public class CreateGiaCapCommand : IRequest<bool> // kế thừa IRequest<bool>
+    public class CreateGiaCap_CapNgamCommand : IRequest<bool> // kế thừa IRequest<bool>
     {
         public Guid IdLoaiCap { get; set; }
         public string VanBan { get; set; }
         public decimal DonGia { get; set; }
-
+        public int VungKhuVuc { get; set; }
     }
 
-    //Tạo thêm 1 class Handler kế thừa IRequestHandler<CreateGiaCapCommand, bool> rồi implement
-    public class CreateGiaCapCommandHandler : IRequestHandler<CreateGiaCapCommand, bool> //
+    //Tạo thêm 1 class Handler kế thừa IRequestHandler<CreateGiaCap_CapNgamCommand, bool> rồi implement
+    public class CreateGiaCap_CapNgamCommandHandler : IRequestHandler<CreateGiaCap_CapNgamCommand, bool> //
     {
         private readonly IUnitOfWork _unitOfWork; // khai báo 
-        public CreateGiaCapCommandHandler(IUnitOfWork unitOfWork) //cấu hình dependence
+        public CreateGiaCap_CapNgamCommandHandler(IUnitOfWork unitOfWork) //cấu hình dependence
         {
             _unitOfWork = unitOfWork; // khai báo
         }
-        public async Task<bool> Handle(CreateGiaCapCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(CreateGiaCap_CapNgamCommand request, CancellationToken cancellationToken)
         {
             // tìm kiếm xem có mã loại cáp trong db không
-            var entity = await _unitOfWork.GiaCapRepository.FindOneAsync(x => x.IdLoaiCap == request.IdLoaiCap && x.VanBan == request.VanBan);
+            var entity = await _unitOfWork.GiaCap_CapNgamRepository.FindOneAsync(x => x.IdLoaiCap == request.IdLoaiCap && x.VanBan == request.VanBan);
             // nếu không có dữ liệu thì thêm mới
             if (entity == null)
             {
                 // Tạo model GiaCap
-                var model = new GiaCap
+                var model = new GiaCap_CapNgam
                 {
-                    IdLoaiCap = request.IdLoaiCap ,
-                    VanBan = request.VanBan ,
+                    IdLoaiCap = request.IdLoaiCap,
+                    VanBan = request.VanBan,
                     DonGia = request.DonGia,
+                    VungKhuVuc = request.VungKhuVuc
                 };
                 //thêm vào DB
-                _unitOfWork.GiaCapRepository.Add(model);
+                _unitOfWork.GiaCap_CapNgamRepository.Add(model);
                 //lưu lại trong DB
                 await _unitOfWork.SaveChangesAsync();
                 return true;

@@ -80,6 +80,7 @@ namespace Authentication.Infrastructure.EF
         public DbSet<BieuGiaCongViec> BieuGiaCongViec { get; set; }
         public DbSet<DM_LoaiCap> DM_LoaiCap { get; set; }
         public DbSet<DM_VatLieu> DM_VatLieu { get; set; }
+        public DbSet<GiaCap_CapNgam> GiaCap_CapNgam { get; set; }
         public DbSet<GiaCap> GiaCap { get; set; }
         public DbSet<DonGiaVatLieu> DonGiaVatLieu { get; set; }
         public DbSet<DonGiaNhanCong> DonGiaNhanCong { get; set; }
@@ -138,6 +139,7 @@ namespace Authentication.Infrastructure.EF
             builder.ApplyConfiguration(new BieuGiaCongViecConfiguration());
             builder.ApplyConfiguration(new DM_VatLieuConfiguration());
             builder.ApplyConfiguration(new DM_LoaiCapConfiguration());
+            builder.ApplyConfiguration(new GiaCap_CapNgamConfiguration());
             builder.ApplyConfiguration(new GiaCapConfiguration());
             builder.ApplyConfiguration(new DonGiaVatLieuConfiguration());
             builder.ApplyConfiguration(new DonGiaNhanCongConfiguration());

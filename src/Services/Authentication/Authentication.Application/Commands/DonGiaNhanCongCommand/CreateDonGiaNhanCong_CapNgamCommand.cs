@@ -11,6 +11,7 @@ namespace Authentication.Application.Commands.DonGiaNhanCong_CapNgamCommand
         public Guid? IdNhanCong { get; set; }
         public decimal DonGia { get; set; }
         public decimal? DinhMuc { get; set; }
+        public int VungKhuVuc { get; set; }
     }
 
     //Tạo thêm 1 class Handler kế thừa IRequestHandler<CreateDonGiaNhanCong_CapNgamCommand, bool> rồi implement
@@ -29,6 +30,7 @@ namespace Authentication.Application.Commands.DonGiaNhanCong_CapNgamCommand
                 IdNhanCong = request.IdNhanCong,
                 DonGia = request.DonGia,
                 DinhMuc = request.DinhMuc,
+                VungKhuVuc = request.VungKhuVuc,
             };
             _unitOfWork.DonGiaNhanCong_CapNgamRepository.Add(model);
             await _unitOfWork.SaveChangesAsync();

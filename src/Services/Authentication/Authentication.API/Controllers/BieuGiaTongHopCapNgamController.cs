@@ -45,7 +45,7 @@ namespace Authentication.API.Controllers
 
 
         [HttpGet("chi-tiet-pdf")]
-        [ProducesResponseType(typeof(ApiSuccessResult<IList<BieuGiaTongHopResponse>>), (int)HttpStatusCode.OK)] // trả về dữ liệu model cho FE
+        [ProducesResponseType(typeof(ApiSuccessResult<List<CSKHResponse>>), (int)HttpStatusCode.OK)] // trả về dữ liệu model cho FE
         public async Task<IActionResult> ChiTietPDF([FromQuery] ChiTietPDFRequest request)
         {
             var data = await _bieuGiaTongHop_CapNgamQuery.ChiTietPDF(request);

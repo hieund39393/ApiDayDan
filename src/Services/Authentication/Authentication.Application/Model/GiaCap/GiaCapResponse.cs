@@ -1,4 +1,5 @@
-﻿using EVN.Core.SeedWork.ExtendEntities;
+﻿using Authentication.Infrastructure.Migrations;
+using EVN.Core.SeedWork.ExtendEntities;
 
 namespace Authentication.Application.Model.GiaCap
 {
@@ -10,7 +11,9 @@ namespace Authentication.Application.Model.GiaCap
         public string TenLoaiCap { get; set; }
         public string DonViTinh { get; set; }
         public string VanBan { get; set; }
-        public decimal DonGia{ get; set; }
+        public decimal DonGia { get; set; }
         public DateTime NgayTao { get; set; }
+        public string TenVungKhuVuc { get; set; }
+        public int VungKhuVuc { get; set; }
     }
 }

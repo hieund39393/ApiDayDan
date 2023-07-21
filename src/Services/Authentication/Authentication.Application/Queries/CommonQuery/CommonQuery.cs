@@ -19,6 +19,8 @@ namespace Authentication.Application.Queries.CommonQuery
 
         Task<object> ListCauHinh(GetListCauHinhRequest request);
 
+        List<SelectItem> ListVungKhuVuc();
+
     }
     public class CommonQuery : ICommonQuery
     {
@@ -34,7 +36,7 @@ namespace Authentication.Application.Queries.CommonQuery
                 .Where(x => (string.IsNullOrEmpty(request.TenCauHinh) || x.TenCauHinh.ToLower().Contains(request.TenCauHinh.ToLower())))
                 .Where(x => (request.PhanLoai == null || x.PhanLoaiCap == request.PhanLoai.Value))
                 .ToLookup(x => new { x.TenCauHinh, x.PhanLoaiCap })
-                .Select(x=>x.OrderBy(x=>x.Nam).ThenBy(x=>x.Quy).Last())
+                .Select(x => x.OrderBy(x => x.Nam).ThenBy(x => x.Quy).Last())
                 .Select(x => new GetListCauHinhResponse
                 {
                     TenCauHinh = GetDescription((TenCauHinhEnum)int.Parse(x.TenCauHinh)),
@@ -119,6 +121,21 @@ namespace Authentication.Application.Queries.CommonQuery
                     Name = x.Name,
                     Value = x.Id.ToString().ToLower(),
                 }).ToListAsync();
+            return data;
+        }
+
+        public List<SelectItem> ListVungKhuVuc()
+        {
+            var data = new List<SelectItem>();
+            data.Add(new SelectItem { Name = "Vùng 1", Value = "1" });
+            data.Add(new SelectItem { Name = "Vùng 2", Value = "2" });
+            data.Add(new SelectItem { Name = "Vùng 3", Value = "3" });
+            data.Add(new SelectItem { Name = "Vùng 4", Value = "4" });
+            data.Add(new SelectItem { Name = "Vùng 5", Value = "5" });
+            data.Add(new SelectItem { Name = "Vùng 6", Value = "6" });
+            data.Add(new SelectItem { Name = "Vùng 7", Value = "7" });
+            data.Add(new SelectItem { Name = "Vùng 8", Value = "8" });
+            data.Add(new SelectItem { Name = "Vùng 9", Value = "9" });
             return data;
         }
     }

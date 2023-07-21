@@ -56,6 +56,7 @@ namespace Authentication.Infrastructure.Repositories
         IRepository<DM_NhanCong_CapNgam> DM_NhanCong_CapNgamRepository { get; }
 
         IRepository<GiaCap> GiaCapRepository { get; }
+        IRepository<GiaCap_CapNgam> GiaCap_CapNgamRepository { get; }
         IRepository<DonGiaVatLieu> DonGiaVatLieuRepository { get; }
         IRepository<DonGiaVatLieu_CapNgam> DonGiaVatLieu_CapNgamRepository { get; }
         IRepository<DonGiaNhanCong> DonGiaNhanCongRepository { get; }
@@ -115,6 +116,7 @@ namespace Authentication.Infrastructure.Repositories
 
 
         private IRepository<GiaCap> _giaCapRepository;
+        private IRepository<GiaCap_CapNgam> _giaCap_CapNgamRepository;
         private IRepository<DonGiaVatLieu> _donGiaVatLieuRepository;
         private IRepository<DonGiaVatLieu_CapNgam> _donGiaVatLieu_CapNgamRepository;
         private IRepository<DonGiaNhanCong> _donGiaNhanCongRepository;
@@ -425,6 +427,17 @@ namespace Authentication.Infrastructure.Repositories
                     _giaCapRepository = new Repository<GiaCap>(_context);
                 }
                 return _giaCapRepository;
+            }
+        }
+        public IRepository<GiaCap_CapNgam> GiaCap_CapNgamRepository
+        {
+            get
+            {
+                if (_giaCap_CapNgamRepository == null)
+                {
+                    _giaCap_CapNgamRepository = new Repository<GiaCap_CapNgam>(_context);
+                }
+                return _giaCap_CapNgamRepository;
             }
         }
         public IRepository<DonGiaVatLieu> DonGiaVatLieuRepository

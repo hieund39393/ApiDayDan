@@ -1,17 +1,20 @@
-﻿using Authentication.Infrastructure.AggregatesModel.BieuGiaCongViecAggregate;
+﻿using Authentication.Infrastructure.AggregatesModel.DonGiaChietTinhAggregate;
 using Authentication.Infrastructure.Repositories;
 using EVN.Core.Exceptions;
+using EVN.Core.Helpers;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using static EVN.Core.Common.AppEnum;
 
 namespace Authentication.Application.Commands.CauHinhChietTinhCommand
 {
     public class CreateCauHinhChietTinh_CapNgamCommand : IRequest<bool>
     {
-        public Guid IdBieuGia { get; set; }
-        public List<Guid> IdCongViec { get; set; }
-        public bool CongViecChinh { get; set; }
-        public int PhanLoai { get; set; }
+        public Guid IdCongViec { get; set; }
+        public List<Guid> IdVatLieu { get; set; }
+        public List<Guid> IdNhanCong { get; set; }
+        public List<Guid> IdMTC { get; set; }
+        public int VungKhuVuc { get; set; }
     }
 
     //Tạo thêm 1 class Handler kế thừa IRequestHandler<CreateCauHinhChietTinh_CapNgamCommand, bool> rồi implement
@@ -26,30 +29,36 @@ namespace Authentication.Application.Commands.CauHinhChietTinhCommand
         {
             // tìm kiếm xem có trùng trong db không
 
-            var listBieuGia = await _unitOfWork.BieuGiaCongViec_CapNgamRepository.GetQuery(x => x.IdBieuGia == request.IdBieuGia).ToListAsync();
-            if (request.CongViecChinh == true && listBieuGia.Where(x => x.CongViecChinh).Count() > 0)
+            var checkExist = await _unitOfWork.CauHinhChietTinh_CapNgamRepository.GetQuery(x => x.IdCongViec == request.IdCongViec).FirstOrDefaultAsync();
+            if (checkExist != null)
             {
-                throw new EvnException("Biểu giá đã có công việc chính");
+                throw new EvnException("Công việc đã tồn tại");
             }
-
-            foreach (var item in request.IdCongViec)
+            var listCauHinh = new List<CauHinhChietTinh_CapNgam>();
+            if (request.IdVatLieu.Any())
             {
-                var entity = listBieuGia.FirstOrDefault(x => x.IdCongViec == item && x.IdBieuGia == request.IdBieuGia);
-                // nếu không có dữ liệu thì thêm mới
-                if (entity == null)
+                foreach (var item in request.IdVatLieu)
                 {
-                    // Tạo model BieuGiaCongViec_CapNgam
-                    var model = new BieuGiaCongViec_CapNgam
-                    {
-                        IdBieuGia = request.IdBieuGia,
-                        IdCongViec = item,
-                        CongViecChinh = request.CongViecChinh,
-                        PhanLoai = request.PhanLoai,
-                    };
-                    //thêm vào DB
-                    _unitOfWork.BieuGiaCongViec_CapNgamRepository.Add(model);
-                    //lưu lại trong DB
+                    listCauHinh.Add(new CauHinhChietTinh_CapNgam { IdCongViec = request.IdCongViec, IdChiTiet = item, PhanLoai = PhanLoaiChietTinhEnum.VatLieu.GetHashCode(), VungKhuVuc = request.VungKhuVuc });
                 }
+            }
+            if (request.IdNhanCong.Any())
+            {
+                foreach (var item in request.IdNhanCong)
+                {
+                    listCauHinh.Add(new CauHinhChietTinh_CapNgam { IdCongViec = request.IdCongViec, IdChiTiet = item, PhanLoai = PhanLoaiChietTinhEnum.NhanCong.GetHashCode(), VungKhuVuc = request.VungKhuVuc });
+                }
+            }
+            if (request.IdMTC.Any())
+            {
+                foreach (var item in request.IdMTC)
+                {
+                    listCauHinh.Add(new CauHinhChietTinh_CapNgam { IdCongViec = request.IdCongViec, IdChiTiet = item, PhanLoai = PhanLoaiChietTinhEnum.MTC.GetHashCode(), VungKhuVuc = request.VungKhuVuc });
+                }
+            }
+            if (listCauHinh.Any())
+            {
+                _unitOfWork.CauHinhChietTinh_CapNgamRepository.AddRange(listCauHinh);
             }
 
             await _unitOfWork.SaveChangesAsync();

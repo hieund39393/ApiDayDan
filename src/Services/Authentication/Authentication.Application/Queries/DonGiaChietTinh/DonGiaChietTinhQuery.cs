@@ -100,6 +100,7 @@ namespace Authentication.Application.Queries.DonGiaChietTinhQuery
                             //IsDonGiaCu = (vatLieu.DonGiaCu != null && vatLieu.DonGiaCu != vatLieu.DonGia) ? true : false,
                             IsDonGiaCu = ct?.CreatedDate < vatLieu.CreatedDate ? true : false,
                             IsDinhMucCu = ct?.CreatedDate < vatLieu.CreatedDate ? true : false,
+                           
                         }); ;
                     }
                     else if (child.PhanLoai == 2)

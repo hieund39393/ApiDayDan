@@ -10,9 +10,11 @@ namespace Authentication.Application.Model.DonGiaVatLieu
         public string TenVatLieu { get; set; }
         public string DonViTinh { get; set; }
         public string VanBan { get; set; }
-        public decimal DonGia{ get; set; }
-        public decimal? DinhMuc{ get; set; }
+        public decimal DonGia { get; set; }
+        public decimal? DinhMuc { get; set; }
         public string NgayTao { get; set; }
         public DateTime CreatedDate { get; set; }
+        public int VungKhuVuc { get; set; }
+        public string TenVungKhuVuc { get; set; }
     }
 }

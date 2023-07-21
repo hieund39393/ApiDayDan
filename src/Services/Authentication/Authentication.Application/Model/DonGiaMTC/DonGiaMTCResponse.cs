@@ -13,5 +13,7 @@ namespace Authentication.Application.Model.DonGiaMTC
         public decimal DonGia{ get; set; }
         public decimal? DinhMuc { get; set; }
         public string NgayTao { get; set; }
+        public int VungKhuVuc { get; set; }
+        public string TenVungKhuVuc { get; set; }
     }
 }

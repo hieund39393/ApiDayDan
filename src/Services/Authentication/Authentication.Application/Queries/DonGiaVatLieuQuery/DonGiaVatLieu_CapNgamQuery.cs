@@ -1,4 +1,5 @@
 ﻿using Authentication.Application.Model.DonGiaVatLieu;
+using Authentication.Application.Queries.CommonQuery;
 using Authentication.Infrastructure.Repositories;
 using EVN.Core.Models;
 using EVN.Core.SeedWork;
@@ -15,10 +16,12 @@ namespace Authentication.Application.Queries.DonGiaVatLieu_CapNgamQuery
     }
     public class DonGiaVatLieu_CapNgamQuery : IDonGiaVatLieu_CapNgamQuery // kế thừa interface vừa tạo
     {
+        private readonly ICommonQuery _commonQuery;
         private readonly IUnitOfWork _unitOfWork; // khai báo 
-        public DonGiaVatLieu_CapNgamQuery(IUnitOfWork unitOfWork)
+        public DonGiaVatLieu_CapNgamQuery(IUnitOfWork unitOfWork, ICommonQuery commonQuery)
         {
             _unitOfWork = unitOfWork;
+            _commonQuery = commonQuery;
         }
 
         // lấy Tất cả danh sách trả về tên và value thường dùng cho combobox
@@ -35,6 +38,7 @@ namespace Authentication.Application.Queries.DonGiaVatLieu_CapNgamQuery
         // lấy dữ liệu phân trang, tìm kiếm , số lượng
         public async Task<List<DonGiaVatLieuResponse>> GetList(DonGiaVatLieuRequest request)
         {
+            var listVungKhuVuc = _commonQuery.ListVungKhuVuc();
             //Tạo câu query
             var query = _unitOfWork.DonGiaVatLieu_CapNgamRepository.GetQuery()
                 .Include(x => x.DM_VatLieu_CapNgam)
@@ -47,9 +51,14 @@ namespace Authentication.Application.Queries.DonGiaVatLieu_CapNgamQuery
                     VanBan = x.VanBan,
                     DonGia = x.DonGia,
                     DinhMuc = x.DinhMuc,
+                    VungKhuVuc = x.VungKhuVuc,
+                    TenVungKhuVuc = listVungKhuVuc.FirstOrDefault(y => y.Value == x.VungKhuVuc.ToString()).Name,
                     NgayTao = x.CreatedDate.ToString("dd/MM/yyyy"),
                 });// select dữ liệu
-
+            if (request.VungKhuVuc != 0)
+            {
+                query = query.Where(x => x.VungKhuVuc == request.VungKhuVuc);
+            }
             if (!string.IsNullOrEmpty(request.SearchTerm))
             {
                 query = query.Where(x => x.TenVatLieu.Contains(request.SearchTerm.ToLower().Trim()) || x.VanBan.Contains(request.SearchTerm.ToLower().Trim()));
