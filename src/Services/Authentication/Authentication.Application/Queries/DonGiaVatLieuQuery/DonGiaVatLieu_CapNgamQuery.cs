@@ -38,7 +38,6 @@ namespace Authentication.Application.Queries.DonGiaVatLieu_CapNgamQuery
         // lấy dữ liệu phân trang, tìm kiếm , số lượng
         public async Task<List<DonGiaVatLieuResponse>> GetList(DonGiaVatLieuRequest request)
         {
-            var listVungKhuVuc = _commonQuery.ListVungKhuVuc();
             //Tạo câu query
             var query = _unitOfWork.DonGiaVatLieu_CapNgamRepository.GetQuery()
                 .Include(x => x.DM_VatLieu_CapNgam)
@@ -52,7 +51,6 @@ namespace Authentication.Application.Queries.DonGiaVatLieu_CapNgamQuery
                     DonGia = x.DonGia,
                     DinhMuc = x.DinhMuc,
                     VungKhuVuc = x.VungKhuVuc,
-                    TenVungKhuVuc = listVungKhuVuc.FirstOrDefault(y => y.Value == x.VungKhuVuc.ToString()).Name,
                     NgayTao = x.CreatedDate.ToString("dd/MM/yyyy"),
                 });// select dữ liệu
             if (request.VungKhuVuc != 0)
@@ -63,7 +61,7 @@ namespace Authentication.Application.Queries.DonGiaVatLieu_CapNgamQuery
             {
                 query = query.Where(x => x.TenVatLieu.Contains(request.SearchTerm.ToLower().Trim()) || x.VanBan.Contains(request.SearchTerm.ToLower().Trim()));
             }
-            return query.ToList().GroupBy(x => x.IdVatLieu).Select(x => x.OrderByDescending(x => x.NgayTao).First()).ToList();
+            return await query.OrderBy(x => x.IdVatLieu).ToListAsync();
         }
     }
 }

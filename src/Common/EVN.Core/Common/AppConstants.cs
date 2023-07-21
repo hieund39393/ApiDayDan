@@ -312,6 +312,7 @@ namespace EVN.Core.Common
             public const string CongViecCapNgam = QTDM + "cvcn";
             public const string BieuGiaCongViecCapNgam = QTDM + "bgcvcn";
             public const string VatLieuCapNgam = QTDM + "vlcn";
+            public const string LoaiCapCapNgam = QTDM + "lccn";
             public const string NhanCongCapNgam = QTDM + "nccn";
             public const string MTCCapNgam = QTDM + "mtccn";
 

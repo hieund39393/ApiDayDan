@@ -24,27 +24,21 @@ namespace Authentication.Application.Commands.DonGiaVatLieuCommand
         }
         public async Task<bool> Handle(CreateDonGiaVatLieuCommand request, CancellationToken cancellationToken)
         {
-            // tìm kiếm xem có mã loại cáp trong db không
-            var entity = await _unitOfWork.DonGiaVatLieuRepository.FindOneAsync(x => x.IdVatLieu == request.IdVatLieu && x.VanBan == request.VanBan);
-            // nếu không có dữ liệu thì thêm mới
-            if (entity == null)
+
+            // Tạo model DonGiaVatLieu
+            var model = new DonGiaVatLieu
             {
-                // Tạo model DonGiaVatLieu
-                var model = new DonGiaVatLieu
-                {
-                    IdVatLieu = request.IdVatLieu ,
-                    VanBan = request.VanBan ,
-                    DonGia = request.DonGia,
-                    DinhMuc = request.DinhMuc,
-                };
-                //thêm vào DB
-                _unitOfWork.DonGiaVatLieuRepository.Add(model);
-                //lưu lại trong DB
-                await _unitOfWork.SaveChangesAsync();
-                return true;
-            }
-            // nếu đã tồn tạo 1 bản ghi
-            throw new EvnException(string.Format(Resources.MSG_IS_EXIST, "Đơn giá vật liệu"));
+                IdVatLieu = request.IdVatLieu,
+                VanBan = request.VanBan,
+                DonGia = request.DonGia,
+                DinhMuc = request.DinhMuc,
+            };
+            //thêm vào DB
+            _unitOfWork.DonGiaVatLieuRepository.Add(model);
+            //lưu lại trong DB
+            await _unitOfWork.SaveChangesAsync();
+            return true;
+
         }
     }
 }

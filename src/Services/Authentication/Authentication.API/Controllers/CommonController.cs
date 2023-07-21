@@ -49,5 +49,11 @@ namespace WebApplication1.Controllers
             return Ok(new ApiSuccessResult<List<SelectItem>>(data: data));
         }
 
+        [HttpGet("list-vung-khuvuc")]
+        public async Task<IActionResult> ListVungKhuVuc()
+        {
+            var data = _commonQuery.ListVungKhuVuc();
+            return Ok(new ApiSuccessResult<List<SelectItem>>(data: data));
+        }
     }
 }

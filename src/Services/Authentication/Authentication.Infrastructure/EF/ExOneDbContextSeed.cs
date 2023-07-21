@@ -76,7 +76,7 @@ namespace Authentication.Infrastructure.EF
                 listMenu.Add(new Menu { ParenId = new Guid("E17A625E0334C04D928300BBF8C83111"), Id = new Guid("E17A625E0334C04D928300BBF8C83835"), Code = $"{Permissions.LoaiCap}", Name = "Quản lý loại cáp", Url = "/loai-cap", Order = 6, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
                 listMenu.Add(new Menu { ParenId = new Guid("E17A625E0334C04D928300BBF8C83111"), Id = new Guid("E17A625E0334C04D928300BBF8C83836"), Code = $"{Permissions.VatLieu}", Name = "Quản lý vật liệu", Url = "/vat-lieu", Order = 7, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
                 listMenu.Add(new Menu { ParenId = new Guid("E17A625E0334C04D928300BBF8C83111"), Id = new Guid("E17A625E0334C04D928300BBF8C81116"), Code = $"{Permissions.NhanCong}", Name = "Quản lý nhân công", Url = "/nhan-cong", Order = 8, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
-                listMenu.Add(new Menu { ParenId = new Guid("E17A625E0334C04D928300BBF8C83111"), Id = new Guid("E17A625E0334C04D928300BBF8C10001"), Code = $"{Permissions.MTC}", Name = "Quản lý máy thi công", Url = "/may-thi-cong", Order = 7, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
+                listMenu.Add(new Menu { ParenId = new Guid("E17A625E0334C04D928300BBF8C83111"), Id = new Guid("E17A625E0334C04D928300BBF8C10001"), Code = $"{Permissions.MTC}", Name = "Quản lý máy thi công", Url = "/may-thi-cong", Order = 9, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
                 //listMenu.Add(new Menu { ParenId = new Guid("E17A625E0334C04D928300BBF8C83111"), Id = new Guid("E17A625E0334C04D928300BBF8C83837"), Code = $"{Permissions.VatLieuChietTinh}", Name = "Quản lý vật liệu chiết tinh", Url = "/vat-lieu-chiet-tinh", Order = 8, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
                 listMenu.Add(new Menu { ParenId = new Guid("E17A625E0334C04D928300BBF8C83111"), Id = new Guid("E17A625E0334C04D928300BBF8C83843"), Code = $"{Permissions.BieuGiaCongViec}", Name = "Biểu giá công việc", Url = "/bieu-gia-cong-viec", Order = 4, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
                 // cáp trên không
@@ -84,9 +84,10 @@ namespace Authentication.Infrastructure.EF
                 listMenu.Add(new Menu { ParenId = new Guid("E17A625E0334C04D928300BBF8C83222"), Id = new Guid("E17A625E0334C04D928300BBF8C88001"), Code = $"{Permissions.BieuGiaCapNgam}", Name = "Quản lý biểu giá", Url = "/bieu-gia-cap-ngam", Order = 2, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
                 listMenu.Add(new Menu { ParenId = new Guid("E17A625E0334C04D928300BBF8C83222"), Id = new Guid("E17A625E0334C04D928300BBF8C88002"), Code = $"{Permissions.CongViecCapNgam}", Name = "Quản lý công việc", Url = "/cong-viec-cap-ngam", Order = 3, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
                 listMenu.Add(new Menu { ParenId = new Guid("E17A625E0334C04D928300BBF8C83222"), Id = new Guid("E17A625E0334C04D928300BBF8C88003"), Code = $"{Permissions.BieuGiaCongViecCapNgam}", Name = "Biểu giá công việc", Url = "/bieu-gia-cong-viec-cap-ngam", Order = 4, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
+                listMenu.Add(new Menu { ParenId = new Guid("E17A625E0334C04D928300BBF8C83222"), Id = new Guid("E17A625E0334C04D928300BBF8C88666"), Code = $"{Permissions.LoaiCapCapNgam}", Name = "Quản lý loại cáp", Url = "/loai-cap-cap-ngam", Order = 6, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
                 listMenu.Add(new Menu { ParenId = new Guid("E17A625E0334C04D928300BBF8C83222"), Id = new Guid("E17A625E0334C04D928300BBF8C88006"), Code = $"{Permissions.VatLieuCapNgam}", Name = "Quản lý vật liệu", Url = "/vat-lieu-cap-ngam", Order = 7, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
-                listMenu.Add(new Menu { ParenId = new Guid("E17A625E0334C04D928300BBF8C83222"), Id = new Guid("E17A625E0334C04D928300BBF8C81117"), Code = $"{Permissions.NhanCongCapNgam}", Name = "Quản lý nhân công", Url = "/nhan-cong-cap-ngam", Order = 7, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
-                listMenu.Add(new Menu { ParenId = new Guid("E17A625E0334C04D928300BBF8C83222"), Id = new Guid("E17A625E0334C04D928300BBF8C10002"), Code = $"{Permissions.MTCCapNgam}", Name = "Quản lý máy thi công", Url = "/may-thi-cong-cap-ngam", Order = 7, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
+                listMenu.Add(new Menu { ParenId = new Guid("E17A625E0334C04D928300BBF8C83222"), Id = new Guid("E17A625E0334C04D928300BBF8C81117"), Code = $"{Permissions.NhanCongCapNgam}", Name = "Quản lý nhân công", Url = "/nhan-cong-cap-ngam", Order = 8, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
+                listMenu.Add(new Menu { ParenId = new Guid("E17A625E0334C04D928300BBF8C83222"), Id = new Guid("E17A625E0334C04D928300BBF8C10002"), Code = $"{Permissions.MTCCapNgam}", Name = "Quản lý máy thi công", Url = "/may-thi-cong-cap-ngam", Order = 9, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
 
 
                 //listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C83834"), Code = $"{Permissions.KhuVuc}", Name = "Quản lý vùng/khu vực", Url = "/khu-vuc", Order = 5, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C2") });
@@ -281,21 +282,22 @@ namespace Authentication.Infrastructure.EF
             {
                 var listLoaiBieuGia = new List<DM_LoaiBieuGia>();
 
-                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C1"), TenLoaiBieuGia = "Đơn giá lắp đặt dây sau công tơ" });
-                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C1"), TenLoaiBieuGia = "Đơn giá thay dây dẫn điện sau công tơ" });
-                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C1"), TenLoaiBieuGia = "Đơn giá thay đổi công suất SDĐ/Thay đổi loại công tơ" });
-                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C1"), TenLoaiBieuGia = "Đơn giá thay đổi vị trí thiết bị đo đếm" });
-                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C2"), TenLoaiBieuGia = "Đơn giá lắp đặt dây sau công tơ" });
-                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C2"), TenLoaiBieuGia = "Đơn giá thay dây dẫn điện sau công tơ" });
-                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C2"), TenLoaiBieuGia = "Đơn giá thay đổi công suất SDĐ/Thay đổi loại công tơ" });
-                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C2"), TenLoaiBieuGia = "Đơn giá thay đổi vị trí thiết bị đo đếm" });
-                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C3"), TenLoaiBieuGia = "Đơn giá lắp đặt dây sau công tơ" });
-                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C3"), TenLoaiBieuGia = "Đơn giá thay dây dẫn điện sau công tơ" });
-                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C3"), TenLoaiBieuGia = "Đơn giá thay đổi công suất SDĐ/Thay đổi loại công tơ" });
-                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C3"), TenLoaiBieuGia = "Đơn giá thay đổi vị trí thiết bị đo đếm" });
+                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C1"), MaLoaiBieuGia = "1", TenLoaiBieuGia = "Đơn giá lắp đặt dây sau công tơ" });
+                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C1"), MaLoaiBieuGia = "2", TenLoaiBieuGia = "Đơn giá thay dây dẫn điện sau công tơ" });
+                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C1"), MaLoaiBieuGia = "3", TenLoaiBieuGia = "Đơn giá thay đổi công suất SDĐ/Thay đổi loại công tơ" });
+                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C1"), MaLoaiBieuGia = "4", TenLoaiBieuGia = "Đơn giá thay đổi vị trí thiết bị đo đếm" });
+                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C2"), MaLoaiBieuGia = "1", TenLoaiBieuGia = "Đơn giá lắp đặt dây sau công tơ" });
+                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C2"), MaLoaiBieuGia = "2", TenLoaiBieuGia = "Đơn giá thay dây dẫn điện sau công tơ" });
+                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C2"), MaLoaiBieuGia = "3", TenLoaiBieuGia = "Đơn giá thay đổi công suất SDĐ/Thay đổi loại công tơ" });
+                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C2"), MaLoaiBieuGia = "4", TenLoaiBieuGia = "Đơn giá thay đổi vị trí thiết bị đo đếm" });
+                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C3"), MaLoaiBieuGia = "1", TenLoaiBieuGia = "Đơn giá lắp đặt dây sau công tơ" });
+                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C3"), MaLoaiBieuGia = "2", TenLoaiBieuGia = "Đơn giá thay dây dẫn điện sau công tơ" });
+                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C3"), MaLoaiBieuGia = "3", TenLoaiBieuGia = "Đơn giá thay đổi công suất SDĐ/Thay đổi loại công tơ" });
+                listLoaiBieuGia.Add(new DM_LoaiBieuGia { IdKhuVuc = new Guid("C09E6504B3DBC74180EB85C76EB329C3"), MaLoaiBieuGia = "4", TenLoaiBieuGia = "Đơn giá thay đổi vị trí thiết bị đo đếm" });
 
                 await context.DM_LoaiBieuGia.AddRangeAsync(listLoaiBieuGia);
                 await context.SaveChangesAsync();
+
             }
 
             await context.SaveChangesAsync();

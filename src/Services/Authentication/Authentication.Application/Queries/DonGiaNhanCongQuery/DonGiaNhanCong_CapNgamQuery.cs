@@ -38,7 +38,6 @@ namespace Authentication.Application.Queries.DonGiaNhanCong_CapNgamQuery
 
         public async Task<List<DonGiaNhanCongResponse>> GetList(DonGiaNhanCongRequest request)
         {
-            var listVungKhuVuc = _commonQuery.ListVungKhuVuc();
             //Tạo câu query
             var query = _unitOfWork.DonGiaNhanCong_CapNgamRepository.GetQuery()
                .Include(x => x.NhanCong_CapNgam).ThenInclude(x => x.KhuVuc)
@@ -49,7 +48,6 @@ namespace Authentication.Application.Queries.DonGiaNhanCong_CapNgamQuery
                    DonGia = x.DonGia,
                    IdNhanCong = x.IdNhanCong.Value,
                    DinhMuc = x.DinhMuc,
-                   TenVungKhuVuc = listVungKhuVuc.FirstOrDefault(y => y.Value == x.VungKhuVuc.ToString()).Name,
                    VungKhuVuc = x.VungKhuVuc,
                    NgayTao = x.CreatedDate.ToString("dd/MM/yyyy"),
                });// select dữ liệu
@@ -61,7 +59,7 @@ namespace Authentication.Application.Queries.DonGiaNhanCong_CapNgamQuery
             {
                 query = query.Where(x => x.NhanCong.Contains(request.SearchTerm.ToLower().Trim()));
             }
-            var rs = await query.OrderBy(x => x.IdNhanCong).ToListAsync();
+            var rs = await query.OrderBy(x => x.IdNhanCong).ThenBy(x=>x.VungKhuVuc).ToListAsync();
             return rs;
         }
     }

@@ -38,7 +38,6 @@ namespace Authentication.Application.Queries.GiaCapQuery
         // lấy dữ liệu phân trang, tìm kiếm , số lượng
         public async Task<PagingResultSP<GiaCapResponse>> GetList(GiaCapRequest request)
         {
-            var listVungKhuVuc = _commonQuery.ListVungKhuVuc();
             //Tạo câu query
             var query = _unitOfWork.GiaCap_CapNgamRepository.GetQuery()
                 .Include(x => x.DM_LoaiCap_CapNgam)
@@ -51,7 +50,6 @@ namespace Authentication.Application.Queries.GiaCapQuery
                     VanBan = x.VanBan,
                     DonGia = x.DonGia,
                     VungKhuVuc = x.VungKhuVuc,
-                    TenVungKhuVuc = listVungKhuVuc.FirstOrDefault(y => y.Value == x.VungKhuVuc.ToString()).Name,
                     NgayTao = x.CreatedDate,
                 });// select dữ liệu
             if (request.VungKhuVuc != 0)

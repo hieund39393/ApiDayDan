@@ -37,13 +37,11 @@ namespace Authentication.Application.Commands.DonGiaNhanCong_CapNgamCommand
                 throw new EvnException(string.Format(Resources.MSG_NOT_FOUND, "Đơn giá nhân công cáp ngầm"));
             }
 
-            var model = new DonGiaNhanCong_CapNgam()
-            {
-                DonGia = request.DonGia,
-                DinhMuc = request.DinhMuc,
-                VungKhuVuc = request.VungKhuVuc,
-            };
-            _unitOfWork.DonGiaNhanCong_CapNgamRepository.Add(model);
+
+            entity.DonGia = request.DonGia;
+            entity.DinhMuc = request.DinhMuc;
+
+            _unitOfWork.DonGiaNhanCong_CapNgamRepository.Update(entity);
 
 
             await _unitOfWork.SaveChangesAsync();

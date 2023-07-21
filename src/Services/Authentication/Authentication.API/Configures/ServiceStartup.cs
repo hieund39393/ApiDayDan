@@ -13,6 +13,7 @@ using Authentication.Application.Queries.DM_CongViecQuery;
 using Authentication.Application.Queries.DM_KhuVucQuery;
 using Authentication.Application.Queries.DM_LoaiBieuGia_CapNgamQuery;
 using Authentication.Application.Queries.DM_LoaiBieuGiaQuery;
+using Authentication.Application.Queries.DM_LoaiCap_CapNgamQuery;
 using Authentication.Application.Queries.DM_LoaiCapQuery;
 using Authentication.Application.Queries.DM_MTC_CapNgamQuery;
 using Authentication.Application.Queries.DM_MTCQuery;
@@ -77,10 +78,15 @@ namespace Authentication.API.Configurations
             services.AddScoped<IDM_CongViecQuery, DM_CongViecQuery>(); // quy tắc Interface trước class sau
 
             services.AddScoped<IDM_LoaiCapQuery, DM_LoaiCapQuery>(); // quy tắc Interface trước class sau
+            services.AddScoped<IDM_LoaiCap_CapNgamQuery, DM_LoaiCap_CapNgamQuery>(); // quy tắc Interface trước class sau
+            services.AddScoped<IDM_LoaiBieuGia_CapNgamQuery, DM_LoaiBieuGia_CapNgamQuery>(); // quy tắc Interface trước class sau
             services.AddScoped<IDM_VatLieuQuery, DM_VatLieuQuery>(); // quy tắc Interface trước class sau
             services.AddScoped<IGiaCapQuery, GiaCapQuery>(); // quy tắc Interface trước class sau
+            services.AddScoped<IGiaCap_CapNgamQuery, GiaCap_CapNgamQuery>(); // quy tắc Interface trước class sau
             services.AddScoped<IDonGiaVatLieuQuery, DonGiaVatLieuQuery>(); // quy tắc Interface trước class sau
+            services.AddScoped<IDonGiaVatLieu_CapNgamQuery, DonGiaVatLieu_CapNgamQuery>(); // quy tắc Interface trước class sau
             services.AddScoped<IDonGiaNhanCongQuery, DonGiaNhanCongQuery>(); // quy tắc Interface trước class sau
+            services.AddScoped<IDonGiaNhanCong_CapNgamQuery, DonGiaNhanCong_CapNgamQuery>(); // quy tắc Interface trước class sau
             services.AddScoped<IDonGiaChietTinhQuery, DonGiaChietTinhQuery>(); // quy tắc Interface trước class sau
             services.AddScoped<IChiTietBieuGiaQuery, ChiTietBieuGiaQuery>(); // quy tắc Interface trước class sau
 
@@ -94,12 +100,12 @@ namespace Authentication.API.Configurations
             services.AddScoped<IChiTietBieuGia_CapNgamQuery, ChiTietBieuGia_CapNgamQuery>();
             services.AddScoped<IDM_BieuGia_CapNgamQuery, DM_BieuGia_CapNgamQuery>();
             services.AddScoped<IDM_CongViec_CapNgamQuery, DM_CongViec_CapNgamQuery>();
-            services.AddScoped<IDM_LoaiBieuGia_CapNgamQuery, DM_LoaiBieuGia_CapNgamQuery>();
             services.AddScoped<IDM_VatLieu_CapNgamQuery, DM_VatLieu_CapNgamQuery>();
             services.AddScoped<IDonGiaNhanCong_CapNgamQuery, DonGiaNhanCong_CapNgamQuery>();
             services.AddScoped<IDonGiaVatLieu_CapNgamQuery, DonGiaVatLieu_CapNgamQuery>();
 
             services.AddScoped<ICauHinhChietTinhQuery, CauHinhChietTinhQuery>();
+            services.AddScoped<ICauHinhChietTinh_CapNgamQuery, CauHinhChietTinh_CapNgamQuery>();
             services.AddScoped<IDM_MTCQuery, DM_MTCQuery>();
             services.AddScoped<IDM_MTC_CapNgamQuery, DM_MTC_CapNgamQuery>();
             services.AddScoped<IDonGiaMTCQuery, DonGiaMTCQuery>();

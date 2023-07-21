@@ -25,11 +25,6 @@ namespace Authentication.Application.Commands.DonGiaVatLieuCommand
         }
         public async Task<bool> Handle(CreateDonGiaVatLieu_CapNgamCommand request, CancellationToken cancellationToken)
         {
-            // tìm kiếm xem có mã loại cáp trong db không
-            var entity = await _unitOfWork.DonGiaVatLieu_CapNgamRepository.FindOneAsync(x => x.IdVatLieu == request.IdVatLieu && x.VanBan == request.VanBan);
-            // nếu không có dữ liệu thì thêm mới
-            if (entity == null)
-            {
                 // Tạo model DonGiaVatLieu_CapNgam
                 var model = new DonGiaVatLieu_CapNgam
                 {
@@ -44,9 +39,7 @@ namespace Authentication.Application.Commands.DonGiaVatLieuCommand
                 //lưu lại trong DB
                 await _unitOfWork.SaveChangesAsync();
                 return true;
-            }
-            // nếu đã tồn tạo 1 bản ghi
-            throw new EvnException(string.Format(Resources.MSG_IS_EXIST, "Đơn giá vật liệu cáp ngầm"));
+          
         }
     }
 }

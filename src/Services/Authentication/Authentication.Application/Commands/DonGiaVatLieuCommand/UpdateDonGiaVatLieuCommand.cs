@@ -34,40 +34,8 @@ namespace Authentication.Application.Commands.DonGiaVatLieuCommand
                 throw new EvnException(string.Format(Resources.MSG_NOT_FOUND, "Đơn giá vật liệu"));
             }
 
-
-            //var model = new DonGiaVatLieu()
-            //{
-            //    IdVatLieu = entity.IdVatLieu,
-            //    VanBan = entity.VanBan,
-            //    DonGiaCu = entity.DonGia,
-            //    DonGia = request.DonGia,
-            //    DinhMucCu = entity.DinhMuc,
-            //    DinhMuc = request.DinhMuc,
-            //};
-            //_unitOfWork.DonGiaVatLieuRepository.Add(model);
-
-
-            if (entity.IdVatLieu == request.IdVatLieu && entity.VanBan == request.VanBan)
-            {
-                entity.DonGiaCu = entity.DonGia;
-                entity.DonGia = request.DonGia;
-                entity.DinhMucCu = entity.DinhMuc;
-                entity.DinhMuc = request.DinhMuc;
-            }
-            else
-            {
-                var checkEntity = await _unitOfWork.DonGiaVatLieuRepository.FindOneAsync(x => x.IdVatLieu == request.IdVatLieu && x.VanBan == request.VanBan);
-                if (checkEntity != null)
-                {
-                    throw new EvnException(string.Format(Resources.MSG_IS_EXIST, "Đơn giá vật liệu"));
-                }
-                entity.IdVatLieu = request.IdVatLieu;
-                entity.VanBan = request.VanBan;
-                entity.DonGiaCu = entity.DonGia;
-                entity.DonGia = request.DonGia;
-                entity.DinhMucCu = entity.DinhMuc;
-                entity.DinhMuc = request.DinhMuc;
-            }
+            entity.DonGia = request.DonGia;
+            entity.DinhMuc = request.DinhMuc;
 
             _unitOfWork.DonGiaVatLieuRepository.Update(entity);
             await _unitOfWork.SaveChangesAsync();

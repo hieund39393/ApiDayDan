@@ -11,7 +11,7 @@ namespace Authentication.Infrastructure.AggregatesModel.DonGiaChietTinhAggregate
 
         public int PhanLoai { get; set; }
 
-        public DM_CongViec DM_CongViec { get; set; }
+        public DM_CongViec_CapNgam DM_CongViec_CapNgam { get; set; }
         public int VungKhuVuc { get; set; }
     }
 }

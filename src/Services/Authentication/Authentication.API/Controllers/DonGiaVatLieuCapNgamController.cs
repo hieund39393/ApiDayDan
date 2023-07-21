@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System;
 using Authentication.Application.Model.DonGiaVatLieu;
 using Authentication.Application.Commands.DonGiaVatLieuCommand;
+using Authentication.Application.Queries.CommonQuery;
+using System.Linq;
 
 namespace Authentication.API.Controllers
 {
@@ -19,11 +21,13 @@ namespace Authentication.API.Controllers
     {
         private readonly IDonGiaVatLieu_CapNgamQuery _DonGiaVatLieu_CapNgamQuery; //kế thừa interface
         private readonly IMediator _mediator; //kế thừa để sử dụng command
+        private readonly ICommonQuery _commonQuery;
 
-        public DonGiaVatLieuCapNgamController(IDonGiaVatLieu_CapNgamQuery DonGiaVatLieu_CapNgamQuery, IMediator mediator)
+        public DonGiaVatLieuCapNgamController(IDonGiaVatLieu_CapNgamQuery DonGiaVatLieu_CapNgamQuery, IMediator mediator, ICommonQuery commonQuery)
         {
             _DonGiaVatLieu_CapNgamQuery = DonGiaVatLieu_CapNgamQuery;
             _mediator = mediator;
+            _commonQuery = commonQuery;
         }
 
         /// <summary>
@@ -47,7 +51,12 @@ namespace Authentication.API.Controllers
         [ProducesResponseType(typeof(ApiSuccessResult<IList<DonGiaVatLieuResponse>>), (int)HttpStatusCode.OK)] // trả về dữ liệu model cho FE
         public async Task<IActionResult> GetListUser([FromQuery] DonGiaVatLieuRequest request)
         {
+            var listVungKhuVuc = _commonQuery.ListVungKhuVuc();
             var data = await _DonGiaVatLieu_CapNgamQuery.GetList(request);
+            foreach (var item in data)
+            {
+                item.TenVungKhuVuc = listVungKhuVuc.FirstOrDefault(x => x.Value == item.VungKhuVuc.ToString())?.Name;
+            }
             return Ok(new ApiSuccessResult<List<DonGiaVatLieuResponse>>
             {
                 Data = data,

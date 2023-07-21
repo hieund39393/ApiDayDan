@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System;
 using Authentication.Application.Model.DonGiaMTC;
 using Authentication.Application.Commands.DonGiaMTCCommand;
+using System.Linq;
+using Authentication.Application.Queries.CommonQuery;
 
 namespace Authentication.API.Controllers
 {
@@ -19,11 +21,13 @@ namespace Authentication.API.Controllers
     {
         private readonly IDonGiaMTC_CapNgamQuery _DonGiaMTC_CapNgamQuery; //kế thừa interface
         private readonly IMediator _mediator; //kế thừa để sử dụng command
+        private readonly ICommonQuery _commonQuery;
 
-        public DonGiaMTCCapNgamController(IDonGiaMTC_CapNgamQuery DonGiaMTC_CapNgamQuery, IMediator mediator)
+        public DonGiaMTCCapNgamController(IDonGiaMTC_CapNgamQuery DonGiaMTC_CapNgamQuery, IMediator mediator, ICommonQuery commonQuery)
         {
             _DonGiaMTC_CapNgamQuery = DonGiaMTC_CapNgamQuery;
             _mediator = mediator;
+            _commonQuery = commonQuery;
         }
 
         /// <summary>
@@ -47,7 +51,14 @@ namespace Authentication.API.Controllers
         [ProducesResponseType(typeof(ApiSuccessResult<IList<DonGiaMTCResponse>>), (int)HttpStatusCode.OK)] // trả về dữ liệu model cho FE
         public async Task<IActionResult> GetListUser([FromQuery] DonGiaMTCRequest request)
         {
+            var listVungKhuVuc = _commonQuery.ListVungKhuVuc();
+
             var data = await _DonGiaMTC_CapNgamQuery.GetList(request);
+
+            foreach (var item in data.Data.ToList())
+            {
+                item.TenVungKhuVuc = listVungKhuVuc.FirstOrDefault(x => x.Value == item.VungKhuVuc.ToString())?.Name;
+            }
             return Ok(new ApiSuccessResult<IList<DonGiaMTCResponse>>
             {
                 Data = data.Data,

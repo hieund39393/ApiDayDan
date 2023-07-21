@@ -32,6 +32,7 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
                     IdBieuGia = x.IdBieuGia,
                     TenBieuGia = x.DM_BieuGia.TenBieuGia,
                     IdLoaiBieuGia = x.DM_BieuGia.idLoaiBieuGia,
+                    PhanLoaiBieuGia = x.DM_BieuGia.MaBieuGia,
                     IdKhuVuc = x.DM_BieuGia.DM_LoaiBieuGia.IdKhuVuc,
                     TenKhuVuc = x.DM_BieuGia.DM_LoaiBieuGia.DM_KhuVuc.TenKhuVuc,
                     DonGia = x.DonGia,
@@ -41,7 +42,9 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
                 }).AsNoTracking()
                 .ToListAsync();
 
-            var groupBy = query.GroupBy(x => x.IdKhuVuc).Select(x => new { KhuVuc = x.Key, ListBieuGia = x.ToList() }).ToList();
+            var phanLoai = query.Where(x => x.PhanLoaiBieuGia == request.PhanLoaiBieuGia.ToString()).ToList();
+
+            var groupBy = phanLoai.GroupBy(x => x.IdKhuVuc).Select(x => new { KhuVuc = x.Key, ListBieuGia = x.ToList() }).ToList();
 
             var response = new List<CSKHResponse>();
             foreach (var item in groupBy)

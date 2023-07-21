@@ -9,6 +9,8 @@ using System;
 using Authentication.Application.Commands.GiaCapCommand;
 using Authentication.Application.Model.GiaCap;
 using Authentication.Application.Queries.GiaCapQuery;
+using Authentication.Application.Queries.CommonQuery;
+using System.Linq;
 
 namespace Authentication.API.Controllers
 {
@@ -17,11 +19,13 @@ namespace Authentication.API.Controllers
     public class GiaCapCapNgamController : ControllerBase
     {
         private readonly IGiaCap_CapNgamQuery _GiaCap_CapNgamQuery; //kế thừa interface
+        private readonly ICommonQuery _commonQuery; //kế thừa interface
         private readonly IMediator _mediator; //kế thừa để sử dụng command
 
-        public GiaCapCapNgamController(IGiaCap_CapNgamQuery GiaCap_CapNgamQuery, IMediator mediator)
+        public GiaCapCapNgamController(IGiaCap_CapNgamQuery GiaCap_CapNgamQuery, IMediator mediator, ICommonQuery commonQuery)
         {
             _GiaCap_CapNgamQuery = GiaCap_CapNgamQuery;
+            _commonQuery = commonQuery;
             _mediator = mediator;
         }
 
@@ -46,7 +50,14 @@ namespace Authentication.API.Controllers
         [ProducesResponseType(typeof(ApiSuccessResult<IList<GiaCapResponse>>), (int)HttpStatusCode.OK)] // trả về dữ liệu model cho FE
         public async Task<IActionResult> GetListUser([FromQuery] GiaCapRequest request)
         {
+            var listVungKhuVuc = _commonQuery.ListVungKhuVuc();
+
             var data = await _GiaCap_CapNgamQuery.GetList(request);
+           
+            foreach(var item in data.Data.ToList())
+            {
+                item.TenVungKhuVuc = listVungKhuVuc.FirstOrDefault(x=>x.Value == item.VungKhuVuc.ToString())?.Name;
+            }
             return Ok(new ApiSuccessResult<IList<GiaCapResponse>>
             {
                 Data = data.Data,

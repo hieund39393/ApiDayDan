@@ -12,7 +12,7 @@ namespace Authentication.Infrastructure.EntityConfigurations
         {
             builder.ToTable("CauHinhChietTinh_CapNgam"); // tên bảng
             builder.HasKey(x => new { x.Id }); // Cấu hình Khoá chính
-            builder.HasOne(x => x.DM_CongViec).WithMany(x => x.CauHinhChietTinh_CapNgams).HasForeignKey(x => x.IdCongViec); // cấu hình 1-N loại công việc
+            builder.HasOne(x => x.DM_CongViec_CapNgam).WithMany(x => x.CauHinhChietTinh_CapNgams).HasForeignKey(x => x.IdCongViec); // cấu hình 1-N loại công việc
 
             ConfigureBase(builder);
         }

@@ -32,7 +32,7 @@ namespace Authentication.Application.Commands.CauHinhChietTinhCommand
             var checkExist = await _unitOfWork.CauHinhChietTinh_CapNgamRepository.GetQuery(x => x.IdCongViec == request.IdCongViec).FirstOrDefaultAsync();
             if (checkExist != null)
             {
-                throw new EvnException("Công việc đã tồn tại");
+                throw new EvnException("Cấu hình đã tồn tại");
             }
             var listCauHinh = new List<CauHinhChietTinh_CapNgam>();
             if (request.IdVatLieu.Any())

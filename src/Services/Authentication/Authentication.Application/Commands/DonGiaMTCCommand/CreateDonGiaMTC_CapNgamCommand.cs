@@ -25,11 +25,7 @@ namespace Authentication.Application.Commands.DonGiaMTCCommand
         }
         public async Task<bool> Handle(CreateDonGiaMTC_CapNgamCommand request, CancellationToken cancellationToken)
         {
-            // tìm kiếm xem có mã loại cáp trong db không
-            var entity = await _unitOfWork.DonGiaMTC_CapNgamRepository.FindOneAsync(x => x.IdMTC == request.IdMTC && x.VanBan == request.VanBan);
-            // nếu không có dữ liệu thì thêm mới
-            if (entity == null)
-            {
+       
                 // Tạo model DonGiaMTC_CapNgam
                 var model = new DonGiaMTC_CapNgam
                 {
@@ -44,9 +40,7 @@ namespace Authentication.Application.Commands.DonGiaMTCCommand
                 //lưu lại trong DB
                 await _unitOfWork.SaveChangesAsync();
                 return true;
-            }
-            // nếu đã tồn tạo 1 bản ghi
-            throw new EvnException(string.Format(Resources.MSG_IS_EXIST, "Đơn giá máy thi công cáp ngầm"));
+         
         }
     }
 }

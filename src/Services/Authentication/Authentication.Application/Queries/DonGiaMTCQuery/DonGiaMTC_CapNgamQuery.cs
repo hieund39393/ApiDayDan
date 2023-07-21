@@ -38,7 +38,6 @@ namespace Authentication.Application.Queries.DonGiaMTC_CapNgamQuery
         // lấy dữ liệu phân trang, tìm kiếm , số lượng
         public async Task<PagingResultSP<DonGiaMTCResponse>> GetList(DonGiaMTCRequest request)
         {
-            var listVungKhuVuc = _commonQuery.ListVungKhuVuc();
             //Tạo câu query
             var query = _unitOfWork.DonGiaMTC_CapNgamRepository.GetQuery()
                 .Include(x => x.DM_MTC_CapNgam)
@@ -52,7 +51,6 @@ namespace Authentication.Application.Queries.DonGiaMTC_CapNgamQuery
                     DonGia = x.DonGia,
                     DinhMuc = x.DinhMuc,
                     VungKhuVuc = x.VungKhuVuc,
-                    TenVungKhuVuc = listVungKhuVuc.FirstOrDefault(y => y.Value == x.VungKhuVuc.ToString()).Name,
                     NgayTao = x.CreatedDate.ToString("dd/MM/yyyy"),
                 });// select dữ liệu
             if (request.VungKhuVuc != 0)

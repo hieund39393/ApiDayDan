@@ -49,6 +49,7 @@ namespace Authentication.Infrastructure.Repositories
         IRepository<BieuGiaCongViec> BieuGiaCongViecRepository { get; }
         IRepository<BieuGiaCongViec_CapNgam> BieuGiaCongViec_CapNgamRepository { get; }
         IRepository<DM_LoaiCap> DM_LoaiCapRepository { get; }
+        IRepository<DM_LoaiCap_CapNgam> DM_LoaiCap_CapNgamRepository { get; }
         IRepository<DM_VatLieu> DM_VatLieuRepository { get; }
         IRepository<DM_VatLieu_CapNgam> DM_VatLieu_CapNgamRepository { get; }
 
@@ -108,6 +109,7 @@ namespace Authentication.Infrastructure.Repositories
         private IRepository<BieuGiaCongViec> _bieuGiaCongViecRepository;
         private IRepository<BieuGiaCongViec_CapNgam> _bieuGiaCongViec_CapNgamRepository;
         private IRepository<DM_LoaiCap> _dM_LoaiCapRepository;
+        private IRepository<DM_LoaiCap_CapNgam> _dM_LoaiCap_CapNgamRepository;
         private IRepository<DM_VatLieu> _dM_VatLieuRepository;
         private IRepository<DM_VatLieu_CapNgam> _dM_VatLieu_CapNgamRepository;
 
@@ -372,6 +374,20 @@ namespace Authentication.Infrastructure.Repositories
                 return _dM_LoaiCapRepository;
             }
         }
+
+        public IRepository<DM_LoaiCap_CapNgam> DM_LoaiCap_CapNgamRepository
+        {
+            get
+            {
+                if (_dM_LoaiCap_CapNgamRepository == null)
+                {
+                    _dM_LoaiCap_CapNgamRepository = new Repository<DM_LoaiCap_CapNgam>(_context);
+                }
+                return _dM_LoaiCap_CapNgamRepository;
+            }
+        }
+
+
         public IRepository<DM_VatLieu> DM_VatLieuRepository
         {
             get

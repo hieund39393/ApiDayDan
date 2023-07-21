@@ -10,5 +10,8 @@ namespace Authentication.Application.Model.CauHinhChietTinh
         public List<Guid> IdNhanCong { get; set; }
         public List<Guid> IdVatLieu { get; set; }
 
+        public int VungKhuVuc { get; set; }
+        public string TenVungKhuVuc { get; set; }
+
     }
 }
