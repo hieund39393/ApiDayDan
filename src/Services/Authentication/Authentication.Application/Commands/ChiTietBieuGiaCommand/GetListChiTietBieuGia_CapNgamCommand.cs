@@ -57,6 +57,7 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                 .AsNoTracking()
                 .Select(x => new ChiTietBieuGiaResponse
                 {
+                    VungKhuVuc = x.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.MaLoaiBieuGia,
                     //
                     PhanLoai = x.PhanLoai,
                     ThuTuHienThi = x.ThuTuHienThi,
@@ -103,6 +104,16 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
             decimal donGiaVatLieu = 0;
             decimal donGiaNhanCong = 0;
 
+            var vungKhuvuc = query.FirstOrDefault()?.VungKhuVuc;
+
+            var listDonGiaCap = await _unitOfWork.GiaCap_CapNgamRepository.GetQuery(x => x.VungKhuVuc.ToString() == vungKhuvuc).Include(z => z.DM_LoaiCap_CapNgam)
+                .GroupBy(x => new { x.IdLoaiCap }).Select(x => x.OrderByDescending(y => y.CreatedDate).First()).AsNoTracking().ToListAsync();
+
+            var listDonGiaChietTinh = await _unitOfWork.DonGiaChietTinh_CapNgamRepository.GetQuery(x => x.VungKhuVuc.ToString() == vungKhuvuc).Include(z => z.DM_CongViec_CapNgam)
+                .GroupBy(x => new { x.IdCongViec }).Select(x => x.OrderByDescending(y => y.CreatedDate).First()).AsNoTracking().ToListAsync();
+
+            var listDonGiaVatLieu = await _unitOfWork.DonGiaVatLieu_CapNgamRepository.GetQuery(x => x.VungKhuVuc.ToString() == vungKhuvuc).Include(z => z.DM_VatLieu_CapNgam)
+                .GroupBy(x => new { x.IdVatLieu }).Select(x => x.OrderByDescending(y => y.CreatedDate).First()).AsNoTracking().ToListAsync();
 
             var stt = 1;
             foreach (var item in query)
@@ -111,9 +122,32 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                 item.HeSoDieuChinh_K1nc = item.HeSoDieuChinh_K1nc ?? 1;
                 item.HeSoDieuChinh_K2nc = item.HeSoDieuChinh_K2nc ?? 1;
                 item.HeSoDieuChinh_Kmtc = item.HeSoDieuChinh_Kmtc ?? 1;
-                item.DonGia_VL = item.DonGia_VL ?? 0;
-                item.DonGia_NC = item.DonGia_NC ?? 0;
-                item.DonGia_MTC = item.DonGia_MTC ?? 0;
+
+                if (item.CongViecChinh)
+                {
+                    var giaCap = listDonGiaCap.Where(x => x.DM_LoaiCap_CapNgam.MaLoaiCap.Trim() == item.MaNoiDungCongViec).FirstOrDefault()?.DonGia;
+                    item.DonGia_VL = giaCap ?? 0;
+                    item.DonGia_NC = item.DonGia_NC ?? 0;
+                    item.DonGia_MTC = item.DonGia_MTC ?? 0;
+                }
+                else if (!string.IsNullOrEmpty(item.MaNoiDungCongViec) && item.MaNoiDungCongViec.ToUpper().StartsWith("D"))
+                {
+                    var donGiaCT = listDonGiaChietTinh.Where(x => x.IdCongViec == item.IdCongViec).FirstOrDefault();
+                    item.DonGia_VL = donGiaCT.DonGiaVatLieu ?? 0;
+                    item.DonGia_NC = donGiaCT.DonGiaNhanCong ?? 0;
+                    item.DonGia_MTC = donGiaCT.DonGiaMTC ?? 0;
+                }
+                else
+                {
+                    var vatLieu = listDonGiaVatLieu.Where(x => x.DM_VatLieu_CapNgam.MaVatLieu != null && (x.DM_VatLieu_CapNgam.MaVatLieu.Trim() == item.MaNoiDungCongViec.Trim())).FirstOrDefault();
+                    item.DonGia_VL = vatLieu?.DonGia ?? 0;
+                    item.DonGia_NC = item.DonGia_NC ?? 0;
+                    item.DonGia_MTC = item.DonGia_MTC ?? 0;
+                }
+
+                //item.DonGia_VL = item.DonGia_VL ?? 0;
+                //item.DonGia_NC = item.DonGia_NC ?? 0;
+                //item.DonGia_MTC = item.DonGia_MTC ?? 0;
 
                 if (stt == 1 && item.Id == null) chuaCoDuLieu = true;
                 if (string.IsNullOrEmpty(item.MaNoiDungCongViec))
@@ -198,6 +232,25 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                 bieuGiaTongHop.DonGia3 = result.DonGiaThu7;
                 _unitOfWork.BieuGiaTongHop_CapNgamRepository.Update(bieuGiaTongHop);
                 await _unitOfWork.SaveChangesAsync();
+            }
+
+            // cấu hình
+            result.CPChung1 = cpChung1;
+            result.CPChung2 = cpChung2;
+            result.CPChung3 = cpChung3;
+
+            result.CPCVKXD = cpCVKXD;
+            result.TNCT = tnct;
+
+            if (chuaCoDuLieu)
+            {
+                var checkDataExist = await _unitOfWork.ChiTietBieuGia_CapNgamRepository.GetQuery(x => x.IDBieuGia == request.IdBieuGia)
+                    .AsNoTracking().FirstOrDefaultAsync();
+                if (checkDataExist == null)
+                {
+                    result.ChuaCoDuLieuBieuGia = true;
+
+                }
             }
 
             return result;

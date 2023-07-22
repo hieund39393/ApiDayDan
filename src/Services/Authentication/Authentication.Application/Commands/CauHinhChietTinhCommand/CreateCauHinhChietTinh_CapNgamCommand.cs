@@ -29,7 +29,7 @@ namespace Authentication.Application.Commands.CauHinhChietTinhCommand
         {
             // tìm kiếm xem có trùng trong db không
 
-            var checkExist = await _unitOfWork.CauHinhChietTinh_CapNgamRepository.GetQuery(x => x.IdCongViec == request.IdCongViec).FirstOrDefaultAsync();
+            var checkExist = await _unitOfWork.CauHinhChietTinh_CapNgamRepository.GetQuery(x => x.IdCongViec == request.IdCongViec && x.VungKhuVuc == request.VungKhuVuc).FirstOrDefaultAsync();
             if (checkExist != null)
             {
                 throw new EvnException("Cấu hình đã tồn tại");

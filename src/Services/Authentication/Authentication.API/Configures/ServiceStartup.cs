@@ -21,6 +21,7 @@ using Authentication.Application.Queries.DM_NhanCong_CapNgamQuery;
 using Authentication.Application.Queries.DM_NhanCongQuery;
 using Authentication.Application.Queries.DM_VatLieu_CapNgamQuery;
 using Authentication.Application.Queries.DM_VatLieuQuery;
+using Authentication.Application.Queries.DonGiaChietTinh_CapNgamQuery;
 using Authentication.Application.Queries.DonGiaChietTinhQuery;
 using Authentication.Application.Queries.DonGiaMTC_CapNgamQuery;
 using Authentication.Application.Queries.DonGiaMTCQuery;
@@ -113,6 +114,7 @@ namespace Authentication.API.Configurations
 
             services.AddScoped<IDM_NhanCongQuery, DM_NhanCongQuery>();
             services.AddScoped<IDM_NhanCong_CapNgamQuery, DM_NhanCong_CapNgamQuery>();
+            services.AddScoped<IDonGiaChietTinh_CapNgamQuery, DonGiaChietTinh_CapNgamQuery>();
             return services;
         }
     }

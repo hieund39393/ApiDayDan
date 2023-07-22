@@ -49,12 +49,12 @@ namespace Authentication.Application.Queries.GiaCapQuery
                     DonViTinh = x.DM_LoaiCap_CapNgam.DonViTinh,
                     VanBan = x.VanBan,
                     DonGia = x.DonGia,
-                    VungKhuVuc = x.VungKhuVuc,
+                    VungKhuVuc = x.VungKhuVuc.ToString(),
                     NgayTao = x.CreatedDate,
                 });// select dữ liệu
             if (request.VungKhuVuc != 0)
             {
-                query = query.Where(x => x.VungKhuVuc == request.VungKhuVuc);
+                query = query.Where(x => x.VungKhuVuc == request.VungKhuVuc.ToString());
             }
             if (!string.IsNullOrEmpty(request.SearchTerm))
             {

@@ -16,6 +16,9 @@
         public bool ChuaCoDuLieu { get; set; }
 
         public string CPChung { get; set; }
+        public string CPChung1 { get; set; }
+        public string CPChung2 { get; set; }
+        public string CPChung3 { get; set; }
         public string CPNhaTam { get; set; }
         public string CPCVKXD { get; set; }
         public string TNCT { get; set; }
@@ -54,5 +57,7 @@
 
         public int PhanLoai { get; set; }
         public int tt { get; set; }
+
+        public string VungKhuVuc { get; set; }
     }
 }

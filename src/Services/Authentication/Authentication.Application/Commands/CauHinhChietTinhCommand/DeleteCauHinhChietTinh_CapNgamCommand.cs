@@ -6,23 +6,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Authentication.Application.Commands.CauHinhChietTinhCommand
 {
-    public record DeleteCauHinhChietTinhCommand(Guid id) : IRequest<bool>
+    public record DeleteCauHinhChietTinh_CapNgamCommand(Guid id, int vungKhuVuc) : IRequest<bool>
     {
     }
 
-    //Tạo thêm 1 class Handler kế thừa IRequestHandler<DeleteCauHinhChietTinhCommand, bool> rồi implement
-    public class DeleteCauHinhChietTinhCommandHandler : IRequestHandler<DeleteCauHinhChietTinhCommand, bool> //
+    //Tạo thêm 1 class Handler kế thừa IRequestHandler<DeleteCauHinhChietTinh_CapNgamCommand, bool> rồi implement
+    public class DeleteCauHinhChietTinh_CapNgamCommandHandler : IRequestHandler<DeleteCauHinhChietTinh_CapNgamCommand, bool> //
     {
         private readonly IUnitOfWork _unitOfWork; // khai báo 
-        public DeleteCauHinhChietTinhCommandHandler(IUnitOfWork unitOfWork) //cấu hình dependence
+        public DeleteCauHinhChietTinh_CapNgamCommandHandler(IUnitOfWork unitOfWork) //cấu hình dependence
         {
             _unitOfWork = unitOfWork; // khai báo
         }
 
-        public async Task<bool> Handle(DeleteCauHinhChietTinhCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(DeleteCauHinhChietTinh_CapNgamCommand request, CancellationToken cancellationToken)
         {
             // tìm kiếm xem có ID trong bảng CauHinhChietTinh không
-            var entity = await _unitOfWork.CauHinhChietTinhRepository.GetQuery(x => x.IdCongViec == request.id).ToListAsync();
+            var entity = await _unitOfWork.CauHinhChietTinh_CapNgamRepository.GetQuery(x => x.IdCongViec == request.id && x.VungKhuVuc == request.vungKhuVuc).ToListAsync();
             // nếu không có dữ liệu thì thêm mới
             if (entity == null)
             {
@@ -32,9 +32,8 @@ namespace Authentication.Application.Commands.CauHinhChietTinhCommand
             foreach (var item in entity)
             {
                 item.IsDeleted = true; // xoá mềm 
-                _unitOfWork.CauHinhChietTinhRepository.Update(item);
+                _unitOfWork.CauHinhChietTinh_CapNgamRepository.Update(item);
             }
-            //xoá trong DB
             //lưu lại trong DB
             await _unitOfWork.SaveChangesAsync();
             return true;

@@ -12,7 +12,7 @@ namespace Authentication.Application.Model.DonGiaNhanCong
         public decimal? DinhMuc { get; set; }
         public string NgayTao { get; set; }
 
-        public int VungKhuVuc { get; set; }
+        public string VungKhuVuc { get; set; }
         public string TenVungKhuVuc { get; set; }
     }
 }

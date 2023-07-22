@@ -81,11 +81,11 @@ namespace Authentication.API.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}/{vungKhuVuc}")]
         [ProducesResponseType(typeof(ApiSuccessResult<bool>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Update([FromRoute] Guid id)
+        public async Task<IActionResult> Update([FromRoute] Guid id, [FromRoute] int vungKhuVuc)
         {
-            var user = await _mediator.Send(new DeleteCauHinhChietTinhCommand(id));
+            var user = await _mediator.Send(new DeleteCauHinhChietTinh_CapNgamCommand(id, vungKhuVuc));
             return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_DELETE_SUCCESS, " cấu hình")));
         }
 

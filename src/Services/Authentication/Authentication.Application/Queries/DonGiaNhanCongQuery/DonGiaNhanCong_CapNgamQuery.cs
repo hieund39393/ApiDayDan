@@ -48,12 +48,12 @@ namespace Authentication.Application.Queries.DonGiaNhanCong_CapNgamQuery
                    DonGia = x.DonGia,
                    IdNhanCong = x.IdNhanCong.Value,
                    DinhMuc = x.DinhMuc,
-                   VungKhuVuc = x.VungKhuVuc,
+                   VungKhuVuc = x.VungKhuVuc.ToString(),
                    NgayTao = x.CreatedDate.ToString("dd/MM/yyyy"),
                });// select dữ liệu
             if (request.VungKhuVuc != 0)
             {
-                query = query.Where(x => x.VungKhuVuc == request.VungKhuVuc);
+                query = query.Where(x => x.VungKhuVuc == request.VungKhuVuc.ToString());
             }
             if (!string.IsNullOrEmpty(request.SearchTerm))
             {

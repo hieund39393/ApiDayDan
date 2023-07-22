@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using System;
+using Authentication.Application.Queries.DonGiaChietTinh_CapNgamQuery;
 
 namespace Authentication.API.Controllers
 {
@@ -17,32 +18,15 @@ namespace Authentication.API.Controllers
     [ApiController]
     public class DonGiaChietTinhCapNgamController : ControllerBase
     {
-        private readonly IDonGiaChietTinhQuery _DonGiaChietTinhQuery; //kế thừa interface
+        private readonly IDonGiaChietTinh_CapNgamQuery _DonGiaChietTinhQuery; //kế thừa interface
         private readonly IMediator _mediator; //kế thừa để sử dụng command
 
-        public DonGiaChietTinhCapNgamController(IDonGiaChietTinhQuery DonGiaChietTinhQuery, IMediator mediator)
+        public DonGiaChietTinhCapNgamController(IDonGiaChietTinh_CapNgamQuery DonGiaChietTinhQuery, IMediator mediator)
         {
             _DonGiaChietTinhQuery = DonGiaChietTinhQuery;
             _mediator = mediator;
         }
 
-        ///// <summary>
-        ///// Danh sách tất cả đơn giá chiết tinh
-        ///// </summary>
-        ///// <returns></returns>
-        //[HttpGet("get-all")]
-        //[ProducesResponseType(typeof(ApiSuccessResult<List<SelectItem>>), (int)HttpStatusCode.OK)] // trả về dữ liệu model cho FE
-        //public async Task<IActionResult> GetAll()
-        //{
-        //    var data = await _DonGiaChietTinhQuery.GetAll();
-        //    return Ok(new ApiSuccessResult<List<SelectItem>>(data: data));
-        //}
-
-        /// <summary>
-        /// Danh sách đơn giá chiết tinh có phân trang, tổng số , tìm kiếm
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(typeof(ApiSuccessResult<List<DonGiaChietTinhResponse>>), (int)HttpStatusCode.OK)] // trả về dữ liệu model cho FE
         public async Task<IActionResult> GetListUser([FromQuery] DonGiaChietTinhRequest request)
@@ -62,7 +46,7 @@ namespace Authentication.API.Controllers
         /// <returns></returns>
         [HttpPut]
         [ProducesResponseType(typeof(ApiSuccessResult<bool>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Update([FromBody] UpdateDonGiaChietTinhCommand command)
+        public async Task<IActionResult> Update([FromBody] UpdateDonGiaChietTinh_CapNgamCommand command)
         {
             var user = await _mediator.Send(command);
             return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_UPDATE_SUCCESS, "đơn giá chiết tinh")));

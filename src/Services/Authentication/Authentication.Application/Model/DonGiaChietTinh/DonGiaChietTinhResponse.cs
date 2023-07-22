@@ -29,5 +29,7 @@ namespace Authentication.Application.Model.DonGiaChietTinh
 
         public bool IsDinhMucCu { get; set; }
         public bool IsDonGiaCu { get; set; }
+
+        public int VungKhuVuc { get; set; }
     }
 }
