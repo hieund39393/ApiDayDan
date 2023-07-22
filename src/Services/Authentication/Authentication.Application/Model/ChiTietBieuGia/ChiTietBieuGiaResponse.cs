@@ -59,5 +59,7 @@
         public int tt { get; set; }
 
         public string VungKhuVuc { get; set; }
+
+        public bool ChuaCoDuLieu { get; set; }
     }
 }
