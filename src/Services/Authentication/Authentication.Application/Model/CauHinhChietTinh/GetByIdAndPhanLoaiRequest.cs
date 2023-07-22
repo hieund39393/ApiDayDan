@@ -9,5 +9,6 @@ namespace Authentication.Application.Model.CauHinhChietTinh
     public class GetByIdAndPhanLoaiRequest
     {
         public Guid IdCongViec { get; set; }
+        public int VungKhuVuc { get; set; }
     }
 }

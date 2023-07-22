@@ -31,11 +31,11 @@ namespace Authentication.Application.Commands.CauHinhChietTinhCommand
 
 
             // tìm kiếm xem có ID trong bảng CauHinhChietTinh không
-            var listData = await _unitOfWork.CauHinhChietTinhRepository.GetQuery(x => x.IdCongViec == request.IdCongViec).ToListAsync();
-            foreach(var item in listData)
+            var listData = await _unitOfWork.CauHinhChietTinh_CapNgamRepository.GetQuery(x => x.IdCongViec == request.IdCongViec && x.VungKhuVuc == request.VungKhuVuc).ToListAsync();
+            foreach (var item in listData)
             {
                 item.IsDeleted = true;
-                _unitOfWork.CauHinhChietTinhRepository.Update(item);
+                _unitOfWork.CauHinhChietTinh_CapNgamRepository.Update(item);
             }
 
             var listCauHinh = new List<CauHinhChietTinh_CapNgam>();

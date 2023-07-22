@@ -63,6 +63,7 @@ namespace Authentication.Infrastructure.Repositories
         IRepository<DonGiaNhanCong> DonGiaNhanCongRepository { get; }
         IRepository<DonGiaNhanCong_CapNgam> DonGiaNhanCong_CapNgamRepository { get; }
         IRepository<DonGiaChietTinh> DonGiaChietTinhRepository { get; }
+        IRepository<DonGiaChietTinh_CapNgam> DonGiaChietTinh_CapNgamRepository { get; }
         IRepository<ChiTietBieuGia> ChiTietBieuGiaRepository { get; }
         IRepository<ChiTietBieuGia_CapNgam> ChiTietBieuGia_CapNgamRepository { get; }
         IRepository<BieuGiaTongHop> BieuGiaTongHopRepository { get; }
@@ -124,6 +125,7 @@ namespace Authentication.Infrastructure.Repositories
         private IRepository<DonGiaNhanCong> _donGiaNhanCongRepository;
         private IRepository<DonGiaNhanCong_CapNgam> _donGiaNhanCong_CapNgamRepository;
         private IRepository<DonGiaChietTinh> _donGiaChietTinhRepository;
+        private IRepository<DonGiaChietTinh_CapNgam> _donGiaChietTinh_CapNgamRepository;
         private IRepository<ChiTietBieuGia> _chiTietBieuGiaRepository;
         private IRepository<ChiTietBieuGia_CapNgam> _chiTietBieuGia_CapNgamRepository;
         private IRepository<BieuGiaTongHop> _bieuGiaTongHopRepository;
@@ -509,6 +511,17 @@ namespace Authentication.Infrastructure.Repositories
                     _donGiaChietTinhRepository = new Repository<DonGiaChietTinh>(_context);
                 }
                 return _donGiaChietTinhRepository;
+            }
+        }
+        public IRepository<DonGiaChietTinh_CapNgam> DonGiaChietTinh_CapNgamRepository
+        {
+            get
+            {
+                if (_donGiaChietTinh_CapNgamRepository == null)
+                {
+                    _donGiaChietTinh_CapNgamRepository = new Repository<DonGiaChietTinh_CapNgam>(_context);
+                }
+                return _donGiaChietTinh_CapNgamRepository;
             }
         }
         public IRepository<ChiTietBieuGia> ChiTietBieuGiaRepository

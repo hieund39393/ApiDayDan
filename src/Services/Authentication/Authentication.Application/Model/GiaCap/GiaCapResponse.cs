@@ -14,6 +14,6 @@ namespace Authentication.Application.Model.GiaCap
         public decimal DonGia { get; set; }
         public DateTime NgayTao { get; set; }
         public string TenVungKhuVuc { get; set; }
-        public int VungKhuVuc { get; set; }
+        public string VungKhuVuc { get; set; }
     }
 }

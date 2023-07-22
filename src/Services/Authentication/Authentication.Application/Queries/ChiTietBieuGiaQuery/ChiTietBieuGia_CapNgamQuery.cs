@@ -17,6 +17,8 @@ namespace Authentication.Application.Queries.ChiTietBieuGia_CapNgamQuery
         //Task<ChiTietBieuGia_CapNgamResult> GetList(ChiTietBieuGia_CapNgamRequest request);
         Task<List<SelectItem>> GetBieuGiaByLoaiBieuGia(Guid loaiBieuGia);
         Task<List<GetDonGiaResponse>> GetDonGia(GetDonGiaRequest request);
+        Task<int> KiemTraDuLieu(ChiTietBieuGiaRequest request);
+
     }
     public class ChiTietBieuGia_CapNgamQuery : BaseExtendEntities, IChiTietBieuGia_CapNgamQuery // kế thừa interface vừa tạo
     {
@@ -210,5 +212,23 @@ namespace Authentication.Application.Queries.ChiTietBieuGia_CapNgamQuery
 
         }
 
+        public async Task<int> KiemTraDuLieu(ChiTietBieuGiaRequest request)
+        {
+
+            var data = await _unitOfWork.BieuGiaTongHop_CapNgamRepository.GetQuery(x => x.Quy == request.Quy && x.Nam == request.Nam).AsNoTracking().FirstOrDefaultAsync();
+
+            if (data == null)
+            {
+                return 0;
+            }
+            if (data.TinhTrang == 0)
+            {
+                return 1;
+            }
+            else
+            {
+                return 2;
+            }
+        }
     }
 }
