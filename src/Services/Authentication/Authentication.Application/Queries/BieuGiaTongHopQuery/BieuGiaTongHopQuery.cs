@@ -24,7 +24,6 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
 
         public async Task<object> ChiTietPDF(ChiTietPDFRequest request)
         {
-            var loaiBieuGia = await _unitOfWork.DM_LoaiBieuGiaRepository.GetQuery().AsNoTracking().ToListAsync();
             var query = await _unitOfWork.BieuGiaTongHopRepository.GetQuery(x => x.Nam == request.Nam && x.Quy == request.Quy)
                 .Include(x => x.DM_BieuGia).ThenInclude(x => x.DM_LoaiBieuGia).ThenInclude(x => x.DM_KhuVuc)
                 .Select(x => new
@@ -32,7 +31,7 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
                     IdBieuGia = x.IdBieuGia,
                     TenBieuGia = x.DM_BieuGia.TenBieuGia,
                     IdLoaiBieuGia = x.DM_BieuGia.idLoaiBieuGia,
-                    PhanLoaiBieuGia = x.DM_BieuGia.MaBieuGia,
+                    PhanLoaiBieuGia = x.DM_BieuGia.DM_LoaiBieuGia.MaLoaiBieuGia,
                     IdKhuVuc = x.DM_BieuGia.DM_LoaiBieuGia.IdKhuVuc,
                     TenKhuVuc = x.DM_BieuGia.DM_LoaiBieuGia.DM_KhuVuc.TenKhuVuc,
                     DonGia = x.DonGia,
