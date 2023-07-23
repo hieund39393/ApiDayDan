@@ -76,12 +76,21 @@ namespace Authentication.Application.Queries.DonGiaChietTinhQuery
                     //DinhMuc = request.VungKhuVuc == 1 ? ct?.DinhMuc : (request.VungKhuVuc == 2 ? ct?.DinhMucHai : ct?.DinhMucBa),
                     Level = 1
                 });
-                foreach (var child in item.IdChiTiet.OrderBy(x => x.ThuTuHienThi))
+                foreach (var child in item.IdChiTiet)
                 {
+
                     if (index == child.PhanLoai)
                     {
+                        if (!item.IdChiTiet.Any(x => x.PhanLoai == 1))
+                        {
+                            index++;
+                        }
                         listResult.Add(new DonGiaChietTinhResponse { IdCongViec = item.IdCongViec.Value, TenVatLieu = GetDescription((PhanLoaiChietTinhEnum)child.PhanLoai), Level = 2 });
                         index++;
+                        if (!item.IdChiTiet.Any(x => x.PhanLoai == 2))
+                        {
+                            index++;
+                        }
                     }
                     if (child.PhanLoai == 1)
                     {
