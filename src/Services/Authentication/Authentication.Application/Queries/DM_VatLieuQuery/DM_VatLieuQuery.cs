@@ -43,10 +43,11 @@ namespace Authentication.Application.Queries.DM_VatLieuQuery
                 .Select(x => new DM_VatLieuResponse()
                 {
                     Id = x.Id,
-                    TenVatLieu = x.TenVatLieu ,
-                    MaVatLieu = x.MaVatLieu ,
+                    TenVatLieu = x.TenVatLieu,
+                    MaVatLieu = x.MaVatLieu,
                     DonViTinh = x.DonViTinh,
                     NgayTao = x.CreatedDate,
+                    ThuTuHienThi = x.ThuTuHienThi
                 });// select dữ liệu
             var totalRow = query.Count(); // tổng số lượng
             var queryPaging = query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize); // phân trang

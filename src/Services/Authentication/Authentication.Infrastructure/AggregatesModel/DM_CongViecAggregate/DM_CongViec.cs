@@ -7,6 +7,7 @@ namespace Authentication.Infrastructure.AggregatesModel.DM_CongViecAggregate
 {
     public class DM_CongViec : BaseEntity
     {
+        public int ThuTuHienThi { get; set; } 
         public string TenCongViec { get; set; }
         public string MaCongViec { get; set; }
         public string DonViTinh { get; set; }

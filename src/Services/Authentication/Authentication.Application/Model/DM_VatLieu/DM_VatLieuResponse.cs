@@ -10,5 +10,6 @@ namespace Authentication.Application.Model.DM_VatLieu
         public string MaVatLieu { get; set; }
         public string DonViTinh { get; set; }
         public DateTime NgayTao { get; set; }
+        public int ThuTuHienThi { get; set; }
     }
 }

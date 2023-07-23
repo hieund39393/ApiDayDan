@@ -19,5 +19,9 @@ namespace Authentication.Infrastructure.AggregatesModel.DonGiaChietTinhAggregate
         public decimal? DinhMucHai { get; set; }
         public decimal? DinhMucBa { get; set; }
 
+        public ICollection<ChietTinhChiTiet> ChietTinhChiTiets { get; set; }
+
+        public int VungKhuVuc { get; set; }
+
     }
 }

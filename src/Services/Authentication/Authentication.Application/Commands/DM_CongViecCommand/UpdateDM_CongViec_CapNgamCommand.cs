@@ -11,6 +11,7 @@ namespace Authentication.Application.Commands.DM_CongViec_CapNgamCommand
         public string TenCongViec { get; set; }
         public string MaCongViec { get; set; }
         public string DonViTinh { get; set; }
+        public int ThuTuHienThi { get; set; }
 
     }
 

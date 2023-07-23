@@ -11,7 +11,7 @@ namespace Authentication.Application.Commands.DM_CongViecCommand
         public string TenCongViec { get; set; }
         public string MaCongViec { get; set; }
         public string DonViTinh { get; set; }
-
+        public int ThuTuHienThi { get; set; }
     }
 
     //Tạo thêm 1 class Handler kế thừa IRequestHandler<UpdateDM_CongViecCommand, bool> rồi implement
@@ -34,6 +34,7 @@ namespace Authentication.Application.Commands.DM_CongViecCommand
             if (entity.TenCongViec == request.TenCongViec && entity.MaCongViec == request.MaCongViec)
             {
                 entity.DonViTinh = request.DonViTinh;
+                entity.ThuTuHienThi = request.ThuTuHienThi;
             }
             else
             {
@@ -45,6 +46,7 @@ namespace Authentication.Application.Commands.DM_CongViecCommand
                 entity.TenCongViec = request.TenCongViec;
                 entity.MaCongViec = request.MaCongViec;
                 entity.DonViTinh = request.DonViTinh;
+                entity.ThuTuHienThi = request.ThuTuHienThi;
             }
 
 

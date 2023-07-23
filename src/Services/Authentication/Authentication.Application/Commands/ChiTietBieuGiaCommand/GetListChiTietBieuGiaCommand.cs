@@ -102,7 +102,7 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                 .AsNoTracking().ToListAsync();
 
             var listDonGiaChietTinh = await _unitOfWork.DonGiaChietTinhRepository.GetQuery().Include(z => z.DM_CongViec)
-                .GroupBy(x => x.IdCongViec).Select(x => x.OrderByDescending(y => y.CreatedDate).First()).AsNoTracking().ToListAsync();
+                .GroupBy(x => new { x.IdCongViec, x.VungKhuVuc }).Select(x => x.OrderByDescending(y => y.CreatedDate).First()).AsNoTracking().ToListAsync();
 
             var listDonGiaVatLieu = await _unitOfWork.DonGiaVatLieuRepository.GetQuery().Include(z => z.DM_VatLieu)
                 .GroupBy(x => x.IdVatLieu).Select(x => x.OrderByDescending(y => y.CreatedDate).First()).AsNoTracking().ToListAsync();
@@ -129,21 +129,11 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
 
                     else if (!string.IsNullOrEmpty(item.MaNoiDungCongViec) && listMaChietTinh.Any(prefix => item.MaNoiDungCongViec.ToUpper().StartsWith(prefix)))
                     {
-                        var donGiaCT = listDonGiaChietTinh.Where(x => x.IdCongViec == item.IdCongViec).FirstOrDefault();
+                        var donGiaCT = listDonGiaChietTinh.Where(x => x.IdCongViec == item.IdCongViec && x.VungKhuVuc.ToString() == item.VungKhuVuc).FirstOrDefault();
                         item.DonGia_VL = donGiaCT?.DonGiaVatLieu ?? 0;
                         //item.DonGia_NC = donGiaCT?.DonGiaNhanCong ?? 0;
-                        if (item.VungKhuVuc == "1")
-                        {
-                            item.DonGia_NC = donGiaCT?.DonGiaNhanCong ?? 0;
-                        }
-                        else if (item.VungKhuVuc == "2")
-                        {
-                            item.DonGia_NC = donGiaCT?.DonGiaNhanCongHai ?? 0;
-                        }
-                        else if (item.VungKhuVuc == "3")
-                        {
-                            item.DonGia_NC = donGiaCT?.DonGiaNhanCongBa ?? 0;
-                        }
+
+                        item.DonGia_NC = donGiaCT?.DonGiaNhanCong ?? 0;
 
 
                         item.DonGia_MTC = donGiaCT?.DonGiaMTC ?? 0;

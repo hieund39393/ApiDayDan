@@ -5,6 +5,8 @@ namespace Authentication.Infrastructure.AggregatesModel.DonGiaChietTinhAggregate
 {
     public class CauHinhChietTinh_CapNgam : BaseEntity
     {
+
+        public int ThuTuHienThi { get; set; }
         public Guid? IdCongViec { get; set; }
 
         public Guid? IdChiTiet { get; set; }

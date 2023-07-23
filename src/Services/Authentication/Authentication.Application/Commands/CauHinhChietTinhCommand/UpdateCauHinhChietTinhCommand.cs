@@ -30,18 +30,22 @@ namespace Authentication.Application.Commands.CauHinhChietTinhCommand
 
             // tìm kiếm xem có ID trong bảng CauHinhChietTinh không
             var listData = await _unitOfWork.CauHinhChietTinhRepository.GetQuery(x => x.IdCongViec == request.IdCongViec).ToListAsync();
-            foreach(var item in listData)
+            foreach (var item in listData)
             {
                 item.IsDeleted = true;
                 _unitOfWork.CauHinhChietTinhRepository.Update(item);
             }
 
             var listCauHinh = new List<CauHinhChietTinh>();
+            var listVatLieu = await _unitOfWork.DM_VatLieuRepository.GetQuery().ToListAsync();
+
             if (request.IdVatLieu.Any())
             {
                 foreach (var item in request.IdVatLieu)
                 {
-                    listCauHinh.Add(new CauHinhChietTinh { IdCongViec = request.IdCongViec, IdChiTiet = item, PhanLoai = PhanLoaiChietTinhEnum.VatLieu.GetHashCode() });
+                    var thuTu = listVatLieu.Where(x => x.Id == item).FirstOrDefault();
+
+                    listCauHinh.Add(new CauHinhChietTinh { ThuTuHienThi = thuTu.ThuTuHienThi, IdCongViec = request.IdCongViec, IdChiTiet = item, PhanLoai = PhanLoaiChietTinhEnum.VatLieu.GetHashCode() });
                 }
             }
             if (request.IdNhanCong.Any())

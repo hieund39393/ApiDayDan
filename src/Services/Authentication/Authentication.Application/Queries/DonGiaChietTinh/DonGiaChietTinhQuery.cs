@@ -1,8 +1,6 @@
-﻿using Authentication.Application.Model.CauHinhChietTinh;
-using Authentication.Application.Model.DonGiaChietTinh;
+﻿using Authentication.Application.Model.DonGiaChietTinh;
 using Authentication.Infrastructure.Repositories;
 using EVN.Core.Extensions;
-using EVN.Core.SeedWork;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
 using static EVN.Core.Common.AppEnum;
@@ -51,17 +49,18 @@ namespace Authentication.Application.Queries.DonGiaChietTinhQuery
                  .GroupBy(x => x.IdMTC).Select(x => x.OrderByDescending(y => y.CreatedDate).First())
                 .ToListAsync();
 
-            var dGCT = await _unitOfWork.DonGiaChietTinhRepository.GetQuery().AsNoTracking().ToListAsync();
+            var dGCT = await _unitOfWork.DonGiaChietTinhRepository.GetQuery(x => x.VungKhuVuc == request.VungKhuVuc).Include(x => x.ChietTinhChiTiets).AsNoTracking().ToListAsync();
 
-            var data = await _unitOfWork.CauHinhChietTinhRepository.GetQuery().Include(x => x.DM_CongViec).GroupBy(x => x.IdCongViec).Select(x => new
+            var data = await _unitOfWork.CauHinhChietTinhRepository.GetQuery().Include(x => x.DM_CongViec).OrderBy(x => x.DM_CongViec.ThuTuHienThi).GroupBy(x => x.IdCongViec).Select(x => new
             {
                 IdCongViec = x.Key,
-                IdChiTiet = x.OrderBy(x => x.PhanLoai).ToList()
+                ThuTuCongViec = x.Select(x => x.DM_CongViec.ThuTuHienThi).First(),
+                IdChiTiet = x.OrderBy(x => x.PhanLoai).ThenBy(x => x.ThuTuHienThi).ToList()
             }).ToListAsync();
 
             var listResult = new List<DonGiaChietTinhResponse>();
             int stt = 1;
-            foreach (var item in data)
+            foreach (var item in data.OrderBy(x => x.ThuTuCongViec))
             {
                 var ct = dGCT.Where(x => x.IdCongViec == item.IdCongViec).OrderByDescending(x => x.CreatedDate).FirstOrDefault();
                 int index = 1;
@@ -72,12 +71,12 @@ namespace Authentication.Application.Queries.DonGiaChietTinhQuery
                     IdCongViec = item.IdCongViec.Value,
                     TenVatLieu = item.IdChiTiet.First().DM_CongViec.TenCongViec,
                     TongGia_VL = ct?.DonGiaVatLieu,
-                    TongGia_NC = request.VungKhuVuc == 1 ? ct?.DonGiaNhanCong : (request.VungKhuVuc == 2 ? ct?.DonGiaNhanCongHai : ct?.DonGiaNhanCongBa),
+                    TongGia_NC = ct?.DonGiaNhanCong,
                     TongGia_MTC = ct?.DonGiaMTC,
                     //DinhMuc = request.VungKhuVuc == 1 ? ct?.DinhMuc : (request.VungKhuVuc == 2 ? ct?.DinhMucHai : ct?.DinhMucBa),
                     Level = 1
                 });
-                foreach (var child in item.IdChiTiet)
+                foreach (var child in item.IdChiTiet.OrderBy(x => x.ThuTuHienThi))
                 {
                     if (index == child.PhanLoai)
                     {
@@ -94,13 +93,12 @@ namespace Authentication.Application.Queries.DonGiaChietTinhQuery
                             TenVatLieu = vatLieu?.DM_VatLieu?.TenVatLieu,
                             DonVi = vatLieu?.DM_VatLieu?.DonViTinh,
                             DGVL = vatLieu?.DonGia,
-                            DinhMuc = vatLieu?.DinhMuc,
+                            //DinhMuc = vatLieu?.DinhMuc,
+                            DinhMuc = ct?.ChietTinhChiTiets?.Where(x => x.IdChiTiet == vatLieu.Id).FirstOrDefault()?.DinhMuc,
                             Level = 3,
                             PhanLoai = 1,
-                            //IsDinhMucCu = (vatLieu.DinhMucCu != null && vatLieu.DinhMucCu != vatLieu.DinhMuc) ? true : false,
-                            //IsDonGiaCu = (vatLieu.DonGiaCu != null && vatLieu.DonGiaCu != vatLieu.DonGia) ? true : false,
                             IsDonGiaCu = ct?.CreatedDate < vatLieu.CreatedDate ? true : false,
-                            IsDinhMucCu = ct?.CreatedDate < vatLieu.CreatedDate ? true : false,
+                            //IsDinhMucCu = ct?.CreatedDate < vatLieu.CreatedDate ? true : false,
                             VungKhuVuc = request.VungKhuVuc,
                         }); ;
                     }
@@ -118,11 +116,11 @@ namespace Authentication.Application.Queries.DonGiaChietTinhQuery
                                 TenVatLieu = nhanCong.NhanCong.CapBac,
                                 DonVi = "công",
                                 DGNC = nhanCong.DonGia,
-                                DinhMuc = request.VungKhuVuc == 1 ? ct?.DinhMuc : (request.VungKhuVuc == 2 ? ct?.DinhMucHai : ct?.DinhMucBa),
+                                DinhMuc = ct?.ChietTinhChiTiets?.Where(x => x.IdChiTiet == nhanCong.Id).FirstOrDefault()?.DinhMuc,
                                 Level = 3,
                                 PhanLoai = 2,
                                 IsDonGiaCu = ct?.CreatedDate < nhanCong.CreatedDate ? true : false,
-                                IsDinhMucCu = ct?.CreatedDate < nhanCong.CreatedDate ? true : false,
+                                //IsDinhMucCu = ct?.CreatedDate < nhanCong.CreatedDate ? true : false,
                                 VungKhuVuc = request.VungKhuVuc,
                             });
                         }
@@ -137,11 +135,11 @@ namespace Authentication.Application.Queries.DonGiaChietTinhQuery
                             TenVatLieu = mTC.DM_MTC.TenMayThiCong,
                             DonVi = mTC.DM_MTC.DonViTinh,
                             DGMTC = mTC.DonGia,
-                            DinhMuc = mTC?.DinhMuc,
+                            DinhMuc = ct?.ChietTinhChiTiets?.Where(x => x.IdChiTiet == mTC.Id).FirstOrDefault()?.DinhMuc,
                             Level = 3,
                             PhanLoai = 3,
                             IsDonGiaCu = ct?.CreatedDate < mTC.CreatedDate ? true : false,
-                            IsDinhMucCu = ct?.CreatedDate < mTC.CreatedDate ? true : false,
+                            //IsDinhMucCu = ct?.CreatedDate < mTC.CreatedDate ? true : false,
                             VungKhuVuc = request.VungKhuVuc,
                         });
                     }

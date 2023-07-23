@@ -39,11 +39,15 @@ namespace Authentication.Application.Commands.CauHinhChietTinhCommand
             }
 
             var listCauHinh = new List<CauHinhChietTinh_CapNgam>();
+            var listVatLieu = await _unitOfWork.DM_VatLieu_CapNgamRepository.GetQuery().ToListAsync();
+
             if (request.IdVatLieu.Any())
             {
                 foreach (var item in request.IdVatLieu)
                 {
-                    listCauHinh.Add(new CauHinhChietTinh_CapNgam { IdCongViec = request.IdCongViec, IdChiTiet = item, PhanLoai = PhanLoaiChietTinhEnum.VatLieu.GetHashCode(), VungKhuVuc = request.VungKhuVuc });
+                    var thuTu = listVatLieu.Where(x => x.Id == item).FirstOrDefault();
+
+                    listCauHinh.Add(new CauHinhChietTinh_CapNgam { ThuTuHienThi = thuTu.ThuTuHienThi, IdCongViec = request.IdCongViec, IdChiTiet = item, PhanLoai = PhanLoaiChietTinhEnum.VatLieu.GetHashCode(), VungKhuVuc = request.VungKhuVuc });
                 }
             }
             if (request.IdNhanCong.Any())

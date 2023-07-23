@@ -11,5 +11,6 @@ namespace Authentication.Application.Model.DM_CongViec
         public string DonViTinh { get; set; }
 
         public DateTime NgayTao { get; set; }
+        public int ThuTuHienThi { get; set; }
     }
 }

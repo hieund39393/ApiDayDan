@@ -33,11 +33,14 @@ namespace Authentication.Application.Commands.CauHinhChietTinhCommand
                 throw new EvnException("Công việc đã tồn tại");
             }
             var listCauHinh = new List<CauHinhChietTinh>();
+
+            var listVatLieu = await _unitOfWork.DM_VatLieuRepository.GetQuery().ToListAsync();
             if (request.IdVatLieu.Any())
             {
                 foreach (var item in request.IdVatLieu)
                 {
-                    listCauHinh.Add(new CauHinhChietTinh { IdCongViec = request.IdCongViec, IdChiTiet = item, PhanLoai = PhanLoaiChietTinhEnum.VatLieu.GetHashCode() });
+                    var thuTu = listVatLieu.Where(x => x.Id == item).FirstOrDefault();
+                    listCauHinh.Add(new CauHinhChietTinh { IdCongViec = request.IdCongViec, IdChiTiet = item, PhanLoai = PhanLoaiChietTinhEnum.VatLieu.GetHashCode(), ThuTuHienThi = thuTu.ThuTuHienThi });
                 }
             }
             if (request.IdNhanCong.Any())

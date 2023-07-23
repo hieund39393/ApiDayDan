@@ -26,6 +26,7 @@ namespace Authentication.Application.Commands.DonGiaChietTinhCommand
 
             foreach (var item in data)
             {
+                var chiTiet = new List<ChietTinhChiTiet>();
                 var donGiaCu = await _unitOfWork.DonGiaChietTinhRepository.GetQuery(z => z.IdCongViec == item.IdCongViec)
                     .OrderByDescending(x => x.CreatedDate).FirstOrDefaultAsync();
                 var entity = new DonGiaChietTinh();
@@ -34,95 +35,44 @@ namespace Authentication.Application.Commands.DonGiaChietTinhCommand
                 entity.DonGiaVatLieu = 0;
                 entity.DonGiaMTC = 0;
 
-                if (item.DonGia.First().VungKhuVuc == 1)
-                {
-                    entity.DonGiaNhanCong = 0;
-                    entity.DonGiaNhanCongHai = donGiaCu?.DonGiaNhanCongHai;
-                    entity.DonGiaNhanCongBa = donGiaCu?.DonGiaNhanCongBa;
-                    entity.DinhMucHai = donGiaCu?.DinhMucHai;
-                    entity.DinhMucBa = donGiaCu?.DinhMucBa;
+                entity.DonGiaNhanCong = 0;
 
-                    foreach (var dg in item.DonGia)
-                    {
-                        if (dg.PhanLoai == 1)
-                        {
-                            entity.DonGiaVatLieu += (dg.DinhMuc * dg.DGVL);
-                        }
-                        else if (dg.PhanLoai == 2)
-                        {
-                            entity.DonGiaNhanCong += (dg.DinhMuc * dg.DGNC);
-                            entity.DinhMuc = dg.DinhMuc;
-
-                        }
-                        else if (dg.PhanLoai == 3)
-                        {
-                            entity.DonGiaMTC += (dg.DinhMuc * dg.DGMTC);
-                        }
-                    }
-                }
-                else if (item.DonGia.First().VungKhuVuc == 2)
+                foreach (var dg in item.DonGia)
                 {
-                    entity.DonGiaNhanCongHai = 0;
-                    entity.DonGiaNhanCong = donGiaCu?.DonGiaNhanCong;
-                    entity.DonGiaNhanCongBa = donGiaCu?.DonGiaNhanCongBa;
-                    entity.DinhMuc = donGiaCu?.DinhMuc;
-                    entity.DinhMucBa = donGiaCu?.DinhMucBa;
-                    foreach (var dg in item.DonGia)
+                    if (dg.PhanLoai == 1)
                     {
-                        if (dg.PhanLoai == 1)
-                        {
-                            entity.DonGiaVatLieu += (dg.DinhMuc * dg.DGVL);
-                        }
-                        else if (dg.PhanLoai == 2)
-                        {
-                            entity.DonGiaNhanCongHai += (dg.DinhMuc * dg.DGNC);
-                            entity.DinhMucHai = dg.DinhMuc;
-                        }
-                        else if (dg.PhanLoai == 3)
-                        {
-                            entity.DonGiaMTC += (dg.DinhMuc * dg.DGMTC);
-                        }
+                        entity.DonGiaVatLieu += (dg.DinhMuc * dg.DGVL);
                     }
-                }
-                else
-                {
-                    entity.DonGiaNhanCong = donGiaCu?.DonGiaNhanCong;
-                    entity.DonGiaNhanCongHai = donGiaCu?.DonGiaNhanCongHai;
-                    entity.DonGiaNhanCongBa = 0;
-                    entity.DinhMuc = donGiaCu?.DinhMuc;
-                    entity.DinhMucHai = donGiaCu?.DinhMucHai;
-                    foreach (var dg in item.DonGia)
+                    else if (dg.PhanLoai == 2)
                     {
-                        if (dg.PhanLoai == 1)
-                        {
-                            entity.DonGiaVatLieu += (dg.DinhMuc * dg.DGVL);
-                        }
-                        else if (dg.PhanLoai == 2)
-                        {
-                            entity.DonGiaNhanCongBa += (dg.DinhMuc * dg.DGNC);
-                            entity.DinhMucBa = dg.DinhMuc;
-                        }
-                        else if (dg.PhanLoai == 3)
-                        {
-                            entity.DonGiaMTC += (dg.DinhMuc * dg.DGMTC);
-                        }
+                        entity.DonGiaNhanCong += (dg.DinhMuc * dg.DGNC);
                     }
+                    else if (dg.PhanLoai == 3)
+                    {
+                        entity.DonGiaMTC += (dg.DinhMuc * dg.DGMTC);
+                    }
+                    chiTiet.Add(new ChietTinhChiTiet
+                    {
+                        DinhMuc = dg.DinhMuc,
+                        IdChiTiet = dg.IdVatLieu,
+                        IdCongViec = entity.IdCongViec,
+                        PhanLoai = dg.PhanLoai,
+                    });
                 }
 
+                entity.VungKhuVuc = item.DonGia.First().VungKhuVuc;
 
-
-                //var checkExist = await _unitOfWork.DonGiaChietTinhRepository.FindOneAsync(x => x.IdCongViec == entity.IdCongViec);
-                //if (checkExist != null)
-                //{
-                //    checkExist.DonGiaVatLieu = entity.DonGiaVatLieu;
-                //    checkExist.DonGiaNhanCong = entity.DonGiaNhanCong;
-                //    checkExist.DonGiaMTC = entity.DonGiaMTC;
-                //    _unitOfWork.DonGiaChietTinhRepository.Update(checkExist);
-                //}
-                //else
-                //{
                 _unitOfWork.DonGiaChietTinhRepository.Add(entity);
-                //}
+
+                if (chiTiet.Any())
+                {
+                    foreach (var ct in chiTiet)
+                    {
+                        ct.IdDonGiaChietTinh = entity.Id;
+                        _unitOfWork.ChietTinhChiTietRepository.Add(ct);
+                    }
+                }
+
 
             }
 

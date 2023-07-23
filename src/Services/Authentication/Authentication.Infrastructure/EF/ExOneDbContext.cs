@@ -114,6 +114,7 @@ namespace Authentication.Infrastructure.EF
         public DbSet<DM_NhanCong> DM_NhanCong { get; set; }
         public DbSet<DM_NhanCong_CapNgam> DM_NhanCong_CapNgam { get; set; }
         public DbSet<DM_LoaiCap_CapNgam> DM_LoaiCap_CapNgam { get; set; }
+        public DbSet<ChietTinhChiTiet> ChietTinhChiTiet { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -175,6 +176,7 @@ namespace Authentication.Infrastructure.EF
             builder.ApplyConfiguration(new DM_NhanCongConfiguration());
             builder.ApplyConfiguration(new DM_NhanCong_CapNgamConfiguration());
             builder.ApplyConfiguration(new GiaCap_CapNgamConfiguration());
+            builder.ApplyConfiguration(new ChietTinhChiTietConfiguration());
         }
 
         /// <summary>

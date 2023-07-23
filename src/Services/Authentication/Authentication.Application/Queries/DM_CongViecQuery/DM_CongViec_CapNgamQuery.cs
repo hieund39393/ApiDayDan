@@ -47,6 +47,7 @@ namespace Authentication.Application.Queries.DM_CongViec_CapNgamQuery
                     MaCongViec = x.MaCongViec,
                     DonViTinh = x.DonViTinh,
                     NgayTao = x.CreatedDate,
+                    ThuTuHienThi = x.ThuTuHienThi
                 });// select dữ liệu
             var totalRow = query.Count(); // tổng số lượng
             var queryPaging = query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize); // phân trang

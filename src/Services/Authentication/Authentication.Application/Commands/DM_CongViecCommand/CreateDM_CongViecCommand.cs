@@ -11,6 +11,7 @@ namespace Authentication.Application.Commands.DM_CongViecCommand
         public string TenCongViec { get; set; } 
         public string MaCongViec { get; set; } 
         public string DonViTinh { get; set; } 
+        public int ThuTuHienThi { get; set; }
     }
 
     //Tạo thêm 1 class Handler kế thừa IRequestHandler<CreateDM_CongViecCommand, bool> rồi implement
@@ -34,6 +35,7 @@ namespace Authentication.Application.Commands.DM_CongViecCommand
                     MaCongViec = request.MaCongViec,
                     TenCongViec = request.TenCongViec,
                     DonViTinh= request.DonViTinh,
+                    ThuTuHienThi = request.ThuTuHienThi,
                 };
                 //thêm vào DB
                 _unitOfWork.DM_CongViecRepository.Add(model);

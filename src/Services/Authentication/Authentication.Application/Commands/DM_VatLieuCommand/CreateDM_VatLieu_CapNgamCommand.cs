@@ -11,6 +11,7 @@ namespace Authentication.Application.Commands.DM_VatLieu_CapNgamCommand
         public string TenVatLieu { get; set; }
         public string MaVatLieu { get; set; }
         public string DonViTinh { get; set; }
+        public int ThuTuHienThi { get; set; }
     }
 
     //Tạo thêm 1 class Handler kế thừa IRequestHandler<CreateDM_VatLieu_CapNgamCommand, bool> rồi implement
@@ -34,6 +35,7 @@ namespace Authentication.Application.Commands.DM_VatLieu_CapNgamCommand
                     TenVatLieu = request.TenVatLieu ,
                     MaVatLieu = request.MaVatLieu ,
                     DonViTinh = request.DonViTinh,
+                    ThuTuHienThi = request.ThuTuHienThi,
                 };
                 //thêm vào DB
                 _unitOfWork.DM_VatLieu_CapNgamRepository.Add(model);
