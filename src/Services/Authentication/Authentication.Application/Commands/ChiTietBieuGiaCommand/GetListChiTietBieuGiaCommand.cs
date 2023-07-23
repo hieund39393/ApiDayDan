@@ -3,11 +3,6 @@ using Authentication.Infrastructure.Repositories;
 using EVN.Core.Exceptions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static EVN.Core.Common.AppEnum;
 
 namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
@@ -52,9 +47,11 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
             //Tạo câu query
             var query = await _unitOfWork.BieuGiaCongViecRepository.GetQuery(x => x.IdBieuGia == request.IdBieuGia)
                 .Include(x => x.DM_BieuGia.ChiTietBieuGia.Where(x => x.Quy == request.Quy && x.Nam == request.Nam)).Include(x => x.DM_CongViec)
+                .Include(x => x.DM_BieuGia).ThenInclude(y => y.DM_LoaiBieuGia).ThenInclude(z => z.DM_KhuVuc)
                 .AsNoTracking()
                 .Select(x => new ChiTietBieuGiaResponse
                 {
+                    VungKhuVuc = x.DM_BieuGia.DM_LoaiBieuGia.DM_KhuVuc.GhiChu,
                     Id = x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).Id,
                     IdBieuGia = x.DM_BieuGia.Id,
                     MaNoiDungCongViec = x.DM_CongViec.MaCongViec,
@@ -120,6 +117,8 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
 
                 if (item.ChuaCoDuLieu)
                 {
+                    var listMaChietTinh = new List<string>() { "D", "03", "05", "11" }; // Các công việc chiết tính
+
                     if (item.CongViecChinh)
                     {
                         var giaCap = listDonGiaCap.Where(x => x.DM_LoaiCap.MaLoaiCap.Trim() == item.MaNoiDungCongViec).FirstOrDefault()?.DonGia;
@@ -127,11 +126,26 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                         item.DonGia_NC = item?.DonGia_NC ?? 0;
                         item.DonGia_MTC = item?.DonGia_MTC ?? 0;
                     }
-                    else if (!string.IsNullOrEmpty(item.MaNoiDungCongViec) && item.MaNoiDungCongViec.ToUpper().StartsWith("D"))
+
+                    else if (!string.IsNullOrEmpty(item.MaNoiDungCongViec) && listMaChietTinh.Any(prefix => item.MaNoiDungCongViec.ToUpper().StartsWith(prefix)))
                     {
                         var donGiaCT = listDonGiaChietTinh.Where(x => x.IdCongViec == item.IdCongViec).FirstOrDefault();
                         item.DonGia_VL = donGiaCT?.DonGiaVatLieu ?? 0;
-                        item.DonGia_NC = donGiaCT?.DonGiaNhanCong ?? 0;
+                        //item.DonGia_NC = donGiaCT?.DonGiaNhanCong ?? 0;
+                        if (item.VungKhuVuc == "1")
+                        {
+                            item.DonGia_NC = donGiaCT?.DonGiaNhanCong ?? 0;
+                        }
+                        else if (item.VungKhuVuc == "2")
+                        {
+                            item.DonGia_NC = donGiaCT?.DonGiaNhanCongHai ?? 0;
+                        }
+                        else if (item.VungKhuVuc == "3")
+                        {
+                            item.DonGia_NC = donGiaCT?.DonGiaNhanCongBa ?? 0;
+                        }
+
+
                         item.DonGia_MTC = donGiaCT?.DonGiaMTC ?? 0;
                     }
                     else

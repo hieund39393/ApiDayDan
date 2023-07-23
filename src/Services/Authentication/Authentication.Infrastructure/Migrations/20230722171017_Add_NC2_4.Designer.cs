@@ -4,6 +4,7 @@ using Authentication.Infrastructure.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Authentication.Infrastructure.Migrations
 {
     [DbContext(typeof(ExOneDbContext))]
-    partial class ExOneDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230722171017_Add_NC2_4")]
+    partial class Add_NC2_4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1340,25 +1342,10 @@ namespace Authentication.Infrastructure.Migrations
                         .HasColumnType("datetime2")
                         .HasComment("Ngày tạo");
 
-                    b.Property<decimal?>("DinhMuc")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("DinhMucBa")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("DinhMucHai")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<decimal?>("DonGiaMTC")
                         .HasColumnType("numeric(18,1)");
 
                     b.Property<decimal?>("DonGiaNhanCong")
-                        .HasColumnType("numeric(18,1)");
-
-                    b.Property<decimal?>("DonGiaNhanCongBa")
-                        .HasColumnType("numeric(18,1)");
-
-                    b.Property<decimal?>("DonGiaNhanCongHai")
                         .HasColumnType("numeric(18,1)");
 
                     b.Property<decimal?>("DonGiaVatLieu")

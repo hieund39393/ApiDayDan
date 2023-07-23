@@ -23,4 +23,15 @@
         public string DonGiaCot2 { get; set; }
         public string DonGiaCot3 { get; set; }
     }
+
+    public class CSKHCapNgamResponse
+    {
+        public string TenKhuVuc { get; set; }
+        public List<NhomVung> NhomVung { get; set; }
+    }
+    public class NhomVung
+    {
+        public string Nhom { get; set; }
+        public List<BGTHChiTiet> ListBieuGiaChiTiet { get; set; }
+    }
 }

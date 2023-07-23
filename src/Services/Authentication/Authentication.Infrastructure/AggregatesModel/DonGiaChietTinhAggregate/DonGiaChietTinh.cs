@@ -11,5 +11,13 @@ namespace Authentication.Infrastructure.AggregatesModel.DonGiaChietTinhAggregate
         public decimal? DonGiaMTC { get; set; }
 
         public DM_CongViec DM_CongViec { get; set; }
+
+        public decimal? DonGiaNhanCongHai { get; set; }
+        public decimal? DonGiaNhanCongBa { get; set; }
+
+        public decimal? DinhMuc { get; set; }
+        public decimal? DinhMucHai { get; set; }
+        public decimal? DinhMucBa { get; set; }
+
     }
 }

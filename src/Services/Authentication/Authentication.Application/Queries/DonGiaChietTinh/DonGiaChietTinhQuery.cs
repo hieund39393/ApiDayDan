@@ -63,7 +63,7 @@ namespace Authentication.Application.Queries.DonGiaChietTinhQuery
             int stt = 1;
             foreach (var item in data)
             {
-                var ct = dGCT.Where(x => x.IdCongViec == item.IdCongViec).OrderByDescending(x=>x.CreatedDate).FirstOrDefault();
+                var ct = dGCT.Where(x => x.IdCongViec == item.IdCongViec).OrderByDescending(x => x.CreatedDate).FirstOrDefault();
                 int index = 1;
                 listResult.Add(new DonGiaChietTinhResponse
                 {
@@ -72,8 +72,9 @@ namespace Authentication.Application.Queries.DonGiaChietTinhQuery
                     IdCongViec = item.IdCongViec.Value,
                     TenVatLieu = item.IdChiTiet.First().DM_CongViec.TenCongViec,
                     TongGia_VL = ct?.DonGiaVatLieu,
-                    TongGia_NC = ct?.DonGiaNhanCong,
+                    TongGia_NC = request.VungKhuVuc == 1 ? ct?.DonGiaNhanCong : (request.VungKhuVuc == 2 ? ct?.DonGiaNhanCongHai : ct?.DonGiaNhanCongBa),
                     TongGia_MTC = ct?.DonGiaMTC,
+                    //DinhMuc = request.VungKhuVuc == 1 ? ct?.DinhMuc : (request.VungKhuVuc == 2 ? ct?.DinhMucHai : ct?.DinhMucBa),
                     Level = 1
                 });
                 foreach (var child in item.IdChiTiet)
@@ -100,7 +101,7 @@ namespace Authentication.Application.Queries.DonGiaChietTinhQuery
                             //IsDonGiaCu = (vatLieu.DonGiaCu != null && vatLieu.DonGiaCu != vatLieu.DonGia) ? true : false,
                             IsDonGiaCu = ct?.CreatedDate < vatLieu.CreatedDate ? true : false,
                             IsDinhMucCu = ct?.CreatedDate < vatLieu.CreatedDate ? true : false,
-                           
+                            VungKhuVuc = request.VungKhuVuc,
                         }); ;
                     }
                     else if (child.PhanLoai == 2)
@@ -113,11 +114,12 @@ namespace Authentication.Application.Queries.DonGiaChietTinhQuery
                             TenVatLieu = nhanCong.NhanCong.CapBac,
                             DonVi = "công",
                             DGNC = nhanCong.DonGia,
-                            DinhMuc = nhanCong?.DinhMuc,
+                            DinhMuc = request.VungKhuVuc == 1 ? ct?.DinhMuc : (request.VungKhuVuc == 2 ? ct?.DinhMucHai : ct?.DinhMucBa),
                             Level = 3,
                             PhanLoai = 2,
                             IsDonGiaCu = ct?.CreatedDate < nhanCong.CreatedDate ? true : false,
                             IsDinhMucCu = ct?.CreatedDate < nhanCong.CreatedDate ? true : false,
+                            VungKhuVuc = request.VungKhuVuc,
                         });
                     }
                     else
@@ -135,6 +137,7 @@ namespace Authentication.Application.Queries.DonGiaChietTinhQuery
                             PhanLoai = 3,
                             IsDonGiaCu = ct?.CreatedDate < mTC.CreatedDate ? true : false,
                             IsDinhMucCu = ct?.CreatedDate < mTC.CreatedDate ? true : false,
+                            VungKhuVuc = request.VungKhuVuc,
                         });
                     }
                 }

@@ -270,9 +270,9 @@ namespace Authentication.Infrastructure.EF
             {
                 var listVungKhuVuc = new List<DM_KhuVuc>();
 
-                listVungKhuVuc.Add(new DM_KhuVuc { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C1"), TenKhuVuc = "Vùng I - Khu Vực 1" });
-                listVungKhuVuc.Add(new DM_KhuVuc { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C2"), TenKhuVuc = "Vùng I - Khu Vực 2" });
-                listVungKhuVuc.Add(new DM_KhuVuc { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C3"), TenKhuVuc = "Vùng II" });
+                listVungKhuVuc.Add(new DM_KhuVuc { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C1"), TenKhuVuc = "Vùng I - Khu Vực 1", GhiChu = "1" });
+                listVungKhuVuc.Add(new DM_KhuVuc { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C2"), TenKhuVuc = "Vùng I - Khu Vực 2", GhiChu = "2" });
+                listVungKhuVuc.Add(new DM_KhuVuc { Id = new Guid("C09E6504B3DBC74180EB85C76EB329C3"), TenKhuVuc = "Vùng II", GhiChu = "3" });
 
                 context.DM_KhuVuc.AddRange(listVungKhuVuc);
                 await context.SaveChangesAsync();
