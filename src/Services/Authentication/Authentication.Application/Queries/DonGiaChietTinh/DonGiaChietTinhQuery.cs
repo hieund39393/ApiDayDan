@@ -81,8 +81,13 @@ namespace Authentication.Application.Queries.DonGiaChietTinhQuery
 
                     if (index == child.PhanLoai)
                     {
-                        if (!item.IdChiTiet.Any(x => x.PhanLoai == 1))
+                        if (!item.IdChiTiet.Any(x => x.PhanLoai == 1) && index == 1)
                         {
+                            index++;
+                        }
+                        if (!item.IdChiTiet.Any(x => x.PhanLoai == 1) && !item.IdChiTiet.Any(x => x.PhanLoai == 2))
+                        {
+                            index++;
                             index++;
                         }
                         listResult.Add(new DonGiaChietTinhResponse { IdCongViec = item.IdCongViec.Value, TenVatLieu = GetDescription((PhanLoaiChietTinhEnum)child.PhanLoai), Level = 2 });
