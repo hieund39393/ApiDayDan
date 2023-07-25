@@ -62,10 +62,13 @@ namespace Authentication.API.Controllers
         }
 
         [HttpGet("bao-cao")]
-        public async Task<IActionResult> BaoCao()
+        public async Task<IActionResult> BaoCao([FromQuery] ChiTietPDFRequest request)
         {
-
-            return Ok();
+            var data = await _bieuGiaTongHopQuery.BaoCaoExcel(request);
+            var fileName = $"DonGiaCapTrenKhong-{request.Quy}-{request.Nam}.xlsx";
+            Response.Headers.Add("Access-Control-Expose-Headers", "Content-Disposition");
+            Response.Headers.Add("file-name", fileName);
+            return File(data, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
         }
     }
 }

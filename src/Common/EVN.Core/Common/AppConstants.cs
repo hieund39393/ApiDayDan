@@ -349,6 +349,9 @@ namespace EVN.Core.Common
             public const string XacNhanBieuGiaCapNgam = QLTTCTBG + "xnbgcn";
             public const string GuiDuyetBieuGiaCapNgam = QLTTCTBG + "gdbgcn";
 
+            public const string BaoCaoCapTrenKhong = HTBC + "bcctk";
+            public const string BaoCaoCapNgam = HTBC + "bcccn";
+
             public const string View = ".v";
             public const string Create = ".c";
             public const string Update = ".u";

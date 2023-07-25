@@ -128,6 +128,11 @@ namespace Authentication.Infrastructure.EF
                 listMenu.Add(new Menu { ParenId = new Guid("C09E6504B3DBC74180EB85C76EB444C4"), Id = new Guid("E17A625E0334C04D928300BBF8C80002"), Code = $"{Permissions.XacNhanBieuGiaCapNgam}", Name = "Xác nhận biểu giá", Url = "/xac-nhan-bieu-gia-cap-ngam", Order = 4, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C5") });
 
 
+                listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C90002"), Code = $"{Permissions.BaoCaoCapTrenKhong}", Name = "Tổng hợp đơn giá cáp trên không", Url = "/bao-cao-tong-hop-don-gia-cap-tren-khong", Order = 1, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C6") });
+                listMenu.Add(new Menu { Id = new Guid("E17A625E0334C04D928300BBF8C90003"), Code = $"{Permissions.BaoCaoCapNgam}", Name = "Tổng hợp đơn giá cáp ngầm", Url = "/bao-cao-tong-hop-don-gia-cap-ngam", Order = 2, ModuleId = new Guid("C09E6504B3DBC74180EB85C76EB329C6") });
+
+
+
                 context.Menu.AddRange(listMenu);
                 await context.SaveChangesAsync();
             }
