@@ -50,47 +50,6 @@ namespace Authentication.API.Controllers
             var data = await _bieuGiaTongHopQuery.ChiTietPDF(request);
             return Ok(data);
 
-            //var i = 0;
-            //var listDonGia = new List<byte[]>();
-
-            //foreach (var item in data)
-            //{
-            //    string fileName = $"BieuGia_Quy{request.Quy}_Nam{request.Nam}_PhanLoai{i + 1}";
-
-
-            //    var glb = new GlobalSettings
-            //    {
-            //        ColorMode = ColorMode.Color,
-            //        Orientation = Orientation.Landscape,
-            //        PaperSize = PaperKind.A4,
-            //        Margins = new MarginSettings()
-            //        {
-            //            Bottom = 10,
-            //            Left = 10,
-            //            Right = 10,
-            //            Top = 15,
-            //        },
-            //        DocumentTitle = fileName,
-            //    };
-
-            //    var objectSettings = new ObjectSettings
-            //    {
-            //        PagesCount = true,
-            //        HtmlContent = data[i],
-            //        WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = null }
-            //    };
-
-            //    var pdf = new HtmlToPdfDocument
-            //    {
-            //        GlobalSettings = glb,
-            //        Objects = { objectSettings }
-            //    };
-
-            //    listDonGia.Add(_converter.Convert(pdf));
-            //    i++;
-            //}
-
-            //return Ok(listDonGia);
         }
 
 
@@ -100,6 +59,13 @@ namespace Authentication.API.Controllers
         {
             var data = await _mediator.Send(request);
             return Ok(new ApiSuccessResult<bool>(data: data, message: request.TinhTrang == 0 ? "Gửi duyệt thành công" : "Duyệt thành công"));
+        }
+
+        [HttpGet("bao-cao")]
+        public async Task<IActionResult> BaoCao()
+        {
+
+            return Ok();
         }
     }
 }

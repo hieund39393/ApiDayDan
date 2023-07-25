@@ -8,7 +8,7 @@ namespace EVN.Core.Common
 
         public class TemplatePath
         {
-            public static readonly string GetTemplate = Dirpath +@"/App_Data/Template/";
+            public static readonly string GetTemplate = Dirpath +@"/Template/";
         }
 
         public class TnkdTemplatePath

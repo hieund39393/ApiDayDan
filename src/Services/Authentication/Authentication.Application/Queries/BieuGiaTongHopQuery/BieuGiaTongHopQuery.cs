@@ -1,8 +1,12 @@
 ﻿using Authentication.Application.Model.BieuGiaTongHop;
 using Authentication.Infrastructure.Repositories;
+using EVN.Core.Common;
 using EVN.Core.Exceptions;
 using EVN.Core.Extensions;
+using EVN.Core.Interfaces.Offices;
 using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using System.Net.WebSockets;
 using System.Text;
 using static EVN.Core.Common.AppEnum;
@@ -13,6 +17,8 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
     {
         Task<List<BieuGiaTongHopResponse>> GetList(BieuGiaTongHopRequest request);
         Task<object> ChiTietPDF(ChiTietPDFRequest request);
+
+        Task<byte[]> BaoCaoExcel(ChiTietPDFRequest request);
     }
     public class BieuGiaTongHopQuery : IBieuGiaTongHopQuery
     {
@@ -20,6 +26,89 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
         public BieuGiaTongHopQuery(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
+        }
+
+        public async Task<byte[]> BaoCaoExcel(ChiTietPDFRequest request)
+        {
+            var query = await _unitOfWork.BieuGiaTongHopRepository.GetQuery(x => x.Nam == request.Nam && x.Quy == request.Quy)
+                .Include(x => x.DM_BieuGia).ThenInclude(x => x.DM_LoaiBieuGia).ThenInclude(x => x.DM_KhuVuc)
+                .Select(x => new
+                {
+                    IdBieuGia = x.IdBieuGia,
+                    TenBieuGia = x.DM_BieuGia.TenBieuGia,
+                    IdLoaiBieuGia = x.DM_BieuGia.idLoaiBieuGia,
+                    PhanLoaiBieuGia = x.DM_BieuGia.DM_LoaiBieuGia.MaLoaiBieuGia,
+                    IdKhuVuc = x.DM_BieuGia.DM_LoaiBieuGia.IdKhuVuc,
+                    TenKhuVuc = x.DM_BieuGia.DM_LoaiBieuGia.DM_KhuVuc.TenKhuVuc,
+                    DonGia = x.DonGia,
+                    DonGia2 = x.DonGia2,
+                    DonGia3 = x.DonGia3,
+                    TinhTrang = x.TinhTrang
+                }).AsNoTracking()
+                .ToListAsync();
+
+            var phanLoai = query.Where(x => x.PhanLoaiBieuGia == request.PhanLoaiBieuGia.ToString()).ToList();
+
+            var groupBy = phanLoai.GroupBy(x => x.IdKhuVuc).Select(x => new { KhuVuc = x.Key, ListBieuGia = x.ToList() }).ToList();
+
+            var response = new List<CSKHResponse>();
+            foreach (var item in groupBy)
+            {
+                var data = new CSKHResponse();
+                data.TenKhuVuc = item.ListBieuGia.First().TenKhuVuc;
+                data.ListBieuGiaChiTiet = new List<BGTHChiTiet>();
+                int i = 1;
+                foreach (var bieuGia in item.ListBieuGia)
+                {
+                    data.ListBieuGiaChiTiet.Add(new BGTHChiTiet
+                    {
+                        Stt = i,
+                        TenBieuGia = bieuGia.TenBieuGia,
+                        DonVi = "m",
+                        DonGiaCot1 = bieuGia.DonGia.ToString(),
+                        DonGiaCot2 = bieuGia.DonGia2.ToString(),
+                        DonGiaCot3 = bieuGia.DonGia3.ToString()
+                    }); ;
+                    i++;
+                }
+                response.Add(data);
+            }
+
+            var templatePath = RootPathConfig.TemplatePath.GetTemplate + "Book1.xlsx";
+            var excelPackage = new ExcelPackage(new FileInfo(templatePath), true);
+            var workbook = excelPackage.Workbook;
+
+            var sheet1 = workbook.Worksheets["Sheet1"];
+            var currentRow = 3;
+            if (response.Any())
+            {
+                foreach (var model in response)
+                {
+                    sheet1.Cells[$"A{currentRow}"].Value = model.TenKhuVuc;
+                    currentRow++;
+                    int i = 1;
+                    foreach (var item in model.ListBieuGiaChiTiet)
+                    {
+                        sheet1.Cells[$"A{currentRow}"].Value = i;
+                        sheet1.Cells[$"B{currentRow}"].Value = item.TenBieuGia;
+                        sheet1.Cells[$"C{currentRow}"].Value = item.DonVi;
+                        sheet1.Cells[$"D{currentRow}"].Value = item.DonGiaCot1;
+                        sheet1.Cells[$"E{currentRow}"].Value = item.DonGiaCot2;
+                        sheet1.Cells[$"F{currentRow}"].Value = item.DonGiaCot3;
+                        i++;
+                    }
+
+                    currentRow++;
+                    sheet1.InsertRow(currentRow, 1);
+                }
+
+                var endRow = currentRow - 1;
+                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+            }
+            return excelPackage.GetAsByteArray();
         }
 
         public async Task<object> ChiTietPDF(ChiTietPDFRequest request)
@@ -68,112 +157,6 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
                 response.Add(data);
             }
             return response;
-
-            //var groupBy = query.GroupBy(x => x.TenBieuGia).Select(x => new { name = x.Key, listBG = x.ToList() }).ToList();
-
-            //var listResponse = new List<BieuGiaTongHopResponse>();
-            //var listData = new List<string>();
-            //var listData2 = new List<string>();
-            //var listData3 = new List<string>();
-            //foreach (var r in groupBy)
-            //{
-            //    var item = new BieuGiaTongHopResponse();
-            //    item.TenBieuGia = r.name;
-            //    item.DonVi = "m";
-
-            //    foreach (var list in loaiBieuGia)
-            //    {
-            //        var value = r.listBG.Where(x => x.IdKhuVuc == list.IdKhuVuc && x.IdLoaiBieuGia == list.Id).FirstOrDefault()?.DonGia.ToString() ?? "";
-            //        var value2 = r.listBG.Where(x => x.IdKhuVuc == list.IdKhuVuc && x.IdLoaiBieuGia == list.Id).FirstOrDefault()?.DonGia2.ToString() ?? "";
-            //        var value3 = r.listBG.Where(x => x.IdKhuVuc == list.IdKhuVuc && x.IdLoaiBieuGia == list.Id).FirstOrDefault()?.DonGia3.ToString() ?? "";
-            //        listData.Add(value);
-            //        listData2.Add(value2);
-            //        listData3.Add(value3);
-            //    }
-            //    item.ListData = listData;
-            //    item.TinhTrang = r.listBG.FirstOrDefault()?.TinhTrang ?? null;
-            //    listResponse.Add(item);
-            //}
-
-
-            //string templatePath = Path.Combine(Directory.GetCurrentDirectory(), "Templates", "bieugia.html");
-            //string tempHtml = File.ReadAllText(templatePath);
-            //StringBuilder stringData = new StringBuilder();
-            //StringBuilder stringData2 = new StringBuilder();
-            //StringBuilder stringData3 = new StringBuilder();
-
-            //// DG1
-
-            //int index = 0;
-            //for (int i = 0; i < listResponse.Count; i++)
-            //{
-            //    stringData.Append($"<tr><td class='center'>{i + 1}</td>");
-            //    stringData.Append($"<td>{listResponse[i].TenBieuGia}</td>");
-            //    stringData.Append($"<td class='center'>{listResponse[i].DonVi}</td>");
-            //    stringData.Append($"<td class='center'>{listData[index]}</td>"); index++;
-            //    stringData.Append($"<td class='center'>{listData[index]}</td>"); index++;
-            //    stringData.Append($"<td class='center'>{listData[index]}</td>"); index++;
-            //    stringData.Append($"<td class='center'>{listData[index]}</td>"); index++;
-            //    stringData.Append($"<td class='center'>{listData[index]}</td>"); index++;
-            //    stringData.Append($"<td class='center'>{listData[index]}</td>"); index++;
-            //    stringData.Append($"<td class='center'>{listData[index]}</td>"); index++;
-            //    stringData.Append($"<td class='center'>{listData[index]}</td>"); index++;
-            //    stringData.Append($"<td class='center'>{listData[index]}</td>"); index++;
-            //    stringData.Append($"<td class='center'>{listData[index]}</td>"); index++;
-            //    stringData.Append($"<td class='center'>{listData[index]}</td>"); index++;
-            //    stringData.Append($"<td class='center'>{listData[index]}</td></tr>"); index++;
-            //}
-
-            //// DG2
-            //int index1 = 0;
-            //for (int i = 0; i < listResponse.Count; i++)
-            //{
-            //    stringData2.Append($"<tr><td class='center'>{i + 1}</td>");
-            //    stringData2.Append($"<td>{listResponse[i].TenBieuGia}</td>");
-            //    stringData2.Append($"<td class='center'>{listResponse[i].DonVi}</td>");
-            //    stringData2.Append($"<td class='center'>{listData2[index1]}</td>"); index1++;
-            //    stringData2.Append($"<td class='center'>{listData2[index1]}</td>"); index1++;
-            //    stringData2.Append($"<td class='center'>{listData2[index1]}</td>"); index1++;
-            //    stringData2.Append($"<td class='center'>{listData2[index1]}</td>"); index1++;
-            //    stringData2.Append($"<td class='center'>{listData2[index1]}</td>"); index1++;
-            //    stringData2.Append($"<td class='center'>{listData2[index1]}</td>"); index1++;
-            //    stringData2.Append($"<td class='center'>{listData2[index1]}</td>"); index1++;
-            //    stringData2.Append($"<td class='center'>{listData2[index1]}</td>"); index1++;
-            //    stringData2.Append($"<td class='center'>{listData2[index1]}</td>"); index1++;
-            //    stringData2.Append($"<td class='center'>{listData2[index1]}</td>"); index1++;
-            //    stringData2.Append($"<td class='center'>{listData2[index1]}</td>"); index1++;
-            //    stringData2.Append($"<td class='center'>{listData2[index1]}</td></tr>"); index1++;
-            //}
-            //// DG3
-            //int index2 = 0;
-            //for (int i = 0; i < listResponse.Count; i++)
-            //{
-            //    stringData3.Append($"<tr><td class='center'>{i + 1}</td>");
-            //    stringData3.Append($"<td>{listResponse[i].TenBieuGia}</td>");
-            //    stringData3.Append($"<td class='center'>{listResponse[i].DonVi}</td>");
-            //    stringData3.Append($"<td class='center'>{listData3[index2]}</td>"); index2++;
-            //    stringData3.Append($"<td class='center'>{listData3[index2]}</td>"); index2++;
-            //    stringData3.Append($"<td class='center'>{listData3[index2]}</td>"); index2++;
-            //    stringData3.Append($"<td class='center'>{listData3[index2]}</td>"); index2++;
-            //    stringData3.Append($"<td class='center'>{listData3[index2]}</td>"); index2++;
-            //    stringData3.Append($"<td class='center'>{listData3[index2]}</td>"); index2++;
-            //    stringData3.Append($"<td class='center'>{listData3[index2]}</td>"); index2++;
-            //    stringData3.Append($"<td class='center'>{listData3[index2]}</td>"); index2++;
-            //    stringData3.Append($"<td class='center'>{listData3[index2]}</td>"); index2++;
-            //    stringData3.Append($"<td class='center'>{listData3[index2]}</td>"); index2++;
-            //    stringData3.Append($"<td class='center'>{listData3[index2]}</td>"); index2++;
-            //    stringData3.Append($"<td class='center'>{listData3[index2]}</td></tr>"); index2++;
-            //}
-
-            //var data = tempHtml.Replace("{data}", stringData.ToString());
-            //var data2 = tempHtml.Replace("{data}", stringData2.ToString());
-            //var data3 = tempHtml.Replace("{data}", stringData3.ToString());
-
-            //var listDGTH = new List<string>();
-            //listDGTH.Add(data);
-            //listDGTH.Add(data2);
-            //listDGTH.Add(data3);
-            //return listDGTH;
 
         }
 
