@@ -68,7 +68,7 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
                         DonGiaCot1 = bieuGia.DonGia.ToString(),
                         DonGiaCot2 = bieuGia.DonGia2.ToString(),
                         DonGiaCot3 = bieuGia.DonGia3.ToString()
-                    }); ;
+                    });
                     i++;
                 }
                 response.Add(data);
@@ -85,17 +85,18 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
                 foreach (var model in response)
                 {
                     sheet1.Cells[$"A{currentRow}"].Value = model.TenKhuVuc;
+                    sheet1.Cells["A5:F5"].Merge = true;
+                    sheet1.Cells["A5:F5"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+                    sheet1.Cells["A5:F5"].Style.Font.Bold = true;
                     currentRow++;
-                    int i = 1;
                     foreach (var item in model.ListBieuGiaChiTiet)
                     {
-                        sheet1.Cells[$"A{currentRow}"].Value = i;
+                        sheet1.Cells[$"A{currentRow}"].Value = item.Stt;
                         sheet1.Cells[$"B{currentRow}"].Value = item.TenBieuGia;
                         sheet1.Cells[$"C{currentRow}"].Value = item.DonVi;
                         sheet1.Cells[$"D{currentRow}"].Value = item.DonGiaCot1;
                         sheet1.Cells[$"E{currentRow}"].Value = item.DonGiaCot2;
                         sheet1.Cells[$"F{currentRow}"].Value = item.DonGiaCot3;
-                        i++;
                     }
 
                     currentRow++;
