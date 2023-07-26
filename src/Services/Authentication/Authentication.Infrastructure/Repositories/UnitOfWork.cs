@@ -81,6 +81,7 @@ namespace Authentication.Infrastructure.Repositories
         IRepository<DonGiaMTC> DonGiaMTCRepository { get; }
         IRepository<DonGiaMTC_CapNgam> DonGiaMTC_CapNgamRepository { get; }
         IRepository<ChietTinhChiTiet> ChietTinhChiTietRepository { get; }
+        IRepository<ChietTinhChiTiet_CapNgam> ChietTinhChiTiet_CapNgamRepository { get; }
 
 
 
@@ -144,6 +145,7 @@ namespace Authentication.Infrastructure.Repositories
         private IRepository<DonGiaMTC> _donGiaMTCRepository;
         private IRepository<DonGiaMTC_CapNgam> _donGiaMTC_CapNgamRepository;
         private IRepository<ChietTinhChiTiet> _chietTinhChiTietRepository;
+        private IRepository<ChietTinhChiTiet_CapNgam> _chietTinhChiTiet_CapNgamRepository;
 
         public UnitOfWork(ExOneDbContext context)
         {
@@ -686,6 +688,17 @@ namespace Authentication.Infrastructure.Repositories
                     _chietTinhChiTietRepository = new Repository<ChietTinhChiTiet>(_context);
                 }
                 return _chietTinhChiTietRepository;
+            }
+        }
+          public IRepository<ChietTinhChiTiet_CapNgam> ChietTinhChiTiet_CapNgamRepository
+        {
+            get
+            {
+                if (_chietTinhChiTiet_CapNgamRepository == null)
+                {
+                    _chietTinhChiTiet_CapNgamRepository = new Repository<ChietTinhChiTiet_CapNgam>(_context);
+                }
+                return _chietTinhChiTiet_CapNgamRepository;
             }
         }
 

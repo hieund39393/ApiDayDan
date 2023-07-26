@@ -27,8 +27,8 @@ namespace Authentication.Application.Commands.DonGiaChietTinhCommand
             foreach (var item in data)
             {
                 var chiTiet = new List<ChietTinhChiTiet>();
-                var donGiaCu = await _unitOfWork.DonGiaChietTinhRepository.GetQuery(z => z.IdCongViec == item.IdCongViec)
-                    .OrderByDescending(x => x.CreatedDate).FirstOrDefaultAsync();
+                //var donGiaCu = await _unitOfWork.DonGiaChietTinhRepository.GetQuery(z => z.IdCongViec == item.IdCongViec)
+                //    .OrderByDescending(x => x.CreatedDate).FirstOrDefaultAsync();
                 var entity = new DonGiaChietTinh();
 
                 entity.IdCongViec = item.IdCongViec;

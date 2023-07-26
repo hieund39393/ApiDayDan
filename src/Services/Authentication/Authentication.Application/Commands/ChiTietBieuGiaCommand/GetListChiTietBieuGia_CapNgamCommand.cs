@@ -128,26 +128,27 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
 
                 if (item.ChuaCoDuLieu)
                 {
+                    var listMaChietTinh = new List<string>() { "D", "03", "05", "11" }; // Các công việc chiết tính
                     if (item.CongViecChinh)
                     {
                         var giaCap = listDonGiaCap.Where(x => x.DM_LoaiCap_CapNgam.MaLoaiCap.Trim() == item.MaNoiDungCongViec).FirstOrDefault()?.DonGia;
                         item.DonGia_VL = giaCap ?? 0;
-                        item.DonGia_NC = item.DonGia_NC ?? 0;
-                        item.DonGia_MTC = item.DonGia_MTC ?? 0;
+                        item.DonGia_NC = item?.DonGia_NC ?? 0;
+                        item.DonGia_MTC = item?.DonGia_MTC ?? 0;
                     }
-                    else if (!string.IsNullOrEmpty(item.MaNoiDungCongViec) && item.MaNoiDungCongViec.ToUpper().StartsWith("D"))
+                    else if (!string.IsNullOrEmpty(item.MaNoiDungCongViec) && listMaChietTinh.Any(prefix => item.MaNoiDungCongViec.ToUpper().StartsWith(prefix)))
                     {
                         var donGiaCT = listDonGiaChietTinh.Where(x => x.IdCongViec == item.IdCongViec).FirstOrDefault();
-                        item.DonGia_VL = donGiaCT.DonGiaVatLieu ?? 0;
-                        item.DonGia_NC = donGiaCT.DonGiaNhanCong ?? 0;
-                        item.DonGia_MTC = donGiaCT.DonGiaMTC ?? 0;
+                        item.DonGia_VL = donGiaCT?.DonGiaVatLieu ?? 0;
+                        item.DonGia_NC = donGiaCT?.DonGiaNhanCong ?? 0;
+                        item.DonGia_MTC = donGiaCT?.DonGiaMTC ?? 0;
                     }
                     else
                     {
                         var vatLieu = listDonGiaVatLieu.Where(x => x.DM_VatLieu_CapNgam.MaVatLieu != null && (x.DM_VatLieu_CapNgam.MaVatLieu.Trim() == item.MaNoiDungCongViec.Trim())).FirstOrDefault();
                         item.DonGia_VL = vatLieu?.DonGia ?? 0;
-                        item.DonGia_NC = item.DonGia_NC ?? 0;
-                        item.DonGia_MTC = item.DonGia_MTC ?? 0;
+                        item.DonGia_NC = item?.DonGia_NC ?? 0;
+                        item.DonGia_MTC = item?.DonGia_MTC ?? 0;
                     }
                 }
                 else

@@ -22,6 +22,7 @@ namespace Authentication.Application.Commands.DonGiaChietTinhCommand
         {
 
             var data = request.DonGia.GroupBy(x => new { x.IdCongViec, x.VungKhuVuc }).Select(x => new { IdCongViec = x.Key.IdCongViec, VungKhuVuc = x.Key.VungKhuVuc, DonGia = x.Where(y => y.Level == 3).ToList() });
+            var chiTiet = new List<ChietTinhChiTiet_CapNgam>();
 
             foreach (var item in data)
             {
@@ -45,20 +46,26 @@ namespace Authentication.Application.Commands.DonGiaChietTinhCommand
                     {
                         entity.DonGiaMTC += (dg.DinhMuc * dg.DGMTC);
                     }
+
+                    chiTiet.Add(new ChietTinhChiTiet_CapNgam
+                    {
+                        DinhMuc = dg.DinhMuc,
+                        IdChiTiet = dg.IdVatLieu,
+                        IdCongViec = entity.IdCongViec,
+                        PhanLoai = dg.PhanLoai,
+                    });
                 }
 
-                //var checkExist = await _unitOfWork.DonGiaChietTinhRepository.FindOneAsync(x => x.IdCongViec == entity.IdCongViec);
-                //if (checkExist != null)
-                //{
-                //    checkExist.DonGiaVatLieu = entity.DonGiaVatLieu;
-                //    checkExist.DonGiaNhanCong = entity.DonGiaNhanCong;
-                //    checkExist.DonGiaMTC = entity.DonGiaMTC;
-                //    _unitOfWork.DonGiaChietTinhRepository.Update(checkExist);
-                //}
-                //else
-                //{
                 _unitOfWork.DonGiaChietTinh_CapNgamRepository.Add(entity);
-                //}
+
+                if (chiTiet.Any())
+                {
+                    foreach (var ct in chiTiet)
+                    {
+                        ct.IdDonGiaChietTinh = entity.Id;
+                        _unitOfWork.ChietTinhChiTiet_CapNgamRepository.Add(ct);
+                    }
+                }
 
             }
 
