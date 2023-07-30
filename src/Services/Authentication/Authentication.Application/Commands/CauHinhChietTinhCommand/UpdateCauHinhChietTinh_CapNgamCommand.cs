@@ -15,7 +15,6 @@ namespace Authentication.Application.Commands.CauHinhChietTinhCommand
         public List<Guid> IdVatLieu { get; set; }
         public List<Guid> IdNhanCong { get; set; }
         public List<Guid> IdMTC { get; set; }
-        public int VungKhuVuc { get; set; }
     }
 
     //Tạo thêm 1 class Handler kế thừa IRequestHandler<UpdateCauHinhChietTinh_CapNgamCommand, bool> rồi implement
@@ -31,7 +30,7 @@ namespace Authentication.Application.Commands.CauHinhChietTinhCommand
 
 
             // tìm kiếm xem có ID trong bảng CauHinhChietTinh không
-            var listData = await _unitOfWork.CauHinhChietTinh_CapNgamRepository.GetQuery(x => x.IdCongViec == request.IdCongViec && x.VungKhuVuc == request.VungKhuVuc).ToListAsync();
+            var listData = await _unitOfWork.CauHinhChietTinh_CapNgamRepository.GetQuery(x => x.IdCongViec == request.IdCongViec).ToListAsync();
             foreach (var item in listData)
             {
                 item.IsDeleted = true;

@@ -9,6 +9,5 @@ namespace Authentication.Application.Model.CauHinhChietTinh
         public Guid? IdBieuGia { get; set; }
         public string IdPhanLoai { get; set; }
 
-        public int VungKhuVuc { get; set; }
     }
 }
