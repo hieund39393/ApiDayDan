@@ -47,12 +47,7 @@ namespace Authentication.API.Controllers
         [ProducesResponseType(typeof(ApiSuccessResult<IList<DonGiaNhanCongResponse>>), (int)HttpStatusCode.OK)] // trả về dữ liệu model cho FE
         public async Task<IActionResult> GetListUser([FromQuery] DonGiaNhanCongRequest request)
         {
-            var listVungKhuVuc = _commonQuery.ListVungKhuVuc();
             var data = await _DonGiaNhanCong_CapNgamQuery.GetList(request);
-            foreach (var item in data)
-            {
-                item.TenVungKhuVuc = listVungKhuVuc.FirstOrDefault(x => x.Value == item.VungKhuVuc.ToString())?.Name;
-            }
             return Ok(new ApiSuccessResult<List<DonGiaNhanCongResponse>>
             {
                 Data = data

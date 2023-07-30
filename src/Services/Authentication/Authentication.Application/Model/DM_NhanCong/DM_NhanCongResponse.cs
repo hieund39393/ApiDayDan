@@ -11,5 +11,6 @@ namespace Authentication.Application.Model.DonGiaNhanCong
         public Guid? IdKhuVuc { get; set; }
         public string NgayTao{ get;set; }
         public string VungKhuVuc { get; set; }
+        public int PhanLoai { get; set; }
     }
 }
