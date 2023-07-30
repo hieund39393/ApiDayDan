@@ -85,9 +85,9 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
                 foreach (var model in response)
                 {
                     sheet1.Cells[$"A{currentRow}"].Value = model.TenKhuVuc;
-                    sheet1.Cells["A5:F5"].Merge = true;
-                    sheet1.Cells["A5:F5"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
-                    sheet1.Cells["A5:F5"].Style.Font.Bold = true;
+                    sheet1.Cells[$"A{currentRow}:F{currentRow}"].Merge = true;
+                    sheet1.Cells[$"A{currentRow}:F{currentRow}"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+                    sheet1.Cells[$"A{currentRow}:F{currentRow}"].Style.Font.Bold = true;
                     currentRow++;
                     foreach (var item in model.ListBieuGiaChiTiet)
                     {
@@ -97,10 +97,10 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
                         sheet1.Cells[$"D{currentRow}"].Value = item.DonGiaCot1;
                         sheet1.Cells[$"E{currentRow}"].Value = item.DonGiaCot2;
                         sheet1.Cells[$"F{currentRow}"].Value = item.DonGiaCot3;
+                        currentRow++;
                     }
 
-                    currentRow++;
-                    sheet1.InsertRow(currentRow, 1);
+                    //sheet1.InsertRow(currentRow, 1);
                 }
 
                 var endRow = currentRow - 1;
