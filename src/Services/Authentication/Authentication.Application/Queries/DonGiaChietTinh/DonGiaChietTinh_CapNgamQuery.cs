@@ -53,10 +53,9 @@ namespace Authentication.Application.Queries.DonGiaChietTinh_CapNgamQuery
 
             var dGCT = await _unitOfWork.DonGiaChietTinh_CapNgamRepository.GetQuery(x => x.VungKhuVuc == request.VungKhuVuc).AsNoTracking().ToListAsync();
 
-            var data = await _unitOfWork.CauHinhChietTinh_CapNgamRepository.GetQuery(x => x.VungKhuVuc == request.VungKhuVuc).Include(x => x.DM_CongViec_CapNgam).GroupBy(x => new { x.IdCongViec, x.VungKhuVuc }).Select(x => new
+            var data = await _unitOfWork.CauHinhChietTinh_CapNgamRepository.GetQuery().Include(x => x.DM_CongViec_CapNgam).GroupBy(x => new { x.IdCongViec }).Select(x => new
             {
                 IdCongViec = x.Key.IdCongViec,
-                VungKhuVuc = x.Key.VungKhuVuc,
                 IdChiTiet = x.OrderBy(x => x.PhanLoai).ToList()
             }).ToListAsync();
 
@@ -64,7 +63,7 @@ namespace Authentication.Application.Queries.DonGiaChietTinh_CapNgamQuery
             int stt = 1;
             foreach (var item in data)
             {
-                var ct = dGCT.Where(x => x.IdCongViec == item.IdCongViec && x.VungKhuVuc == item.VungKhuVuc).OrderByDescending(x => x.CreatedDate).FirstOrDefault();
+                var ct = dGCT.Where(x => x.IdCongViec == item.IdCongViec && x.VungKhuVuc == request.VungKhuVuc).OrderByDescending(x => x.CreatedDate).FirstOrDefault();
                 int index = 1;
                 listResult.Add(new DonGiaChietTinhResponse
                 {
