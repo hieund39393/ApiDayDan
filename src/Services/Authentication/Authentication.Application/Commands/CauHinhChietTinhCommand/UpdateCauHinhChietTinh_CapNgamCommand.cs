@@ -47,21 +47,21 @@ namespace Authentication.Application.Commands.CauHinhChietTinhCommand
                 {
                     var thuTu = listVatLieu.Where(x => x.Id == item).FirstOrDefault();
 
-                    listCauHinh.Add(new CauHinhChietTinh_CapNgam { ThuTuHienThi = thuTu.ThuTuHienThi, IdCongViec = request.IdCongViec, IdChiTiet = item, PhanLoai = PhanLoaiChietTinhEnum.VatLieu.GetHashCode() });
+                    listCauHinh.Add(new CauHinhChietTinh_CapNgam { ThuTuHienThi = thuTu.ThuTuHienThi, IdCongViec = request.IdCongViec, IdChiTiet = item, PhanLoai = PhanLoaiChietTinhEnum.VatLieu.GetHashCode(), VungKhuVuc = request.VungKhuVuc });
                 }
             }
             if (request.IdNhanCong.Any())
             {
                 foreach (var item in request.IdNhanCong)
                 {
-                    listCauHinh.Add(new CauHinhChietTinh_CapNgam { IdCongViec = request.IdCongViec, IdChiTiet = item, PhanLoai = PhanLoaiChietTinhEnum.NhanCong.GetHashCode() });
+                    listCauHinh.Add(new CauHinhChietTinh_CapNgam { IdCongViec = request.IdCongViec, IdChiTiet = item, PhanLoai = PhanLoaiChietTinhEnum.NhanCong.GetHashCode(), VungKhuVuc = request.VungKhuVuc });
                 }
             }
             if (request.IdMTC.Any())
             {
                 foreach (var item in request.IdMTC)
                 {
-                    listCauHinh.Add(new CauHinhChietTinh_CapNgam { IdCongViec = request.IdCongViec, IdChiTiet = item, PhanLoai = PhanLoaiChietTinhEnum.MTC.GetHashCode()});
+                    listCauHinh.Add(new CauHinhChietTinh_CapNgam { IdCongViec = request.IdCongViec, IdChiTiet = item, PhanLoai = PhanLoaiChietTinhEnum.MTC.GetHashCode(), VungKhuVuc = request.VungKhuVuc });
                 }
             }
             if (listCauHinh.Any())
