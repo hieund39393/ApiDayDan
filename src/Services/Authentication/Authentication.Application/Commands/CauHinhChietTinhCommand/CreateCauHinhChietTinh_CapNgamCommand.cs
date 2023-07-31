@@ -14,7 +14,7 @@ namespace Authentication.Application.Commands.CauHinhChietTinhCommand
         public List<Guid> IdVatLieu { get; set; }
         public List<Guid> IdNhanCong { get; set; }
         public List<Guid> IdMTC { get; set; }
-        public int VungKhuVuc { get; set; }
+        public List<int> VungKhuVuc { get; set; }
     }
 
     //Tạo thêm 1 class Handler kế thừa IRequestHandler<CreateCauHinhChietTinh_CapNgamCommand, bool> rồi implement
@@ -29,40 +29,45 @@ namespace Authentication.Application.Commands.CauHinhChietTinhCommand
         {
             // tìm kiếm xem có trùng trong db không
 
-            var checkExist = await _unitOfWork.CauHinhChietTinh_CapNgamRepository.GetQuery(x => x.IdCongViec == request.IdCongViec && x.VungKhuVuc == request.VungKhuVuc).FirstOrDefaultAsync();
-            if (checkExist != null)
+            foreach(var v in request.VungKhuVuc)
             {
-                throw new EvnException("Cấu hình đã tồn tại");
-            }
-            var listCauHinh = new List<CauHinhChietTinh_CapNgam>();
-            var listVatLieu = await _unitOfWork.DM_VatLieu_CapNgamRepository.GetQuery().ToListAsync();
 
-            if (request.IdVatLieu.Any())
-            {
-                foreach (var item in request.IdVatLieu)
+                var checkExist = await _unitOfWork.CauHinhChietTinh_CapNgamRepository.GetQuery(x => x.IdCongViec == request.IdCongViec && x.VungKhuVuc == v).FirstOrDefaultAsync();
+                if (checkExist != null)
                 {
-                    var thuTu = listVatLieu.Where(x => x.Id == item).FirstOrDefault();
-                    listCauHinh.Add(new CauHinhChietTinh_CapNgam { ThuTuHienThi = thuTu.ThuTuHienThi, IdCongViec = request.IdCongViec, IdChiTiet = item, PhanLoai = PhanLoaiChietTinhEnum.VatLieu.GetHashCode(), VungKhuVuc = request.VungKhuVuc });
+                    throw new EvnException("Cấu hình đã tồn tại");
+                }
+                var listCauHinh = new List<CauHinhChietTinh_CapNgam>();
+                var listVatLieu = await _unitOfWork.DM_VatLieu_CapNgamRepository.GetQuery().ToListAsync();
+
+                if (request.IdVatLieu.Any())
+                {
+                    foreach (var item in request.IdVatLieu)
+                    {
+                        var thuTu = listVatLieu.Where(x => x.Id == item).FirstOrDefault();
+                        listCauHinh.Add(new CauHinhChietTinh_CapNgam { ThuTuHienThi = thuTu.ThuTuHienThi, IdCongViec = request.IdCongViec, IdChiTiet = item, PhanLoai = PhanLoaiChietTinhEnum.VatLieu.GetHashCode(), VungKhuVuc = v });
+                    }
+                }
+                if (request.IdNhanCong.Any())
+                {
+                    foreach (var item in request.IdNhanCong)
+                    {
+                        listCauHinh.Add(new CauHinhChietTinh_CapNgam { IdCongViec = request.IdCongViec, IdChiTiet = item, PhanLoai = PhanLoaiChietTinhEnum.NhanCong.GetHashCode(), VungKhuVuc = v});
+                    }
+                }
+                if (request.IdMTC.Any())
+                {
+                    foreach (var item in request.IdMTC)
+                    {
+                        listCauHinh.Add(new CauHinhChietTinh_CapNgam { IdCongViec = request.IdCongViec, IdChiTiet = item, PhanLoai = PhanLoaiChietTinhEnum.MTC.GetHashCode(), VungKhuVuc = v});
+                    }
+                }
+                if (listCauHinh.Any())
+                {
+                    _unitOfWork.CauHinhChietTinh_CapNgamRepository.AddRange(listCauHinh);
                 }
             }
-            if (request.IdNhanCong.Any())
-            {
-                foreach (var item in request.IdNhanCong)
-                {
-                    listCauHinh.Add(new CauHinhChietTinh_CapNgam { IdCongViec = request.IdCongViec, IdChiTiet = item, PhanLoai = PhanLoaiChietTinhEnum.NhanCong.GetHashCode(), VungKhuVuc = request.VungKhuVuc });
-                }
-            }
-            if (request.IdMTC.Any())
-            {
-                foreach (var item in request.IdMTC)
-                {
-                    listCauHinh.Add(new CauHinhChietTinh_CapNgam { IdCongViec = request.IdCongViec, IdChiTiet = item, PhanLoai = PhanLoaiChietTinhEnum.MTC.GetHashCode(), VungKhuVuc = request.VungKhuVuc });
-                }
-            }
-            if (listCauHinh.Any())
-            {
-                _unitOfWork.CauHinhChietTinh_CapNgamRepository.AddRange(listCauHinh);
-            }
+
 
             await _unitOfWork.SaveChangesAsync();
             return true;

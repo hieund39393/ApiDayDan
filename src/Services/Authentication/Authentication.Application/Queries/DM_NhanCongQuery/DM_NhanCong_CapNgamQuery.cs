@@ -25,7 +25,7 @@ namespace Authentication.Application.Queries.DM_NhanCong_CapNgamQuery
         {
             var query = await _unitOfWork.DM_NhanCong_CapNgamRepository.GetQuery().Include(x => x.KhuVuc).Select(x => new SelectItem
             {
-                Name = $"{x.CapBac} ({x.KhuVuc.TenKhuVuc})",
+                Name = $"{x.CapBac} ({x.KhuVuc.TenKhuVuc}) - Nhóm {x.PhanLoai}",
                 Value = x.Id.ToString(),
             }).AsNoTracking().ToListAsync();
             return query;
@@ -41,6 +41,7 @@ namespace Authentication.Application.Queries.DM_NhanCong_CapNgamQuery
                   {
                       Id = x.Id,
                       CapBac = x.CapBac,
+                      PhanLoai = x.PhanLoai,
                       HeSo = x.HeSo,
                       IdKhuVuc = x.IdKhuVuc,
                       VungKhuVuc = x.KhuVuc.TenKhuVuc,

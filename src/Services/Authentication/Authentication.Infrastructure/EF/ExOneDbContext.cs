@@ -177,6 +177,7 @@ namespace Authentication.Infrastructure.EF
             builder.ApplyConfiguration(new DM_NhanCong_CapNgamConfiguration());
             builder.ApplyConfiguration(new GiaCap_CapNgamConfiguration());
             builder.ApplyConfiguration(new ChietTinhChiTietConfiguration());
+            builder.ApplyConfiguration(new ChietTinhChiTiet_CapNgamConfiguration());
         }
 
         /// <summary>

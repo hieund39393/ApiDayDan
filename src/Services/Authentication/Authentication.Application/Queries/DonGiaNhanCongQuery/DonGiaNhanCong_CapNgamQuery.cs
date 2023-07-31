@@ -44,6 +44,8 @@ namespace Authentication.Application.Queries.DonGiaNhanCong_CapNgamQuery
                .Select(x => new DonGiaNhanCongResponse()
                {
                    Id = x.Id,
+                   PhanLoai = x.NhanCong_CapNgam.PhanLoai,
+                   Nhom = $"Nhóm {x.NhanCong_CapNgam.PhanLoai}",
                    NhanCong = $"{x.NhanCong_CapNgam.CapBac} ({x.NhanCong_CapNgam.KhuVuc.TenKhuVuc})",
                    DonGia = x.DonGia,
                    IdNhanCong = x.IdNhanCong.Value,
@@ -51,15 +53,15 @@ namespace Authentication.Application.Queries.DonGiaNhanCong_CapNgamQuery
                    VungKhuVuc = x.VungKhuVuc.ToString(),
                    NgayTao = x.CreatedDate.ToString("dd/MM/yyyy"),
                });// select dữ liệu
-            if (request.VungKhuVuc != 0)
+            if (request.PhanLoai != 0)
             {
-                query = query.Where(x => x.VungKhuVuc == request.VungKhuVuc.ToString());
+                query = query.Where(x => x.PhanLoai == request.PhanLoai);
             }
             if (!string.IsNullOrEmpty(request.SearchTerm))
             {
                 query = query.Where(x => x.NhanCong.Contains(request.SearchTerm.ToLower().Trim()));
             }
-            var rs = await query.OrderBy(x => x.IdNhanCong).ThenBy(x=>x.VungKhuVuc).ToListAsync();
+            var rs = await query.OrderBy(x => x.IdNhanCong).ThenBy(x => x.VungKhuVuc).ToListAsync();
             return rs;
         }
     }

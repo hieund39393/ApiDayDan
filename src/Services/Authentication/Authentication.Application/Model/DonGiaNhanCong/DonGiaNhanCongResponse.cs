@@ -14,5 +14,8 @@ namespace Authentication.Application.Model.DonGiaNhanCong
 
         public string VungKhuVuc { get; set; }
         public string TenVungKhuVuc { get; set; }
+
+        public int PhanLoai { get; set; }
+        public string Nhom{ get; set; }
     }
 }

@@ -27,13 +27,18 @@ namespace Authentication.Application.Queries.CauHinhChietTinhQuery
         {
             //Tạo câu query
             var query = _unitOfWork.CauHinhChietTinh_CapNgamRepository.GetQuery()
-                .GroupBy(x => new { x.IdCongViec })
-                .Select(x => new CauHinhChietTinhResponse()
-                {
-                    IdCongViec = x.Key.IdCongViec,
-                    TenCongViec = x.First().DM_CongViec_CapNgam.TenCongViec,
-                }).AsSplitQuery().OrderBy(x => x.IdCongViec).AsNoTracking();
+               .GroupBy(x => new { x.IdCongViec, x.VungKhuVuc })
+               .Select(x => new CauHinhChietTinhResponse()
+               {
+                   IdCongViec = x.Key.IdCongViec,
+                   TenCongViec = x.First().DM_CongViec_CapNgam.TenCongViec,
+                   VungKhuVuc = x.Key.VungKhuVuc.ToString()
+               }).AsSplitQuery().OrderBy(x => x.IdCongViec).ThenBy(x => x.VungKhuVuc).AsNoTracking();
 
+            if (request.VungKhuVuc != 0)
+            {
+                query = query.Where(x => x.VungKhuVuc == request.VungKhuVuc.ToString());
+            }
 
             var totalRow = query.Count(); // tổng số lượng
             var queryPaging = query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize); // phân trang
