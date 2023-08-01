@@ -12,6 +12,8 @@ namespace EVN.Core.Common
         public const string SuperAdminRole = "Admin";
         public const string UserRole = "User";
         public const string DefaulPass = "123456";
+        public const string VatLieuKhac = "vlkhac";
+        public const string MTCKhac = "MayKhac";
         public class Auth
         {
             public const string Authorization = "Authorization";

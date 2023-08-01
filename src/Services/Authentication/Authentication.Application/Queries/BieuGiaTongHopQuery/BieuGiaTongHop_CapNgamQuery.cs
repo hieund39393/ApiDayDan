@@ -1,9 +1,12 @@
 ﻿using Authentication.Application.Model.BieuGiaTongHop;
 using Authentication.Infrastructure.AggregatesModel.PositionAggregate;
 using Authentication.Infrastructure.Repositories;
+using EVN.Core.Common;
 using EVN.Core.Exceptions;
 using EVN.Core.Extensions;
 using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml.Style;
+using OfficeOpenXml;
 using System.Text;
 using static EVN.Core.Common.AppEnum;
 
@@ -13,6 +16,7 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
     {
         Task<List<BieuGiaTongHopResponse>> GetList(BieuGiaTongHopRequest request);
         Task<object> ChiTietPDF(ChiTietPDFRequest request);
+        Task<byte[]> BaoCaoExcel(ChiTietPDFRequest request);
     }
     public class BieuGiaTongHop_CapNgamQuery : IBieuGiaTongHop_CapNgamQuery
     {
@@ -20,6 +24,89 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
         public BieuGiaTongHop_CapNgamQuery(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
+        }
+
+        public async Task<byte[]> BaoCaoExcel(ChiTietPDFRequest request)
+        {
+            var query = await _unitOfWork.BieuGiaTongHop_CapNgamRepository.GetQuery(x => x.Nam == request.Nam && x.Quy == request.Quy)
+                .Include(x => x.DM_BieuGia_CapNgam).ThenInclude(x => x.DM_LoaiBieuGia_CapNgam).ThenInclude(x => x.DM_KhuVuc)
+                .Select(x => new
+                {
+                    IdBieuGia = x.IdBieuGia,
+                    TenBieuGia = x.DM_BieuGia_CapNgam.TenBieuGia,
+                    IdLoaiBieuGia = x.DM_BieuGia_CapNgam.idLoaiBieuGia,
+                    PhanLoaiBieuGia = x.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.MaLoaiBieuGia,
+                    IdKhuVuc = x.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.IdKhuVuc,
+                    TenKhuVuc = x.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.DM_KhuVuc.TenKhuVuc,
+                    DonGia = x.DonGia,
+                    DonGia2 = x.DonGia2,
+                    DonGia3 = x.DonGia3,
+                    TinhTrang = x.TinhTrang
+                }).AsNoTracking()
+                .ToListAsync();
+
+
+            var groupBy = query.GroupBy(x => x.IdKhuVuc).Select(x => new { KhuVuc = x.Key, ListBieuGia = x.ToList() }).ToList();
+
+            var response = new List<CSKHResponse>();
+            foreach (var item in groupBy)
+            {
+                var data = new CSKHResponse();
+                data.TenKhuVuc = item.ListBieuGia.First().TenKhuVuc;
+                data.ListBieuGiaChiTiet = new List<BGTHChiTiet>();
+                int i = 1;
+                foreach (var bieuGia in item.ListBieuGia)
+                {
+                    data.ListBieuGiaChiTiet.Add(new BGTHChiTiet
+                    {
+                        Stt = i,
+                        TenBieuGia = bieuGia.TenBieuGia,
+                        DonVi = "m",
+                        DonGiaCot1 = bieuGia.DonGia.ToString(),
+                        DonGiaCot2 = bieuGia.DonGia2.ToString(),
+                        DonGiaCot3 = bieuGia.DonGia3.ToString()
+                    });
+                    i++;
+                }
+                response.Add(data);
+            }
+
+            var templatePath = RootPathConfig.TemplatePath.GetTemplate + "Book1.xlsx";
+            var excelPackage = new ExcelPackage(new FileInfo(templatePath), true);
+            var workbook = excelPackage.Workbook;
+
+            var sheet1 = workbook.Worksheets["Sheet1"];
+            var currentRow = 3;
+            if (response.Any())
+            {
+                foreach (var model in response)
+                {
+                    sheet1.Cells[$"A{currentRow}"].Value = model.TenKhuVuc;
+                    sheet1.Cells[$"A{currentRow}:F{currentRow}"].Merge = true;
+                    sheet1.Cells[$"A{currentRow}:F{currentRow}"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+                    sheet1.Cells[$"A{currentRow}:F{currentRow}"].Style.Font.Bold = true;
+                    currentRow++;
+                    foreach (var item in model.ListBieuGiaChiTiet)
+                    {
+                        sheet1.Cells[$"A{currentRow}"].Value = item.Stt;
+                        sheet1.Cells[$"B{currentRow}"].Value = item.TenBieuGia;
+                        sheet1.Cells[$"C{currentRow}"].Value = item.DonVi;
+                        sheet1.Cells[$"D{currentRow}"].Value = item.DonGiaCot1;
+                        sheet1.Cells[$"E{currentRow}"].Value = item.DonGiaCot2;
+                        sheet1.Cells[$"F{currentRow}"].Value = item.DonGiaCot3;
+                        currentRow++;
+                    }
+
+                    //sheet1.InsertRow(currentRow, 1);
+                }
+
+                var endRow = currentRow - 1;
+                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+            }
+            return excelPackage.GetAsByteArray();
         }
 
         public async Task<object> ChiTietPDF(ChiTietPDFRequest request)

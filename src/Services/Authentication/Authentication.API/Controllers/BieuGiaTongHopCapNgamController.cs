@@ -61,5 +61,15 @@ namespace Authentication.API.Controllers
             var data = await _mediator.Send(request);
             return Ok(new ApiSuccessResult<bool>(data: data, message: request.TinhTrang == 0 ? "Gửi duyệt thành công" : "Duyệt thành công"));
         }
+
+        [HttpGet("bao-cao")]
+        public async Task<IActionResult> BaoCao([FromQuery] ChiTietPDFRequest request)
+        {
+            var data = await _bieuGiaTongHop_CapNgamQuery.BaoCaoExcel(request);
+            var fileName = $"DonGiaCapTrenNgam-{request.Quy}-{request.Nam}.xlsx";
+            Response.Headers.Add("Access-Control-Expose-Headers", "Content-Disposition");
+            Response.Headers.Add("file-name", fileName);
+            return File(data, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+        }
     }
 }

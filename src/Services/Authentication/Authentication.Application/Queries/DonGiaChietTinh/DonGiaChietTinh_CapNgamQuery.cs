@@ -1,9 +1,11 @@
 ﻿using Authentication.Application.Model.CauHinhChietTinh;
 using Authentication.Application.Model.DonGiaChietTinh;
 using Authentication.Infrastructure.Repositories;
+using EVN.Core.Common;
 using EVN.Core.Extensions;
 using EVN.Core.SeedWork;
 using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml.FormulaParsing.ExpressionGraph.FunctionCompilers;
 using System.ComponentModel;
 using static EVN.Core.Common.AppEnum;
 
@@ -39,7 +41,7 @@ namespace Authentication.Application.Queries.DonGiaChietTinh_CapNgamQuery
 
         public async Task<List<DonGiaChietTinhResponse>> GetList(DonGiaChietTinhRequest request)
         {
-            var dGVL = await _unitOfWork.DonGiaVatLieu_CapNgamRepository.GetQuery().Include(x => x.DM_VatLieu_CapNgam).AsNoTracking()
+            var dGVL = await _unitOfWork.DonGiaVatLieu_CapNgamRepository.GetQuery(x => x.VungKhuVuc == request.VungKhuVuc).Include(x => x.DM_VatLieu_CapNgam).AsNoTracking()
                .GroupBy(x => x.IdVatLieu).Select(x => x.OrderByDescending(y => y.CreatedDate).First())
                .ToListAsync();
 
@@ -47,29 +49,32 @@ namespace Authentication.Application.Queries.DonGiaChietTinh_CapNgamQuery
                  .GroupBy(x => new { x.IdNhanCong }).Select(x => x.OrderByDescending(y => y.CreatedDate).First())
                 .ToListAsync();
 
-            var dGMTC = await _unitOfWork.DonGiaMTC_CapNgamRepository.GetQuery().Include(x => x.DM_MTC_CapNgam).AsNoTracking()
+            var dGMTC = await _unitOfWork.DonGiaMTC_CapNgamRepository.GetQuery(x => x.VungKhuVuc == request.VungKhuVuc).Include(x => x.DM_MTC_CapNgam).AsNoTracking()
                  .GroupBy(x => x.IdMTC).Select(x => x.OrderByDescending(y => y.CreatedDate).First())
                 .ToListAsync();
 
-            var dGCT = await _unitOfWork.DonGiaChietTinh_CapNgamRepository.GetQuery(x => x.VungKhuVuc == request.VungKhuVuc)
-                .Include(x=>x.ChietTinhChiTiet_CapNgams)
+            var dGCT = await _unitOfWork.DonGiaChietTinh_CapNgamRepository.GetQuery(x => x.VungKhuVuc == request.VungKhuVuc
+            ////x.Id == Guid.Parse("6A7E6AFB-8696-40A3-5DE1-08DB91D8D5A3")
+            )
+                .Include(x => x.ChietTinhChiTiet_CapNgams)
                 .AsNoTracking().ToListAsync();
 
             var test = dGCT.Where(z => z.ChietTinhChiTiet_CapNgams.Count > 0).ToList();
 
             var data = await _unitOfWork.CauHinhChietTinh_CapNgamRepository.GetQuery(x => x.VungKhuVuc == request.VungKhuVuc)
-                .Include(x => x.DM_CongViec_CapNgam).GroupBy(x => new { x.IdCongViec, x.VungKhuVuc }).Select(x => new
-            {
-                IdCongViec = x.Key.IdCongViec,
-                VungKhuVuc = x.Key.VungKhuVuc,
-                IdChiTiet = x.OrderBy(x => x.PhanLoai).ToList()
-            }).ToListAsync();
+                .Include(x => x.DM_CongViec_CapNgam).GroupBy(x => new { x.IdCongViec }).Select(x => new
+                {
+                    IdCongViec = x.Key.IdCongViec,
+                    ThuTuCongViec = x.Select(x => x.DM_CongViec_CapNgam.ThuTuHienThi).First(),
+                    IdChiTiet = x.OrderBy(x => x.PhanLoai).ToList()
+                }).ToListAsync();
 
             var listResult = new List<DonGiaChietTinhResponse>();
             int stt = 1;
             foreach (var item in data)
             {
-                var ct = dGCT.Where(x => x.IdCongViec == item.IdCongViec && x.VungKhuVuc == item.VungKhuVuc).OrderByDescending(x => x.CreatedDate).FirstOrDefault();
+
+                var ct = dGCT.Where(x => x.IdCongViec == item.IdCongViec).OrderByDescending(x => x.CreatedDate).FirstOrDefault();
                 int index = 1;
                 listResult.Add(new DonGiaChietTinhResponse
                 {
@@ -85,6 +90,10 @@ namespace Authentication.Application.Queries.DonGiaChietTinh_CapNgamQuery
                 });
                 foreach (var child in item.IdChiTiet)
                 {
+                    if (child.IdChiTiet.ToString() == "11FCBB38-5BD8-465B-B0F9-2EA7F2151256")
+                    {
+
+                    }
                     if (index == child.PhanLoai)
                     {
                         listResult.Add(new DonGiaChietTinhResponse { IdCongViec = item.IdCongViec.Value, TenVatLieu = GetDescription((PhanLoaiChietTinhEnum)child.PhanLoai), Level = 2, VungKhuVuc = request.VungKhuVuc });
@@ -97,17 +106,21 @@ namespace Authentication.Application.Queries.DonGiaChietTinh_CapNgamQuery
                         {
                             Console.WriteLine(child.IdChiTiet);
                         }
+
                         //if (child.IdChiTiet == Guid.Parse("65D33654-72ED-4C43-9052-A8A52C610007"))
                         //{
                         //    Console.WriteLine(child.IdChiTiet);
                         //}
+
+                        var dmm = ct?.ChietTinhChiTiet_CapNgams.Where(x => x.IdChiTiet == vatLieu.Id).FirstOrDefault();
                         listResult.Add(new DonGiaChietTinhResponse
                         {
                             IdVatLieu = vatLieu.Id,
                             IdCongViec = item.IdCongViec.Value,
                             TenVatLieu = vatLieu?.DM_VatLieu_CapNgam?.TenVatLieu,
                             DonVi = vatLieu?.DM_VatLieu_CapNgam?.DonViTinh,
-                            DGVL = vatLieu?.DonGia,
+                            DGVL = vatLieu.DM_VatLieu_CapNgam.MaVatLieu == AppConstants.VatLieuKhac ?
+                                ct?.ChietTinhChiTiet_CapNgams?.Where(x => x.IdChiTiet == vatLieu.Id).FirstOrDefault()?.DonGiaKhac : vatLieu?.DonGia,
                             DinhMuc = ct?.ChietTinhChiTiet_CapNgams?.Where(x => x.IdChiTiet == vatLieu.Id).FirstOrDefault()?.DinhMuc,
                             Level = 3,
                             PhanLoai = 1,
@@ -156,7 +169,8 @@ namespace Authentication.Application.Queries.DonGiaChietTinh_CapNgamQuery
                             IdCongViec = item.IdCongViec.Value,
                             TenVatLieu = mTC.DM_MTC_CapNgam.TenMTC,
                             DonVi = mTC.DM_MTC_CapNgam.DonViTinh,
-                            DGMTC = mTC.DonGia,
+                            DGMTC = mTC.DM_MTC_CapNgam.MaMTC == AppConstants.MTCKhac ?
+                                ct?.ChietTinhChiTiet_CapNgams?.Where(x => x.IdChiTiet == mTC.Id).FirstOrDefault()?.DonGiaKhac : mTC.DonGia,
                             DinhMuc = ct?.ChietTinhChiTiet_CapNgams?.Where(x => x.IdChiTiet == mTC.Id).FirstOrDefault()?.DinhMuc,
                             Level = 3,
                             PhanLoai = 3,
