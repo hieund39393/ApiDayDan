@@ -34,7 +34,10 @@ namespace Authentication.Application.Queries.CauHinhChietTinhQuery
                     IdCongViec = x.Key,
                     TenCongViec = x.First().DM_CongViec.TenCongViec
                 }).AsSplitQuery().AsNoTracking();
-
+            if (!string.IsNullOrEmpty(request.SearchTerm))
+            {
+                query = query.Where(x => x.TenCongViec.ToLower().Contains(request.SearchTerm.ToLower().Trim()));
+            }
             var totalRow = query.Count(); // tổng số lượng
             var queryPaging = query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize); // phân trang
             return await PagingResultSP<CauHinhChietTinhResponse>.CreateAsyncLinq(queryPaging, totalRow, request.PageIndex, request.PageSize);
