@@ -92,10 +92,10 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                 var listIdBieuGiaCu = chiTietBieuGiaCu.Select(x => x.IDBieuGia).Distinct().ToList();
                 var listBieuGiaCongViec = await _unitOfWork.BieuGiaCongViec_CapNgamRepository.GetQuery(x => listIdBieuGiaCu.Contains(x.IdBieuGia))
                     .Include(x => x.DM_CongViec_CapNgam).Include(x => x.DM_BieuGia_CapNgam)
-                    .ThenInclude(x => x.DM_LoaiBieuGia_CapNgam).AsNoTracking().ToListAsync();
+                    .ThenInclude(x => x.DM_LoaiBieuGia_CapNgam).ThenInclude(x=>x.DM_KhuVuc).AsNoTracking().ToListAsync();
 
                 var listDonGiaCap = await _unitOfWork.GiaCap_CapNgamRepository.GetQuery().Include(z => z.DM_LoaiCap_CapNgam)
-                    .GroupBy(x => new { x.IdLoaiCap, x.VungKhuVuc }).Select(x => x.OrderByDescending(y => y.CreatedDate).First())
+                    .GroupBy(x => new { x.IdLoaiCap }).Select(x => x.OrderByDescending(y => y.CreatedDate).First())
                     .AsNoTracking().ToListAsync();
 
                 var listDonGiaChietTinh = await _unitOfWork.DonGiaChietTinh_CapNgamRepository.GetQuery().Include(z => z.DM_CongViec_CapNgam)
@@ -110,11 +110,10 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                 {
                     var congViec = listBieuGiaCongViec.Where(x => x.IdCongViec == item.IDCongViec && x.IdBieuGia == item.IDBieuGia).FirstOrDefault();
 
-                    var vungKhuVuc = int.Parse(congViec.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.MaLoaiBieuGia);
+                    var vungKhuVuc = int.Parse(congViec.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.DM_KhuVuc.GhiChu);
                     if (congViec.CongViecChinh)
                     {
                         var giaCap = listDonGiaCap.Where(x => x.DM_LoaiCap_CapNgam.MaLoaiCap.Trim() == congViec.DM_CongViec_CapNgam.MaCongViec.Trim()
-                        && x.VungKhuVuc == vungKhuVuc
                         ).FirstOrDefault()?.DonGia ?? 0;
                         item.DonGia_VL = giaCap;
                     }

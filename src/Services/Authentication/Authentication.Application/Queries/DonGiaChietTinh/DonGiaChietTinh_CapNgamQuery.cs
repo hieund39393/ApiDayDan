@@ -88,16 +88,30 @@ namespace Authentication.Application.Queries.DonGiaChietTinh_CapNgamQuery
                     Level = 1,
                     VungKhuVuc = request.VungKhuVuc,
                 });
+                if (item.IdCongViec == Guid.Parse("2392577c-e1d2-4844-bcce-0988a405d223"))
+                {
+
+                }
                 foreach (var child in item.IdChiTiet)
                 {
-                    if (child.IdChiTiet.ToString() == "11FCBB38-5BD8-465B-B0F9-2EA7F2151256")
-                    {
 
+                    if (!item.IdChiTiet.Any(x => x.PhanLoai == 1) && index == 1)
+                    {
+                        index++;
                     }
                     if (index == child.PhanLoai)
                     {
-                        listResult.Add(new DonGiaChietTinhResponse { IdCongViec = item.IdCongViec.Value, TenVatLieu = GetDescription((PhanLoaiChietTinhEnum)child.PhanLoai), Level = 2, VungKhuVuc = request.VungKhuVuc });
+                        if (!item.IdChiTiet.Any(x => x.PhanLoai == 1) && !item.IdChiTiet.Any(x => x.PhanLoai == 2))
+                        {
+                            index++;
+                            index++;
+                        }
+                        listResult.Add(new DonGiaChietTinhResponse { IdCongViec = item.IdCongViec.Value, TenVatLieu = GetDescription((PhanLoaiChietTinhEnum)child.PhanLoai), Level = 2 });
                         index++;
+                        if (!item.IdChiTiet.Any(x => x.PhanLoai == 2))
+                        {
+                            index++;
+                        }
                     }
                     if (child.PhanLoai == 1)
                     {
@@ -107,12 +121,6 @@ namespace Authentication.Application.Queries.DonGiaChietTinh_CapNgamQuery
                             Console.WriteLine(child.IdChiTiet);
                         }
 
-                        //if (child.IdChiTiet == Guid.Parse("65D33654-72ED-4C43-9052-A8A52C610007"))
-                        //{
-                        //    Console.WriteLine(child.IdChiTiet);
-                        //}
-
-                        var dmm = ct?.ChietTinhChiTiet_CapNgams.Where(x => x.IdChiTiet == vatLieu.Id).FirstOrDefault();
                         listResult.Add(new DonGiaChietTinhResponse
                         {
                             IdVatLieu = vatLieu.Id,

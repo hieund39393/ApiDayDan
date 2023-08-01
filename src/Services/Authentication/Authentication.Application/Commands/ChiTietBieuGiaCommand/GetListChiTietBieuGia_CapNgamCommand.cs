@@ -53,11 +53,12 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
 
             //Tạo câu query
             var query = await _unitOfWork.BieuGiaCongViec_CapNgamRepository.GetQuery(x => x.IdBieuGia == request.IdBieuGia)
+
                 .Include(x => x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.Where(x => x.Quy == request.Quy && x.Nam == request.Nam)).Include(x => x.DM_CongViec_CapNgam)
                 .AsNoTracking()
                 .Select(x => new ChiTietBieuGiaResponse
                 {
-                    VungKhuVuc = x.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.MaLoaiBieuGia,
+                    VungKhuVuc = x.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.DM_KhuVuc.GhiChu,
                     //
                     PhanLoai = x.PhanLoai,
                     ThuTuHienThi = x.ThuTuHienThi,
@@ -109,7 +110,7 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
 
             var vungKhuvuc = query.FirstOrDefault()?.VungKhuVuc;
 
-            var listDonGiaCap = await _unitOfWork.GiaCap_CapNgamRepository.GetQuery(x => x.VungKhuVuc.ToString() == vungKhuvuc).Include(z => z.DM_LoaiCap_CapNgam)
+            var listDonGiaCap = await _unitOfWork.GiaCap_CapNgamRepository.GetQuery().Include(z => z.DM_LoaiCap_CapNgam)
                 .GroupBy(x => new { x.IdLoaiCap }).Select(x => x.OrderByDescending(y => y.CreatedDate).First()).AsNoTracking().ToListAsync();
 
             var listDonGiaChietTinh = await _unitOfWork.DonGiaChietTinh_CapNgamRepository.GetQuery(x => x.VungKhuVuc.ToString() == vungKhuvuc).Include(z => z.DM_CongViec_CapNgam)
@@ -128,10 +129,14 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
 
                 if (item.ChuaCoDuLieu)
                 {
-                    var listMaChietTinh = new List<string>() { "D", "03", "05", "11" }; // Các công việc chiết tính
+                    var listMaChietTinh = new List<string>() { "D", "03", "05", "11", "SE", "AB", "BB", "AD", "GT", "HT","SB", "AD" }; // Các công việc chiết tính mã này thiếu này a
                     if (item.CongViecChinh)
                     {
                         var giaCap = listDonGiaCap.Where(x => x.DM_LoaiCap_CapNgam.MaLoaiCap.Trim() == item.MaNoiDungCongViec).FirstOrDefault()?.DonGia;
+                        if(giaCap == null)
+                        {
+                            Console.WriteLine(item.MaNoiDungCongViec);
+                        }
                         item.DonGia_VL = giaCap ?? 0;
                         item.DonGia_NC = item?.DonGia_NC ?? 0;
                         item.DonGia_MTC = item?.DonGia_MTC ?? 0;
