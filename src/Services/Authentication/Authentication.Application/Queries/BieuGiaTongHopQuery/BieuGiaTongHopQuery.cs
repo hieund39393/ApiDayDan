@@ -19,6 +19,8 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
         Task<object> ChiTietPDF(ChiTietPDFRequest request);
 
         Task<byte[]> BaoCaoExcel(ChiTietPDFRequest request);
+
+        Task<object> GetDuLieuDonGia(int Vung, string LoaiCap);
     }
     public class BieuGiaTongHopQuery : IBieuGiaTongHopQuery
     {
@@ -159,6 +161,21 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
             }
             return response;
 
+        }
+
+        public async Task<object> GetDuLieuDonGia(int Vung, string LoaiCap)
+        {
+            if (Vung == 2 || Vung == 3) Vung++;
+
+            var data = await _unitOfWork.BieuGiaTongHopRepository.GetQuery(x => x.TinhTrang == 4 && x.DM_BieuGia.DM_LoaiBieuGia.MaLoaiBieuGia == Vung.ToString())
+                .Include(x => x.DM_BieuGia).ThenInclude(x => x.BieuGiaCongViec).ThenInclude(z => z.DM_CongViec)
+                .Include(x => x.DM_BieuGia).ThenInclude(x => x.DM_LoaiBieuGia)
+                .GroupBy(x => new { x.Nam, x.Quy }).
+                 Select(x => x.OrderByDescending(x => x.Nam).ThenByDescending(y => y.Quy).First())
+                .ToListAsync();
+
+
+            return data;
         }
 
         public async Task<List<BieuGiaTongHopResponse>> GetList(BieuGiaTongHopRequest request)

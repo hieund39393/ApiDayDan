@@ -70,5 +70,13 @@ namespace Authentication.API.Controllers
             Response.Headers.Add("file-name", fileName);
             return File(data, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
         }
+
+        [HttpGet("get-don-gia-vat-lieu")]
+        public async Task<IActionResult> GetDonGiaVatLieu([FromQuery] int vung, string loaiCap)
+        {
+            var data = await _bieuGiaTongHopQuery.GetDuLieuDonGia(vung, loaiCap);
+
+            return Ok(data);
+        }
     }
 }

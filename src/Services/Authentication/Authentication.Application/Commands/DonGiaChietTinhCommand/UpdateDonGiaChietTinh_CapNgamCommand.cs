@@ -21,7 +21,7 @@ namespace Authentication.Application.Commands.DonGiaChietTinhCommand
         public async Task<bool> Handle(UpdateDonGiaChietTinh_CapNgamCommand request, CancellationToken cancellationToken)
         {
 
-            var data = request.DonGia.GroupBy(x => new { x.IdCongViec, x.VungKhuVuc }).Select(x => new { IdCongViec = x.Key.IdCongViec, VungKhuVuc = x.Key.VungKhuVuc, DonGia = x.Where(y => y.Level == 3).ToList() });
+            var data = request.DonGia.GroupBy(x => new { x.IdCongViec, x.VungKhuVuc }).Select(x => new { IdCongViec = x.Key.IdCongViec, VungKhuVuc = x.Key.VungKhuVuc, DonGia = x.Where(y => y.Level == 3).ToList() }).ToList();
             var chiTiet = new List<ChietTinhChiTiet_CapNgam>();
 
             foreach (var item in data)
@@ -57,6 +57,7 @@ namespace Authentication.Application.Commands.DonGiaChietTinhCommand
                 }
 
                 _unitOfWork.DonGiaChietTinh_CapNgamRepository.Add(entity);
+                await _unitOfWork.SaveChangesAsync();
 
                 if (chiTiet.Any())
                 {
