@@ -83,6 +83,9 @@ namespace Authentication.Infrastructure.Repositories
         IRepository<ChietTinhChiTiet> ChietTinhChiTietRepository { get; }
         IRepository<ChietTinhChiTiet_CapNgam> ChietTinhChiTiet_CapNgamRepository { get; }
 
+        IRepository<BieuGiaTongHopChiTiet> BieuGiaTongHopChiTietRepository { get; }
+        IRepository<BieuGiaTongHopChiTiet_CapNgam> BieuGiaTongHopChiTiet_CapNgamRepository { get; }
+
 
 
         Task SaveChangesAsync(CancellationToken cancellationToken = default);
@@ -146,6 +149,9 @@ namespace Authentication.Infrastructure.Repositories
         private IRepository<DonGiaMTC_CapNgam> _donGiaMTC_CapNgamRepository;
         private IRepository<ChietTinhChiTiet> _chietTinhChiTietRepository;
         private IRepository<ChietTinhChiTiet_CapNgam> _chietTinhChiTiet_CapNgamRepository;
+
+        private IRepository<BieuGiaTongHopChiTiet> _bieuGiaTongHopChiTietRepository;
+        private IRepository<BieuGiaTongHopChiTiet_CapNgam> _bieuGiaTongHopChiTiet_CapNgamRepository;
 
         public UnitOfWork(ExOneDbContext context)
         {
@@ -690,7 +696,7 @@ namespace Authentication.Infrastructure.Repositories
                 return _chietTinhChiTietRepository;
             }
         }
-          public IRepository<ChietTinhChiTiet_CapNgam> ChietTinhChiTiet_CapNgamRepository
+        public IRepository<ChietTinhChiTiet_CapNgam> ChietTinhChiTiet_CapNgamRepository
         {
             get
             {
@@ -701,7 +707,29 @@ namespace Authentication.Infrastructure.Repositories
                 return _chietTinhChiTiet_CapNgamRepository;
             }
         }
+        public IRepository<BieuGiaTongHopChiTiet> BieuGiaTongHopChiTietRepository
+        {
+            get
+            {
+                if (_bieuGiaTongHopChiTietRepository == null)
+                {
+                    _bieuGiaTongHopChiTietRepository = new Repository<BieuGiaTongHopChiTiet>(_context);
+                }
+                return _bieuGiaTongHopChiTietRepository;
+            }
+        }
 
+        public IRepository<BieuGiaTongHopChiTiet_CapNgam> BieuGiaTongHopChiTiet_CapNgamRepository
+        {
+            get
+            {
+                if (_bieuGiaTongHopChiTiet_CapNgamRepository == null)
+                {
+                    _bieuGiaTongHopChiTiet_CapNgamRepository = new Repository<BieuGiaTongHopChiTiet_CapNgam>(_context);
+                }
+                return _bieuGiaTongHopChiTiet_CapNgamRepository;
+            }
+        }
 
         public async Task SaveChangesAsync()
         {

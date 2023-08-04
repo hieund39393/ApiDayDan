@@ -15,6 +15,7 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
     public interface IBieuGiaTongHop_CapNgamQuery
     {
         Task<List<BieuGiaTongHopResponse>> GetList(BieuGiaTongHopRequest request);
+        Task<byte[]> XuatExcel(BieuGiaTongHopRequest request);
         Task<object> ChiTietPDF(ChiTietPDFRequest request);
         Task<byte[]> BaoCaoExcel(ChiTietPDFRequest request);
     }
@@ -355,6 +356,110 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
             }
 
             return listResponse;
+        }
+
+        public async Task<byte[]> XuatExcel(BieuGiaTongHopRequest request)
+        {
+            var position = TokenExtensions.GetPosition();
+            if (string.IsNullOrEmpty(position)) throw new EvnException("Người dùng có chức vụ không đúng");
+
+            var loaiBieuGia = await _unitOfWork.DM_LoaiBieuGia_CapNgamRepository.GetQuery().AsNoTracking().ToListAsync();
+            var query = await _unitOfWork.BieuGiaTongHop_CapNgamRepository.GetQuery(x => x.Nam == request.Nam && x.Quy == request.Quy)
+                .Include(x => x.DM_BieuGia_CapNgam).ThenInclude(x => x.DM_LoaiBieuGia_CapNgam)
+                .Select(x => new
+                {
+                    IdBieuGia = x.IdBieuGia,
+                    TenBieuGia = x.DM_BieuGia_CapNgam.TenBieuGia,
+                    IdLoaiBieuGia = x.DM_BieuGia_CapNgam.idLoaiBieuGia,
+                    IdKhuVuc = x.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.IdKhuVuc,
+                    DonGia = request.PhanLoai == 1 ? x.DonGia : (request.PhanLoai == 2 ? x.DonGia2 : x.DonGia3),
+                    TinhTrang = x.TinhTrang
+                }).AsNoTracking()
+                .ToListAsync();
+
+            var groupBy = query.GroupBy(x => x.TenBieuGia).Select(x => new { name = x.Key, listBG = x.ToList() }).ToList();
+
+            var listResponse = new List<BieuGiaTongHopResponse>();
+            foreach (var r in groupBy)
+            {
+                var item = new BieuGiaTongHopResponse();
+                item.TenBieuGia = r.name;
+                var listData = new List<string>();
+                foreach (var list in loaiBieuGia)
+                {
+                    var value = r.listBG.Where(x => x.IdKhuVuc == list.IdKhuVuc && x.IdLoaiBieuGia == list.Id).FirstOrDefault()?.DonGia.ToString() ?? "";
+                    listData.Add(value);
+                }
+                item.ListData = listData;
+                item.TinhTrang = r.listBG.FirstOrDefault()?.TinhTrang ?? null;
+
+                if (int.Parse(position) == (int)PositionEnum.ChuyenVienB08 && item.TinhTrang >= 0)
+                {
+                    listResponse.Add(item);
+                }
+
+                if (int.Parse(position) == (int)PositionEnum.LanhDaoB08)
+                {
+                    if (item.TinhTrang == 0)
+                    {
+                        throw new EvnException($"Biểu giá của quý {request.Quy} năm {request.Nam} chưa được chuyên viên B08 gửi lên");
+                    }
+                    listResponse.Add(item);
+                }
+
+                else if (int.Parse(position) == (int)PositionEnum.ChuyenVienB09)
+                {
+                    if (item.TinhTrang <= 1)
+                    {
+                        throw new EvnException($"Biểu giá của quý {request.Quy} năm {request.Nam} chưa được lãnh đạo B08 gửi lên");
+                    }
+
+                    listResponse.Add(item);
+                }
+                else if (int.Parse(position) == (int)PositionEnum.LanhDaoB09)
+                {
+                    if (item.TinhTrang <= 2)
+                    {
+                        throw new EvnException($"Biểu giá của quý {request.Quy} năm {request.Nam} chưa được chuyên viên B09 gửi lên");
+                    }
+                    listResponse.Add(item);
+                }
+            }
+
+            var templatePath = RootPathConfig.TemplatePath.GetTemplate + "ChiTietBieuGiaCapNgam.xlsx";
+            var excelPackage = new ExcelPackage(new FileInfo(templatePath), true);
+            var workbook = excelPackage.Workbook;
+
+            var sheet1 = workbook.Worksheets["Sheet1"];
+            var currentRow = 4;
+            if (listResponse.Any())
+            {
+                int stt = 1;
+                foreach (var model in listResponse)
+                {
+                    sheet1.Cells[$"A{currentRow}"].Value = stt;
+                    sheet1.Cells[$"B{currentRow}"].Value = model.TenBieuGia;
+                    sheet1.Cells[$"C{currentRow}"].Value = model.ListData[0] ?? "";
+                    sheet1.Cells[$"D{currentRow}"].Value = model.ListData[1] ?? "";
+                    sheet1.Cells[$"E{currentRow}"].Value = model.ListData[2] ?? "";
+                    sheet1.Cells[$"F{currentRow}"].Value = model.ListData[3] ?? "";
+                    sheet1.Cells[$"G{currentRow}"].Value = model.ListData[4] ?? "";
+                    sheet1.Cells[$"H{currentRow}"].Value = model.ListData[5] ?? "";
+                    sheet1.Cells[$"I{currentRow}"].Value = model.ListData[6] ?? "";
+                    sheet1.Cells[$"J{currentRow}"].Value = model.ListData[7] ?? "";
+                    sheet1.Cells[$"K{currentRow}"].Value = model.ListData[8] ?? "";
+                    currentRow++;
+                    stt++;
+                }
+
+                var endRow = currentRow - 1;
+                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+            }
+            return excelPackage.GetAsByteArray();
+
         }
     }
 }

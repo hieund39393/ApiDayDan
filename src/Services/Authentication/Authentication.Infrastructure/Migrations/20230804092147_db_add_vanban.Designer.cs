@@ -4,6 +4,7 @@ using Authentication.Infrastructure.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Authentication.Infrastructure.Migrations
 {
     [DbContext(typeof(ExOneDbContext))]
-    partial class ExOneDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230804092147_db_add_vanban")]
+    partial class db_add_vanban
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -292,7 +294,7 @@ namespace Authentication.Infrastructure.Migrations
                         .HasComment("Ngày tạo");
 
                     b.Property<decimal>("DonGia")
-                        .HasColumnType("numeric(18,4)");
+                        .HasColumnType("numeric(18,2)");
 
                     b.Property<decimal>("DonGia2")
                         .HasColumnType("decimal(18,2)");
@@ -357,7 +359,7 @@ namespace Authentication.Infrastructure.Migrations
                         .HasComment("Ngày tạo");
 
                     b.Property<decimal>("DonGia")
-                        .HasColumnType("numeric(18,4)");
+                        .HasColumnType("numeric(18,2)");
 
                     b.Property<decimal>("DonGia2")
                         .HasColumnType("decimal(18,2)");
@@ -581,22 +583,22 @@ namespace Authentication.Infrastructure.Migrations
                         .HasComment("Ngày tạo");
 
                     b.Property<decimal>("DonGia_MTC")
-                        .HasColumnType("numeric(18,4)");
+                        .HasColumnType("numeric(18,2)");
 
                     b.Property<decimal>("DonGia_NC")
-                        .HasColumnType("numeric(18,4)");
+                        .HasColumnType("numeric(18,2)");
 
                     b.Property<decimal>("DonGia_VL")
-                        .HasColumnType("numeric(18,4)");
+                        .HasColumnType("numeric(18,2)");
 
                     b.Property<decimal>("HeSoDieuChinh_K1nc")
-                        .HasColumnType("numeric(18,4)");
+                        .HasColumnType("numeric(18,2)");
 
                     b.Property<decimal>("HeSoDieuChinh_K2nc")
-                        .HasColumnType("numeric(18,4)");
+                        .HasColumnType("numeric(18,2)");
 
                     b.Property<decimal>("HeSoDieuChinh_Kmtc")
-                        .HasColumnType("numeric(18,4)");
+                        .HasColumnType("numeric(18,2)");
 
                     b.Property<Guid?>("IDBieuGia")
                         .HasColumnType("uniqueidentifier");
@@ -617,7 +619,7 @@ namespace Authentication.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("SoLuong")
-                        .HasColumnType("numeric(18,4)");
+                        .HasColumnType("numeric(18,2)");
 
                     b.Property<Guid?>("UpdatedBy")
                         .HasMaxLength(36)
@@ -654,22 +656,22 @@ namespace Authentication.Infrastructure.Migrations
                         .HasComment("Ngày tạo");
 
                     b.Property<decimal>("DonGia_MTC")
-                        .HasColumnType("numeric(18,4)");
+                        .HasColumnType("numeric(18,2)");
 
                     b.Property<decimal>("DonGia_NC")
-                        .HasColumnType("numeric(18,4)");
+                        .HasColumnType("numeric(18,2)");
 
                     b.Property<decimal>("DonGia_VL")
-                        .HasColumnType("numeric(18,4)");
+                        .HasColumnType("numeric(18,2)");
 
                     b.Property<decimal>("HeSoDieuChinh_K1nc")
-                        .HasColumnType("numeric(18,4)");
+                        .HasColumnType("numeric(18,2)");
 
                     b.Property<decimal>("HeSoDieuChinh_K2nc")
-                        .HasColumnType("numeric(18,4)");
+                        .HasColumnType("numeric(18,2)");
 
                     b.Property<decimal>("HeSoDieuChinh_Kmtc")
-                        .HasColumnType("numeric(18,4)");
+                        .HasColumnType("numeric(18,2)");
 
                     b.Property<Guid?>("IDBieuGia")
                         .HasColumnType("uniqueidentifier");
@@ -690,7 +692,7 @@ namespace Authentication.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("SoLuong")
-                        .HasColumnType("numeric(18,4)");
+                        .HasColumnType("numeric(18,2)");
 
                     b.Property<Guid?>("UpdatedBy")
                         .HasMaxLength(36)
@@ -1464,7 +1466,7 @@ namespace Authentication.Infrastructure.Migrations
                         .HasComment("Ngày tạo");
 
                     b.Property<decimal?>("DinhMuc")
-                        .HasColumnType("numeric(18,4)");
+                        .HasColumnType("numeric(18,2)");
 
                     b.Property<Guid?>("IdChiTiet")
                         .HasColumnType("uniqueidentifier");
@@ -1517,7 +1519,7 @@ namespace Authentication.Infrastructure.Migrations
                         .HasComment("Ngày tạo");
 
                     b.Property<decimal?>("DinhMuc")
-                        .HasColumnType("numeric(18,4)");
+                        .HasColumnType("numeric(18,2)");
 
                     b.Property<decimal?>("DonGiaKhac")
                         .HasColumnType("decimal(18,2)");
@@ -1582,19 +1584,19 @@ namespace Authentication.Infrastructure.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal?>("DonGiaMTC")
-                        .HasColumnType("numeric(18,4)");
+                        .HasColumnType("numeric(18,2)");
 
                     b.Property<decimal?>("DonGiaNhanCong")
-                        .HasColumnType("numeric(18,4)");
+                        .HasColumnType("numeric(18,2)");
 
                     b.Property<decimal?>("DonGiaNhanCongBa")
-                        .HasColumnType("numeric(18,4)");
+                        .HasColumnType("numeric(18,2)");
 
                     b.Property<decimal?>("DonGiaNhanCongHai")
-                        .HasColumnType("numeric(18,4)");
+                        .HasColumnType("numeric(18,2)");
 
                     b.Property<decimal?>("DonGiaVatLieu")
-                        .HasColumnType("numeric(18,4)");
+                        .HasColumnType("numeric(18,2)");
 
                     b.Property<Guid?>("IdCongViec")
                         .HasColumnType("uniqueidentifier");
@@ -1699,7 +1701,7 @@ namespace Authentication.Infrastructure.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("DonGia")
-                        .HasColumnType("numeric(18,4)");
+                        .HasColumnType("numeric(18,2)");
 
                     b.Property<decimal?>("DonGiaCu")
                         .HasColumnType("decimal(18,2)");
@@ -1752,7 +1754,7 @@ namespace Authentication.Infrastructure.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("DonGia")
-                        .HasColumnType("numeric(18,4)");
+                        .HasColumnType("numeric(18,2)");
 
                     b.Property<decimal?>("DonGiaCu")
                         .HasColumnType("decimal(18,2)");
@@ -1808,7 +1810,7 @@ namespace Authentication.Infrastructure.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("DonGia")
-                        .HasColumnType("numeric(18,4)");
+                        .HasColumnType("numeric(18,2)");
 
                     b.Property<decimal?>("DonGiaCu")
                         .HasColumnType("decimal(18,2)");
@@ -1865,7 +1867,7 @@ namespace Authentication.Infrastructure.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("DonGia")
-                        .HasColumnType("numeric(18,4)");
+                        .HasColumnType("numeric(18,2)");
 
                     b.Property<decimal?>("DonGiaCu")
                         .HasColumnType("decimal(18,2)");
@@ -1925,7 +1927,7 @@ namespace Authentication.Infrastructure.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("DonGia")
-                        .HasColumnType("numeric(18,4)");
+                        .HasColumnType("numeric(18,2)");
 
                     b.Property<decimal?>("DonGiaCu")
                         .HasColumnType("decimal(18,2)");
@@ -1982,7 +1984,7 @@ namespace Authentication.Infrastructure.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("DonGia")
-                        .HasColumnType("numeric(18,4)");
+                        .HasColumnType("numeric(18,2)");
 
                     b.Property<decimal?>("DonGiaCu")
                         .HasColumnType("decimal(18,2)");
@@ -2036,7 +2038,7 @@ namespace Authentication.Infrastructure.Migrations
                         .HasComment("Ngày tạo");
 
                     b.Property<decimal>("DonGia")
-                        .HasColumnType("numeric(18,4)");
+                        .HasColumnType("numeric(18,2)");
 
                     b.Property<Guid?>("IdLoaiCap")
                         .HasColumnType("uniqueidentifier");
@@ -2084,7 +2086,7 @@ namespace Authentication.Infrastructure.Migrations
                         .HasComment("Ngày tạo");
 
                     b.Property<decimal>("DonGia")
-                        .HasColumnType("numeric(18,4)");
+                        .HasColumnType("numeric(18,2)");
 
                     b.Property<Guid?>("IdLoaiCap")
                         .HasColumnType("uniqueidentifier");

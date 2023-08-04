@@ -3,6 +3,7 @@ using Authentication.Infrastructure.Repositories;
 using EVN.Core.Exceptions;
 using EVN.Core.Extensions;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace Authentication.Application.Commands.BieuGiaTongHopCommand
@@ -12,6 +13,8 @@ namespace Authentication.Application.Commands.BieuGiaTongHopCommand
         public int Nam { get; set; }
         public int Quy { get; set; }
         public int TinhTrang { get; set; }
+        public string GhiChu { get; set; }
+        public IFormFile File { get; set; }
     }
     public class UpdateBieuGiaTongHop_CapNgamCommandHandler : IRequestHandler<UpdateBieuGiaTongHop_CapNgamCommand, bool>
     {
