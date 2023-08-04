@@ -71,5 +71,16 @@ namespace Authentication.API.Controllers
             Response.Headers.Add("file-name", fileName);
             return File(data, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
         }
+
+
+        [HttpGet("xuat-excel")]
+        public async Task<IActionResult> XuatExcel([FromQuery] BieuGiaTongHopRequest request)
+        {
+            var data = await _bieuGiaTongHop_CapNgamQuery.XuatExcel(request);
+            var fileName = $"BieuGiaTongHopCapNgam-{request.Quy}-{request.Nam}.xlsx";
+            Response.Headers.Add("Access-Control-Expose-Headers", "Content-Disposition");
+            Response.Headers.Add("file-name", fileName);
+            return File(data, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+        }
     }
 }

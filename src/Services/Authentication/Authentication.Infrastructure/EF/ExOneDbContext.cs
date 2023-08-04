@@ -117,6 +117,9 @@ namespace Authentication.Infrastructure.EF
         public DbSet<ChietTinhChiTiet> ChietTinhChiTiet { get; set; }
         public DbSet<ChietTinhChiTiet_CapNgam> ChietTinhChiTiet_CapNgam { get; set; }
 
+        public DbSet<BieuGiaTongHopChiTiet> BieuGiaTongHopChiTiet { get; set; }
+        public DbSet<BieuGiaTongHopChiTiet_CapNgam> BieuGiaTongHopChiTiet_CapNgam { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -179,6 +182,9 @@ namespace Authentication.Infrastructure.EF
             builder.ApplyConfiguration(new GiaCap_CapNgamConfiguration());
             builder.ApplyConfiguration(new ChietTinhChiTietConfiguration());
             builder.ApplyConfiguration(new ChietTinhChiTiet_CapNgamConfiguration());
+
+            builder.ApplyConfiguration(new BieuGiaTongHopChiTietConfiguration());
+            builder.ApplyConfiguration(new BieuGiaTongHopChiTiet_CapNgamConfiguration());
         }
 
         /// <summary>

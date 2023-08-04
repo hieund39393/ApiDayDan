@@ -4,6 +4,7 @@ using Authentication.Application.Model.ChiTietBieuGia;
 using Authentication.Application.Queries.BieuGiaTongHopQuery;
 using Authentication.Infrastructure.AggregatesModel.UserAggregate;
 using Authentication.Infrastructure.Properties;
+using Azure.Core;
 using DinkToPdf;
 using DinkToPdf.Contracts;
 using EVN.Core.Models;
@@ -55,7 +56,7 @@ namespace Authentication.API.Controllers
 
         [HttpPut]
         [ProducesResponseType(typeof(ApiSuccessResult<IList<BieuGiaTongHopResponse>>), (int)HttpStatusCode.OK)] // trả về dữ liệu model cho FE
-        public async Task<IActionResult> UpdateBieuGiaTongHop([FromBody] UpdateBieuGiaTongHopCommand request)
+        public async Task<IActionResult> UpdateBieuGiaTongHop([FromForm] UpdateBieuGiaTongHopCommand request)
         {
             var data = await _mediator.Send(request);
             return Ok(new ApiSuccessResult<bool>(data: data, message: request.TinhTrang == 0 ? "Gửi duyệt thành công" : "Duyệt thành công"));
@@ -77,6 +78,25 @@ namespace Authentication.API.Controllers
             var data = await _bieuGiaTongHopQuery.GetDuLieuDonGia(vung, loaiCap);
 
             return Ok(data);
+        }
+
+
+        [HttpGet("xuat-excel")]
+        public async Task<IActionResult> XuatExcel([FromQuery] BieuGiaTongHopRequest request)
+        {
+            var data = await _bieuGiaTongHopQuery.XuatExcel(request);
+            var fileName = $"BieuGiaTongHopCapTrenKhong-{request.Quy}-{request.Nam}.xlsx";
+            Response.Headers.Add("Access-Control-Expose-Headers", "Content-Disposition");
+            Response.Headers.Add("file-name", fileName);
+            return File(data, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+        }
+
+        [HttpGet("van-ban")]
+        public async Task<IActionResult> GetVanBan([FromQuery] GetVanBanRequest request)
+        {
+            var data = await _bieuGiaTongHopQuery.GetVanBan(request);
+
+            return Ok(new ApiSuccessResult<object>(data: data));
         }
     }
 }
