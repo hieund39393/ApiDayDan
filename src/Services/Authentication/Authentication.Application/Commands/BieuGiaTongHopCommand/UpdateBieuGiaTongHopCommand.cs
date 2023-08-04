@@ -4,6 +4,7 @@ using Authentication.Infrastructure.Repositories;
 using AutoMapper;
 using EVN.Core.Exceptions;
 using EVN.Core.Extensions;
+using EVN.Core.Interfaces.Database;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -49,10 +50,19 @@ namespace Authentication.Application.Commands.BieuGiaTongHopCommand
                 _unitOfWork.BieuGiaTongHopRepository.Update(item);
             }
 
+            var vanBanCu = await _unitOfWork.BieuGiaTongHopChiTietRepository.FindOneAsync(x => x.Quy == request.Quy && x.Nam == request.Nam && x.TrangThai == request.TinhTrang);
+            if (vanBanCu != null)
+            {
+                vanBanCu.IsDeleted = true;
+                _unitOfWork.BieuGiaTongHopChiTietRepository.Update(vanBanCu);
+            }
+
             var chiTiet = new BieuGiaTongHopChiTiet();
             chiTiet.Nam = request.Nam;
             chiTiet.Quy = request.Quy;
             chiTiet.GhiChu = request.GhiChu;
+            chiTiet.TrangThai = request.TinhTrang;
+
             if (request.File != null && request.File.Length > 0)
             {
                 string uploadDirectory = Path.Combine(_webHostEnvironment.WebRootPath + "/VanBan");
