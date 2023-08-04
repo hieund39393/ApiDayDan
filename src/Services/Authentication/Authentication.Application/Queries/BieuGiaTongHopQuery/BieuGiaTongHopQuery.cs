@@ -169,13 +169,34 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
 
             var data = await _unitOfWork.BieuGiaTongHopRepository.GetQuery(x => x.TinhTrang == 4 && x.DM_BieuGia.DM_LoaiBieuGia.MaLoaiBieuGia == Vung.ToString())
                 .Include(x => x.DM_BieuGia).ThenInclude(x => x.BieuGiaCongViec).ThenInclude(z => z.DM_CongViec)
+                .Where(x => x.DM_BieuGia.BieuGiaCongViec.Any(z => z.CongViecChinh && z.DM_CongViec.MaCongViec == LoaiCap))
                 .Include(x => x.DM_BieuGia).ThenInclude(x => x.DM_LoaiBieuGia)
-                .GroupBy(x => new { x.Nam, x.Quy }).
+                .GroupBy(x => new { x.IdBieuGia, x.Nam, x.Quy }).
                  Select(x => x.OrderByDescending(x => x.Nam).ThenByDescending(y => y.Quy).First())
                 .ToListAsync();
 
+            var apiResult = new ApiDonGiaVatLieuResponse();
+            apiResult.DonGiaTronGoi = new ApiDonGia
+            {
+                CapDien = data[0].DonGia.ToString(),
+                NangCongSuat = data[1].DonGia.ToString(),
+                DiDoi = data[2].DonGia.ToString(),
+            };
+            apiResult.DonGiaTuTucCapSau = new ApiDonGia
+            {
+                CapDien = data[0].DonGia2.ToString(),
+                NangCongSuat = data[1].DonGia2.ToString(),
+                DiDoi = data[2].DonGia2.ToString(),
+            };
+            apiResult.DonGiaTuTucCapVaVatTu= new ApiDonGia
+            {
+                CapDien = data[0].DonGia3.ToString(),
+                NangCongSuat = data[1].DonGia3.ToString(),
+                DiDoi = data[2].DonGia3.ToString(),
+            };
 
-            return data;
+
+            return apiResult;
         }
 
         public async Task<List<BieuGiaTongHopResponse>> GetList(BieuGiaTongHopRequest request)

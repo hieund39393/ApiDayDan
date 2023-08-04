@@ -26,10 +26,18 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
         public async Task<ChiTietBieuGiaResult> Handle(GetListChiTietBieuGiaCommand request, CancellationToken cancellationToken)
         {
             var cauHinh = await _unitOfWork.CauHinhBieuGiaRepository.GetQuery(x => x.PhanLoaiCap == 1).ToListAsync();
-            var cpChung = cauHinh.Where(x => x.TenCauHinh == TenCauHinhEnum.CH1.GetHashCode().ToString()).OrderBy(x => x.Nam).ThenBy(x => x.Quy).FirstOrDefault()?.GiaTri;
-            var cpNhaTam = cauHinh.Where(x => x.TenCauHinh == TenCauHinhEnum.CH2.GetHashCode().ToString()).OrderBy(x => x.Nam).ThenBy(x => x.Quy).FirstOrDefault()?.GiaTri;
-            var cpCVKXD = cauHinh.Where(x => x.TenCauHinh == TenCauHinhEnum.CH3.GetHashCode().ToString()).OrderBy(x => x.Nam).ThenBy(x => x.Quy).FirstOrDefault()?.GiaTri;
-            var tnct = cauHinh.Where(x => x.TenCauHinh == TenCauHinhEnum.CH4.GetHashCode().ToString()).OrderBy(x => x.Nam).ThenBy(x => x.Quy).FirstOrDefault()?.GiaTri;
+            var cpChung = cauHinh.Where(x => x.TenCauHinh == TenCauHinhEnum.CH1.GetHashCode().ToString() && x.Quy == request.Quy && x.Nam == request.Nam )
+                .OrderByDescending(x=>x.CreatedDate).FirstOrDefault()?.GiaTri;
+            var cpNhaTam = cauHinh.Where(x => x.TenCauHinh == TenCauHinhEnum.CH2.GetHashCode().ToString()
+            && x.Quy == request.Quy && x.Nam == request.Nam)
+                .OrderByDescending(x => x.CreatedDate).FirstOrDefault()?.GiaTri;
+            var cpCVKXD = cauHinh.Where(x => x.TenCauHinh == TenCauHinhEnum.CH3.GetHashCode().ToString()
+                && x.Quy == request.Quy && x.Nam == request.Nam)
+                .OrderByDescending(x => x.CreatedDate)
+            .FirstOrDefault()?.GiaTri;
+            var tnct = cauHinh.Where(x => x.TenCauHinh == TenCauHinhEnum.CH4.GetHashCode().ToString()
+            && x.Quy == request.Quy && x.Nam == request.Nam)
+                .OrderByDescending(x => x.CreatedDate).FirstOrDefault()?.GiaTri;
 
             if (cpChung == null/* || cpNhaTam == null*/ || cpCVKXD == null || tnct == null)
             {
