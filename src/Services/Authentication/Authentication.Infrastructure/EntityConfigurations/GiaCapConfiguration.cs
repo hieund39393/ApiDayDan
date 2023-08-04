@@ -12,7 +12,7 @@ namespace Authentication.Infrastructure.EntityConfigurations
             builder.ToTable("DonGiaCap"); // tên bảng
             builder.HasKey(x => new { x.Id }); // Cấu hình Khoá chính
             builder.Property(x => x.VanBan).HasMaxLength(50); // Cấu hình độ dài văn bản
-            builder.Property(x => x.DonGia).HasColumnType("numeric(18,2)"); // Cấu hình độ dài đơn giá
+            builder.Property(x => x.DonGia).HasColumnType("numeric(18,4)"); // Cấu hình độ dài đơn giá
             builder.HasOne(x => x.DM_LoaiCap).WithMany(x => x.GiaCap).HasForeignKey(x => x.IdLoaiCap);
 
             ConfigureBase(builder);

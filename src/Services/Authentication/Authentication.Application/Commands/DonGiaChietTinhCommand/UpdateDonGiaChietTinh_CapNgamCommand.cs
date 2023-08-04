@@ -36,6 +36,7 @@ namespace Authentication.Application.Commands.DonGiaChietTinhCommand
 
                 decimal vlKhac = 0;
                 decimal mtcKhac = 0;
+
                 foreach (var dg in item.DonGia)
                 {
                     if (dg.DinhMuc == null) dg.DinhMuc = 0;
@@ -59,13 +60,13 @@ namespace Authentication.Application.Commands.DonGiaChietTinhCommand
                     {
                         decimal dinhMuc = dg.DinhMuc.Value;
                         vlKhac = (entity.DonGiaVatLieu.Value * dinhMuc / 100);
-                        
+
                         entity.DonGiaVatLieu += vlKhac;
                     }
-                    if (dg.Ma == AppConstants.MTCKhac)
+                    if (dg.Ma == AppConstants.MTCKhac || dg.TenVatLieu.ToLower().Contains("máy khác"))
                     {
                         mtcKhac = (entity.DonGiaMTC.Value * dg.DinhMuc.Value / 100);
-                        entity.DonGiaMTC += vlKhac;
+                        entity.DonGiaMTC += mtcKhac;
                     }
 
                     chiTiet.Add(new ChietTinhChiTiet_CapNgam

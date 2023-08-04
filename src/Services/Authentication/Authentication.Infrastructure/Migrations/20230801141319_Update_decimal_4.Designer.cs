@@ -4,6 +4,7 @@ using Authentication.Infrastructure.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Authentication.Infrastructure.Migrations
 {
     [DbContext(typeof(ExOneDbContext))]
-    partial class ExOneDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230801141319_Update_decimal_4")]
+    partial class Update_decimal_4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -403,108 +405,6 @@ namespace Authentication.Infrastructure.Migrations
                     b.HasIndex("IdBieuGia");
 
                     b.ToTable("BieuGiaTongHop_CapNgam", (string)null);
-                });
-
-            modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.BieuGiaTongHopAggregate.BieuGiaTongHopChiTiet", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Id bảng, khóa chính");
-
-                    b.Property<Guid?>("CreatedBy")
-                        .HasMaxLength(36)
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Mã người tạo");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2")
-                        .HasComment("Ngày tạo");
-
-                    b.Property<string>("GhiChu")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false)
-                        .HasComment("Cờ xóa");
-
-                    b.Property<int>("Nam")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quy")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TrangThai")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("UpdatedBy")
-                        .HasMaxLength(36)
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Mã người cập nhật");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2")
-                        .HasComment("Ngày cập nhật");
-
-                    b.Property<string>("VanBan")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BieuGiaTongHopChiTiet", (string)null);
-                });
-
-            modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.BieuGiaTongHopAggregate.BieuGiaTongHopChiTiet_CapNgam", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Id bảng, khóa chính");
-
-                    b.Property<Guid?>("CreatedBy")
-                        .HasMaxLength(36)
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Mã người tạo");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2")
-                        .HasComment("Ngày tạo");
-
-                    b.Property<string>("GhiChu")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false)
-                        .HasComment("Cờ xóa");
-
-                    b.Property<int>("Nam")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quy")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TrangThai")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("UpdatedBy")
-                        .HasMaxLength(36)
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Mã người cập nhật");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2")
-                        .HasComment("Ngày cập nhật");
-
-                    b.Property<string>("VanBan")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BieuGiaTongHopChiTiet_CapNgam", (string)null);
                 });
 
             modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.CauHinhAggregate.CauHinhBieuGia", b =>

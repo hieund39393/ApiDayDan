@@ -12,7 +12,7 @@ namespace Authentication.Infrastructure.EntityConfigurations
             builder.ToTable("BieuGiaTongHop_CapNgam"); 
             builder.HasKey(x => new { x.Id }); 
             builder.HasOne(x => x.DM_BieuGia_CapNgam).WithMany(x => x.BieuGiaTongHop_CapNgam).HasForeignKey(x => x.IdBieuGia);
-            builder.Property(x => x.DonGia).HasColumnType("numeric(18,2)");
+            builder.Property(x => x.DonGia).HasColumnType("numeric(18,4)");
             ConfigureBase(builder);
         }
     }

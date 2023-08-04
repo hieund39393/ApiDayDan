@@ -35,6 +35,11 @@ namespace Authentication.Application.Queries.CauHinhChietTinhQuery
                    VungKhuVuc = x.Key.VungKhuVuc.ToString()
                }).AsSplitQuery().OrderBy(x => x.IdCongViec).ThenBy(x => x.VungKhuVuc).AsNoTracking();
 
+            if (!string.IsNullOrEmpty(request.SearchTerm))
+            {
+                query = query.Where(x => x.TenCongViec.ToLower().Contains(request.SearchTerm.ToLower().Trim()));
+            }
+
             if (request.VungKhuVuc != 0)
             {
                 query = query.Where(x => x.VungKhuVuc == request.VungKhuVuc.ToString());
