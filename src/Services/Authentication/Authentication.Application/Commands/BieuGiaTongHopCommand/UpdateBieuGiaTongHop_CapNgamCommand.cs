@@ -1,8 +1,10 @@
-﻿using Authentication.Infrastructure.Properties;
+﻿using Authentication.Infrastructure.AggregatesModel.BieuGiaTongHopAggregate;
+using Authentication.Infrastructure.Properties;
 using Authentication.Infrastructure.Repositories;
 using EVN.Core.Exceptions;
 using EVN.Core.Extensions;
 using MediatR;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,9 +21,11 @@ namespace Authentication.Application.Commands.BieuGiaTongHopCommand
     public class UpdateBieuGiaTongHop_CapNgamCommandHandler : IRequestHandler<UpdateBieuGiaTongHop_CapNgamCommand, bool>
     {
         private readonly IUnitOfWork _unitOfWork;
-        public UpdateBieuGiaTongHop_CapNgamCommandHandler(IUnitOfWork unitOfWork)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public UpdateBieuGiaTongHop_CapNgamCommandHandler(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
+            _webHostEnvironment = webHostEnvironment;
         }
         public async Task<bool> Handle(UpdateBieuGiaTongHop_CapNgamCommand request, CancellationToken cancellationToken)
         {
@@ -43,6 +47,36 @@ namespace Authentication.Application.Commands.BieuGiaTongHopCommand
                 }
                 _unitOfWork.BieuGiaTongHop_CapNgamRepository.Update(item);
             }
+
+            var vanBanCu = await _unitOfWork.BieuGiaTongHopChiTiet_CapNgamRepository.FindOneAsync(x => x.Quy == request.Quy && x.Nam == request.Nam && x.TrangThai == request.TinhTrang);
+            if (vanBanCu != null)
+            {
+                vanBanCu.IsDeleted = true;
+                _unitOfWork.BieuGiaTongHopChiTiet_CapNgamRepository.Update(vanBanCu);
+            }
+
+            var chiTiet = new BieuGiaTongHopChiTiet_CapNgam();
+            chiTiet.Nam = request.Nam;
+            chiTiet.Quy = request.Quy;
+            chiTiet.GhiChu = request.GhiChu;
+            chiTiet.TrangThai = request.TinhTrang;
+
+            if (request.File != null && request.File.Length > 0)
+            {
+                string uploadDirectory = Path.Combine(_webHostEnvironment.WebRootPath + "/VanBan");
+                if (!Directory.Exists(uploadDirectory))
+                {
+                    Directory.CreateDirectory(uploadDirectory);
+                }
+                string uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(request.File.FileName);
+                string filePath = Path.Combine(uploadDirectory, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    request.File.CopyTo(fileStream);
+                }
+                chiTiet.VanBan = $"/VanBan/{uniqueFileName}";
+            }
+            _unitOfWork.BieuGiaTongHopChiTiet_CapNgamRepository.Add(chiTiet);
 
             await _unitOfWork.SaveChangesAsync();
             return true;

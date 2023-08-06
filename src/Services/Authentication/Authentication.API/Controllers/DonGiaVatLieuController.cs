@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using System;
+using Azure.Core;
 
 namespace Authentication.API.Controllers
 {
@@ -91,6 +92,23 @@ namespace Authentication.API.Controllers
         {
             var user = await _mediator.Send(new DeleteDonGiaVatLieuCommand(id));
             return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_DELETE_SUCCESS, "đơn giá vật liệu")));
+        }
+
+        [HttpGet("export")]
+        public async Task<IActionResult> Export()
+        {
+            var data = await _DonGiaVatLieuQuery.Export();
+            var fileName = $"DonGiaVatLieuCapTrenKhong.xlsx";
+            Response.Headers.Add("Access-Control-Expose-Headers", "Content-Disposition");
+            Response.Headers.Add("file-name", fileName);
+            return File(data, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+        }
+
+        [HttpGet("import")]
+        public async Task<IActionResult> Import([FromForm] IFormFile file)
+        {
+            var data = await _DonGiaVatLieuQuery.Import(file);
+            return Ok(new ApiSuccessResult<bool>(data: data, message: "Import dữ liệu thành công"));
         }
     }
 }
