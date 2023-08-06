@@ -22,9 +22,9 @@ namespace Authentication.Application.Commands.BieuGiaTongHopCommand
     }
     public class UpdateBieuGiaTongHopCommandHandler : IRequestHandler<UpdateBieuGiaTongHopCommand, bool>
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly Authentication.Infrastructure.Repositories.IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public UpdateBieuGiaTongHopCommandHandler(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
+        public UpdateBieuGiaTongHopCommandHandler(Authentication.Infrastructure.Repositories.IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
             _webHostEnvironment = webHostEnvironment;

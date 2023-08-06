@@ -12,6 +12,8 @@ using Authentication.Application.Model.DonGiaVatLieu;
 using Authentication.Application.Commands.DonGiaVatLieuCommand;
 using Authentication.Application.Queries.CommonQuery;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
+using Authentication.Infrastructure.AggregatesModel.UserAggregate;
 
 namespace Authentication.API.Controllers
 {
@@ -100,6 +102,23 @@ namespace Authentication.API.Controllers
         {
             var user = await _mediator.Send(new DeleteDonGiaVatLieu_CapNgamCommand(id));
             return Ok(new ApiSuccessResult<bool>(data: user, message: string.Format(Resources.MSG_DELETE_SUCCESS, "đơn giá vật liệu cáp ngầm")));
+        }
+
+        [HttpGet("export")]
+        public async Task<IActionResult> Export()
+        {
+            var data = await _DonGiaVatLieu_CapNgamQuery.Export();
+            var fileName = $"DonGiaVatLieuCapNgam.xlsx";
+            Response.Headers.Add("Access-Control-Expose-Headers", "Content-Disposition");
+            Response.Headers.Add("file-name", fileName);
+            return File(data, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+        }
+
+        [HttpGet("import")]
+        public async Task<IActionResult> Import([FromForm] IFormFile file)
+        {
+            var data = await _DonGiaVatLieu_CapNgamQuery.Import(file);
+            return Ok(new ApiSuccessResult<bool>(data: data, message: "Import dữ liệu thành công"));
         }
     }
 }
