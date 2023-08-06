@@ -366,7 +366,7 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
                 int stt = 1;
                 foreach (var model in listResponse)
                 {
-                    sheet1.Cells[$"A{currentRow}"].Value = stt;
+                    sheet1.Cells[$"A{currentRow}"].Value = stt.ToString();
                     sheet1.Cells[$"B{currentRow}"].Value = model.TenBieuGia;
                     sheet1.Cells[$"C{currentRow}"].Value = model.DonVi;
                     sheet1.Cells[$"D{currentRow}"].Value = model.ListData[0] ?? "";
@@ -387,10 +387,10 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
                 }
 
                 var endRow = currentRow - 1;
-                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                sheet1.Cells[$"A3:O{endRow}"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                sheet1.Cells[$"A3:O{endRow}"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                sheet1.Cells[$"A3:O{endRow}"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                sheet1.Cells[$"A3:O{endRow}"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
             }
             return excelPackage.GetAsByteArray();
 

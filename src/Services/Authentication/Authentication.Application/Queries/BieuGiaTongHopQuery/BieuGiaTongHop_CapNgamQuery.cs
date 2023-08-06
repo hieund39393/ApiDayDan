@@ -102,10 +102,10 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
                 }
 
                 var endRow = currentRow - 1;
-                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                sheet1.Cells[$"A3:K{endRow}"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                sheet1.Cells[$"A3:K{endRow}"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                sheet1.Cells[$"A3:K{endRow}"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                sheet1.Cells[$"A3:K{endRow}"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
             }
             return excelPackage.GetAsByteArray();
         }
