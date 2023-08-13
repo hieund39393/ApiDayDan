@@ -35,8 +35,10 @@ namespace Authentication.Application.Queries.DonGiaVatLieu_CapNgamQuery
 
         public async Task<byte[]> Export()
         {
-            var data = await _unitOfWork.DonGiaVatLieu_CapNgamRepository.GetQuery().Include(x => x.DM_VatLieu_CapNgam)
-                .GroupBy(x => x.IdVatLieu).Select(x => x.OrderByDescending(x => x.CreatedDate).First())
+            var query = await _unitOfWork.DonGiaVatLieu_CapNgamRepository.GetQuery().Include(x => x.DM_VatLieu_CapNgam)
+                .GroupBy(x => new { x.IdVatLieu, x.VungKhuVuc }).Select(x => x.OrderByDescending(x => x.CreatedDate).First()).ToListAsync();
+
+            var data = query
                 .Select(x => new
                 {
                     IdVatLieu = x.IdVatLieu,
@@ -44,10 +46,10 @@ namespace Authentication.Application.Queries.DonGiaVatLieu_CapNgamQuery
                     TenVatLieu = x.DM_VatLieu_CapNgam.TenVatLieu,
                     VanBan = x.VanBan,
                     DonGia = x.DonGia,
-                })
-                .AsNoTracking().ToListAsync();
+                    x.VungKhuVuc,
+                }).ToList();
 
-            var templatePath = RootPathConfig.TemplatePath.GetTemplate + "DonGiaVatLieu.xlsx";
+            var templatePath = RootPathConfig.TemplatePath.GetTemplate + "DonGiaVatLieuCapNgam.xlsx";
             var excelPackage = new ExcelPackage(new FileInfo(templatePath), true);
             var workbook = excelPackage.Workbook;
             var sheet1 = workbook.Worksheets["Sheet1"];
@@ -56,7 +58,7 @@ namespace Authentication.Application.Queries.DonGiaVatLieu_CapNgamQuery
             if (data.Any())
             {
                 int stt = 1;
-                foreach (var model in data)
+                foreach (var model in data.OrderBy(x => x.VungKhuVuc))
                 {
                     sheet1.Cells[$"A{currentRow}"].Value = stt;
                     sheet1.Cells[$"B{currentRow}"].Value = model.MaVatLieu;
@@ -64,15 +66,16 @@ namespace Authentication.Application.Queries.DonGiaVatLieu_CapNgamQuery
                     sheet1.Cells[$"D{currentRow}"].Value = model.IdVatLieu;
                     sheet1.Cells[$"E{currentRow}"].Value = model.VanBan;
                     sheet1.Cells[$"F{currentRow}"].Value = model.DonGia;
+                    sheet1.Cells[$"G{currentRow}"].Value = model.VungKhuVuc;
                     currentRow++;
                     stt++;
                 }
 
                 var endRow = currentRow - 1;
-                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                sheet1.Cells[$"A2:F{endRow}"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                sheet1.Cells[$"A2:F{endRow}"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                sheet1.Cells[$"A2:F{endRow}"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                sheet1.Cells[$"A2:F{endRow}"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
             }
             return excelPackage.GetAsByteArray();
         }
@@ -134,8 +137,9 @@ namespace Authentication.Application.Queries.DonGiaVatLieu_CapNgamQuery
                     {
                         var data = new DonGiaVatLieu_CapNgam();
                         data.IdVatLieu = Guid.Parse(worksheet.Cells[$"D{row}"].Value.ToString());
-                        data.VanBan = worksheet.Cells[$"E{row}"].Value.ToString();
-                        data.DonGia = string.IsNullOrEmpty(worksheet.Cells[$"F{row}"].Value.ToString()) ? 0 : decimal.Parse(worksheet.Cells[$"F{row}"].Value.ToString());
+                        data.VanBan = worksheet.Cells[$"E{row}"].Value != null ? worksheet.Cells[$"E{row}"].Value.ToString() : "";
+                        data.DonGia = worksheet.Cells[$"F{row}"].Value != null ? decimal.Parse(worksheet.Cells[$"F{row}"].Value.ToString()) : 0;
+                        data.VungKhuVuc = worksheet.Cells[$"G{row}"].Value != null ? int.Parse(worksheet.Cells[$"F{row}"].Value.ToString()) : 0;
                         listData.Add(data);
                     }
                 }

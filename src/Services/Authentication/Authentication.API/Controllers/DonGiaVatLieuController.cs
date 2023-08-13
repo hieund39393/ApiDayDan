@@ -104,10 +104,10 @@ namespace Authentication.API.Controllers
             return File(data, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
         }
 
-        [HttpGet("import")]
+        [HttpPost("import")]
         public async Task<IActionResult> Import([FromForm] IFormFile file)
         {
-            var data = await _DonGiaVatLieuQuery.Import(file);
+                var data = await _DonGiaVatLieuQuery.Import(file);
             return Ok(new ApiSuccessResult<bool>(data: data, message: "Import dữ liệu thành công"));
         }
     }

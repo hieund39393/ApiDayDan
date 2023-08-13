@@ -31,6 +31,13 @@ namespace Authentication.API.Controllers
             return Ok(new ApiSuccessResult<bool>(data: data, message: string.Format(Resources.MSG_CREATE_SUCCESS, "cấu hình")));
         }
 
+        [HttpPut]
+        public async Task<IActionResult> UpdateCauHinh([FromBody] UpdateCauHinhCommand request)
+        {
+            var data = await _mediator.Send(request);
+            return Ok(new ApiSuccessResult<bool>(data: data, message: string.Format(Resources.MSG_UPDATE_SUCCESS, "cấu hình")));
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetListCauHinh([FromQuery] GetListCauHinhRequest request)
         {

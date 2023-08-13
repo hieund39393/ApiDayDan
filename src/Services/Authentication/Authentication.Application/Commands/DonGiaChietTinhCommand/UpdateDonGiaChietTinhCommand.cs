@@ -42,6 +42,7 @@ namespace Authentication.Application.Commands.DonGiaChietTinhCommand
                     if (dg.PhanLoai == 1)
                     {
                         entity.DonGiaVatLieu += (dg.DinhMuc * dg.DGVL);
+                        var dgvll = dg.DinhMuc * dg.DGVL;
                     }
                     else if (dg.PhanLoai == 2)
                     {

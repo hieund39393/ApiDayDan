@@ -14,5 +14,6 @@ namespace Authentication.Application.Model.CauHinh
         public int? Quy { get; set; }
         public int? Nam { get; set; }
         public int PhanLoaiCap { get; set; }
+        public Guid Id { get; set; }
     }
 }

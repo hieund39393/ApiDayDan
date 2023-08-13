@@ -45,6 +45,7 @@ namespace Authentication.Application.Queries.CommonQuery
                     Nam = x.Nam,
                     PhanLoaiCap = x.PhanLoaiCap,
                     TenPhanLoai = x.PhanLoaiCap == 1 ? "Cáp trên không" : "Cáp ngầm",
+                    Id = x.Id
                 })
                 .ToList();
 

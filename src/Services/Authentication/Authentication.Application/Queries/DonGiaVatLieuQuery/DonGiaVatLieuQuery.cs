@@ -31,17 +31,17 @@ namespace Authentication.Application.Queries.DonGiaVatLieuQuery
 
         public async Task<byte[]> Export()
         {
-            var data = await _unitOfWork.DonGiaVatLieuRepository.GetQuery().Include(x => x.DM_VatLieu)
-                .GroupBy(x => x.IdVatLieu).Select(x => x.OrderByDescending(x => x.CreatedDate).First())
-                .Select(x => new
-                {
-                    IdVatLieu = x.IdVatLieu,
-                    MaVatLieu = x.DM_VatLieu.MaVatLieu,
-                    TenVatLieu = x.DM_VatLieu.TenVatLieu,
-                    VanBan = x.VanBan,
-                    DonGia = x.DonGia,
-                })
-                .AsNoTracking().ToListAsync();
+            var query = await _unitOfWork.DonGiaVatLieuRepository.GetQuery().Include(x => x.DM_VatLieu)
+                .GroupBy(x => x.IdVatLieu).Select(x => x.OrderByDescending(x => x.CreatedDate).First()).ToListAsync();
+
+            var data = query.Select(x => new
+            {
+                IdVatLieu = x.IdVatLieu,
+                MaVatLieu = x.DM_VatLieu.MaVatLieu,
+                TenVatLieu = x.DM_VatLieu.TenVatLieu,
+                VanBan = x.VanBan,
+                DonGia = x.DonGia,
+            }).ToList();
 
             var templatePath = RootPathConfig.TemplatePath.GetTemplate + "DonGiaVatLieu.xlsx";
             var excelPackage = new ExcelPackage(new FileInfo(templatePath), true);
@@ -65,10 +65,10 @@ namespace Authentication.Application.Queries.DonGiaVatLieuQuery
                 }
 
                 var endRow = currentRow - 1;
-                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                sheet1.Cells[$"A2:F{endRow}"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                sheet1.Cells[$"A2:F{endRow}"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                sheet1.Cells[$"A2:F{endRow}"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                sheet1.Cells[$"A2:F{endRow}"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
             }
             return excelPackage.GetAsByteArray();
         }
@@ -117,7 +117,7 @@ namespace Authentication.Application.Queries.DonGiaVatLieuQuery
 
         public async Task<bool> Import(IFormFile file)
         {
-            var listData = new List<DonGiaVatLieu_CapNgam>();
+            var listData = new List<DonGiaVatLieu>();
             using (var stream = new MemoryStream())
             {
                 file.CopyTo(stream);
@@ -130,15 +130,16 @@ namespace Authentication.Application.Queries.DonGiaVatLieuQuery
 
                     for (int row = 2; row <= rowCount; row++)
                     {
-                        var data = new DonGiaVatLieu_CapNgam();
+                        var conx = worksheet.Cells[$"E{row}"];
+                        var data = new DonGiaVatLieu();
                         data.IdVatLieu = Guid.Parse(worksheet.Cells[$"D{row}"].Value.ToString());
-                        data.VanBan = worksheet.Cells[$"E{row}"].Value.ToString();
-                        data.DonGia = string.IsNullOrEmpty(worksheet.Cells[$"F{row}"].Value.ToString()) ? 0 : decimal.Parse(worksheet.Cells[$"F{row}"].Value.ToString());
+                        data.VanBan = worksheet.Cells[$"E{row}"].Value != null ? worksheet.Cells[$"E{row}"].Value.ToString() : "";
+                        data.DonGia = worksheet.Cells[$"F{row}"].Value != null ? decimal.Parse(worksheet.Cells[$"F{row}"].Value.ToString()) : 0;
                         listData.Add(data);
                     }
                 }
             }
-            _unitOfWork.DonGiaVatLieu_CapNgamRepository.AddRange(listData);
+            _unitOfWork.DonGiaVatLieuRepository.AddRange(listData);
             await _unitOfWork.SaveChangesAsync();
             return true;
         }
