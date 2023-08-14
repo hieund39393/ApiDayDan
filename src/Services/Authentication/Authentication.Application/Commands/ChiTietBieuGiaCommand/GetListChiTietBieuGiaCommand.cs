@@ -129,38 +129,29 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                 item.HeSoDieuChinh_K2nc = item.HeSoDieuChinh_K2nc ?? 1;
                 item.HeSoDieuChinh_Kmtc = item.HeSoDieuChinh_Kmtc ?? 1;
 
-                if (item.ChuaCoDuLieu)
+
+                if (item.CongViecChinh)
                 {
-
-                    if (item.CongViecChinh)
-                    {
-                        var giaCap = listDonGiaCap.Where(x => x.DM_LoaiCap.MaLoaiCap.Trim() == item.MaNoiDungCongViec).FirstOrDefault()?.DonGia;
-                        item.DonGia_VL = (giaCap ?? 0) * item.HeSoDieuChinh_K1nc;
-                        item.DonGia_NC = (item?.DonGia_NC ?? 0) * item.HeSoDieuChinh_K2nc;
-                        item.DonGia_MTC = (item?.DonGia_MTC ?? 0) * item.HeSoDieuChinh_Kmtc;
-                    }
-
-                    else if (!string.IsNullOrEmpty(item.MaNoiDungCongViec) && listMaChietTinh.Any(prefix => item.MaNoiDungCongViec.ToUpper().StartsWith(prefix)))
-                    {
-                        var donGiaCT = listDonGiaChietTinh.Where(x => x.IdCongViec == item.IdCongViec && x.VungKhuVuc.ToString() == item.VungKhuVuc).FirstOrDefault();
-                        item.DonGia_VL = (donGiaCT?.DonGiaVatLieu ?? 0) * item.HeSoDieuChinh_K1nc;
-                        item.DonGia_NC = (donGiaCT?.DonGiaNhanCong ?? 0) * item.HeSoDieuChinh_K2nc;
-                        item.DonGia_MTC = (donGiaCT?.DonGiaMTC ?? 0) * item.HeSoDieuChinh_Kmtc;
-                    }
-                    else
-                    {
-                        var vatLieu = listDonGiaVatLieu.Where(x => x.DM_VatLieu.MaVatLieu != null && (x.DM_VatLieu.MaVatLieu.Trim() == item.MaNoiDungCongViec.Trim())).FirstOrDefault();
-                        item.DonGia_VL = (vatLieu?.DonGia ?? 0) * item.HeSoDieuChinh_K1nc;
-                        item.DonGia_NC = (item?.DonGia_NC ?? 0) * item.HeSoDieuChinh_K2nc;
-                        item.DonGia_MTC = (item?.DonGia_MTC ?? 0) * item.HeSoDieuChinh_Kmtc;
-                    }
+                    var giaCap = listDonGiaCap.Where(x => x.DM_LoaiCap.MaLoaiCap.Trim() == item.MaNoiDungCongViec).FirstOrDefault()?.DonGia;
+                    item.DonGia_VL = (giaCap ?? 0) * item.HeSoDieuChinh_K1nc;
+                    item.DonGia_NC = (item?.DonGia_NC ?? 0) * item.HeSoDieuChinh_K2nc;
+                    item.DonGia_MTC = (item?.DonGia_MTC ?? 0) * item.HeSoDieuChinh_Kmtc;
+                }
+                else if (!string.IsNullOrEmpty(item.MaNoiDungCongViec) && listMaChietTinh.Any(prefix => item.MaNoiDungCongViec.ToUpper().StartsWith(prefix)))
+                {
+                    var donGiaCT = listDonGiaChietTinh.Where(x => x.IdCongViec == item.IdCongViec && x.VungKhuVuc.ToString() == item.VungKhuVuc).FirstOrDefault();
+                    item.DonGia_VL = (donGiaCT?.DonGiaVatLieu ?? 0) * item.HeSoDieuChinh_K1nc;
+                    item.DonGia_NC = (donGiaCT?.DonGiaNhanCong ?? 0) * item.HeSoDieuChinh_K2nc;
+                    item.DonGia_MTC = (donGiaCT?.DonGiaMTC ?? 0) * item.HeSoDieuChinh_Kmtc;
                 }
                 else
                 {
-                    item.DonGia_VL = (item.DonGia_VL ?? 0) * item.HeSoDieuChinh_K1nc;
-                    item.DonGia_NC = (item.DonGia_NC ?? 0) * item.HeSoDieuChinh_K2nc;
-                    item.DonGia_MTC = (item.DonGia_MTC ?? 0) * item.HeSoDieuChinh_Kmtc;
+                    var vatLieu = listDonGiaVatLieu.Where(x => x.DM_VatLieu.MaVatLieu != null && (x.DM_VatLieu.MaVatLieu.Trim() == item.MaNoiDungCongViec.Trim())).FirstOrDefault();
+                    item.DonGia_VL = (vatLieu?.DonGia ?? 0) * item.HeSoDieuChinh_K1nc;
+                    item.DonGia_NC = (item?.DonGia_NC ?? 0) * item.HeSoDieuChinh_K2nc;
+                    item.DonGia_MTC = (item?.DonGia_MTC ?? 0) * item.HeSoDieuChinh_Kmtc;
                 }
+
 
                 if (stt == 1 && item.Id == null) chuaCoDuLieu = true;
                 if (string.IsNullOrEmpty(item.MaNoiDungCongViec))
@@ -183,7 +174,15 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                     item.CPCongViecKhongXDDuocTuTK = string.IsNullOrEmpty(item.MaNoiDungCongViec) ? 0 : Math.Round((item.DonGia_VL.Value + item.DonGia_NC.Value + item.DonGia_MTC.Value) * decimal.Parse(cpCVKXD) / 100, 0);//14     
                 }
 
-                item.ThuNhapChiuThue = string.IsNullOrEmpty(item.MaNoiDungCongViec) ? 0 : Math.Round((item.DonGia_VL.Value + item.DonGia_NC.Value + item.DonGia_MTC.Value + item.CPChung.Value + item.CPNhaTam.Value + item.CPCongViecKhongXDDuocTuTK.Value) * decimal.Parse(tnct) / 100, 0);
+                if (!string.IsNullOrEmpty(item.MaNoiDungCongViec) && listMaChietTinh.Any(prefix => item.MaNoiDungCongViec.ToUpper().StartsWith(prefix)))
+                {
+                    item.ThuNhapChiuThue = string.IsNullOrEmpty(item.MaNoiDungCongViec) ? 0 : Math.Round((item.DonGia_VL.Value + item.DonGia_NC.Value + item.DonGia_MTC.Value + item.CPChung.Value + item.CPNhaTam.Value + item.CPCongViecKhongXDDuocTuTK.Value) * decimal.Parse(tnct) / 100, 0);
+                }
+                else
+                {
+                    item.ThuNhapChiuThue = 0;
+                }
+
                 item.DonGiaTruocThue = Math.Round(item.DonGia_VL.Value + item.DonGia_NC.Value + item.DonGia_MTC.Value + item.CPChung.Value + item.CPNhaTam.Value + item.CPCongViecKhongXDDuocTuTK.Value + item.ThuNhapChiuThue.Value, 0); ;
                 item.GiaTriTruocThue = Math.Round(item.SoLuong.Value * item.DonGiaTruocThue.Value, 0);
                 result.Tong += Math.Round(item.GiaTriTruocThue.Value, 0);
