@@ -4,6 +4,7 @@ using EVN.Core.Exceptions;
 using EVN.Core.Extensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.WebEncoders.Testing;
 using Newtonsoft.Json.Linq;
 using System.ComponentModel;
 using System.Reflection;
@@ -82,33 +83,38 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                     IdCongViec = x.DM_CongViec_CapNgam.Id,
                     Nam = request.Nam,
                     Quy = request.Quy,
-                    SoLuong = Math.Round(x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy) != null
+                    SoLuong = x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy) != null
                     ? x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).SoLuong :
-                     x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc).SoLuong, 2), //0
+                     x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc).SoLuong, //0
 
-                    HeSoDieuChinh_K1nc = Math.Round(x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy) != null
+                    HeSoDieuChinh_K1nc = x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy) != null
                     ? x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).HeSoDieuChinh_K1nc :
-                    x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc).HeSoDieuChinh_K1nc, 2), //1
+                    x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc).HeSoDieuChinh_K1nc, //1
 
-                    HeSoDieuChinh_K2nc = Math.Round(x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy) != null
+                    HeSoDieuChinh_K2nc = x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy) != null
                     ? x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).HeSoDieuChinh_K2nc :
-                    x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc).HeSoDieuChinh_K2nc, 2), // 1
+                    x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc).HeSoDieuChinh_K2nc, // 1
 
-                    HeSoDieuChinh_Kmtc = Math.Round(x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy) != null
+                    HeSoDieuChinh_Kmtc = x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy) != null
                     ? x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).HeSoDieuChinh_Kmtc :
-                    x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc).HeSoDieuChinh_Kmtc, 2), // 1
+                    x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc).HeSoDieuChinh_Kmtc, // 1
 
-                    DonGia_VL = Math.Round(x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy) != null
-                    ? x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).DonGia_VL :
-                    x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc).DonGia_VL, 0), // 0
+                    //DonGia_VL = Math.Round(x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy) != null
+                    //? x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).DonGia_VL :
+                    //x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc).DonGia_VL, 0), // 0
 
-                    DonGia_NC = Math.Round(x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy) != null
-                    ? x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).DonGia_NC :
-                    x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc).DonGia_NC, 0), // 0
+                    //DonGia_NC = Math.Round(x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy) != null
+                    //? x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).DonGia_NC :
+                    //x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc).DonGia_NC, 0), // 0
 
-                    DonGia_MTC = Math.Round(x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy) != null
-                    ? x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).DonGia_MTC :
-                    x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc).DonGia_MTC, 0), // 0
+                    //DonGia_MTC = Math.Round(x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy) != null
+                    //? x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).DonGia_MTC :
+                    //x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc).DonGia_MTC, 0), // 0
+
+
+                    DonGia_VL = 0,
+                    DonGia_NC = 0,
+                    DonGia_MTC = 0,
 
                     CongViecChinh = x.CongViecChinh,
 
@@ -149,28 +155,29 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                     {
                         Console.WriteLine(item.MaNoiDungCongViec);
                     }
-                    item.DonGia_VL = giaCap ?? 0;
-                    item.DonGia_NC = item?.DonGia_NC ?? 0;
-                    item.DonGia_MTC = item?.DonGia_MTC ?? 0;
+                    item.DonGia_VL = (giaCap ?? 0) * item.HeSoDieuChinh_K1nc;
+                    item.DonGia_NC = (item?.DonGia_NC ?? 0) * item.HeSoDieuChinh_K2nc;
+                    item.DonGia_MTC = (item?.DonGia_MTC ?? 0) * item.HeSoDieuChinh_Kmtc;
                 }
                 else if (!string.IsNullOrEmpty(item.MaNoiDungCongViec) && listMaChietTinh.Any(prefix => item.MaNoiDungCongViec.ToUpper().StartsWith(prefix)))
                 {
                     var donGiaCT = listDonGiaChietTinh.Where(x => x.IdCongViec == item.IdCongViec).FirstOrDefault();
-                    item.DonGia_VL = donGiaCT?.DonGiaVatLieu ?? 0;
-                    item.DonGia_NC = donGiaCT?.DonGiaNhanCong ?? 0;
-                    item.DonGia_MTC = donGiaCT?.DonGiaMTC ?? 0;
+                    item.DonGia_VL = (donGiaCT?.DonGiaVatLieu ?? 0) * item.HeSoDieuChinh_K1nc;
+                    item.DonGia_NC = (donGiaCT?.DonGiaNhanCong ?? 0) * item.HeSoDieuChinh_K2nc;
+                    item.DonGia_MTC = (donGiaCT?.DonGiaMTC ?? 0) * item.HeSoDieuChinh_Kmtc;
                 }
                 else
                 {
                     var vatLieu = listDonGiaVatLieu.Where(x => x.DM_VatLieu_CapNgam.MaVatLieu != null && (x.DM_VatLieu_CapNgam.MaVatLieu.Trim() == item.MaNoiDungCongViec.Trim())).FirstOrDefault();
-                    item.DonGia_VL = vatLieu?.DonGia ?? 0;
-                    item.DonGia_NC = item?.DonGia_NC ?? 0;
-                    item.DonGia_MTC = item?.DonGia_MTC ?? 0;
+                    item.DonGia_VL = (vatLieu?.DonGia ?? 0) * item.HeSoDieuChinh_K1nc;
+                    item.DonGia_NC = (item?.DonGia_NC ?? 0) * item.HeSoDieuChinh_K2nc;
+                    item.DonGia_MTC = (item?.DonGia_MTC ?? 0) * item.HeSoDieuChinh_Kmtc;
                 }
 
 
                 if (stt == 1 && item.Id == null) chuaCoDuLieu = true;
-                if (string.IsNullOrEmpty(item.MaNoiDungCongViec))
+
+                if (!listMaChietTinh.Any(prefix => item.MaNoiDungCongViec.ToUpper().StartsWith(prefix)))
                 {
                     donGiaVatLieu += (item.DonGia_VL.Value * item.SoLuong.Value);
                 }
@@ -184,12 +191,21 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                 item.CPChung2 = item.PhanLoai == 3 ? (string.IsNullOrEmpty(item.MaNoiDungCongViec) ? 0 : Math.Round(decimal.Parse(cpChung2) / 100 * (item.DonGia_VL.Value + item.DonGia_NC.Value + item.DonGia_MTC.Value), 0)) : 0;                                                  //12            
                 item.CPChung3 = item.PhanLoai == 4 ? (string.IsNullOrEmpty(item.MaNoiDungCongViec) ? 0 : Math.Round(decimal.Parse(cpChung3) / 100 * (item.DonGia_NC.Value), 0)) : 0;                                                  //12            
                 item.CPNhaTam = 0;             //13             tạm thời không cho công thức        
-                //item.CPNhaTam = Math.Round((item.DonGia_VL.Value + item.DonGia_NC.Value + item.DonGia_MTC.Value) * (decimal)1.2 / 100, 0);             //13                    
-                item.CPCongViecKhongXDDuocTuTK = string.IsNullOrEmpty(item.MaNoiDungCongViec) ? 0 : Math.Round((item.DonGia_VL.Value + item.DonGia_NC.Value + item.DonGia_MTC.Value) * decimal.Parse(cpCVKXD) / 100, 0); ; //14     
+                                               //item.CPNhaTam = Math.Round((item.DonGia_VL.Value + item.DonGia_NC.Value + item.DonGia_MTC.Value) * (decimal)1.2 / 100, 0);             //13                    
+                                               //item.CPCongViecKhongXDDuocTuTK = string.IsNullOrEmpty(item.MaNoiDungCongViec) ? 0 : Math.Round((item.DonGia_VL.Value + item.DonGia_NC.Value + item.DonGia_MTC.Value) * decimal.Parse(cpCVKXD) / 100, 0); ; //14     
+
+                item.CPCongViecKhongXDDuocTuTK = 0; //14     
+                if (listMaChietTinh.Any(prefix => item.MaNoiDungCongViec.ToUpper().StartsWith(prefix)))
+                {
+                    item.CPCongViecKhongXDDuocTuTK = string.IsNullOrEmpty(item.MaNoiDungCongViec) ? 0 : Math.Round((item.DonGia_VL.Value + item.DonGia_NC.Value + item.DonGia_MTC.Value) * decimal.Parse(cpCVKXD) / 100, 0);//14     
+                }
 
                 if (!string.IsNullOrEmpty(item.MaNoiDungCongViec) && listMaChietTinh.Any(prefix => item.MaNoiDungCongViec.ToUpper().StartsWith(prefix)))
                 {
-                    item.ThuNhapChiuThue = string.IsNullOrEmpty(item.MaNoiDungCongViec) ? 0 : Math.Round((item.DonGia_VL.Value + item.DonGia_NC.Value + item.DonGia_MTC.Value + item.CPChung.Value + item.CPChung2.Value + item.CPChung3.Value + item.CPNhaTam.Value + item.CPCongViecKhongXDDuocTuTK.Value) * decimal.Parse(tnct) / 100, 0);
+                    item.ThuNhapChiuThue = string.IsNullOrEmpty(item.MaNoiDungCongViec) ? 0 : Math.Round((
+                        item.DonGia_VL.Value + item.DonGia_NC.Value + item.DonGia_MTC.Value +
+                        item.CPChung.Value + item.CPChung2.Value
+                        + item.CPChung3.Value + item.CPNhaTam.Value + item.CPCongViecKhongXDDuocTuTK.Value) * decimal.Parse(tnct) / 100, 0);
 
                 }
                 else

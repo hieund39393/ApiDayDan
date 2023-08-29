@@ -35,9 +35,9 @@ namespace Authentication.API.Configures
         /// </summary>
         /// <param name="context"></param>
         public void OnException(ExceptionContext context)
-            {
+        {
             var exception = context.Exception;
-             var developerMessage = exception.Message + "\r\n" + exception.StackTrace;
+            var developerMessage = exception.Message + "\r\n" + exception.StackTrace;
             while (exception.InnerException != null)
             {
                 developerMessage += "\r\n--------------------------------------------------\r\n";

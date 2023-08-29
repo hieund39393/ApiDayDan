@@ -154,7 +154,8 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
 
 
                 if (stt == 1 && item.Id == null) chuaCoDuLieu = true;
-                if (string.IsNullOrEmpty(item.MaNoiDungCongViec))
+
+                if (!listMaChietTinh.Any(prefix => item.MaNoiDungCongViec.ToUpper().StartsWith(prefix)))
                 {
                     donGiaVatLieu += (item.DonGia_VL.Value * item.SoLuong.Value);
                 }
@@ -162,6 +163,7 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                 {
                     donGiaNhanCong += (item.DonGia_VL.Value * item.SoLuong.Value);
                 }
+
 
                 item.Stt = stt.ToString();
                 item.CPChung = string.IsNullOrEmpty(item.MaNoiDungCongViec) ? 0 : Math.Round(decimal.Parse(cpChung) / 100 * (item.DonGia_NC.Value), 0);                                                  //12            

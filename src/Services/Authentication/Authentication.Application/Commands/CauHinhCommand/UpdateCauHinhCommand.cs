@@ -38,6 +38,5 @@ namespace Authentication.Application.Commands.CauHinhCommand
             await _unitOfWork.SaveChangesAsync();
             return true;
         }
-
     }
 }

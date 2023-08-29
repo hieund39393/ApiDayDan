@@ -32,7 +32,23 @@ namespace Authentication.Application.Commands.BieuGiaTongHopCommand
         public async Task<bool> Handle(UpdateBieuGiaTongHopCommand request, CancellationToken cancellationToken)
         {
             var userId = Guid.Parse(TokenExtensions.GetUserId());
-            var data = await _unitOfWork.BieuGiaTongHopRepository.GetQuery(x => x.Nam == request.Nam && x.Quy == request.Quy && x.TinhTrang == request.TinhTrang).ToListAsync();
+
+            try
+            {
+                var position = int.Parse(TokenExtensions.GetPosition());
+
+                if (position != request.TinhTrang)
+
+                {
+                    request.TinhTrang = request.TinhTrang + 1;
+                }
+            }
+            catch
+            {
+                throw new EvnException("Người dùng có chức vụ không đúng");
+            }
+
+            var data = await _unitOfWork.BieuGiaTongHopRepository.GetQuery(x => x.Nam == request.Nam && x.Quy == request.Quy).ToListAsync();
             if (!data.Any())
             {
                 throw new EvnException("Không có dữ liệu");
@@ -40,9 +56,9 @@ namespace Authentication.Application.Commands.BieuGiaTongHopCommand
 
             foreach (var item in data)
             {
-                item.TinhTrang = request.TinhTrang + 1;
+                item.TinhTrang = request.TinhTrang;
 
-                if (item.TinhTrang >= 2)
+                if (item.TinhTrang >= 1)
                 {
                     item.NguoiXacNhan = userId;
                     item.NgayXacNhan = DateTime.Now;
@@ -63,7 +79,7 @@ namespace Authentication.Application.Commands.BieuGiaTongHopCommand
             chiTiet.GhiChu = request.GhiChu;
             chiTiet.TrangThai = request.TinhTrang;
 
-            if (request.File != null && request.File.Length > 0)
+            if (request.File != null)
             {
                 string uploadDirectory = Path.Combine(_webHostEnvironment.WebRootPath + "/VanBan");
                 if (!Directory.Exists(uploadDirectory))

@@ -35,11 +35,7 @@ namespace Authentication.Application.Queries.DM_VatLieu_CapNgamQuery
         public async Task<PagingResultSP<DM_VatLieuResponse>> GetList(DM_VatLieuRequest request)
         {
             //Tạo câu query
-            var query = _unitOfWork.DM_VatLieu_CapNgamRepository.GetQuery(x =>
-
-            (string.IsNullOrEmpty(request.SearchTerm) || x.TenVatLieu.Contains(request.SearchTerm)) &&  //Tìm kiếm
-            (string.IsNullOrEmpty(request.SearchTerm) || x.MaVatLieu.Contains(request.SearchTerm)))
-
+            var query = _unitOfWork.DM_VatLieu_CapNgamRepository.GetQuery()
                 .Select(x => new DM_VatLieuResponse()
                 {
                     Id = x.Id,
@@ -49,6 +45,10 @@ namespace Authentication.Application.Queries.DM_VatLieu_CapNgamQuery
                     NgayTao = x.CreatedDate,
                     ThuTuHienThi = x.ThuTuHienThi
                 });// select dữ liệu
+            if (!string.IsNullOrEmpty(request.SearchTerm))
+            {
+                query = query.Where(x => x.TenVatLieu.Contains(request.SearchTerm));
+            }
             var totalRow = query.Count(); // tổng số lượng
             var queryPaging = query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize); // phân trang
             return await PagingResultSP<DM_VatLieuResponse>.CreateAsyncLinq(queryPaging, totalRow, request.PageIndex, request.PageSize);

@@ -9,6 +9,9 @@ using OfficeOpenXml.Style;
 using OfficeOpenXml;
 using System.Text;
 using static EVN.Core.Common.AppEnum;
+using EVN.Core.Helpers;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
 {
@@ -18,6 +21,9 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
         Task<byte[]> XuatExcel(BieuGiaTongHopRequest request);
         Task<object> ChiTietPDF(ChiTietPDFRequest request);
         Task<byte[]> BaoCaoExcel(ChiTietPDFRequest request);
+        Task<object> GetDuLieuDonGia(int Vung);
+        Task<object> GetVanBan(GetVanBanRequest request);
+        Task<List<GetBaoCaoResponse>> GetBaoCao(ChiTietPDFRequest request);
     }
     public class BieuGiaTongHop_CapNgamQuery : IBieuGiaTongHop_CapNgamQuery
     {
@@ -27,18 +33,19 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<byte[]> BaoCaoExcel(ChiTietPDFRequest request)
+        public async Task<List<GetBaoCaoResponse>> GetBaoCao(ChiTietPDFRequest request)
         {
             var query = await _unitOfWork.BieuGiaTongHop_CapNgamRepository.GetQuery(x => x.Nam == request.Nam && x.Quy == request.Quy)
                 .Include(x => x.DM_BieuGia_CapNgam).ThenInclude(x => x.DM_LoaiBieuGia_CapNgam).ThenInclude(x => x.DM_KhuVuc)
-                .Select(x => new
+                .Select(x => new BGTHReponse
                 {
                     IdBieuGia = x.IdBieuGia,
                     TenBieuGia = x.DM_BieuGia_CapNgam.TenBieuGia,
                     IdLoaiBieuGia = x.DM_BieuGia_CapNgam.idLoaiBieuGia,
                     PhanLoaiBieuGia = x.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.MaLoaiBieuGia,
                     IdKhuVuc = x.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.IdKhuVuc,
-                    TenKhuVuc = x.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.DM_KhuVuc.TenKhuVuc,
+                    TenKhuVuc = x.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.DM_KhuVuc.GhiChu,
+
                     DonGia = x.DonGia,
                     DonGia2 = x.DonGia2,
                     DonGia3 = x.DonGia3,
@@ -47,7 +54,23 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
                 .ToListAsync();
 
 
-            var groupBy = query.GroupBy(x => x.IdKhuVuc).Select(x => new { KhuVuc = x.Key, ListBieuGia = x.ToList() }).ToList();
+            foreach (var kv in query)
+            {
+                if (int.Parse(kv.TenKhuVuc) <= 3)
+                {
+                    kv.TenKhuVuc = "Vùng I - Khu Vực 1";
+                }
+                else if (int.Parse(kv.TenKhuVuc) > 3 && int.Parse(kv.TenKhuVuc) <= 6)
+                {
+                    kv.TenKhuVuc = "Vùng I - Khu Vực 2";
+                }
+                else
+                {
+                    kv.TenKhuVuc = "Vùng II";
+                }
+            }
+
+            var groupBy = query.GroupBy(x => x.TenKhuVuc).Select(x => new { KhuVuc = x.Key, ListBieuGia = x.ToList() }).OrderBy(x => x.KhuVuc).ToList();
 
             var response = new List<CSKHResponse>();
             foreach (var item in groupBy)
@@ -56,16 +79,163 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
                 data.TenKhuVuc = item.ListBieuGia.First().TenKhuVuc;
                 data.ListBieuGiaChiTiet = new List<BGTHChiTiet>();
                 int i = 1;
-                foreach (var bieuGia in item.ListBieuGia)
-                {
+
+                var nhom = 1;
+                    foreach (var bieuGia in item.ListBieuGia.OrderBy(x => int.Parse(x.PhanLoaiBieuGia)))
+                    {
+                    if (bieuGia.PhanLoaiBieuGia == nhom.ToString())
+                    {
+
+                        var tenNhom = new BGTHChiTiet();
+                        if (nhom == 1) tenNhom.TenBieuGia = "1.1 Nhóm 1";
+                        else if (nhom ==4) tenNhom.TenBieuGia = "1.2 Nhóm 2";
+                        else if (nhom == 7) tenNhom.TenBieuGia = "1.3 Nhóm 3";
+                        else if (nhom == 10) tenNhom.TenBieuGia = "2.1 Nhóm 1";
+                        else if (nhom == 13) tenNhom.TenBieuGia = "2.2 Nhóm 2";
+                        else if (nhom == 16) tenNhom.TenBieuGia = "2.3 Nhóm 3";
+                        else if (nhom == 18) tenNhom.TenBieuGia = "3.1 Nhóm 1";
+                        else if (nhom == 21) tenNhom.TenBieuGia = "3.2 Nhóm 2";
+                        else if (nhom == 24) tenNhom.TenBieuGia = "3.3 Nhóm 3";
+
+                        data.ListBieuGiaChiTiet.Add(tenNhom);
+                        nhom = nhom + 3;
+                        i = 1;
+                    }
+
                     data.ListBieuGiaChiTiet.Add(new BGTHChiTiet
                     {
                         Stt = i,
                         TenBieuGia = bieuGia.TenBieuGia,
                         DonVi = "m",
-                        DonGiaCot1 = bieuGia.DonGia.ToString(),
-                        DonGiaCot2 = bieuGia.DonGia2.ToString(),
-                        DonGiaCot3 = bieuGia.DonGia3.ToString()
+                        DonGiaCot1 = bieuGia.DonGia?.ToString("N0", CultureInfo.GetCultureInfo("en-US")),
+                        DonGiaCot2 = bieuGia.DonGia2?.ToString("N0", CultureInfo.GetCultureInfo("en-US")),
+                        DonGiaCot3 = bieuGia.DonGia3?.ToString("N0", CultureInfo.GetCultureInfo("en-US"))
+                    });
+                    i++;
+                }
+                response.Add(data);
+            }
+
+            var listResponse = new List<GetBaoCaoResponse>();
+            if (response.Any())
+            {
+                foreach (var model in response)
+                {
+                    listResponse.Add(new GetBaoCaoResponse
+                    {
+                        ChiPhi = model.TenKhuVuc,
+                    });
+
+                    foreach (var item in model.ListBieuGiaChiTiet)
+                    {
+                        listResponse.Add(new GetBaoCaoResponse
+                        {
+                            Stt = item.Stt,
+                            ChiPhi = item.TenBieuGia,
+                            DonVi = item.DonVi,
+                            Ctdl1 = item.DonGiaCot1,
+                            Ctdl2 = item.DonGiaCot2,
+                            Ctdl3 = item.DonGiaCot3
+                        });
+
+                    }
+
+                }
+
+            }
+            return listResponse;
+        }
+
+
+        public async Task<object> GetVanBan(GetVanBanRequest request)
+        {
+            var data = await _unitOfWork.BieuGiaTongHopChiTiet_CapNgamRepository.GetQuery(x => x.Quy == request.Quy && x.Nam == request.Nam).AsNoTracking()
+                .Select(x => new
+                {
+                    VanBan = x.VanBan,
+                    GhiChu = x.GhiChu,
+                    TrangThai = x.TrangThai,
+                    NgayTao = x.CreatedDate.ToString("dd/MM/yyyy")
+                }).ToListAsync();
+            return data;
+        }
+
+        public async Task<byte[]> BaoCaoExcel(ChiTietPDFRequest request)
+        {
+            var query = await _unitOfWork.BieuGiaTongHop_CapNgamRepository.GetQuery(x => x.Nam == request.Nam && x.Quy == request.Quy)
+                .Include(x => x.DM_BieuGia_CapNgam).ThenInclude(x => x.DM_LoaiBieuGia_CapNgam).ThenInclude(x => x.DM_KhuVuc)
+                .Select(x => new BGTHReponse
+                {
+                    IdBieuGia = x.IdBieuGia,
+                    TenBieuGia = x.DM_BieuGia_CapNgam.TenBieuGia,
+                    IdLoaiBieuGia = x.DM_BieuGia_CapNgam.idLoaiBieuGia,
+                    PhanLoaiBieuGia = x.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.MaLoaiBieuGia,
+                    IdKhuVuc = x.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.IdKhuVuc,
+                    TenKhuVuc = x.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.DM_KhuVuc.GhiChu,
+                    DonGia = x.DonGia,
+                    DonGia2 = x.DonGia2,
+                    DonGia3 = x.DonGia3,
+                    TinhTrang = x.TinhTrang
+                }).AsNoTracking()
+                .ToListAsync();
+
+
+            foreach (var kv in query)
+            {
+                if (int.Parse(kv.TenKhuVuc) <= 3)
+                {
+                    kv.TenKhuVuc = "Vùng I - Khu Vực 1";
+                }
+                else if (int.Parse(kv.TenKhuVuc) > 3 && int.Parse(kv.TenKhuVuc) <= 6)
+                {
+                    kv.TenKhuVuc = "Vùng I - Khu Vực 2";
+                }
+                else
+                {
+                    kv.TenKhuVuc = "Vùng II";
+                }
+            }
+
+            var groupBy = query.GroupBy(x => x.TenKhuVuc).Select(x => new { KhuVuc = x.Key, ListBieuGia = x.ToList() }).OrderBy(x => x.KhuVuc).ToList();
+
+            var response = new List<CSKHResponse>();
+            foreach (var item in groupBy)
+            {
+                var data = new CSKHResponse();
+                data.TenKhuVuc = item.ListBieuGia.First().TenKhuVuc;
+                data.ListBieuGiaChiTiet = new List<BGTHChiTiet>();
+                int i = 1;
+
+                var nhom = 1;
+                foreach (var bieuGia in item.ListBieuGia.OrderBy(x=>int.Parse(x.PhanLoaiBieuGia)))
+                {
+                    if (bieuGia.PhanLoaiBieuGia == nhom.ToString())
+                    {
+
+                        var tenNhom = new BGTHChiTiet();
+                        if (nhom == 1) tenNhom.TenBieuGia = "1.1 Nhóm 1";
+                        else if (nhom == 4) tenNhom.TenBieuGia = "1.2 Nhóm 2";
+                        else if (nhom == 7) tenNhom.TenBieuGia = "1.3 Nhóm 3";
+                        else if (nhom == 10) tenNhom.TenBieuGia = "2.1 Nhóm 1";
+                        else if (nhom == 13) tenNhom.TenBieuGia = "2.2 Nhóm 2";
+                        else if (nhom == 16) tenNhom.TenBieuGia = "2.3 Nhóm 3";
+                        else if (nhom == 18) tenNhom.TenBieuGia = "3.1 Nhóm 1";
+                        else if (nhom == 21) tenNhom.TenBieuGia = "3.2 Nhóm 2";
+                        else if (nhom == 24) tenNhom.TenBieuGia = "3.3 Nhóm 3";
+
+                        data.ListBieuGiaChiTiet.Add(tenNhom);
+                        nhom = nhom + 3;
+                        i = 1;
+                    }
+
+                    data.ListBieuGiaChiTiet.Add(new BGTHChiTiet
+                    {
+                        Stt = i,
+                        TenBieuGia = bieuGia.TenBieuGia,
+                        DonVi = "m",
+                        DonGiaCot1 = bieuGia.DonGia?.ToString("N0", CultureInfo.GetCultureInfo("en-US")),
+                        DonGiaCot2 = bieuGia.DonGia2?.ToString("N0", CultureInfo.GetCultureInfo("en-US")),
+                        DonGiaCot3 = bieuGia.DonGia3?.ToString("N0", CultureInfo.GetCultureInfo("en-US"))
                     });
                     i++;
                 }
@@ -87,25 +257,39 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
                     sheet1.Cells[$"A{currentRow}:F{currentRow}"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
                     sheet1.Cells[$"A{currentRow}:F{currentRow}"].Style.Font.Bold = true;
                     currentRow++;
+
+
+
                     foreach (var item in model.ListBieuGiaChiTiet)
                     {
-                        sheet1.Cells[$"A{currentRow}"].Value = item.Stt;
-                        sheet1.Cells[$"B{currentRow}"].Value = item.TenBieuGia;
-                        sheet1.Cells[$"C{currentRow}"].Value = item.DonVi;
-                        sheet1.Cells[$"D{currentRow}"].Value = item.DonGiaCot1;
-                        sheet1.Cells[$"E{currentRow}"].Value = item.DonGiaCot2;
-                        sheet1.Cells[$"F{currentRow}"].Value = item.DonGiaCot3;
-                        currentRow++;
+                        if (item.Stt == 0)
+                        {
+                            sheet1.Cells[$"A{currentRow}"].Value = item.TenBieuGia;
+                            sheet1.Cells[$"A{currentRow}:F{currentRow}"].Merge = true;
+                            sheet1.Cells[$"A{currentRow}:F{currentRow}"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+                            sheet1.Cells[$"A{currentRow}:F{currentRow}"].Style.Font.Bold = true;
+                            currentRow++;
+                        }
+                        else
+                        {
+                            sheet1.Cells[$"A{currentRow}"].Value = item.Stt;
+                            sheet1.Cells[$"B{currentRow}"].Value = item.TenBieuGia;
+                            sheet1.Cells[$"C{currentRow}"].Value = item.DonVi;
+                            sheet1.Cells[$"D{currentRow}"].Value = item.DonGiaCot1;
+                            sheet1.Cells[$"E{currentRow}"].Value = item.DonGiaCot2;
+                            sheet1.Cells[$"F{currentRow}"].Value = item.DonGiaCot3;
+                            currentRow++;
+                        }
                     }
 
                     //sheet1.InsertRow(currentRow, 1);
                 }
 
                 var endRow = currentRow - 1;
-                sheet1.Cells[$"A3:K{endRow}"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                sheet1.Cells[$"A3:K{endRow}"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-                sheet1.Cells[$"A3:K{endRow}"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                sheet1.Cells[$"A3:K{endRow}"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
             }
             return excelPackage.GetAsByteArray();
         }
@@ -301,24 +485,35 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
                     TenBieuGia = x.DM_BieuGia_CapNgam.TenBieuGia,
                     IdLoaiBieuGia = x.DM_BieuGia_CapNgam.idLoaiBieuGia,
                     IdKhuVuc = x.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.IdKhuVuc,
+                    MaKhuVuc = x.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.DM_KhuVuc.GhiChu,
                     DonGia = request.PhanLoai == 1 ? x.DonGia : (request.PhanLoai == 2 ? x.DonGia2 : x.DonGia3),
+                    MaLoaiBieuGia = int.Parse(x.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.MaLoaiBieuGia),
                     TinhTrang = x.TinhTrang
                 }).AsNoTracking()
                 .ToListAsync();
 
-            var groupBy = query.GroupBy(x => x.TenBieuGia).Select(x => new { name = x.Key, listBG = x.ToList() }).ToList();
+            var groupBy = query.GroupBy(x => new { x.TenBieuGia, x.MaLoaiBieuGia }).Select(x => new { name = x.Key.TenBieuGia, ma = x.Key.MaLoaiBieuGia, listBG = x.ToList() }).ToList();
 
             var listResponse = new List<BieuGiaTongHopResponse>();
-            foreach (var r in groupBy)
+            foreach (var r in groupBy.OrderBy(x => x.ma))
             {
                 var item = new BieuGiaTongHopResponse();
                 item.TenBieuGia = r.name;
                 var listData = new List<string>();
-                foreach (var list in loaiBieuGia)
+
+                for (int i = 1; i <= 9; i++)
                 {
-                    var value = r.listBG.Where(x => x.IdKhuVuc == list.IdKhuVuc && x.IdLoaiBieuGia == list.Id).FirstOrDefault()?.DonGia.ToString() ?? "";
+                    var khuvuc = query.GroupBy(x => x.IdKhuVuc).ToList();
+                    //var values = r.listBG.Skip((i - 1) * i).Take(3).ToList();
+                    var value = r.listBG.Where(x => x.MaKhuVuc == i.ToString()).Skip((i - 1) * i).Take(3).FirstOrDefault()?.DonGia.ToString() ?? "";
                     listData.Add(value);
                 }
+
+                //foreach (var list in loaiBieuGia)
+                //{
+                //    var value = r.listBG.Where(x => x.IdKhuVuc == list.IdKhuVuc && x.IdLoaiBieuGia == list.Id).FirstOrDefault()?.DonGia.ToString() ?? "";
+                //    listData.Add(value);
+                //}
                 item.ListData = listData;
                 item.TinhTrang = r.listBG.FirstOrDefault()?.TinhTrang ?? null;
 
@@ -365,17 +560,18 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
 
             var loaiBieuGia = await _unitOfWork.DM_LoaiBieuGia_CapNgamRepository.GetQuery().AsNoTracking().ToListAsync();
             var query = await _unitOfWork.BieuGiaTongHop_CapNgamRepository.GetQuery(x => x.Nam == request.Nam && x.Quy == request.Quy)
-                .Include(x => x.DM_BieuGia_CapNgam).ThenInclude(x => x.DM_LoaiBieuGia_CapNgam)
-                .Select(x => new
-                {
-                    IdBieuGia = x.IdBieuGia,
-                    TenBieuGia = x.DM_BieuGia_CapNgam.TenBieuGia,
-                    IdLoaiBieuGia = x.DM_BieuGia_CapNgam.idLoaiBieuGia,
-                    IdKhuVuc = x.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.IdKhuVuc,
-                    DonGia = request.PhanLoai == 1 ? x.DonGia : (request.PhanLoai == 2 ? x.DonGia2 : x.DonGia3),
-                    TinhTrang = x.TinhTrang
-                }).AsNoTracking()
-                .ToListAsync();
+                 .Include(x => x.DM_BieuGia_CapNgam).ThenInclude(x => x.DM_LoaiBieuGia_CapNgam)
+                 .Select(x => new
+                 {
+                     IdBieuGia = x.IdBieuGia,
+                     TenBieuGia = x.DM_BieuGia_CapNgam.TenBieuGia,
+                     IdLoaiBieuGia = x.DM_BieuGia_CapNgam.idLoaiBieuGia,
+                     IdKhuVuc = x.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.IdKhuVuc,
+                     MaKhuVuc = x.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.DM_KhuVuc.GhiChu,
+                     DonGia = request.PhanLoai == 1 ? x.DonGia : (request.PhanLoai == 2 ? x.DonGia2 : x.DonGia3),
+                     TinhTrang = x.TinhTrang
+                 }).AsNoTracking()
+                 .ToListAsync();
 
             var groupBy = query.GroupBy(x => x.TenBieuGia).Select(x => new { name = x.Key, listBG = x.ToList() }).ToList();
 
@@ -385,9 +581,12 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
                 var item = new BieuGiaTongHopResponse();
                 item.TenBieuGia = r.name;
                 var listData = new List<string>();
-                foreach (var list in loaiBieuGia)
+
+                for (int i = 1; i <= 9; i++)
                 {
-                    var value = r.listBG.Where(x => x.IdKhuVuc == list.IdKhuVuc && x.IdLoaiBieuGia == list.Id).FirstOrDefault()?.DonGia.ToString() ?? "";
+                    var khuvuc = query.GroupBy(x => x.IdKhuVuc).ToList();
+                    //var values = r.listBG.Skip((i - 1) * i).Take(3).ToList();
+                    var value = r.listBG.Where(x => x.MaKhuVuc == i.ToString()).Skip((i - 1) * i).Take(3).FirstOrDefault()?.DonGia.ToString("N0", CultureInfo.GetCultureInfo("en-US")) ?? "0";
                     listData.Add(value);
                 }
                 item.ListData = listData;
@@ -453,13 +652,62 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
                 }
 
                 var endRow = currentRow - 1;
-                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                sheet1.Cells[$"A3:F{endRow}"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                sheet1.Cells[$"A3:K{endRow}"].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                sheet1.Cells[$"A3:K{endRow}"].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                sheet1.Cells[$"A3:K{endRow}"].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                sheet1.Cells[$"A3:K{endRow}"].Style.Border.Right.Style = ExcelBorderStyle.Thin;
             }
             return excelPackage.GetAsByteArray();
+        }
 
+        public async Task<object> GetDuLieuDonGia(int Vung)
+        {
+            var data = await _unitOfWork.BieuGiaTongHop_CapNgamRepository.GetQuery(x => x.TinhTrang == 4 && x.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.DM_KhuVuc.GhiChu == Vung.ToString())
+                .Include(x => x.DM_BieuGia_CapNgam).ThenInclude(x => x.BieuGiaCongViec_CapNgam).ThenInclude(z => z.DM_CongViec_CapNgam)
+                //.Where(x => x.DM_BieuGia.BieuGiaCongViec.Any(z => z.CongViecChinh && z.DM_CongViec.MaCongViec == LoaiCap))
+                .Include(x => x.DM_BieuGia_CapNgam).ThenInclude(x => x.DM_LoaiBieuGia_CapNgam)
+                .GroupBy(x => new { x.IdBieuGia, x.Nam, x.Quy }).
+                 Select(x => x.OrderByDescending(x => x.Nam).ThenByDescending(y => y.Quy).First())
+                .ToListAsync();
+
+            var listApiResult = new List<ApiDonGiaVatLieuResponse>();
+
+
+            foreach (var item in data)
+            {
+                //var maVatTu = item.DM_BieuGia_CapNgam.BieuGiaCongViec_CapNgam.FirstOrDefault(x => x.CongViecChinh)?.DM_CongViec_CapNgam?.MaCongViec;
+                //Console.WriteLine(maVatTu);
+                //var donGia = data.Where(x => x.DM_BieuGia_CapNgam.BieuGiaCongViec_CapNgam.Any(y => y.DM_CongViec_CapNgam.MaCongViec == maVatTu)
+                //                )
+                //    .OrderBy(z => int.Parse(z.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.MaLoaiBieuGia))
+                //    .ToArray();
+
+                var apiResult = new ApiDonGiaVatLieuResponse();
+                apiResult.MaVatTu = item.DM_BieuGia_CapNgam.BieuGiaCongViec_CapNgam.FirstOrDefault(x => x.CongViecChinh)?.DM_CongViec_CapNgam?.MaCongViec;
+                apiResult.NgayHieuLuc = item.UpdatedDate?.ToString("yyyy-MM-dd");
+                apiResult.DonGiaTronGoi = new ApiDonGia
+                {
+                    CapDien = item?.DonGia.ToString(),
+                    NangCongSuat = "0",
+                    DiDoi = "0",
+                };
+                apiResult.DonGiaTuTucCapSau = new ApiDonGia
+                {
+                    CapDien = item?.DonGia2.ToString(),
+                    NangCongSuat = "0",
+                    DiDoi = "0",
+                };
+                apiResult.DonGiaTuTucCapVaVatTu = new ApiDonGia
+                {
+                    CapDien = item?.DonGia3.ToString(),
+                    NangCongSuat = "0",
+                    DiDoi = "0",
+                };
+                apiResult.HinhThucThiCong = item.DM_BieuGia_CapNgam.TenBieuGia;
+                listApiResult.Add(apiResult);
+            }
+
+            return listApiResult;
         }
     }
 }

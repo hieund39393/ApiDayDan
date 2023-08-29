@@ -72,10 +72,18 @@ namespace Authentication.API.Controllers
             return File(data, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
         }
 
-        [HttpGet("get-don-gia-vat-lieu")]
-        public async Task<IActionResult> GetDonGiaVatLieu([FromQuery] int vung, string loaiCap)
+        [HttpGet("get-bao-cao")]
+        public async Task<IActionResult> GetBaoCao([FromQuery] ChiTietPDFRequest request)
         {
-            var data = await _bieuGiaTongHopQuery.GetDuLieuDonGia(vung, loaiCap);
+            var data = await _bieuGiaTongHopQuery.GetBaoCao(request);
+            return Ok(new ApiSuccessResult<object>(data: data));
+        }
+
+        [HttpGet("get-don-gia-vat-lieu")]
+        [ProducesResponseType(typeof(List<ApiDonGiaVatLieuResponse>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetDonGiaVatLieu([FromQuery] int vung)
+        {
+            var data = await _bieuGiaTongHopQuery.GetDuLieuDonGia(vung);
 
             return Ok(data);
         }

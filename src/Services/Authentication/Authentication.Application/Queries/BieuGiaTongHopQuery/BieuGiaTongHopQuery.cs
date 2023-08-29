@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using SendGrid;
+using System.Globalization;
 using System.Net.WebSockets;
 using System.Text;
 using static EVN.Core.Common.AppEnum;
@@ -21,8 +22,9 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
         Task<object> ChiTietPDF(ChiTietPDFRequest request);
 
         Task<byte[]> BaoCaoExcel(ChiTietPDFRequest request);
+        Task<List<GetBaoCaoResponse>> GetBaoCao(ChiTietPDFRequest request);
 
-        Task<object> GetDuLieuDonGia(int Vung, string LoaiCap);
+        Task<object> GetDuLieuDonGia(int Vung);
 
         Task<object> GetVanBan(GetVanBanRequest request);
     }
@@ -55,7 +57,7 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
 
             var phanLoai = query.Where(x => x.PhanLoaiBieuGia == request.PhanLoaiBieuGia.ToString()).ToList();
 
-            var groupBy = phanLoai.GroupBy(x => x.IdKhuVuc).Select(x => new { KhuVuc = x.Key, ListBieuGia = x.ToList() }).ToList();
+            var groupBy = phanLoai.GroupBy(x => x.IdKhuVuc).Select(x => new { KhuVuc = x.Key, ListBieuGia = x.ToList() }).OrderBy(x => x.KhuVuc).ToList();
 
             var response = new List<CSKHResponse>();
             foreach (var item in groupBy)
@@ -80,12 +82,12 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
                 response.Add(data);
             }
 
-            var templatePath = RootPathConfig.TemplatePath.GetTemplate + "ChiTietBieuGia.xlsx";
+            var templatePath = RootPathConfig.TemplatePath.GetTemplate + "BaoCaoCapTrenKhong.xlsx";
             var excelPackage = new ExcelPackage(new FileInfo(templatePath), true);
             var workbook = excelPackage.Workbook;
 
             var sheet1 = workbook.Worksheets["Sheet1"];
-            var currentRow = 3;
+            var currentRow = 4;
             if (response.Any())
             {
                 foreach (var model in response)
@@ -155,9 +157,9 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
                         Stt = i,
                         TenBieuGia = bieuGia.TenBieuGia,
                         DonVi = "m",
-                        DonGiaCot1 = bieuGia.DonGia.ToString(),
-                        DonGiaCot2 = bieuGia.DonGia2.ToString(),
-                        DonGiaCot3 = bieuGia.DonGia3.ToString()
+                        DonGiaCot1 = bieuGia.DonGia.ToString("N0", CultureInfo.GetCultureInfo("en-US")),
+                        DonGiaCot2 = bieuGia.DonGia2.ToString("N0", CultureInfo.GetCultureInfo("en-US")),
+                        DonGiaCot3 = bieuGia.DonGia3.ToString("N0", CultureInfo.GetCultureInfo("en-US"))
                     }); ;
                     i++;
                 }
@@ -167,40 +169,137 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
 
         }
 
-        public async Task<object> GetDuLieuDonGia(int Vung, string LoaiCap)
+        public async Task<List<GetBaoCaoResponse>> GetBaoCao(ChiTietPDFRequest request)
         {
-            if (Vung == 2 || Vung == 3) Vung++;
+            var query = await _unitOfWork.BieuGiaTongHopRepository.GetQuery(x => x.Nam == request.Nam && x.Quy == request.Quy)
+                .Include(x => x.DM_BieuGia).ThenInclude(x => x.DM_LoaiBieuGia).ThenInclude(x => x.DM_KhuVuc)
+                .Select(x => new
+                {
+                    IdBieuGia = x.IdBieuGia,
+                    TenBieuGia = x.DM_BieuGia.TenBieuGia,
+                    IdLoaiBieuGia = x.DM_BieuGia.idLoaiBieuGia,
+                    PhanLoaiBieuGia = x.DM_BieuGia.DM_LoaiBieuGia.MaLoaiBieuGia,
+                    IdKhuVuc = x.DM_BieuGia.DM_LoaiBieuGia.IdKhuVuc,
+                    TenKhuVuc = x.DM_BieuGia.DM_LoaiBieuGia.DM_KhuVuc.TenKhuVuc,
+                    DonGia = x.DonGia,
+                    DonGia2 = x.DonGia2,
+                    DonGia3 = x.DonGia3,
+                    TinhTrang = x.TinhTrang
+                }).AsNoTracking()
+                .ToListAsync();
 
-            var data = await _unitOfWork.BieuGiaTongHopRepository.GetQuery(x => x.TinhTrang == 4 && x.DM_BieuGia.DM_LoaiBieuGia.MaLoaiBieuGia == Vung.ToString())
+            var phanLoai = query.Where(x => x.PhanLoaiBieuGia == request.PhanLoaiBieuGia.ToString()).ToList();
+
+            var groupBy = phanLoai.GroupBy(x => x.IdKhuVuc).Select(x => new { KhuVuc = x.Key, ListBieuGia = x.ToList() }).OrderBy(x => x.KhuVuc).ToList();
+
+            var response = new List<CSKHResponse>();
+            foreach (var item in groupBy)
+            {
+                var data = new CSKHResponse();
+                data.TenKhuVuc = item.ListBieuGia.First().TenKhuVuc;
+                data.ListBieuGiaChiTiet = new List<BGTHChiTiet>();
+                int i = 1;
+                foreach (var bieuGia in item.ListBieuGia)
+                {
+                    data.ListBieuGiaChiTiet.Add(new BGTHChiTiet
+                    {
+                        Stt = i,
+                        TenBieuGia = bieuGia.TenBieuGia,
+                        DonVi = "m",
+                        DonGiaCot1 = bieuGia.DonGia.ToString(),
+                        DonGiaCot2 = bieuGia.DonGia2.ToString(),
+                        DonGiaCot3 = bieuGia.DonGia3.ToString()
+                    });
+                    i++;
+                }
+                response.Add(data);
+            }
+
+            var templatePath = RootPathConfig.TemplatePath.GetTemplate + "BaoCaoCapTrenKhong.xlsx";
+            var excelPackage = new ExcelPackage(new FileInfo(templatePath), true);
+            var workbook = excelPackage.Workbook;
+
+            var sheet1 = workbook.Worksheets["Sheet1"];
+            var currentRow = 4;
+
+            var listResponse = new List<GetBaoCaoResponse>();
+
+            if (response.Any())
+            {
+                foreach (var model in response)
+                {
+                    listResponse.Add(new GetBaoCaoResponse
+                    {
+                        ChiPhi = model.TenKhuVuc,
+                    });
+
+                    foreach (var item in model.ListBieuGiaChiTiet)
+                    {
+                        listResponse.Add(new GetBaoCaoResponse
+                        {
+                            Stt = item.Stt,
+                            ChiPhi = item.TenBieuGia,
+                            DonVi = item.DonVi,
+                            Ctdl1 = item.DonGiaCot1,
+                            Ctdl2 = item.DonGiaCot2,
+                            Ctdl3 = item.DonGiaCot3
+                        });
+
+                    }
+
+                }
+
+            }
+            return listResponse;
+        }
+
+        public async Task<object> GetDuLieuDonGia(int Vung)
+        {
+
+            var data = await _unitOfWork.BieuGiaTongHopRepository.GetQuery(x => x.TinhTrang == 4 && x.DM_BieuGia.DM_LoaiBieuGia.DM_KhuVuc.GhiChu == Vung.ToString())
                 .Include(x => x.DM_BieuGia).ThenInclude(x => x.BieuGiaCongViec).ThenInclude(z => z.DM_CongViec)
-                .Where(x => x.DM_BieuGia.BieuGiaCongViec.Any(z => z.CongViecChinh && z.DM_CongViec.MaCongViec == LoaiCap))
+                //.Where(x => x.DM_BieuGia.BieuGiaCongViec.Any(z => z.CongViecChinh && z.DM_CongViec.MaCongViec == LoaiCap))
                 .Include(x => x.DM_BieuGia).ThenInclude(x => x.DM_LoaiBieuGia)
                 .GroupBy(x => new { x.IdBieuGia, x.Nam, x.Quy }).
                  Select(x => x.OrderByDescending(x => x.Nam).ThenByDescending(y => y.Quy).First())
                 .ToListAsync();
 
-            var apiResult = new ApiDonGiaVatLieuResponse();
-            apiResult.DonGiaTronGoi = new ApiDonGia
+            var listApiResult = new List<ApiDonGiaVatLieuResponse>();
+
+            foreach (var item in data)
             {
-                CapDien = data[0].DonGia.ToString(),
-                NangCongSuat = data[1].DonGia.ToString(),
-                DiDoi = data[2].DonGia.ToString(),
-            };
-            apiResult.DonGiaTuTucCapSau = new ApiDonGia
-            {
-                CapDien = data[0].DonGia2.ToString(),
-                NangCongSuat = data[1].DonGia2.ToString(),
-                DiDoi = data[2].DonGia2.ToString(),
-            };
-            apiResult.DonGiaTuTucCapVaVatTu= new ApiDonGia
-            {
-                CapDien = data[0].DonGia3.ToString(),
-                NangCongSuat = data[1].DonGia3.ToString(),
-                DiDoi = data[2].DonGia3.ToString(),
-            };
+                var maVatTu = item.DM_BieuGia.BieuGiaCongViec.FirstOrDefault(x => x.CongViecChinh)?.DM_CongViec?.MaCongViec;
+
+                var donGia = data.Where(x => x.DM_BieuGia.BieuGiaCongViec.Any(y => y.DM_CongViec.MaCongViec == maVatTu)
+                                && x.DM_BieuGia.DM_LoaiBieuGia.MaLoaiBieuGia != "2").OrderBy(z => int.Parse(z.DM_BieuGia.DM_LoaiBieuGia.MaLoaiBieuGia)).ToArray();
+
+                var apiResult = new ApiDonGiaVatLieuResponse();
+                apiResult.MaVatTu = item.DM_BieuGia.BieuGiaCongViec.FirstOrDefault(x => x.CongViecChinh)?.DM_CongViec?.MaCongViec;
+                apiResult.NgayHieuLuc = item.UpdatedDate?.ToString("yyyy-MM-dd");
+                apiResult.DonGiaTronGoi = new ApiDonGia
+                {
+                    CapDien = donGia[0]?.DonGia.ToString(),
+                    NangCongSuat = donGia[1]?.DonGia.ToString(),
+                    DiDoi = donGia[2]?.DonGia.ToString(),
+                };
+                apiResult.DonGiaTuTucCapSau = new ApiDonGia
+                {
+                    CapDien = donGia[0]?.DonGia2.ToString(),
+                    NangCongSuat = donGia[1]?.DonGia2.ToString(),
+                    DiDoi = donGia[2]?.DonGia2.ToString(),
+                };
+                apiResult.DonGiaTuTucCapVaVatTu = new ApiDonGia
+                {
+                    CapDien = donGia[0]?.DonGia3.ToString(),
+                    NangCongSuat = donGia[1]?.DonGia3.ToString(),
+                    DiDoi = donGia[2]?.DonGia3.ToString(),
+                };
+                apiResult.HinhThucThiCong = "";
+                listApiResult.Add(apiResult);
+            }
 
 
-            return apiResult;
+            return listApiResult;
         }
 
         public async Task<List<BieuGiaTongHopResponse>> GetList(BieuGiaTongHopRequest request)
@@ -317,7 +416,7 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
                 var listData = new List<string>();
                 foreach (var list in loaiBieuGia)
                 {
-                    var value = r.listBG.Where(x => x.IdKhuVuc == list.IdKhuVuc && x.IdLoaiBieuGia == list.Id).FirstOrDefault()?.DonGia.ToString() ?? "";
+                    var value = r.listBG.Where(x => x.IdKhuVuc == list.IdKhuVuc && x.IdLoaiBieuGia == list.Id).FirstOrDefault()?.DonGia.ToString("N0", CultureInfo.GetCultureInfo("en-US")) ?? "0";
                     listData.Add(value);
                 }
                 item.ListData = listData;

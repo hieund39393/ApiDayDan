@@ -56,7 +56,7 @@ namespace Authentication.API.Controllers
 
         [HttpPut]
         [ProducesResponseType(typeof(ApiSuccessResult<IList<BieuGiaTongHopResponse>>), (int)HttpStatusCode.OK)] // trả về dữ liệu model cho FE
-        public async Task<IActionResult> UpdateBieuGiaTongHop([FromBody] UpdateBieuGiaTongHop_CapNgamCommand request)
+        public async Task<IActionResult> UpdateBieuGiaTongHop([FromForm] UpdateBieuGiaTongHop_CapNgamCommand request)
         {
             var data = await _mediator.Send(request);
             return Ok(new ApiSuccessResult<bool>(data: data, message: request.TinhTrang == 0 ? "Gửi duyệt thành công" : "Duyệt thành công"));
@@ -72,6 +72,12 @@ namespace Authentication.API.Controllers
             return File(data, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
         }
 
+        [HttpGet("get-bao-cao")]
+        public async Task<IActionResult> GetBaoCao([FromQuery] ChiTietPDFRequest request)
+        {
+            var data = await _bieuGiaTongHop_CapNgamQuery.GetBaoCao(request);
+            return Ok(new ApiSuccessResult<object>(data: data));
+        }
 
         [HttpGet("xuat-excel")]
         public async Task<IActionResult> XuatExcel([FromQuery] BieuGiaTongHopRequest request)
@@ -81,6 +87,24 @@ namespace Authentication.API.Controllers
             Response.Headers.Add("Access-Control-Expose-Headers", "Content-Disposition");
             Response.Headers.Add("file-name", fileName);
             return File(data, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+        }
+
+
+        [HttpGet("get-don-gia-vat-lieu")]
+        [ProducesResponseType(typeof(List<ApiDonGiaVatLieuResponse>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetDonGiaVatLieu([FromQuery] int vung)
+        {
+            var data = await _bieuGiaTongHop_CapNgamQuery.GetDuLieuDonGia(vung);
+
+            return Ok(data);
+        }
+
+        [HttpGet("van-ban")]
+        public async Task<IActionResult> GetVanBan([FromQuery] GetVanBanRequest request)
+        {
+            var data = await _bieuGiaTongHop_CapNgamQuery.GetVanBan(request);
+
+            return Ok(new ApiSuccessResult<object>(data: data));
         }
     }
 }

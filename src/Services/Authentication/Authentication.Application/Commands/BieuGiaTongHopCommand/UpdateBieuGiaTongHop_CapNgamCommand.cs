@@ -30,7 +30,23 @@ namespace Authentication.Application.Commands.BieuGiaTongHopCommand
         public async Task<bool> Handle(UpdateBieuGiaTongHop_CapNgamCommand request, CancellationToken cancellationToken)
         {
             var userId = Guid.Parse(TokenExtensions.GetUserId());
-            var data = await _unitOfWork.BieuGiaTongHop_CapNgamRepository.GetQuery(x => x.Nam == request.Nam && x.Quy == request.Quy && x.TinhTrang == request.TinhTrang).ToListAsync();
+
+            try
+            {
+                var position = int.Parse(TokenExtensions.GetPosition());
+
+                if (position != request.TinhTrang)
+
+                {
+                    request.TinhTrang = request.TinhTrang + 1;
+                }
+            }
+            catch
+            {
+                throw new EvnException("Người dùng có chức vụ không đúng");
+            }
+
+            var data = await _unitOfWork.BieuGiaTongHop_CapNgamRepository.GetQuery(x => x.Nam == request.Nam && x.Quy == request.Quy).ToListAsync();
             if (!data.Any())
             {
                 throw new EvnException("Không có dữ liệu");
@@ -38,9 +54,9 @@ namespace Authentication.Application.Commands.BieuGiaTongHopCommand
 
             foreach (var item in data)
             {
-                item.TinhTrang = request.TinhTrang + 1;
+                item.TinhTrang = request.TinhTrang;
 
-                if (item.TinhTrang == 2)
+                if (item.TinhTrang >= 1)
                 {
                     item.NguoiXacNhan = userId;
                     item.NgayXacNhan = DateTime.Now;

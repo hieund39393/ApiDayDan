@@ -34,4 +34,18 @@
         public string Nhom { get; set; }
         public List<BGTHChiTiet> ListBieuGiaChiTiet { get; set; }
     }
+
+    public class BGTHReponse
+    {
+        public Guid IdBieuGia { get; set; }
+        public string TenBieuGia { get; set; }
+        public Guid? IdLoaiBieuGia { get; set; }
+        public string PhanLoaiBieuGia { get; set; }
+        public Guid? IdKhuVuc { get; set; }
+        public string TenKhuVuc { get; set; }
+        public decimal? DonGia { get; set; }
+        public decimal? DonGia2 { get; set; }
+        public decimal? DonGia3 { get; set; }
+        public int TinhTrang { get; set; }
+    }
 }
