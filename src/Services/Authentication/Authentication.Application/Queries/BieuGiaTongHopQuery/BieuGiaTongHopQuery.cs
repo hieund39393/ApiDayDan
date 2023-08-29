@@ -268,6 +268,12 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
 
             foreach (var item in data)
             {
+                var idCongViecLapDat = item.DM_BieuGia.BieuGiaCongViec.Where(x => x.DM_CongViec.TenCongViec.ToLower().Contains("lắp đặt cáp")).FirstOrDefault()?.IdCongViec;
+
+                var listDonGiaChietTinh = await _unitOfWork.DonGiaChietTinhRepository.GetQuery(x => x.IdCongViec == idCongViecLapDat && x.VungKhuVuc == Vung)
+                    .OrderByDescending(x => x.CreatedDate)
+                    .AsNoTracking().FirstOrDefaultAsync();
+
                 var maVatTu = item.DM_BieuGia.BieuGiaCongViec.FirstOrDefault(x => x.CongViecChinh)?.DM_CongViec?.MaCongViec;
 
                 var donGia = data.Where(x => x.DM_BieuGia.BieuGiaCongViec.Any(y => y.DM_CongViec.MaCongViec == maVatTu)
@@ -295,6 +301,7 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
                     DiDoi = donGia[2]?.DonGia3.ToString(),
                 };
                 apiResult.HinhThucThiCong = "";
+                apiResult.DonGiaNhanCong = listDonGiaChietTinh.DonGiaNhanCong;
                 listApiResult.Add(apiResult);
             }
 
