@@ -47,5 +47,6 @@
         public decimal? DonGia2 { get; set; }
         public decimal? DonGia3 { get; set; }
         public int TinhTrang { get; set; }
+        public int ThuTuHienThi { get; set; }
     }
 }

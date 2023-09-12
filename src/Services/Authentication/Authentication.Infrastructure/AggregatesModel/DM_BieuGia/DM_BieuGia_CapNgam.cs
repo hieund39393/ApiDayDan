@@ -11,6 +11,7 @@ namespace AAuthentication.Infrastructure.AggregatesModel.DM_BieuGia
         public Guid? idLoaiBieuGia { get; set; }
         public string MaBieuGia { get; set; }
         public string TenBieuGia { get; set; }
+        public int ThuTuHienThi { get; set; }
         public DM_LoaiBieuGia_CapNgam DM_LoaiBieuGia_CapNgam { get; set; }  // cấu hình 1-N bảng Loại biểu giá
         public ICollection<ChiTietBieuGia_CapNgam> ChiTietBieuGia_CapNgam { get; set; } // cấu hình 1-N bảng biểu giá công việc
         public ICollection<BieuGiaCongViec_CapNgam> BieuGiaCongViec_CapNgam { get; set; } // cấu hình 1-N bảng biểu giá công việc

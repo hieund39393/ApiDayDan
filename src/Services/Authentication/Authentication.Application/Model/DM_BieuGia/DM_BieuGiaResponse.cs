@@ -11,6 +11,7 @@ namespace Authentication.Application.Model.DM_BieuGia
     {
         public Guid Id { get; set; }
         public Guid? idLoaiBieuGia { get; set; }
+        public Guid? idVung { get; set; }
         public string MaBieuGia { get; set; }
         public string TenBieuGia { get; set; }
         public string TenLoaiBieuGia { get; set; }

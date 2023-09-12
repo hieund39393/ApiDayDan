@@ -184,6 +184,7 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
                     DonGia = x.DonGia,
                     DonGia2 = x.DonGia2,
                     DonGia3 = x.DonGia3,
+                    ThuTuHienThi = x.DM_BieuGia.ThuTuHienThi,
                     TinhTrang = x.TinhTrang
                 }).AsNoTracking()
                 .ToListAsync();
@@ -199,16 +200,16 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
                 data.TenKhuVuc = item.ListBieuGia.First().TenKhuVuc;
                 data.ListBieuGiaChiTiet = new List<BGTHChiTiet>();
                 int i = 1;
-                foreach (var bieuGia in item.ListBieuGia)
+                foreach (var bieuGia in item.ListBieuGia.OrderBy(x=>x.ThuTuHienThi))
                 {
                     data.ListBieuGiaChiTiet.Add(new BGTHChiTiet
                     {
                         Stt = i,
                         TenBieuGia = bieuGia.TenBieuGia,
                         DonVi = "m",
-                        DonGiaCot1 = bieuGia.DonGia.ToString(),
-                        DonGiaCot2 = bieuGia.DonGia2.ToString(),
-                        DonGiaCot3 = bieuGia.DonGia3.ToString()
+                        DonGiaCot1 = bieuGia.DonGia.ToString("N0", CultureInfo.GetCultureInfo("en-US")),
+                        DonGiaCot2 = bieuGia.DonGia2.ToString("N0", CultureInfo.GetCultureInfo("en-US")),
+                        DonGiaCot3 = bieuGia.DonGia3.ToString("N0", CultureInfo.GetCultureInfo("en-US"))
                     });
                     i++;
                 }
@@ -301,7 +302,7 @@ namespace Authentication.Application.Queries.BieuGiaTongHopQuery
                     DiDoi = donGia[2]?.DonGia3.ToString(),
                 };
                 apiResult.HinhThucThiCong = "";
-                apiResult.DonGiaNhanCong = listDonGiaChietTinh.DonGiaNhanCong;
+                apiResult.DonGiaNhanCong = (listDonGiaChietTinh.DonGiaNhanCong / 100).ToString();
                 listApiResult.Add(apiResult);
             }
 

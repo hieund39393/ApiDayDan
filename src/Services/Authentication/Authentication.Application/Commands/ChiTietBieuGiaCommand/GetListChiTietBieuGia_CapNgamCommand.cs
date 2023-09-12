@@ -147,7 +147,7 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                 item.HeSoDieuChinh_Kmtc = item.HeSoDieuChinh_Kmtc ?? 1;
 
 
-                var listMaChietTinh = new List<string>() { "D", "03", "05", "11", "SE", "AB", "BB", "AD", "GT", "HT", "SB", "AD" }; // Các công việc chiết tính mã này thiếu này a
+                var listMaChietTinh = new List<string>() { "D", "03", "05", "11", "SE", "SA", "AB", "BB", "AD", "GT", "HT", "SB", "AD" }; // Các công việc chiết tính mã này thiếu này a
                 if (item.CongViecChinh)
                 {
                     var giaCap = listDonGiaCap.Where(x => x.DM_LoaiCap_CapNgam.MaLoaiCap.Trim() == item.MaNoiDungCongViec).FirstOrDefault()?.DonGia;

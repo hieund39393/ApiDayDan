@@ -46,28 +46,25 @@ namespace Authentication.Application.Queries.CauHinhChietTinhQuery
         public async Task<List<Guid>> GetMTCById(GetByIdAndPhanLoaiRequest request)
         {
             var listData = await _unitOfWork.CauHinhChietTinhRepository.GetQuery(x => x.IdCongViec == request.IdCongViec && x.PhanLoai == (int)PhanLoaiChietTinhEnum.MTC)
-              .AsNoTracking().Select(x => x.IdChiTiet).ToListAsync();
-            var result = await _unitOfWork.DM_MTCRepository.GetQuery(x => listData.Contains(x.Id))
-                .Select(x => x.Id).ToListAsync();
-            return result;
+              .AsNoTracking().Select(x => x.IdChiTiet.Value).ToListAsync();
+         
+            return listData;
         }
 
         public async Task<List<Guid>> GetNhanCongById(GetByIdAndPhanLoaiRequest request)
         {
             var listData = await _unitOfWork.CauHinhChietTinhRepository.GetQuery(x => x.IdCongViec == request.IdCongViec && x.PhanLoai == (int)PhanLoaiChietTinhEnum.NhanCong)
-                .AsNoTracking().Select(x => x.IdChiTiet).ToListAsync();
-            var result = await _unitOfWork.DM_NhanCongRepository.GetQuery(x => listData.Contains(x.Id))
-                .Select(x => x.Id).ToListAsync();
-            return result;
+                .AsNoTracking().Select(x => x.IdChiTiet.Value).ToListAsync();
+        
+            return listData;
         }
 
         public async Task<List<Guid>> GetVatLieuById(GetByIdAndPhanLoaiRequest request)
         {
             var listData = await _unitOfWork.CauHinhChietTinhRepository.GetQuery(x => x.IdCongViec == request.IdCongViec && x.PhanLoai == (int)PhanLoaiChietTinhEnum.VatLieu)
-                .AsNoTracking().Select(x => x.IdChiTiet).ToListAsync();
-            var result = await _unitOfWork.DM_VatLieuRepository.GetQuery(x => listData.Contains(x.Id))
-                .Select(x => x.Id).ToListAsync();
-            return result;
+                .AsNoTracking().Select(x => x.IdChiTiet.Value).ToListAsync();
+          
+            return listData;
         }
 
     }

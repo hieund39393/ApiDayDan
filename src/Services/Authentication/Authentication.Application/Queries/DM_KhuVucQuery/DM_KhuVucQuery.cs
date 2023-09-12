@@ -11,6 +11,7 @@ namespace Authentication.Application.Queries.DM_KhuVucQuery
 
         Task<PagingResultSP<DM_KhuVucResponse>> GetList(DM_KhuVucRequest request); // lấy danh sách có phân trang và tìm kiếm
         Task<List<SelectItem>> GetAll(); // lấy Tất cả danh sách trả về tên và value
+        Task<List<SelectItem>> GetAllCapNgam(); // lấy Tất cả danh sách trả về tên và value
     }
     public class DM_KhuVucQuery : IDM_KhuVucQuery // kế thừa interface vừa tạo
     {
@@ -23,7 +24,16 @@ namespace Authentication.Application.Queries.DM_KhuVucQuery
         // lấy Tất cả danh sách trả về tên và value thường dùng cho combobox
         public async Task<List<SelectItem>> GetAll()
         {
-            var query = await _unitOfWork.DM_KhuVucRepository.GetQuery().Select(x => new SelectItem
+            var query = await _unitOfWork.DM_KhuVucRepository.GetQuery(x => x.PhanLoai == 1).Select(x => new SelectItem
+            {
+                Name = x.TenKhuVuc,
+                Value = x.Id.ToString(),
+            }).AsNoTracking().ToListAsync();
+            return query;
+        }
+        public async Task<List<SelectItem>> GetAllCapNgam()
+        {
+            var query = await _unitOfWork.DM_KhuVucRepository.GetQuery(x => x.PhanLoai == 2).Select(x => new SelectItem
             {
                 Name = x.TenKhuVuc,
                 Value = x.Id.ToString(),
@@ -32,13 +42,13 @@ namespace Authentication.Application.Queries.DM_KhuVucQuery
         }
 
         // lấy dữ liệu phân trang, tìm kiếm , số lượng
-        public async Task<PagingResultSP<DM_KhuVucResponse>> GetList(DM_KhuVucRequest request) 
+        public async Task<PagingResultSP<DM_KhuVucResponse>> GetList(DM_KhuVucRequest request)
         {
             //Tạo câu query
             var query = _unitOfWork.DM_KhuVucRepository.GetQuery(x =>
 
             (string.IsNullOrEmpty(request.TenKhuVuc) || x.TenKhuVuc.Contains(request.TenKhuVuc)) &&  //Tìm kiếm
-            (string.IsNullOrEmpty(request.GhiChu) || x.GhiChu.Contains(request.GhiChu))) 
+            (string.IsNullOrEmpty(request.GhiChu) || x.GhiChu.Contains(request.GhiChu)))
 
                 .Select(x => new DM_KhuVucResponse()
                 {

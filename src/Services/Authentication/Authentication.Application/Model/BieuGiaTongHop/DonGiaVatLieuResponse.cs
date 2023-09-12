@@ -14,7 +14,7 @@ namespace Authentication.Application.Model.BieuGiaTongHop
         public ApiDonGia DonGiaTuTucCapSau { get; set; }
         public ApiDonGia DonGiaTuTucCapVaVatTu { get; set; }
         public string HinhThucThiCong { get; set; }
-        public decimal? DonGiaNhanCong { get; set; }
+        public string? DonGiaNhanCong { get; set; }
     }
 
     public class ApiDonGia

@@ -3,6 +3,7 @@ using Authentication.Infrastructure.AggregatesModel.DonGiaChietTinhAggregate;
 using Authentication.Infrastructure.Repositories;
 using EVN.Core.Common;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Authentication.Application.Commands.DonGiaChietTinhCommand
 {
@@ -26,6 +27,8 @@ namespace Authentication.Application.Commands.DonGiaChietTinhCommand
 
             foreach (var item in data)
             {
+                var congViec = await _unitOfWork.DM_CongViec_CapNgamRepository.FindOneAsync(x => x.Id == item.IdCongViec);
+
                 var chiTiet = new List<ChietTinhChiTiet_CapNgam>();
                 var entity = new DonGiaChietTinh_CapNgam();
                 entity.IdCongViec = item.IdCongViec;
@@ -67,6 +70,15 @@ namespace Authentication.Application.Commands.DonGiaChietTinhCommand
                     {
                         mtcKhac = (entity.DonGiaMTC.Value * dg.DinhMuc.Value / 100);
                         entity.DonGiaMTC += mtcKhac;
+                    }
+
+                    if (congViec.MaCongViec == "HT.12.00" && dg == item.DonGia.Last())
+                    {
+                        var vlHT = item.DonGia.Where(x => x.TenVatLieu.Trim() == "Vữa BTXM M300").FirstOrDefault();
+                        if (vlHT != null)
+                        {
+                            entity.DonGiaVatLieu *= vlHT.DinhMuc;
+                        }
                     }
 
                     chiTiet.Add(new ChietTinhChiTiet_CapNgam

@@ -9,6 +9,7 @@ namespace Authentication.Infrastructure.AggregatesModel.DM_KhuVucAggregate
 {
     public class DM_KhuVuc : BaseEntity
     {
+        public int PhanLoai { get; set; }
         public string TenKhuVuc { get; set; }
         public string GhiChu { get; set; }
         public ICollection<DM_LoaiBieuGia> DM_LoaiBieuGia { get; set; } // cấu hình 1-N bảng loại biểu giá

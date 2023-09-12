@@ -34,7 +34,7 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
             {
                 _unitOfWork.BieuGiaTongHop_CapNgamRepository.Add(new BieuGiaTongHop_CapNgam { IdBieuGia = chiTietBG.IdBieuGia, Quy = chiTietBG.Quy, Nam = chiTietBG.Nam });
             }
-            else if (bieuGiaTongHop.TinhTrang == TinhTrangEnum.DaDuyet.GetHashCode())
+            else if (bieuGiaTongHop.TinhTrang >= TinhTrangEnum.DaDuyet.GetHashCode())
             {
                 throw new EvnException($"Biểu giá đã được duyệt, không thể cập nhật");
             }

@@ -61,14 +61,18 @@ namespace Authentication.Application.Queries.DM_BieuGiaQuery
                   TenLoaiBieuGia = x.DM_LoaiBieuGia.TenLoaiBieuGia, // đoạn này mapping tên loại biểu giá
                   idLoaiBieuGia = x.idLoaiBieuGia, // đoạn này mapping tên loại biểu giá
                   CreatedDate = x.CreatedDate,
+                  idVung = x.DM_LoaiBieuGia.IdKhuVuc
               });// select dữ liệu
 
-            if (!string.IsNullOrEmpty(request.SearchTerm))
+            if (request.IdKhuVuc != null)
             {
-                query = query.Where(x => x.TenKhuVuc.Contains(request.SearchTerm.ToLower().Trim()) || x.TenLoaiBieuGia.Contains(request.SearchTerm.ToLower().Trim()) || x.TenBieuGia.Contains(request.SearchTerm.ToLower().Trim()));
+                query = query.Where(x => x.idVung == request.IdKhuVuc);
 
             }
-
+            if (request.IdLoaiBieuGia != null)
+            {
+                query = query.Where(x => x.idLoaiBieuGia == request.IdLoaiBieuGia);
+            }
 
             var totalRow = query.Count(); // tổng số lượng
             var queryPaging = query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize); // phân trang

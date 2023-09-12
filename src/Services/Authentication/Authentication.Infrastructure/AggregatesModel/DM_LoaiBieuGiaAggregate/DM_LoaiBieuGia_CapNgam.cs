@@ -7,6 +7,7 @@ namespace Authentication.Infrastructure.AggregatesModel.DM_LoaiBieuGiaAggregate
     public class DM_LoaiBieuGia_CapNgam : BaseEntity
     {
         public string MaLoaiBieuGia { get; set; }
+        public string Code { get; set; }
         public string TenLoaiBieuGia { get; set; }
         //Vùng Khu vực
         public Guid? IdKhuVuc { get; set; }

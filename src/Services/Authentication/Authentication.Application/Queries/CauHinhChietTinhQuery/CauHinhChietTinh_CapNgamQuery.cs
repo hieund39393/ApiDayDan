@@ -53,31 +53,28 @@ namespace Authentication.Application.Queries.CauHinhChietTinhQuery
         public async Task<List<Guid>> GetMTCById(GetByIdAndPhanLoaiRequest request)
         {
             var listData = await _unitOfWork.CauHinhChietTinh_CapNgamRepository.GetQuery(x => x.IdCongViec == request.IdCongViec && x.PhanLoai == (int)PhanLoaiChietTinhEnum.MTC
-                && x.VungKhuVuc == request.VungKhuVuc)
-              .AsNoTracking().Select(x => x.IdChiTiet).ToListAsync();
-            var result = await _unitOfWork.DM_MTC_CapNgamRepository.GetQuery(x => listData.Contains(x.Id))
-                .Select(x => x.Id).ToListAsync();
-            return result;
+                && x.VungKhuVuc == request.VungKhuVuc).OrderBy(x => x.Id)
+              .AsNoTracking().Select(x => x.IdChiTiet.Value).ToListAsync();
+
+            return listData;
         }
 
         public async Task<List<Guid>> GetNhanCongById(GetByIdAndPhanLoaiRequest request)
         {
             var listData = await _unitOfWork.CauHinhChietTinh_CapNgamRepository.GetQuery(x => x.IdCongViec == request.IdCongViec && x.PhanLoai == (int)PhanLoaiChietTinhEnum.NhanCong
                 && x.VungKhuVuc == request.VungKhuVuc)
-                .AsNoTracking().Select(x => x.IdChiTiet).ToListAsync();
-            var result = await _unitOfWork.DM_NhanCong_CapNgamRepository.GetQuery(x => listData.Contains(x.Id))
-                .Select(x => x.Id).ToListAsync();
-            return result;
+                .AsNoTracking().Select(x => x.IdChiTiet.Value).ToListAsync();
+          
+            return listData;
         }
 
         public async Task<List<Guid>> GetVatLieuById(GetByIdAndPhanLoaiRequest request)
         {
             var listData = await _unitOfWork.CauHinhChietTinh_CapNgamRepository.GetQuery(x => x.IdCongViec == request.IdCongViec && x.PhanLoai == (int)PhanLoaiChietTinhEnum.VatLieu
                 && x.VungKhuVuc == request.VungKhuVuc)
-                .AsNoTracking().Select(x => x.IdChiTiet).ToListAsync();
-            var result = await _unitOfWork.DM_VatLieu_CapNgamRepository.GetQuery(x => listData.Contains(x.Id))
-                .Select(x => x.Id).ToListAsync();
-            return result;
+                .AsNoTracking().Select(x => x.IdChiTiet.Value).ToListAsync();
+           
+            return listData;
         }
 
     }

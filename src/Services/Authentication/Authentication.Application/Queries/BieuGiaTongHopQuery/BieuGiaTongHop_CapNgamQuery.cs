@@ -42,10 +42,10 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
                     IdBieuGia = x.IdBieuGia,
                     TenBieuGia = x.DM_BieuGia_CapNgam.TenBieuGia,
                     IdLoaiBieuGia = x.DM_BieuGia_CapNgam.idLoaiBieuGia,
-                    PhanLoaiBieuGia = x.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.MaLoaiBieuGia,
+                    PhanLoaiBieuGia = x.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.Code,
                     IdKhuVuc = x.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.IdKhuVuc,
                     TenKhuVuc = x.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.DM_KhuVuc.GhiChu,
-
+                    ThuTuHienThi = x.DM_BieuGia_CapNgam.ThuTuHienThi,
                     DonGia = x.DonGia,
                     DonGia2 = x.DonGia2,
                     DonGia3 = x.DonGia3,
@@ -81,14 +81,14 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
                 int i = 1;
 
                 var nhom = 1;
-                    foreach (var bieuGia in item.ListBieuGia.OrderBy(x => int.Parse(x.PhanLoaiBieuGia)))
-                    {
+                foreach (var bieuGia in item.ListBieuGia.OrderBy(x => int.Parse(x.PhanLoaiBieuGia)).ThenBy(x => x.ThuTuHienThi))
+                {
                     if (bieuGia.PhanLoaiBieuGia == nhom.ToString())
                     {
 
                         var tenNhom = new BGTHChiTiet();
                         if (nhom == 1) tenNhom.TenBieuGia = "1.1 Nhóm 1";
-                        else if (nhom ==4) tenNhom.TenBieuGia = "1.2 Nhóm 2";
+                        else if (nhom == 4) tenNhom.TenBieuGia = "1.2 Nhóm 2";
                         else if (nhom == 7) tenNhom.TenBieuGia = "1.3 Nhóm 3";
                         else if (nhom == 10) tenNhom.TenBieuGia = "2.1 Nhóm 1";
                         else if (nhom == 13) tenNhom.TenBieuGia = "2.2 Nhóm 2";
@@ -169,7 +169,7 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
                     IdBieuGia = x.IdBieuGia,
                     TenBieuGia = x.DM_BieuGia_CapNgam.TenBieuGia,
                     IdLoaiBieuGia = x.DM_BieuGia_CapNgam.idLoaiBieuGia,
-                    PhanLoaiBieuGia = x.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.MaLoaiBieuGia,
+                    PhanLoaiBieuGia = x.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.Code,
                     IdKhuVuc = x.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.IdKhuVuc,
                     TenKhuVuc = x.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.DM_KhuVuc.GhiChu,
                     DonGia = x.DonGia,
@@ -207,7 +207,8 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
                 int i = 1;
 
                 var nhom = 1;
-                foreach (var bieuGia in item.ListBieuGia.OrderBy(x=>int.Parse(x.PhanLoaiBieuGia)))
+                //foreach (var bieuGia in item.ListBieuGia.OrderBy(x => int.Parse(x.PhanLoaiBieuGia)))
+                foreach (var bieuGia in item.ListBieuGia.OrderBy(x => int.Parse(x.PhanLoaiBieuGia)).ThenBy(x => x.ThuTuHienThi))
                 {
                     if (bieuGia.PhanLoaiBieuGia == nhom.ToString())
                     {
@@ -303,7 +304,7 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
                    IdBieuGia = x.IdBieuGia,
                    TenBieuGia = x.DM_BieuGia_CapNgam.TenBieuGia,
                    IdLoaiBieuGia = x.DM_BieuGia_CapNgam.idLoaiBieuGia,
-                   PhanLoaiBieuGia = x.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.MaLoaiBieuGia,
+                   PhanLoaiBieuGia = x.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.Code,
                    IdKhuVuc = x.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.IdKhuVuc,
                    TenKhuVuc = x.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.DM_KhuVuc.TenKhuVuc,
                    DonGia = x.DonGia,
@@ -505,7 +506,7 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
                 {
                     var khuvuc = query.GroupBy(x => x.IdKhuVuc).ToList();
                     //var values = r.listBG.Skip((i - 1) * i).Take(3).ToList();
-                    var value = r.listBG.Where(x => x.MaKhuVuc == i.ToString()).Skip((i - 1) * i).Take(3).FirstOrDefault()?.DonGia.ToString() ?? "";
+                    var value = r.listBG.Where(x => x.MaKhuVuc == i.ToString()).FirstOrDefault()?.DonGia.ToString() ?? "";
                     listData.Add(value);
                 }
 
@@ -703,7 +704,7 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
                     NangCongSuat = "0",
                     DiDoi = "0",
                 };
-                apiResult.HinhThucThiCong = item.DM_BieuGia_CapNgam.TenBieuGia;
+                apiResult.HinhThucThiCong = item.DM_BieuGia_CapNgam.MaBieuGia.Trim();
                 listApiResult.Add(apiResult);
             }
 

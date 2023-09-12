@@ -89,7 +89,11 @@ namespace Authentication.API.Controllers
             return File(data, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
         }
 
-
+        /// <summary>
+        /// Tích hợp kinh doanh
+        /// </summary>
+        /// <param name="vung"></param>
+        /// <returns></returns>
         [HttpGet("get-don-gia-vat-lieu")]
         [ProducesResponseType(typeof(List<ApiDonGiaVatLieuResponse>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetDonGiaVatLieu([FromQuery] int vung)

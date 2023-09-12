@@ -4,6 +4,7 @@ using Authentication.Infrastructure.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Authentication.Infrastructure.Migrations
 {
     [DbContext(typeof(ExOneDbContext))]
-    partial class ExOneDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230904055229_Add_Loai_Vung")]
+    partial class Add_Loai_Vung
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,9 +53,6 @@ namespace Authentication.Infrastructure.Migrations
                     b.Property<string>("TenBieuGia")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
-
-                    b.Property<int>("ThuTuHienThi")
-                        .HasColumnType("int");
 
                     b.Property<Guid?>("UpdatedBy")
                         .HasMaxLength(36)
@@ -103,9 +102,6 @@ namespace Authentication.Infrastructure.Migrations
                     b.Property<string>("TenBieuGia")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
-
-                    b.Property<int>("ThuTuHienThi")
-                        .HasColumnType("int");
 
                     b.Property<Guid?>("UpdatedBy")
                         .HasMaxLength(36)
@@ -920,9 +916,6 @@ namespace Authentication.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Id bảng, khóa chính");
-
-                    b.Property<string>("Code")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("CreatedBy")
                         .HasMaxLength(36)

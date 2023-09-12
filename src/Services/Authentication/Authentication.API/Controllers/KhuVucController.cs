@@ -36,6 +36,17 @@ namespace Authentication.API.Controllers
             var data = await _khuVucQuery.GetAll();
             return Ok(new ApiSuccessResult<List<SelectItem>>(data: data));
         }
+        /// <summary>
+        /// Danh sách tất cả  khu vực
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("get-all-cap-ngam")]
+        [ProducesResponseType(typeof(ApiSuccessResult<List<SelectItem>>), (int)HttpStatusCode.OK)] // trả về dữ liệu model cho FE
+        public async Task<IActionResult> GetAllCapNgam()
+        {
+            var data = await _khuVucQuery.GetAllCapNgam();
+            return Ok(new ApiSuccessResult<List<SelectItem>>(data: data));
+        }
 
         /// <summary>
         /// Danh sách   khu vực có phân trang, tổng số , tìm kiếm
