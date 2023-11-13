@@ -4,6 +4,7 @@ using Authentication.Infrastructure.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Authentication.Infrastructure.Migrations
 {
     [DbContext(typeof(ExOneDbContext))]
-    partial class ExOneDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231103161828_Db_add_vanBanThongBao2")]
+    partial class Db_add_vanBanThongBao2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -182,7 +184,6 @@ namespace Authentication.Infrastructure.Migrations
                         .HasComment("Id bảng, khóa chính");
 
                     b.Property<Guid?>("CreatedBy")
-                        .HasMaxLength(36)
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Mã người tạo");
 
@@ -194,9 +195,7 @@ namespace Authentication.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
-                        .HasDefaultValue(false)
                         .HasComment("Cờ xóa");
 
                     b.Property<int>("Nam")
@@ -206,7 +205,6 @@ namespace Authentication.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<Guid?>("UpdatedBy")
-                        .HasMaxLength(36)
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Mã người cập nhật");
 
@@ -219,7 +217,7 @@ namespace Authentication.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("VanBanThongBao", (string)null);
+                    b.ToTable("VanBanThongBao");
                 });
 
             modelBuilder.Entity("Authentication.Infrastructure.AggregatesModel.BieuGiaCongViecAggregate.BieuGiaCongViec", b =>
@@ -366,9 +364,6 @@ namespace Authentication.Infrastructure.Migrations
                     b.Property<int>("Nam")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("NgayHieuLuc")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime?>("NgayXacNhan")
                         .HasColumnType("datetime2");
 
@@ -433,9 +428,6 @@ namespace Authentication.Infrastructure.Migrations
 
                     b.Property<int>("Nam")
                         .HasColumnType("int");
-
-                    b.Property<DateTime?>("NgayHieuLuc")
-                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("NgayXacNhan")
                         .HasColumnType("datetime2");

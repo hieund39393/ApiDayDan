@@ -1,4 +1,5 @@
 ﻿using AAuthentication.Infrastructure.AggregatesModel.DM_BieuGia;
+using Authentication.Infrastructure.AggregatesModel.ActionsAggregate;
 using Authentication.Infrastructure.AggregatesModel.BieuGiaCongViecAggregate;
 using Authentication.Infrastructure.AggregatesModel.BieuGiaTongHopAggregate;
 using Authentication.Infrastructure.AggregatesModel.CauHinhAggregate;
@@ -27,6 +28,7 @@ namespace Authentication.Infrastructure.Repositories
 {
     public interface IUnitOfWork
     {
+        IRepository<VanBanThongBao> VanBanThongBaoRepository { get; }
         IRepository<User> UserRepository { get; }
         IRepository<Role> RoleRepository { get; }
         IRepository<UserRole> UserRoleRepository { get; }
@@ -95,6 +97,7 @@ namespace Authentication.Infrastructure.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ExOneDbContext _context;
+        private IRepository<VanBanThongBao> _vanBanThongBaoRepository;
         private IRepository<User> _userRepository;
         private IRepository<Role> _roleRepository;
         private IRepository<UserRole> _userRoleRepository;
@@ -172,6 +175,16 @@ namespace Authentication.Infrastructure.Repositories
                     _userRepository = new Repository<User>(_context);
                 }
                 return _userRepository;
+            }
+        }public IRepository<VanBanThongBao> VanBanThongBaoRepository
+        {
+            get
+            {
+                if (_vanBanThongBaoRepository == null)
+                {
+                    _vanBanThongBaoRepository = new Repository<VanBanThongBao>(_context);
+                }
+                return _vanBanThongBaoRepository;
             }
         }
         public IRepository<Role> RoleRepository

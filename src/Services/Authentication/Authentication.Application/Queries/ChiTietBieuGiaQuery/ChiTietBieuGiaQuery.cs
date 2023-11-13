@@ -42,6 +42,7 @@ namespace Authentication.Application.Queries.ChiTietBieuGiaQuery
 
         public async Task<List<GetDonGiaResponse>> GetDonGia(GetDonGiaRequest request)
         {
+            var vanBan = await _unitOfWork.VanBanThongBaoRepository.FindOneAsync(x => x.Quy == request.Quy && x.Nam == request.Nam);
             var result = new List<GetDonGiaResponse>();
             var httpClient = new BaseResponseService<ApiResultData2>(_httpClientFactory);
             var data = await httpClient.GetResponseData2($"http://10.9.8.157:8087/Get_DonGiaCap_BaoGiaEVNHANOI?nam={request.Nam}&quy={request.Quy}");

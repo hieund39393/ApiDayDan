@@ -322,9 +322,9 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
                 Stt = i1++,
                 TenBieuGia = x.TenBieuGia,
                 DonVi = "m",
-                DonGiaCot1 = x.DonGia.ToString(),
-                DonGiaCot2 = x.DonGia2.ToString(),
-                DonGiaCot3 = x.DonGia3.ToString(),
+                DonGiaCot1 = x.DonGia.ToString("N0", CultureInfo.GetCultureInfo("en-US")),
+                DonGiaCot2 = x.DonGia2.ToString("N0", CultureInfo.GetCultureInfo("en-US")),
+                DonGiaCot3 = x.DonGia3.ToString("N0", CultureInfo.GetCultureInfo("en-US")),
             }).ToList();
             int i2 = 1;
             var nhom2 = query.Where(x => int.Parse(x.PhanLoaiBieuGia) > 3 && int.Parse(x.PhanLoaiBieuGia) <= 6).Select(x => new BGTHChiTiet
@@ -332,9 +332,9 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
                 Stt = i2++,
                 TenBieuGia = x.TenBieuGia,
                 DonVi = "m",
-                DonGiaCot1 = x.DonGia.ToString(),
-                DonGiaCot2 = x.DonGia2.ToString(),
-                DonGiaCot3 = x.DonGia3.ToString(),
+                DonGiaCot1 = x.DonGia.ToString("N0", CultureInfo.GetCultureInfo("en-US")),
+                DonGiaCot2 = x.DonGia2.ToString("N0", CultureInfo.GetCultureInfo("en-US")),
+                DonGiaCot3 = x.DonGia3.ToString("N0", CultureInfo.GetCultureInfo("en-US")),
             }).ToList();
             int i3 = 1;
             var nhom3 = query.Where(x => int.Parse(x.PhanLoaiBieuGia) > 6 && int.Parse(x.PhanLoaiBieuGia) <= 9).Select(x => new BGTHChiTiet
@@ -342,9 +342,9 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
                 Stt = i3++,
                 TenBieuGia = x.TenBieuGia,
                 DonVi = "m",
-                DonGiaCot1 = x.DonGia.ToString(),
-                DonGiaCot2 = x.DonGia2.ToString(),
-                DonGiaCot3 = x.DonGia3.ToString(),
+                DonGiaCot1 = x.DonGia.ToString("N0", CultureInfo.GetCultureInfo("en-US")),
+                DonGiaCot2 = x.DonGia2.ToString("N0", CultureInfo.GetCultureInfo("en-US")),
+                DonGiaCot3 = x.DonGia3.ToString("N0", CultureInfo.GetCultureInfo("en-US")),
             }).ToList();
             int i4 = 1;
             var nhom4 = query.Where(x => int.Parse(x.PhanLoaiBieuGia) > 9 && int.Parse(x.PhanLoaiBieuGia) <= 12).Select(x => new BGTHChiTiet
@@ -352,9 +352,9 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
                 Stt = i4++,
                 TenBieuGia = x.TenBieuGia,
                 DonVi = "m",
-                DonGiaCot1 = x.DonGia.ToString(),
-                DonGiaCot2 = x.DonGia2.ToString(),
-                DonGiaCot3 = x.DonGia3.ToString(),
+                DonGiaCot1 = x.DonGia.ToString("N0", CultureInfo.GetCultureInfo("en-US")),
+                DonGiaCot2 = x.DonGia2.ToString("N0", CultureInfo.GetCultureInfo("en-US")),
+                DonGiaCot3 = x.DonGia3.ToString("N0", CultureInfo.GetCultureInfo("en-US")),
             }).ToList();
             int i5 = 1;
             var nhom5 = query.Where(x => int.Parse(x.PhanLoaiBieuGia) > 12 && int.Parse(x.PhanLoaiBieuGia) <= 15).Select(x => new BGTHChiTiet
@@ -362,9 +362,9 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
                 Stt = i5++,
                 TenBieuGia = x.TenBieuGia,
                 DonVi = "m",
-                DonGiaCot1 = x.DonGia.ToString(),
-                DonGiaCot2 = x.DonGia2.ToString(),
-                DonGiaCot3 = x.DonGia3.ToString(),
+                DonGiaCot1 = x.DonGia.ToString("N0", CultureInfo.GetCultureInfo("en-US")),
+                DonGiaCot2 = x.DonGia2.ToString("N0", CultureInfo.GetCultureInfo("en-US")),
+                DonGiaCot3 = x.DonGia3.ToString("N0", CultureInfo.GetCultureInfo("en-US")),
             }).ToList();
             int i6 = 1;
             var nhom6 = query.Where(x => int.Parse(x.PhanLoaiBieuGia) > 15 && int.Parse(x.PhanLoaiBieuGia) <= 18).Select(x => new BGTHChiTiet
@@ -372,9 +372,9 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
                 Stt = i6++,
                 TenBieuGia = x.TenBieuGia,
                 DonVi = "m",
-                DonGiaCot1 = x.DonGia.ToString(),
-                DonGiaCot2 = x.DonGia2.ToString(),
-                DonGiaCot3 = x.DonGia3.ToString(),
+                DonGiaCot1 = x.DonGia.ToString("N0", CultureInfo.GetCultureInfo("en-US")),
+                DonGiaCot2 = x.DonGia2.ToString("N0", CultureInfo.GetCultureInfo("en-US")),
+                DonGiaCot3 = x.DonGia3.ToString("N0", CultureInfo.GetCultureInfo("en-US")),
             }).ToList();
             int i7 = 1;
             var nhom7 = query.Where(x => int.Parse(x.PhanLoaiBieuGia) > 18 && int.Parse(x.PhanLoaiBieuGia) <= 21).Select(x => new BGTHChiTiet
@@ -382,9 +382,9 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
                 Stt = i7++,
                 TenBieuGia = x.TenBieuGia,
                 DonVi = "m",
-                DonGiaCot1 = x.DonGia.ToString(),
-                DonGiaCot2 = x.DonGia2.ToString(),
-                DonGiaCot3 = x.DonGia3.ToString(),
+                DonGiaCot1 = x.DonGia.ToString("N0", CultureInfo.GetCultureInfo("en-US")),
+                DonGiaCot2 = x.DonGia2.ToString("N0", CultureInfo.GetCultureInfo("en-US")),
+                DonGiaCot3 = x.DonGia3.ToString("N0", CultureInfo.GetCultureInfo("en-US")),
             }).ToList();
             int i8 = 1;
             var nhom8 = query.Where(x => int.Parse(x.PhanLoaiBieuGia) > 21 && int.Parse(x.PhanLoaiBieuGia) <= 24).Select(x => new BGTHChiTiet
@@ -392,9 +392,9 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
                 Stt = i8++,
                 TenBieuGia = x.TenBieuGia,
                 DonVi = "m",
-                DonGiaCot1 = x.DonGia.ToString(),
-                DonGiaCot2 = x.DonGia2.ToString(),
-                DonGiaCot3 = x.DonGia3.ToString(),
+                DonGiaCot1 = x.DonGia.ToString("N0", CultureInfo.GetCultureInfo("en-US")),
+                DonGiaCot2 = x.DonGia2.ToString("N0", CultureInfo.GetCultureInfo("en-US")),
+                DonGiaCot3 = x.DonGia3.ToString("N0", CultureInfo.GetCultureInfo("en-US")),
             }).ToList();
             int i9 = 1;
             var nhom9 = query.Where(x => int.Parse(x.PhanLoaiBieuGia) > 24 && int.Parse(x.PhanLoaiBieuGia) <= 27).Select(x => new BGTHChiTiet
@@ -402,9 +402,9 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
                 Stt = i9++,
                 TenBieuGia = x.TenBieuGia,
                 DonVi = "m",
-                DonGiaCot1 = x.DonGia.ToString(),
-                DonGiaCot2 = x.DonGia2.ToString(),
-                DonGiaCot3 = x.DonGia3.ToString(),
+                DonGiaCot1 = x.DonGia.ToString("N0", CultureInfo.GetCultureInfo("en-US")),
+                DonGiaCot2 = x.DonGia2.ToString("N0", CultureInfo.GetCultureInfo("en-US")),
+                DonGiaCot3 = x.DonGia3.ToString("N0", CultureInfo.GetCultureInfo("en-US")),
             }).ToList();
             #endregion
 
@@ -685,7 +685,7 @@ namespace Authentication.Application.Queries.BieuGiaTongHop_CapNgamQuery
 
                 var apiResult = new ApiDonGiaVatLieuResponse();
                 apiResult.MaVatTu = item.DM_BieuGia_CapNgam.BieuGiaCongViec_CapNgam.FirstOrDefault(x => x.CongViecChinh)?.DM_CongViec_CapNgam?.MaCongViec;
-                apiResult.NgayHieuLuc = item.UpdatedDate?.ToString("yyyy-MM-dd");
+                apiResult.NgayHieuLuc = item.NgayHieuLuc?.ToString("yyyy-MM-dd");
                 apiResult.DonGiaTronGoi = new ApiDonGia
                 {
                     CapDien = item?.DonGia.ToString(),

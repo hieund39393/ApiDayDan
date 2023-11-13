@@ -18,8 +18,11 @@ namespace Authentication.Application.Queries.CommonQuery
         Task<List<SelectItem>> ListChucVu();
 
         Task<object> ListCauHinh(GetListCauHinhRequest request);
+        Task<object> ListVanBanThongBao(VanBanThongBaoRequest request);
 
         List<SelectItem> ListVungKhuVuc();
+
+        Task<string> GetVanBan(VanBanThongBaoRequest request);
 
     }
     public class CommonQuery : ICommonQuery
@@ -35,8 +38,10 @@ namespace Authentication.Application.Queries.CommonQuery
             var data = _unitOfWork.CauHinhBieuGiaRepository.GetQuery()
                 .Where(x => (string.IsNullOrEmpty(request.TenCauHinh) || x.TenCauHinh.ToLower().Contains(request.TenCauHinh.ToLower())))
                 .Where(x => (request.PhanLoai == null || x.PhanLoaiCap == request.PhanLoai.Value))
-                .ToLookup(x => new { x.TenCauHinh, x.PhanLoaiCap })
-                .Select(x => x.OrderBy(x => x.Nam).ThenBy(x => x.Quy).Last())
+                .Where(x => request.Nam == null || x.Nam == request.Nam)
+                .Where(x => request.Quy == null || x.Quy == request.Quy)
+                //.ToLookup(x => new { x.TenCauHinh, x.PhanLoaiCap })
+                //.Select(x => x.OrderBy(x => x.Nam).ThenBy(x => x.Quy).Last())
                 .Select(x => new GetListCauHinhResponse
                 {
                     TenCauHinh = GetDescription((TenCauHinhEnum)int.Parse(x.TenCauHinh)),
@@ -46,7 +51,7 @@ namespace Authentication.Application.Queries.CommonQuery
                     PhanLoaiCap = x.PhanLoaiCap,
                     TenPhanLoai = x.PhanLoaiCap == 1 ? "Cáp trên không" : "Cáp ngầm",
                     Id = x.Id
-                })
+                }).OrderByDescending(x => x.Nam).ThenByDescending(x => x.Quy)
                 .ToList();
 
             return data;
@@ -138,6 +143,26 @@ namespace Authentication.Application.Queries.CommonQuery
             data.Add(new SelectItem { Name = "Vùng 8", Value = "8" });
             data.Add(new SelectItem { Name = "Vùng 9", Value = "9" });
             return data;
+        }
+
+        public async Task<object> ListVanBanThongBao(VanBanThongBaoRequest request)
+        {
+            var data = await _unitOfWork.VanBanThongBaoRepository.GetQuery(x =>
+            (request.Nam == null || x.Nam == request.Nam) && (request.Quy == null || x.Quy == request.Quy))
+                .Select(x => new VanBanThongBaoResponse
+                {
+                    Id = x.Id,
+                    Nam = x.Nam,
+                    Quy = x.Quy,
+                    GhiChu = x.GhiChu,
+                    Url = x.Url,
+                }).ToListAsync();
+            return data;
+        }
+
+        public async Task<string> GetVanBan(VanBanThongBaoRequest request)
+        {
+            return (await _unitOfWork.VanBanThongBaoRepository.FindOneAsync(x => x.Nam == request.Nam && x.Quy == request.Quy))?.Url;
         }
     }
 }

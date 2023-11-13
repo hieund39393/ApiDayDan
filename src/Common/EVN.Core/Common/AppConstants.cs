@@ -290,6 +290,7 @@ namespace EVN.Core.Common
             public const string User = QTHT + "user";
             public const string Role = QTHT + "role";
             public const string CauHinh = QTHT + "cauhinh";
+            public const string VanBanThongBaoGia = QTHT + "vbtbg";
 
             // Menu của quản trj danh mục
             public const string LoaiBieuGia = QTDM + "lbg";

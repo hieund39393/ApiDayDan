@@ -17,6 +17,7 @@ namespace Authentication.Application.Commands.BieuGiaTongHopCommand
         public int TinhTrang { get; set; }
         public string GhiChu { get; set; }
         public IFormFile File { get; set; }
+        public DateTime? NgayHieuLuc { get; set; }
     }
     public class UpdateBieuGiaTongHop_CapNgamCommandHandler : IRequestHandler<UpdateBieuGiaTongHop_CapNgamCommand, bool>
     {
@@ -61,6 +62,7 @@ namespace Authentication.Application.Commands.BieuGiaTongHopCommand
                     item.NguoiXacNhan = userId;
                     item.NgayXacNhan = DateTime.Now;
                 }
+                item.NgayHieuLuc = request.NgayHieuLuc;
                 _unitOfWork.BieuGiaTongHop_CapNgamRepository.Update(item);
             }
 

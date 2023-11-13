@@ -18,6 +18,7 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
         public int Quy { get; set; }
         public int Nam { get; set; }
         public Guid IdBieuGia { get; set; }
+        public bool UpdateTongHop { get; set; }
     }
 
     public class GetListChiTietBieuGia_CapNgamCommandHandler : IRequestHandler<GetListChiTietBieuGia_CapNgamCommand, ChiTietBieuGiaResult>
@@ -31,6 +32,10 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
 
         public async Task<ChiTietBieuGiaResult> Handle(GetListChiTietBieuGia_CapNgamCommand request, CancellationToken cancellationToken)
         {
+
+            var bieuGiaTongHop = await _unitOfWork.BieuGiaTongHop_CapNgamRepository
+                .FindOneAsync(x => x.IdBieuGia == request.IdBieuGia && x.Quy == request.Quy && x.Nam == request.Nam && x.TinhTrang != (int)TinhTrangEnum.DaDuyet);
+
             var cauHinh = await _unitOfWork.CauHinhBieuGiaRepository.GetQuery(x => x.PhanLoaiCap == 2).ToListAsync();
             var cpChung1 = cauHinh.Where(x => x.TenCauHinh == TenCauHinhEnum.CH5.GetHashCode().ToString()
                  && x.Quy == request.Quy && x.Nam == request.Nam)
@@ -84,20 +89,28 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                     Nam = request.Nam,
                     Quy = request.Quy,
                     SoLuong = x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy) != null
-                    ? x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).SoLuong :
-                     x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc).SoLuong, //0
+                    ? x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.Where(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy)
+                    .OrderByDescending(z => z.CreatedDate).FirstOrDefault().SoLuong :
+                     x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.Where(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc)
+                     .OrderByDescending(z => z.CreatedDate).FirstOrDefault().SoLuong, //0
 
                     HeSoDieuChinh_K1nc = x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy) != null
-                    ? x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).HeSoDieuChinh_K1nc :
-                    x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc).HeSoDieuChinh_K1nc, //1
+                    ? x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.Where(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy)
+                    .OrderByDescending(z => z.CreatedDate).FirstOrDefault().HeSoDieuChinh_K1nc :
+                    x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.Where(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc)
+                    .OrderByDescending(z => z.CreatedDate).FirstOrDefault().HeSoDieuChinh_K1nc, //1
 
                     HeSoDieuChinh_K2nc = x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy) != null
-                    ? x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).HeSoDieuChinh_K2nc :
-                    x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc).HeSoDieuChinh_K2nc, // 1
+                    ? x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.Where(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy)
+                    .OrderByDescending(z => z.CreatedDate).FirstOrDefault().HeSoDieuChinh_K2nc :
+                    x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.Where(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc)
+                    .OrderByDescending(z => z.CreatedDate).FirstOrDefault().HeSoDieuChinh_K2nc, // 1
 
                     HeSoDieuChinh_Kmtc = x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy) != null
-                    ? x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).HeSoDieuChinh_Kmtc :
-                    x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc).HeSoDieuChinh_Kmtc, // 1
+                    ? x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.Where(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy)
+                    .OrderByDescending(z => z.CreatedDate).FirstOrDefault().HeSoDieuChinh_Kmtc :
+                    x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.Where(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc)
+                    .OrderByDescending(z => z.CreatedDate).FirstOrDefault().HeSoDieuChinh_Kmtc, // 1
 
                     //DonGia_VL = Math.Round(x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy) != null
                     //? x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).DonGia_VL :
@@ -115,6 +128,14 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                     DonGia_VL = 0,
                     DonGia_NC = 0,
                     DonGia_MTC = 0,
+
+                    //DonGia_VL = x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.Where(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy)
+                    //.OrderByDescending(z => z.CreatedDate).FirstOrDefault().DonGia_VL,
+                    //DonGia_NC = x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.Where(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy)
+                    //.OrderByDescending(z => z.CreatedDate).FirstOrDefault().DonGia_NC,
+                    //DonGia_MTC = x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.Where(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy)
+                    //.OrderByDescending(z => z.CreatedDate).FirstOrDefault().DonGia_MTC,
+
 
                     CongViecChinh = x.CongViecChinh,
 
@@ -148,6 +169,9 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
 
 
                 var listMaChietTinh = new List<string>() { "D", "03", "05", "11", "SE", "SA", "AB", "BB", "AD", "GT", "HT", "SB", "AD" }; // Các công việc chiết tính mã này thiếu này a
+
+
+
                 if (item.CongViecChinh)
                 {
                     var giaCap = listDonGiaCap.Where(x => x.DM_LoaiCap_CapNgam.MaLoaiCap.Trim() == item.MaNoiDungCongViec).FirstOrDefault()?.DonGia;
@@ -155,24 +179,25 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                     {
                         Console.WriteLine(item.MaNoiDungCongViec);
                     }
-                    item.DonGia_VL = (giaCap ?? 0) * item.HeSoDieuChinh_K1nc;
-                    item.DonGia_NC = (item?.DonGia_NC ?? 0) * item.HeSoDieuChinh_K2nc;
-                    item.DonGia_MTC = (item?.DonGia_MTC ?? 0) * item.HeSoDieuChinh_Kmtc;
+                    item.DonGia_VL = /*item.DonGia_VL ?? */((giaCap ?? 0) * item.HeSoDieuChinh_K1nc);
+                    item.DonGia_NC = /*item.DonGia_NC ?? */((item?.DonGia_NC ?? 0) * item.HeSoDieuChinh_K2nc);
+                    item.DonGia_MTC =/* item.DonGia_MTC ??*/ ((item?.DonGia_MTC ?? 0) * item.HeSoDieuChinh_Kmtc);
                 }
                 else if (!string.IsNullOrEmpty(item.MaNoiDungCongViec) && listMaChietTinh.Any(prefix => item.MaNoiDungCongViec.ToUpper().StartsWith(prefix)))
                 {
                     var donGiaCT = listDonGiaChietTinh.Where(x => x.IdCongViec == item.IdCongViec).FirstOrDefault();
-                    item.DonGia_VL = (donGiaCT?.DonGiaVatLieu ?? 0) * item.HeSoDieuChinh_K1nc;
-                    item.DonGia_NC = (donGiaCT?.DonGiaNhanCong ?? 0) * item.HeSoDieuChinh_K2nc;
-                    item.DonGia_MTC = (donGiaCT?.DonGiaMTC ?? 0) * item.HeSoDieuChinh_Kmtc;
+                    item.DonGia_VL = /*item.DonGia_VL ??  */((donGiaCT?.DonGiaVatLieu ?? 0) * item.HeSoDieuChinh_K1nc);
+                    item.DonGia_NC = /*item.DonGia_NC ??  */((donGiaCT?.DonGiaNhanCong ?? 0) * item.HeSoDieuChinh_K2nc);
+                    item.DonGia_MTC =/* item.DonGia_MTC ??*/ ((donGiaCT?.DonGiaMTC ?? 0) * item.HeSoDieuChinh_Kmtc);
                 }
                 else
                 {
                     var vatLieu = listDonGiaVatLieu.Where(x => x.DM_VatLieu_CapNgam.MaVatLieu != null && (x.DM_VatLieu_CapNgam.MaVatLieu.Trim() == item.MaNoiDungCongViec.Trim())).FirstOrDefault();
-                    item.DonGia_VL = (vatLieu?.DonGia ?? 0) * item.HeSoDieuChinh_K1nc;
-                    item.DonGia_NC = (item?.DonGia_NC ?? 0) * item.HeSoDieuChinh_K2nc;
-                    item.DonGia_MTC = (item?.DonGia_MTC ?? 0) * item.HeSoDieuChinh_Kmtc;
+                    item.DonGia_VL = /*item.DonGia_VL ??  */((vatLieu?.DonGia ?? 0) * item.HeSoDieuChinh_K1nc);
+                    item.DonGia_NC = /*item.DonGia_NC ??  */((item?.DonGia_NC ?? 0) * item.HeSoDieuChinh_K2nc);
+                    item.DonGia_MTC =/* item.DonGia_MTC ??*/ ((item?.DonGia_MTC ?? 0) * item.HeSoDieuChinh_Kmtc);
                 }
+
 
 
                 if (stt == 1 && item.Id == null) chuaCoDuLieu = true;
@@ -263,15 +288,12 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
 
             result.ListBieuGia.Add(itemLast);
 
-            var bieuGiaTongHop = await _unitOfWork.BieuGiaTongHop_CapNgamRepository
-                .FindOneAsync(x => x.IdBieuGia == request.IdBieuGia && x.Quy == request.Quy && x.Nam == request.Nam && x.TinhTrang != (int)TinhTrangEnum.DaDuyet);
-
 
 
             result.ChuaCoDuLieu = chuaCoDuLieu;
             result.DonGiaThu7 = congViecChinh.SoLuong == 0 ? 0 : Math.Round((result.CongTruocThue - (donGiaVatLieu + (donGiaNhanCong * (decimal)1.06))) / congViecChinh.SoLuong.Value, 0);
 
-            if (bieuGiaTongHop != null)
+            if (request.UpdateTongHop)
             {
                 bieuGiaTongHop.DonGia = result.DonGiaThu5;
                 bieuGiaTongHop.DonGia2 = result.DonGiaThu6;

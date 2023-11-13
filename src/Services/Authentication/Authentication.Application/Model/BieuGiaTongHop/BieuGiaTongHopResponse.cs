@@ -6,6 +6,7 @@
         public string DonVi { get; set; }
         public int? TinhTrang { get; set; }
 
+        public int ThuTuHienThi { get; set; }
         public List<string> ListData { get; set; }
     }
 

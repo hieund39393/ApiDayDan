@@ -7,6 +7,8 @@ using AutoMapper;
 using EVN.Core.Exceptions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml.FormulaParsing.ExpressionGraph.FunctionCompilers;
+using System.Net.WebSockets;
 using static EVN.Core.Common.AppEnum;
 
 namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
@@ -19,9 +21,11 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
     public class SyncChiTietBieuGia_CapNgamCommandHandler : IRequestHandler<SyncChiTietBieuGia_CapNgamCommand, bool>
     {
         private readonly IUnitOfWork _unitOfWork;
-        public SyncChiTietBieuGia_CapNgamCommandHandler(IUnitOfWork unitOfWork)
+        private readonly IMediator _mediator;
+        public SyncChiTietBieuGia_CapNgamCommandHandler(IUnitOfWork unitOfWork, IMediator mediator)
         {
             _unitOfWork = unitOfWork;
+            _mediator = mediator;
         }
         public async Task<bool> Handle(SyncChiTietBieuGia_CapNgamCommand request, CancellationToken cancellationToken)
         {
@@ -31,7 +35,10 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
             {
                 var bieuGiaCu = await _unitOfWork.BieuGiaTongHop_CapNgamRepository.GetQuery(x => x.TinhTrang == 4).OrderByDescending(x => x.Nam).ThenByDescending(x => x.Quy).AsNoTracking().FirstOrDefaultAsync();
 
-                var chiTietBieuGiaCu = await _unitOfWork.ChiTietBieuGia_CapNgamRepository.GetQuery(x => x.Nam == bieuGiaCu.Nam && x.Quy == bieuGiaCu.Quy).AsNoTracking().ToListAsync();
+                var namCu = bieuGiaCu.Nam;
+                var quyCu = bieuGiaCu.Quy;
+
+                var chiTietBieuGiaCu = await _unitOfWork.ChiTietBieuGia_CapNgamRepository.GetQuery(x => x.Nam == namCu && x.Quy == quyCu).AsNoTracking().ToListAsync();
                 var listChiTietBieuGia = new List<ChiTietBieuGia_CapNgam>();
                 foreach (var item in chiTietBieuGiaCu)
                 {
@@ -56,28 +63,25 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                 }
                 _unitOfWork.ChiTietBieuGia_CapNgamRepository.AddRange(listChiTietBieuGia);
 
-                bieuGiaCu.Id = Guid.NewGuid();
-                bieuGiaCu.TinhTrang = TinhTrangEnum.TaoMoi.GetHashCode();
-                if (bieuGiaCu.Quy == 4)
-                {
-                    bieuGiaCu.Quy = 1;
-                    bieuGiaCu.Nam += 1;
-                }
-                else
-                {
-                    bieuGiaCu.Quy += 1;
-                }
 
-                var checkExistBGTH = await _unitOfWork.BieuGiaTongHop_CapNgamRepository.GetQuery(x => x.Nam == bieuGiaCu.Nam && x.Quy == bieuGiaCu.Quy).ToListAsync();
-                if (checkExistBGTH.Any())
+                var listBieuGiaCu = await _unitOfWork.BieuGiaTongHop_CapNgamRepository.GetQuery(x => x.Quy == quyCu && x.Nam == namCu).ToListAsync();
+
+                foreach (var bg in listBieuGiaCu)
                 {
-                    foreach (var item in checkExistBGTH)
+                    bg.Id = Guid.NewGuid();
+                    bg.TinhTrang = TinhTrangEnum.TaoMoi.GetHashCode();
+                    if (bg.Quy == 4)
                     {
-                        item.IsDeleted = true;
+                        bg.Quy = 1;
+                        bg.Nam += 1;
                     }
-                }
+                    else
+                    {
+                        bg.Quy += 1;
+                    }
 
-                _unitOfWork.BieuGiaTongHop_CapNgamRepository.Add(bieuGiaCu);
+                    _unitOfWork.BieuGiaTongHop_CapNgamRepository.Add(bg);
+                }
             }
             else
             {
@@ -92,7 +96,7 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                 var listIdBieuGiaCu = chiTietBieuGiaCu.Select(x => x.IDBieuGia).Distinct().ToList();
                 var listBieuGiaCongViec = await _unitOfWork.BieuGiaCongViec_CapNgamRepository.GetQuery(x => listIdBieuGiaCu.Contains(x.IdBieuGia))
                     .Include(x => x.DM_CongViec_CapNgam).Include(x => x.DM_BieuGia_CapNgam)
-                    .ThenInclude(x => x.DM_LoaiBieuGia_CapNgam).ThenInclude(x=>x.DM_KhuVuc).AsNoTracking().ToListAsync();
+                    .ThenInclude(x => x.DM_LoaiBieuGia_CapNgam).ThenInclude(x => x.DM_KhuVuc).AsNoTracking().ToListAsync();
 
                 var listDonGiaCap = await _unitOfWork.GiaCap_CapNgamRepository.GetQuery().Include(z => z.DM_LoaiCap_CapNgam)
                     .GroupBy(x => new { x.IdLoaiCap }).Select(x => x.OrderByDescending(y => y.CreatedDate).First())
@@ -106,10 +110,19 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
 
                 var listChiTietBieuGia = new List<ChiTietBieuGia_CapNgam>();
 
+                int index = 1;
                 foreach (var item in chiTietBieuGiaCu)
                 {
-                    var congViec = listBieuGiaCongViec.Where(x => x.IdCongViec == item.IDCongViec && x.IdBieuGia == item.IDBieuGia).FirstOrDefault();
+                    index++;
 
+                    Console.WriteLine(index);
+
+                    if (index == 23)
+                    {
+
+                    }
+                    var congViec = listBieuGiaCongViec.Where(x => x.IdCongViec == item.IDCongViec && x.IdBieuGia == item.IDBieuGia).FirstOrDefault();
+                    if (congViec == null) { continue; } //
                     var vungKhuVuc = int.Parse(congViec.DM_BieuGia_CapNgam.DM_LoaiBieuGia_CapNgam.DM_KhuVuc.GhiChu);
                     if (congViec.CongViecChinh)
                     {
@@ -134,10 +147,19 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                     }
 
                     _unitOfWork.ChiTietBieuGia_CapNgamRepository.Update(item);
+
+
+                }
+                await _unitOfWork.SaveChangesAsync();
+
+                foreach (var bg in listIdBieuGiaCu)
+                {
+                    var updateBieuGiaTongHop = await _mediator.Send(new GetListChiTietBieuGia_CapNgamCommand { IdBieuGia = bg.Value, Quy = bieuGiaCu.Quy, Nam = bieuGiaCu.Nam, UpdateTongHop = true });
                 }
             }
 
             await _unitOfWork.SaveChangesAsync();
+
             return true;
 
 

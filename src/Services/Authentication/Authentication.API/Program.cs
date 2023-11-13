@@ -36,7 +36,15 @@ namespace Authentication.API
             host.MigrateDbContext<ExOneDbContext>((context, services) =>
             {
                 var userManager = (UserManager<User>)services.GetService(typeof(UserManager<User>));
-                new ExOneDbContextSeed().SeedAsync(context, userManager).Wait();
+                try
+                {
+                    new ExOneDbContextSeed().SeedAsync(context, userManager).Wait();
+
+                }
+                catch (Exception e)
+                {
+
+                }
             });
 
             Log.Information("Starting web host ({AuthenticationDbContext})...");

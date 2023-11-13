@@ -32,12 +32,12 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
 
             if (request.Quy == null && request.Nam == null)
             {
-                var bieuGiaCu = await _unitOfWork.BieuGiaTongHopRepository.GetQuery(x => x.TinhTrang == 4).OrderByDescending(x => x.Nam).ThenByDescending(x => x.Quy).AsNoTracking().FirstOrDefaultAsync();
+                var bieuGiaCu = await _unitOfWork.BieuGiaTongHopRepository.GetQuery(x => x.TinhTrang == 4).OrderByDescending(x => x.Nam).ThenByDescending(x => x.Quy).FirstOrDefaultAsync();
 
                 var namCu = bieuGiaCu.Nam;
                 var quyCu = bieuGiaCu.Quy;
 
-                var chiTietBieuGiaCu = await _unitOfWork.ChiTietBieuGiaRepository.GetQuery(x => x.Nam == namCu && x.Quy == quyCu).AsNoTracking().ToListAsync();
+                var chiTietBieuGiaCu = await _unitOfWork.ChiTietBieuGiaRepository.GetQuery(x => x.Nam == namCu && x.Quy == quyCu).ToListAsync();
                 var listChiTietBieuGia = new List<ChiTietBieuGia>();
                 foreach (var item in chiTietBieuGiaCu)
                 {
@@ -84,7 +84,7 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
             }
             else
             {
-                var bieuGiaCu = await _unitOfWork.BieuGiaTongHopRepository.GetQuery(x => x.TinhTrang == 0).OrderByDescending(x => x.Nam).ThenByDescending(x => x.Quy).AsNoTracking().FirstOrDefaultAsync();
+                var bieuGiaCu = await _unitOfWork.BieuGiaTongHopRepository.GetQuery(x => x.TinhTrang == 0).OrderByDescending(x => x.Nam).ThenByDescending(x => x.Quy).FirstOrDefaultAsync();
 
                 if (bieuGiaCu.Nam != request.Nam || bieuGiaCu.Quy != request.Quy)
                 {
@@ -92,29 +92,38 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                 }
 
                 var chiTietBieuGiaCu = await _unitOfWork.ChiTietBieuGiaRepository.GetQuery(x => x.Nam == bieuGiaCu.Nam && x.Quy == bieuGiaCu.Quy)
-                    .Include(x => x.DM_BieuGia).ThenInclude(x => x.DM_LoaiBieuGia).ToListAsync();
+                    .Include(x => x.DM_BieuGia).ThenInclude(x => x.DM_LoaiBieuGia).ThenInclude(z=>z.DM_KhuVuc).ToListAsync();
                 var listIdBieuGiaCu = chiTietBieuGiaCu.Select(x => x.IDBieuGia).Distinct().ToList();
                 var listBieuGiaCongViec = await _unitOfWork.BieuGiaCongViecRepository.GetQuery(x => listIdBieuGiaCu.Contains(x.IdBieuGia))
-                    .Include(x => x.DM_CongViec).AsNoTracking().ToListAsync();
+                    .Include(x => x.DM_CongViec).ToListAsync();
 
                 var listDonGiaCap = await _unitOfWork.GiaCapRepository.GetQuery().Include(z => z.DM_LoaiCap).GroupBy(x => x.IdLoaiCap).Select(x => x.OrderByDescending(y => y.CreatedDate).First())
-                    .AsNoTracking().ToListAsync();
+                    .ToListAsync();
 
                 var listDonGiaChietTinh = await _unitOfWork.DonGiaChietTinhRepository.GetQuery().Include(z => z.DM_CongViec)
-                    .GroupBy(x => new { x.IdCongViec, x.VungKhuVuc }).Select(x => x.OrderByDescending(y => y.CreatedDate).First()).AsNoTracking().ToListAsync();
+                    .GroupBy(x => new { x.IdCongViec, x.VungKhuVuc }).Select(x => x.OrderByDescending(y => y.CreatedDate).First()).ToListAsync();
 
                 var listDonGiaVatLieu = await _unitOfWork.DonGiaVatLieuRepository.GetQuery().Include(z => z.DM_VatLieu)
-                    .GroupBy(x => x.IdVatLieu).Select(x => x.OrderByDescending(y => y.CreatedDate).First()).AsNoTracking().ToListAsync();
+                    .GroupBy(x => x.IdVatLieu).Select(x => x.OrderByDescending(y => y.CreatedDate).First()).ToListAsync();
 
                 var listChiTietBieuGia = new List<ChiTietBieuGia>();
 
+                int index = 1;
                 foreach (var item in chiTietBieuGiaCu)
                 {
+                    index++;
+                    if(index == 718)
+                    {
+
+                    }
+                    Console.WriteLine(index);
+                    var imm = item;
                     var listMaChietTinh = new List<string>() { "D4", "D3", "03", "05", "11" }; // Các công việc chiết tính
 
                     var congViec = listBieuGiaCongViec.Where(x => x.IdCongViec == item.IDCongViec && x.IdBieuGia == item.IDBieuGia).FirstOrDefault();
                     if(congViec == null)
                     {
+                        continue;
                         Console.WriteLine(item.IDCongViec);
                         Console.WriteLine(item.IDBieuGia);
                     }
@@ -123,16 +132,18 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                         var giaCap = listDonGiaCap.Where(x => x.DM_LoaiCap.MaLoaiCap.Trim() == congViec.DM_CongViec.MaCongViec.Trim()).FirstOrDefault()?.DonGia;
                         if (giaCap == null)
                         {
+                            continue;
                             Console.WriteLine(congViec.DM_CongViec.MaCongViec);
                         }
                         item.DonGia_VL = giaCap.Value;
                     }
                     else if (!string.IsNullOrEmpty(congViec.DM_CongViec.MaCongViec) && listMaChietTinh.Any(x => congViec.DM_CongViec.MaCongViec.ToUpper().StartsWith(x)))
                     {
-                        var donGiaCT = listDonGiaChietTinh.Where(x => x.IdCongViec == item.IDCongViec && x.VungKhuVuc.ToString() == item.DM_BieuGia.DM_LoaiBieuGia.MaLoaiBieuGia).FirstOrDefault();
+                        var donGiaCT = listDonGiaChietTinh.Where(x => x.IdCongViec == item.IDCongViec && x.VungKhuVuc.ToString() == item.DM_BieuGia?.DM_LoaiBieuGia?.DM_KhuVuc?.GhiChu).FirstOrDefault();
                         
                         if(donGiaCT == null)
                         {
+                            continue;
                             Console.WriteLine(item.IDCongViec);
                             Console.WriteLine(item.DM_BieuGia.DM_LoaiBieuGia.DM_KhuVuc.GhiChu);
 
@@ -146,19 +157,24 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                         var vatLieu = listDonGiaVatLieu.Where(x => x.DM_VatLieu.MaVatLieu != null && (x.DM_VatLieu.MaVatLieu.Trim() == congViec.DM_CongViec.MaCongViec.Trim())).FirstOrDefault();
                         if (vatLieu == null)
                         {
+                            continue;
                             Console.WriteLine(congViec.DM_CongViec.MaCongViec);
 
                         }
                         item.DonGia_VL = vatLieu?.DonGia ?? item.DonGia_VL;
                     }
 
+                    item.CreatedDate = item.CreatedDate;
                     _unitOfWork.ChiTietBieuGiaRepository.Update(item);
-                    await _unitOfWork.SaveChangesAsync();
+
+                    var asss = item;
                 }
+                await _unitOfWork.SaveChangesAsync();
+
 
                 foreach (var bg in listIdBieuGiaCu)
                 {
-                    var updateBieuGiaTongHop = await _mediator.Send(new GetListChiTietBieuGiaCommand { IdBieuGia = bg.Value, Quy = bieuGiaCu.Quy, Nam = bieuGiaCu.Nam });
+                    var updateBieuGiaTongHop = await _mediator.Send(new GetListChiTietBieuGiaCommand { IdBieuGia = bg.Value, Quy = bieuGiaCu.Quy, Nam = bieuGiaCu.Nam, UpdateTongHop = true });
                 }
 
 

@@ -59,6 +59,7 @@ namespace Authentication.Infrastructure.EF
                 optionsBuilder.UseSqlServer(connectionString);
             }
         }
+        public DbSet<VanBanThongBao> VanBanThongBao { get; set; }
         public DbSet<Actions> Actions { get; set; }
         public DbSet<SystemLog> SystemLogs { get; set; }
         public DbSet<Unit> Unit { get; set; }
@@ -124,6 +125,7 @@ namespace Authentication.Infrastructure.EF
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            builder.ApplyConfiguration(new VanBanThongBaoConfiguration());
             builder.ApplyConfiguration(new ActionConfiguration());
             builder.ApplyConfiguration(new UserConfiguration());
             builder.ApplyConfiguration(new RoleConfiguration());
@@ -209,8 +211,16 @@ namespace Authentication.Infrastructure.EF
         private void OnBeforeSaving()
         {
             var entries = ChangeTracker.Entries();
+
             foreach (var entry in entries)
             {
+                var entityType = entry.Entity.GetType();
+
+                // Kiểm tra tên bảng dựa trên tên kiểu thực thể
+                if (entityType.Name == "ChiTietBieuGia" || entityType.Name == "ChiTietBieuGia_CapNgam")
+                {
+                    continue;
+                }
                 if (entry.Entity is IName name)
                 {
                     name.NameUnsigned = name.Name.RemoveSignedVietnameseString();
@@ -226,15 +236,17 @@ namespace Authentication.Infrastructure.EF
 
                     switch (entry.State)
                     {
-                        case EntityState.Modified:
+                        case EntityState.Added:
                             trackable.CreatedDate = now;
                             trackable.CreatedBy = userId;
                             break;
 
-                        case EntityState.Added:
+                        case EntityState.Modified:
                             trackable.UpdatedDate = now;
                             trackable.UpdatedBy = userId;
                             break;
+
+
                     }
                 }
             }

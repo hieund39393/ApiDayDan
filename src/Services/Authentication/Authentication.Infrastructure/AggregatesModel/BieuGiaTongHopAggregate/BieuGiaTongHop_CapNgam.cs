@@ -20,6 +20,7 @@ namespace Authentication.Infrastructure.AggregatesModel.BieuGiaTongHopAggregate
         public int TinhTrang { get; set; }
         public DateTime? NgayXacNhan { get; set; }
         public Guid? NguoiXacNhan { get; set; }
+        public DateTime? NgayHieuLuc { get; set; }
 
     }
 }
