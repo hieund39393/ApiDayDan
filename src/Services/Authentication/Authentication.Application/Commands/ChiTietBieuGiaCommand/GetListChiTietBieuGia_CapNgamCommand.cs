@@ -125,9 +125,16 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                     //x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == namTruoc && y.Quy == quyTruoc).DonGia_MTC, 0), // 0
 
 
-                    DonGia_VL = 0,
-                    DonGia_NC = 0,
-                    DonGia_MTC = 0,
+                    //DonGia_VL = 0,
+                    //DonGia_NC = 0,
+                    //DonGia_MTC = 0,
+
+                    DonGia_VL = x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.Where(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy)
+                    .OrderByDescending(z => z.CreatedDate).FirstOrDefault().DonGia_VL,
+                    DonGia_NC = x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.Where(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy)
+                    .OrderByDescending(z => z.CreatedDate).FirstOrDefault().DonGia_NC,
+                    DonGia_MTC = x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.Where(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy)
+                    .OrderByDescending(z => z.CreatedDate).FirstOrDefault().DonGia_MTC,
 
                     //DonGia_VL = x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.Where(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy)
                     //.OrderByDescending(z => z.CreatedDate).FirstOrDefault().DonGia_VL,
