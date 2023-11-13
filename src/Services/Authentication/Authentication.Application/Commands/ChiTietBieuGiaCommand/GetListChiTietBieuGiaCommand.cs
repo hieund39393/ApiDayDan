@@ -30,8 +30,6 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
             var bieuGiaTongHop = await _unitOfWork.BieuGiaTongHopRepository
              .FindOneAsync(x => x.IdBieuGia == request.IdBieuGia && x.Quy == request.Quy && x.Nam == request.Nam && x.TinhTrang != (int)TinhTrangEnum.DaDuyet);
 
-
-
             var cauHinh = await _unitOfWork.CauHinhBieuGiaRepository.GetQuery(x => x.PhanLoaiCap == 1).ToListAsync();
             var cpChung = cauHinh.Where(x => x.TenCauHinh == TenCauHinhEnum.CH1.GetHashCode().ToString() && x.Quy == request.Quy && x.Nam == request.Nam)
                 .OrderByDescending(x => x.CreatedDate).FirstOrDefault()?.GiaTri;
@@ -95,6 +93,11 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                     DonGia_VL = 0,
                     DonGia_NC = 0,
                     DonGia_MTC = 0,
+
+                    //DonGia_VL = bieuGiaTongHop.TinhTrang > 1 ? x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).DonGia_VL : 0,
+                    //DonGia_NC = bieuGiaTongHop.TinhTrang > 1 ? x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).DonGia_NC : 0,
+                    //DonGia_MTC = bieuGiaTongHop.TinhTrang > 1 ? x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).DonGia_MTC : 0,
+
 
                     //DonGia_VL = bieuGiaTongHop.TinhTrang > 1 ? x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).DonGia_VL : 0,
                     //DonGia_NC = bieuGiaTongHop.TinhTrang > 1 ? x.DM_BieuGia.ChiTietBieuGia.FirstOrDefault(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy).DonGia_NC : 0,
@@ -208,8 +211,6 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
 
             result.ListBieuGia.Add(itemLast);
 
-
-
             result.ChuaCoDuLieu = chuaCoDuLieu;
             result.DonGiaThu7 = congViecChinh.SoLuong == 0 ? 0 : Math.Round((result.CongTruocThue - (donGiaVatLieu + (donGiaNhanCong * (decimal)1.06))) / congViecChinh.SoLuong.Value, 0);
 
@@ -239,7 +240,6 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                 }
             }
             return result;
-
         }
     }
 }

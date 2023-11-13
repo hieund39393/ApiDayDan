@@ -136,6 +136,13 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                     //DonGia_MTC = x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.Where(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy)
                     //.OrderByDescending(z => z.CreatedDate).FirstOrDefault().DonGia_MTC,
 
+                    //DonGia_VL = x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.Where(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy)
+                    //.OrderByDescending(z => z.CreatedDate).FirstOrDefault().DonGia_VL,
+                    //DonGia_NC = x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.Where(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy)
+                    //.OrderByDescending(z => z.CreatedDate).FirstOrDefault().DonGia_NC,
+                    //DonGia_MTC = x.DM_BieuGia_CapNgam.ChiTietBieuGia_CapNgam.Where(y => y.IDCongViec == x.IdCongViec && y.Nam == request.Nam && y.Quy == request.Quy)
+                    //.OrderByDescending(z => z.CreatedDate).FirstOrDefault().DonGia_MTC,
+
 
                     CongViecChinh = x.CongViecChinh,
 
