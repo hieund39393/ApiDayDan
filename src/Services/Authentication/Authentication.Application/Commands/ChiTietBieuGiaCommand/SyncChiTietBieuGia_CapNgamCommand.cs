@@ -31,7 +31,10 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
             {
                 var bieuGiaCu = await _unitOfWork.BieuGiaTongHop_CapNgamRepository.GetQuery(x => x.TinhTrang == 4).OrderByDescending(x => x.Nam).ThenByDescending(x => x.Quy).AsNoTracking().FirstOrDefaultAsync();
 
-                var chiTietBieuGiaCu = await _unitOfWork.ChiTietBieuGia_CapNgamRepository.GetQuery(x => x.Nam == bieuGiaCu.Nam && x.Quy == bieuGiaCu.Quy).AsNoTracking().ToListAsync();
+                var namCu = bieuGiaCu.Nam;
+                var quyCu = bieuGiaCu.Quy;
+
+                var chiTietBieuGiaCu = await _unitOfWork.ChiTietBieuGia_CapNgamRepository.GetQuery(x => x.Nam == namCu && x.Quy == quyCu).AsNoTracking().ToListAsync();
                 var listChiTietBieuGia = new List<ChiTietBieuGia_CapNgam>();
                 foreach (var item in chiTietBieuGiaCu)
                 {
@@ -56,28 +59,25 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                 }
                 _unitOfWork.ChiTietBieuGia_CapNgamRepository.AddRange(listChiTietBieuGia);
 
-                bieuGiaCu.Id = Guid.NewGuid();
-                bieuGiaCu.TinhTrang = TinhTrangEnum.TaoMoi.GetHashCode();
-                if (bieuGiaCu.Quy == 4)
-                {
-                    bieuGiaCu.Quy = 1;
-                    bieuGiaCu.Nam += 1;
-                }
-                else
-                {
-                    bieuGiaCu.Quy += 1;
-                }
 
-                var checkExistBGTH = await _unitOfWork.BieuGiaTongHop_CapNgamRepository.GetQuery(x => x.Nam == bieuGiaCu.Nam && x.Quy == bieuGiaCu.Quy).ToListAsync();
-                if (checkExistBGTH.Any())
+                var listBieuGiaCu = await _unitOfWork.BieuGiaTongHop_CapNgamRepository.GetQuery(x => x.Quy == quyCu && x.Nam == namCu).ToListAsync();
+
+                foreach (var bg in listBieuGiaCu)
                 {
-                    foreach (var item in checkExistBGTH)
+                    bg.Id = Guid.NewGuid();
+                    bg.TinhTrang = TinhTrangEnum.TaoMoi.GetHashCode();
+                    if (bg.Quy == 4)
                     {
-                        item.IsDeleted = true;
+                        bg.Quy = 1;
+                        bg.Nam += 1;
                     }
-                }
+                    else
+                    {
+                        bg.Quy += 1;
+                    }
 
-                _unitOfWork.BieuGiaTongHop_CapNgamRepository.Add(bieuGiaCu);
+                    _unitOfWork.BieuGiaTongHop_CapNgamRepository.Add(bg);
+                }
             }
             else
             {
@@ -92,7 +92,7 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                 var listIdBieuGiaCu = chiTietBieuGiaCu.Select(x => x.IDBieuGia).Distinct().ToList();
                 var listBieuGiaCongViec = await _unitOfWork.BieuGiaCongViec_CapNgamRepository.GetQuery(x => listIdBieuGiaCu.Contains(x.IdBieuGia))
                     .Include(x => x.DM_CongViec_CapNgam).Include(x => x.DM_BieuGia_CapNgam)
-                    .ThenInclude(x => x.DM_LoaiBieuGia_CapNgam).ThenInclude(x=>x.DM_KhuVuc).AsNoTracking().ToListAsync();
+                    .ThenInclude(x => x.DM_LoaiBieuGia_CapNgam).ThenInclude(x => x.DM_KhuVuc).AsNoTracking().ToListAsync();
 
                 var listDonGiaCap = await _unitOfWork.GiaCap_CapNgamRepository.GetQuery().Include(z => z.DM_LoaiCap_CapNgam)
                     .GroupBy(x => new { x.IdLoaiCap }).Select(x => x.OrderByDescending(y => y.CreatedDate).First())

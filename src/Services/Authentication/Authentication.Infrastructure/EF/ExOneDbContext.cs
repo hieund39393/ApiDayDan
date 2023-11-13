@@ -59,6 +59,7 @@ namespace Authentication.Infrastructure.EF
                 optionsBuilder.UseSqlServer(connectionString);
             }
         }
+        public DbSet<VanBanThongBao> VanBanThongBao { get; set; }
         public DbSet<Actions> Actions { get; set; }
         public DbSet<SystemLog> SystemLogs { get; set; }
         public DbSet<Unit> Unit { get; set; }
@@ -124,6 +125,7 @@ namespace Authentication.Infrastructure.EF
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            builder.ApplyConfiguration(new VanBanThongBaoConfiguration());
             builder.ApplyConfiguration(new ActionConfiguration());
             builder.ApplyConfiguration(new UserConfiguration());
             builder.ApplyConfiguration(new RoleConfiguration());
