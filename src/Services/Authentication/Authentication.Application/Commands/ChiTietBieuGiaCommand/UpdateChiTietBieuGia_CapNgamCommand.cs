@@ -18,10 +18,12 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        public UpdateChiTietBieuGia_CapNgamCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        private readonly IMediator _mediator;
+        public UpdateChiTietBieuGia_CapNgamCommandHandler(IUnitOfWork unitOfWork, IMapper mapper, IMediator mediator)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _mediator = mediator;
         }
         public async Task<bool> Handle(UpdateChiTietBieuGia_CapNgamCommand request, CancellationToken cancellationToken)
         {
@@ -83,6 +85,8 @@ namespace Authentication.Application.Commands.ChiTietBieuGiaCommand
                 _unitOfWork.ChiTietBieuGia_CapNgamRepository.AddRange(createList);
             }
             await _unitOfWork.SaveChangesAsync();
+
+            await _mediator.Send(new GetListChiTietBieuGia_CapNgamCommand { IdBieuGia = chiTietBG.IdBieuGia, Quy = chiTietBG.Quy, Nam = chiTietBG.Nam, UpdateTongHop = true });
             return true;
 
 
